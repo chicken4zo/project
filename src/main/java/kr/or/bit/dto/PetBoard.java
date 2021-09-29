@@ -15,6 +15,34 @@ public class PetBoard {
     private String fileName3;
     private String filePath3;
     private String id;
+    private String address;
+
+    @Override
+    public String toString() {
+        return "PetBoard{" +
+                "idx=" + idx +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", hit=" + hit +
+                ", writeDate=" + writeDate +
+                ", fileName1='" + fileName1 + '\'' +
+                ", filePath1='" + filePath1 + '\'' +
+                ", fileName2='" + fileName2 + '\'' +
+                ", filePath2='" + filePath2 + '\'' +
+                ", fileName3='" + fileName3 + '\'' +
+                ", filePath3='" + filePath3 + '\'' +
+                ", id='" + id + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public PetBoard() {
     }
@@ -130,21 +158,4 @@ public class PetBoard {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "PetBoard{" +
-                "idx=" + idx +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", hit=" + hit +
-                ", writeDate=" + writeDate +
-                ", fileName1='" + fileName1 + '\'' +
-                ", filePath1='" + filePath1 + '\'' +
-                ", fileName2='" + fileName2 + '\'' +
-                ", filePath2='" + filePath2 + '\'' +
-                ", fileName3='" + fileName3 + '\'' +
-                ", filePath3='" + filePath3 + '\'' +
-                ", id='" + id + '\'' +
-                '}';
-    }
 }
