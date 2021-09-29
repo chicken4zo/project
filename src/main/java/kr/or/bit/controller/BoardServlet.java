@@ -57,6 +57,17 @@ public class BoardServlet extends HttpServlet {
         } else if (urlCommand.equals("/lostReplyOk.board")) {
             System.out.println("분실실종 답글 쓰기");
             action = new LostBoardReplyOkService();
+        } else if (urlCommand.equals("/productList.board")) {
+            System.out.println("PRODUCTLIST SERVICE 실행");
+            action = new ProductBoardListService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/productWrite.board")) {
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/board/productWrite.jsp");
+        } else if (urlCommand.equals("/productWriteOk.board")) {
+            System.out.println("PRODUCTLIST WRITE SERVICE 실행");
+            action = new ProductBoardWriteService();
             forward = action.execute(request, response);
         }
 
@@ -77,7 +88,6 @@ public class BoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
-
     }
 
     @Override
