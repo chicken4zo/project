@@ -2,8 +2,7 @@ package kr.or.bit.controller;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.service.board.ProductBoardListService;
-import kr.or.bit.service.board.ProductBoardWriteService;
+import kr.or.bit.service.board.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,7 +25,39 @@ public class BoardServlet extends HttpServlet {
         ActionForward forward = null;
         Action action = null;
 
-        if (urlCommand.equals("/productList.board")) {
+        if (urlCommand.equals("/lostWrite.board")) {
+            System.out.println("분실실종 글쓰기");
+            action = new LostBoardWriteService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/lostForm.board")) {
+            System.out.println("분실실종 폼");
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/board/lostWrite.jsp");
+        } else if (urlCommand.equals("/lostList.board")) {
+            System.out.println("분실실종 리스트");
+            action = new LostBoardListService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/lostContent.board")) {
+            System.out.println("분실실종 상세페이지");
+            action = new LostBoardContentService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/lostModify.board")) {
+            System.out.println("분실실종 수정");
+            action = new LostBoardModifyService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/lostDelete.board")) {
+            System.out.println("분실실종 삭제");
+            action = new LostBoardDeleteService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/lostReply.board")) {
+            System.out.println("분실실종 답글");
+            action = new LostBoardReplyService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/lostReplyOk.board")) {
+            System.out.println("분실실종 답글 쓰기");
+            action = new LostBoardReplyOkService();
+        } else if (urlCommand.equals("/productList.board")) {
             System.out.println("PRODUCTLIST SERVICE 실행");
             action = new ProductBoardListService();
             forward = action.execute(request, response);

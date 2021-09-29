@@ -4,9 +4,18 @@ public class Member {
     private String id;
     private String password;
     private String address;
+    private String name;
     private int birth;
 
     public Member() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Member(String id, String password, String address, int birth) {

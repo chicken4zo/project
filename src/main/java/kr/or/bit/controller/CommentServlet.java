@@ -24,7 +24,7 @@ public class CommentServlet extends HttpServlet {
         ActionForward forward = null;
         Action action = null;
 
-        if (urlCommand.equals("/boardList.do")) {
+        if (urlCommand.equals("/lostCommentWrite.comment")) {
 
         }
 
