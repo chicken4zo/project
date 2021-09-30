@@ -57,6 +57,7 @@ public class BoardServlet extends HttpServlet {
         } else if (urlCommand.equals("/lostReplyOk.board")) {
             System.out.println("분실실종 답글 쓰기");
             action = new LostBoardReplyOkService();
+            forward = action.execute(request, response);
         } else if (urlCommand.equals("/productList.board")) {
             System.out.println("PRODUCTLIST SERVICE 실행");
             action = new ProductBoardListService();
@@ -69,6 +70,8 @@ public class BoardServlet extends HttpServlet {
             System.out.println("PRODUCTLIST WRITE SERVICE 실행");
             action = new ProductBoardWriteService();
             forward = action.execute(request, response);
+        } else if (urlCommand.equals("/dailyWrite.board")) {
+
         }
 
         if (forward != null) {

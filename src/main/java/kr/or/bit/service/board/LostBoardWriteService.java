@@ -36,14 +36,17 @@ public class LostBoardWriteService implements Action {
         lostBoard.setTitle(multi.getParameter("title"));
         lostBoard.setContent(multi.getParameter("content"));
         lostBoard.setId(multi.getParameter("id"));
-        Enumeration fileNames = multi.getFileNames();
+        if (multi.getFileNames() != null) {
+            Enumeration fileNames = multi.getFileNames();
 
-        String fileTag = (String) fileNames.nextElement();
-        String fileName = multi.getFilesystemName(fileTag);
-        String fileName2 = multi.getOriginalFileName(fileTag);
+            String fileTag = (String) fileNames.nextElement();
+            String fileName = multi.getFilesystemName(fileTag);
+            String fileName2 = multi.getOriginalFileName(fileTag);
 
-        lostBoard.setFileName(fileName);
-        lostBoard.setFilePath(uploadPath);
+            lostBoard.setFileName(fileName);
+            lostBoard.setFilePath(uploadPath);
+        }
+
 
         System.out.println(lostBoard);
 
