@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form name="bbs" action="productWriteOk.board" method="POST" enctype="multipart/form-data">
+<form name="bbs" action="productWrite.board" method="POST" enctype="multipart/form-data">
     <label>title</label>
     <input type="text" name="title">
     <label>id</label>
