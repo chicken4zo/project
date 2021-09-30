@@ -14,6 +14,48 @@ public class DailyBoard {
     private int depth;
     private int step;
     private String id;
+    private String address;
+
+    public DailyBoard(int idx, String title, String content, int hit, Date writeDate, String fileName, String filePath, int refer, int depth, int step, String id, String address) {
+        this.idx = idx;
+        this.title = title;
+        this.content = content;
+        this.hit = hit;
+        this.writeDate = writeDate;
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.refer = refer;
+        this.depth = depth;
+        this.step = step;
+        this.id = id;
+        this.address = address;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "DailyBoard{" +
+                "idx=" + idx +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", hit=" + hit +
+                ", writeDate=" + writeDate +
+                ", fileName='" + fileName + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", refer=" + refer +
+                ", depth=" + depth +
+                ", step=" + step +
+                ", id='" + id + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 
     public DailyBoard() {
     }
@@ -120,20 +162,4 @@ public class DailyBoard {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "DailyBoard{" +
-                "idx=" + idx +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", hit=" + hit +
-                ", writeDate=" + writeDate +
-                ", fileName='" + fileName + '\'' +
-                ", filePath='" + filePath + '\'' +
-                ", refer=" + refer +
-                ", depth=" + depth +
-                ", step=" + step +
-                ", id='" + id + '\'' +
-                '}';
-    }
 }

@@ -4,11 +4,13 @@ public class Member {
     private String id;
     private String password;
     private String address;
-    private int birth;
     private String name;
+    private int birth;
+    
 
     public Member() {
     }
+
 
     public Member(String id, String password, String name, String address, int birth) {
         this.id = id;

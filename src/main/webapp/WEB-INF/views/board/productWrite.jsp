@@ -11,6 +11,24 @@
     <title>Title</title>
 </head>
 <body>
-
+<form name="bbs" action="productWriteOk.board" method="POST" enctype="multipart/form-data">
+    <label>title</label>
+    <input type="text" name="title">
+    <label>id</label>
+    <input type="text" name="id">
+    <label>content</label>
+    <input type="text" name="content">
+    <label>price</label>
+    <input type="text" name="price">
+    <label>address</label>
+    <input type="text" name="address">
+    <label>file1</label>
+    <input type="file" name="filename1">
+    <label>file2</label>
+    <input type="file" name="filename2">
+    <label>file3</label>
+    <input type="file" name="filename3">
+    <input type="submit">
+</form>
 </body>
 </html>

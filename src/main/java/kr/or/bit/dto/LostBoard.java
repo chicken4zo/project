@@ -14,6 +14,33 @@ public class LostBoard {
     private int depth;
     private int step;
     private String id;
+    private String address;
+
+    @Override
+    public String toString() {
+        return "LostBoard{" +
+                "idx=" + idx +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", hit=" + hit +
+                ", writeDate=" + writeDate +
+                ", fileName='" + fileName + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", refer=" + refer +
+                ", depth=" + depth +
+                ", step=" + step +
+                ", id='" + id + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public LostBoard() {
     }
@@ -120,20 +147,4 @@ public class LostBoard {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "LostBoard{" +
-                "idx=" + idx +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", hit=" + hit +
-                ", writeDate=" + writeDate +
-                ", fileName='" + fileName + '\'' +
-                ", filePath='" + filePath + '\'' +
-                ", refer=" + refer +
-                ", depth=" + depth +
-                ", step=" + step +
-                ", id='" + id + '\'' +
-                '}';
-    }
 }
