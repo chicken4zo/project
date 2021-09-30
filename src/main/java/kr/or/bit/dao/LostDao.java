@@ -49,9 +49,11 @@ public class LostDao {
 
             int start = cpage * pagesize - (pagesize - 1) - 1; //1 * 5 - (5 - 1) >> 1
             int end = cpage * pagesize; // 1 * 5 >> 5;
+            System.out.println("start" + start);
+            System.out.println("end" + end);
 
             pstmt.setInt(1, start);
-            pstmt.setInt(2, end);
+            pstmt.setInt(2, pagesize);
 
 
             rs = pstmt.executeQuery();
@@ -92,7 +94,7 @@ public class LostDao {
         Connection conn = null;
 
         try {
-            conn = ds.getConnection();
+            conn = ConnectionHelper.getConnection("mysql");
             pstmt = conn.prepareStatement(sql);
             int refermax = getMaxRefer();
             int refer = refermax + 1;
@@ -130,7 +132,7 @@ public class LostDao {
         String sql = "SELECT IDX, ID, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH FROM LOST WHERE IDX = ?";
 
         try {
-            conn = ds.getConnection();
+            conn = ConnectionHelper.getConnection("mysql");
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, idx);
             rs = pstmt.executeQuery();
@@ -164,7 +166,7 @@ public class LostDao {
         ResultSet rs = null;
         int refer_max = 0;
         try {
-            conn = ds.getConnection();
+            conn = ConnectionHelper.getConnection("mysql");
             String sql = "select ifnull(max(refer),0) from LOST";
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
@@ -187,7 +189,7 @@ public class LostDao {
         boolean result = false;
 
         try {
-            conn = ds.getConnection();
+            conn = ConnectionHelper.getConnection("mysql");
             String sql = "UPDATE LOST SET HIT = HIT+1 WHERE IDX=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, idx);
@@ -213,7 +215,7 @@ public class LostDao {
         int totalcount = 0;
 
         try {
-            conn = ds.getConnection();
+            conn = ConnectionHelper.getConnection("mysql");
             String sql = "SELECT Count(*) cnt from LOST";
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
@@ -241,7 +243,7 @@ public class LostDao {
         ArrayList<LostComment> commentList = null;
 
         try {
-            conn = ds.getConnection();
+            conn = ConnectionHelper.getConnection("mysql");
             String sql = "SELECT NO,CONTENT,WRITEDATE,ID,IDX FROM LOST_COMMENT WHERE IDX=? ORDER BY NO DESC";
 
             pstmt = conn.prepareStatement(sql);
@@ -322,7 +324,7 @@ public class LostDao {
         String sql = "UPDATE LOST SET TITLE=?, CONTENT=?, FILENAME=?, FILEPATH=? WHERE IDX = ?";
 
         try {
-            conn = ds.getConnection();
+            conn = ConnectionHelper.getConnection("mysql");
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, lost.getTitle());
             pstmt.setString(2, lost.getContent());

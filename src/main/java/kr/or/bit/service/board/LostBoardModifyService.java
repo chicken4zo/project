@@ -46,10 +46,13 @@ public class LostBoardModifyService implements Action {
                 System.out.println(e.getMessage());
             }
 
+            assert multi != null;
+            int idx = Integer.parseInt(multi.getParameter("idx"));
+
             lostBoard.setTitle(multi.getParameter("title"));
             lostBoard.setContent(multi.getParameter("content"));
             lostBoard.setId(multi.getParameter("id"));
-            lostBoard.setIdx(Integer.parseInt(multi.getParameter("idx")));
+            lostBoard.setIdx(idx);
             Enumeration fileNames = multi.getFileNames();
 
             String fileTag = (String) fileNames.nextElement();

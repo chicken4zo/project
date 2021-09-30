@@ -6,10 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/index.css">
-    <link rel="shortcut icon" href="/assets/images/favicon-16x16.png">
-    <link rel="icon" href="/assets/images/favicon-16x16.png">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="shortcut icon" href="assets/images/favicon-16x16.png">
+    <link rel="icon" href="assets/images/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -36,7 +36,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active nav_li">
 
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="lostForm.board">
                         <i class="fa fa-tshirt sub_icon"></i>
                         <span>의류 & 신발</span>
                     </a>
@@ -85,7 +85,7 @@
                 <a href="#">
                     <div class="product_wrap">
                         <div class="product_img_wrap">
-                            <img src="/assets/images/ex_img.jpg">
+                            <img src="assets/images/ex_img.jpg">
                             <ul class="product_detail">
                                 <li><i class="fas fa-user"></i> ID</li>
                                 <li><i class="far fa-calendar-alt"></i> 2021. 10. 11</li>
@@ -112,7 +112,7 @@
                 <a href="#">
                     <div class="product_wrap">
                         <div class="product_img_wrap">
-                            <img src="/assets/images/ex_img.jpg">
+                            <img src="assets/images/ex_img.jpg">
                             <ul class="product_detail">
                                 <li><i class="fas fa-user"></i> ID</li>
                                 <li><i class="far fa-calendar-alt"></i> 2021. 10. 11</li>
@@ -137,7 +137,7 @@
                 <a href="#">
                     <div class="product_wrap">
                         <div class="product_img_wrap">
-                            <img src="/assets/images/ex_img.jpg">
+                            <img src="assets/images/ex_img.jpg">
                             <ul class="product_detail">
                                 <li><i class="fas fa-user"></i> ID</li>
                                 <li><i class="far fa-calendar-alt"></i> 2021. 10. 11</li>
@@ -164,10 +164,7 @@
 
 </div>
 <jsp:include page="WEB-INF/include/footer.jsp"/>
-
-<a href="lostForm.board">분실실종 글쓰기</a>
-<a href="lostList.board">분실실종 리스트</a>
-
+<a href="test.jsp">테스트</a>
 </body>
 <!--bootstrp js-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -181,6 +178,6 @@
         crossorigin="anonymous"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="/assets/js/index.js"></script>
-<script src="/assets/js/main.js"></script>
+<script src="assets/js/index.js"></script>
+<script src="assets/js/main.js"></script>
 </html>

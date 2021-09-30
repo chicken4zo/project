@@ -4,7 +4,8 @@
 <!--header-->
 <header>
     <div id="header_wrap">
-        <img id="logo_img" src="/assets/images/gogu_logo.png" alt="logo" onclick="location.href='index.html';"
+        <img id="logo_img" src="${pageContext.request.contextPath}/assets/images/gogu_logo.png" alt="logo"
+             onclick="location.href='index.jsp';"
              style="cursor:pointer;">
         <div id="header_search">
             <div class="sel sel--black-panther">
@@ -23,10 +24,10 @@
         </div>
         <div id="header_nav">
             <ul>
-                <a href="#">
+                <a href="productForm.board">
                     <li>상품등록</li>
                 </a>
-                <a href="#">
+                <a href="lostList.board">
                     <li>우리동네</li>
                 </a>
                 <a href="#">
