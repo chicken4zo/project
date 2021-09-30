@@ -97,37 +97,13 @@
         </tr>
 
         <tr>
-            <%--            <th>주소</th>--%>
-            <%--            <td>--%>
-            <%--                <input type="text" id="address" name="address" placeholder="주소" required="required" >--%>
-            <%--                <input type="button" onclick="sample6_execDaumPostcode()" value="주소찾기"><br>--%>
+            <th>주소</th>
+            <td>
+                <input type="text" id="address" name="address" placeholder="주소" required="required">
+                <input type="button" onclick="sample6_execDaumPostcode()" value="주소찾기"><br>
 
-            <%--            </td>--%>
-            <div class="form-group row">
-                <label class="control-label col-sm-3" for="mAddr1"
-                       style="text-align: center; margin-top: 6px;">주소</label>
-                <div class="col-sm-4  row">
-                    <input type="text" class="form-control" id="mAddr1" name="mAddr1" required="required"
-                           readonly="readonly" value="${register.mAddr1 }">
-                </div>
-                <button type="button" onclick="execPostCode();" class="btn btn-default col-sm-2">주소검색</button>
-            </div>
-            <div class="form-group row">
-                <label class="control-label col-sm-3" for="mAddr2" style="text-align: center; margin-top: 6px;"></label>
-                <div class="col-sm-9 row">
-                    <input type="text" class="form-control" id="mAddr2" name="mAddr2" required="required"
-                           readonly="readonly" value="${MEMBERDETAIL.mAddr2 }">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="control-label col-sm-3" for="mAddr3" style="text-align: center; margin-top: 6px;"></label>
-                <div class="col-sm-9 row">
-                    <input type="text" class="form-control" id="mAddr3" name="mAddr3" required="required"
-                           autocomplete="off"
-                           value="${MEMBERDETAIL.mAddr3 }">
-                </div>
-            </div>
-            <input type="hidden" name="mSido" id="mSido"/>
+            </td>
+
         </tr>
 
         <tr>
@@ -248,30 +224,32 @@
 
         $('#birth').on('keyup', isBirthday);
     });
-    //
-    //     function sample6_execDaumPostcode() {
-    //     new daum.Postcode({
-    //         oncomplete: function(data) {
-    //             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-    //
-    //             // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-    //             // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-    //             var addr = ''; // 주소 변수
-    //             var extraAddr = ''; // 참고항목 변수
-    //
-    //             //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-    //             if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-    //                 addr = data.roadAddress;
-    //             } else { // 사용자가 지번 주소를 선택했을 경우(J)
-    //                 addr = data.jibunAddress;
-    //             }
-    //
-    //             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-    //             document.getElementById("address").value = addr;
-    //
-    //         }
-    //     }).open();
-    // }
+
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("address").value = addr;
+
+
+            }
+        }).open();
+    }
+
 
 </script>
 
