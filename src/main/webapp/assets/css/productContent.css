@@ -1,0 +1,177 @@
+
+.container-fluid {
+    width: 80% !important;
+}
+
+.card {
+    border-radius: 1rem !important;
+}
+
+/* product img*/
+
+.container {
+    max-width: 30em;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+.container-fluid img {
+    border-radius: .75rem;
+}
+
+.gallery {
+    overflow: hidden;
+}
+
+.gallery__hero {
+    overflow: hidden;
+    position: relative;
+    padding: 2em;
+    margin: 0 0 0.3333333333em;
+    background: #fff;
+}
+
+.gallery__hero img {
+    max-width: 100%;
+}
+
+.gallery__thumbs {
+    text-align: center;
+    background: #fff;
+}
+
+.gallery__thumbs a.is-active {
+    opacity: 0.2;
+}
+
+.gallery__thumbs a {
+    display: inline-block;
+    width: 20%;
+    padding: 0.5em;
+    opacity: 0.75;
+    transition: opacity 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.gallery__thumbs a img {
+    max-width: 100%;
+}
+
+.id {
+    margin-bottom: 13px;
+}
+
+.address {
+    font-size: 0.9rem !important;
+}
+
+.address i {
+    padding-right: 5px;
+}
+
+.detail_bar {
+    width: 110%;
+    height: 2px;
+    background-color: #dee2e6;
+    margin-top: 17px;
+}
+
+.view_icon {
+    flex-direction: row;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.view_icon li {
+    font-size: 0.8rem;
+    padding-right: 15px;
+}
+
+.view_icon li i {
+    padding-right: 4px;
+}
+
+.content {
+    margin-top: 10px;
+}
+
+.bottom_bar {
+    width: 100%;
+    height: 1px;
+    background-color: #dee2e6;
+    margin: 10px 0;
+}
+
+.button_container {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.button_container button i, .button_container button span {
+    color: white;
+    /*font-weight: 400;*/
+}
+
+.button_container button span {
+    font-weight: 300;
+}
+
+.commentList {
+    margin-top: 20px;
+}
+
+.commentList h2 {
+    clear: both;
+    font-size: 1.1rem;
+    margin-top: 35px;
+}
+
+.commentList p {
+    font-size: 0.8rem;
+    font-weight: normal;
+    margin: 0;
+}
+
+.commentList h4 {
+    float: left;
+    font-size: 0.7rem;
+    font-weight: normal;
+    margin-top: 5px !important;
+}
+
+.commentList input {
+    float: right;
+    font-size: 0.7rem;
+    border: none;
+    background-color: transparent;
+}
+
+.commentWrite_Wrap {
+    width: 100%;
+    border: 2px solid #dcdce3;
+    border-radius: 6px;
+    padding: 10px 10px;
+    margin: 45px 0 10px;
+
+}
+
+.commentWrite_Wrap h2 {
+    font-size: 1rem;
+}
+
+.comment_inbox {
+    font-size: 0.7rem;
+    background-color: transparent;
+    border: none;
+}
+
+.comment_inbox:focus {
+    outline: none;
+}
+
+.commentWrite_Wrap input {
+    display: inline-block;
+    float: right;
+    font-size: 0.7rem;
+    margin-top: 19px;
+}

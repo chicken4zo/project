@@ -1,0 +1,209 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+body {
+    /*background-color: #D2DBDD;*/
+    /*display: flex;*/
+    /*    display: -webkit-flex;*/
+    /*    -webkit-justify-content: center;*/
+    /*    -webkit-align-items: center;*/
+    /*    justify-content: center;*/
+    /*align-items: center;*/
+}
+
+.petlogo {
+    margin: 60px 0 40px 116px;
+}
+
+.cards {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    -webkit-justify-content: center;
+    max-width: 1000px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-top: 50px;
+    height: 70%;
+    margin: auto;
+}
+
+.card--1 .card__img, .card--1 .card__img--hover {
+    background-image: url('https://miro.medium.com/max/3600/0*n-2bW82Z6m6U2bij.jpeg');
+}
+
+.card--2 .card__img, .card--2 .card__img--hover {
+    background-image: url('https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2020%2F06%2F26%2Fmaltese-puppy-running-fall-leaves-623498838-2000.jpg');
+}
+
+.card--3 .card__img, .card--3 .card__img--hover {
+    background-image: url('https://www.ladbible.com/cdn-cgi/image/width=720,quality=70,format=jpeg,fit=pad,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2Ffcbcb4795f6d2949128304106aea0d5a.png');
+}
+
+.card--4 .card__img, .card--4 .card__img--hover {
+    background-image: url('https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDh8fGNhdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+}
+
+.card--5 .card__img, .card--5 .card__img--hover {
+    background-image: url('https://images.unsplash.com/photo-1597633611385-17238892d086?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzR8fGRvZ3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+}
+
+.card--6 .card__img, .card--6 .card__img--hover {
+    background-image: url('https://images.unsplash.com/photo-1608831540955-35094d48694a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTM3fHxkb2d8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+}
+
+.card__hit-info {
+    float: right;
+}
+
+.hit-size {
+    font-size: 12px;
+    font-weight: bold;
+    color: #dadada;
+    vertical-align: 2px;
+}
+
+.card__img {
+    visibility: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 235px;
+}
+
+.card__info-hover {
+    position: absolute;
+    padding: 16px;
+    width: 100%;
+    opacity: 0;
+    top: 0;
+    filter: brightness(70%);
+}
+
+.card__img--hover {
+    transition: 0.2s all ease-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    position: absolute;
+    height: 235px;
+    top: 0;
+
+}
+
+.card {
+    margin-right: 25px;
+    margin-bottom: 25px;
+    transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
+    width: 300px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 13px 23px -7px rgba(0, 0, 0, 0.1);
+    border: 0 !important;
+}
+
+.card:hover {
+    box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.10, 1.10);
+}
+
+.card__info {
+    padding: 16px 24px 24px 24px;
+}
+
+.card__btn {
+    font-size: 13px;
+    background-color: #8167a9;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.card__title {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.card__by {
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    margin-left: 3px;
+}
+
+.card:hover .card__img--hover {
+    height: 100%;
+    position: absolute;
+    /*opacity: 0.8;*/
+    filter: brightness(60%);
+}
+
+.card:hover .card__info {
+    background-color: transparent;
+    position: relative;
+    filter: brightness(60%);
+    opacity: 1;
+}
+
+.card:hover .card__info h3 {
+    color: #dadada;
+}
+
+.card:hover .card__info-hover {
+    opacity: 1;
+    z-index: 1000;
+    filter: brightness(70%);
+}
+
+/* pagination */
+.pagination .page-item a {
+    box-shadow: 0 3px 5px -1px rgba(0 0 0 0.09), 0 2px 3px -1px rgba(0 0 0 0.07) !important;
+    border-radius: 50% !important;
+    border: 1px solid #dee2e6 !important;
+    color: #8392ab !important;
+    font-size: 0.875rem !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 3px !important;
+}
+
+.pagination a {
+    border: 1px solid transparent !important;
+    margin-left: 2px;
+    padding: 6px 12px;
+    position: relative;
+    text-decoration: none;
+    color: #333 !important;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background: #8167a9 !important;
+    border-color: #8167a9 !important;
+    color: white !important;
+    cursor: default !important;
+}
+
+.pagination {
+    margin-top: 80px;
+}
