@@ -40,6 +40,7 @@ public class LostBoardListService implements Action {
         int totalLostCount = dao.totalLostCount();
 
         ArrayList<LostBoard> lostList = dao.getLostList(cpage, pagesize);
+        System.out.println(lostList);
 
         if (totalLostCount % pagesize == 0) {
             pagecount = totalLostCount / pagesize;

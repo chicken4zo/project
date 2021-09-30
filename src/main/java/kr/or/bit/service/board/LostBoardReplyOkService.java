@@ -32,7 +32,8 @@ public class LostBoardReplyOkService implements Action {
 
             String ps = multi.getParameter("ps");
             String cp = multi.getParameter("cp");
-            String idx = multi.getParameter("idx");
+            int idx = Integer.parseInt(multi.getParameter("idx"));
+            lostBoard.setIdx(idx);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -45,6 +46,7 @@ public class LostBoardReplyOkService implements Action {
 
         String fileTag = (String) fileNames.nextElement();
         String fileName = multi.getFilesystemName(fileTag);
+        System.out.println(fileName);
         String fileName2 = multi.getOriginalFileName(fileTag);
 
         lostBoard.setFileName(fileName);
@@ -53,14 +55,11 @@ public class LostBoardReplyOkService implements Action {
         System.out.println(lostBoard);
 
         LostDao dao = new LostDao();
-        int result = dao.writeLost(lostBoard);
+        int result = dao.replyLost(lostBoard);
 
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
         forward.setPath("lostList.board");
         return forward;
-
-
-        return null;
     }
 }

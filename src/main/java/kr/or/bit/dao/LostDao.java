@@ -35,7 +35,7 @@ public class LostDao {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
-        String listSql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, (@ROWNUM:=@ROWNUM+1) rn, M.ID, M.ADDRESS FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP FROM LOST ORDER BY REFER ASC) L RIGHT OUTER JOIN MEMBER M on ID = M.ID, (SELECT @rownum:=0) R LIMIT ?,?";
+        String listSql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, (@ROWNUM:=@ROWNUM+1) RN FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, LOST.ID FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID ORDER BY REFER DESC, STEP ASC) L, (SELECT @ROWNUM:=0) R LIMIT ?,?";
 
         ArrayList<LostBoard> list = new ArrayList<>();
 
@@ -53,12 +53,13 @@ public class LostDao {
             pstmt.setInt(1, start);
             pstmt.setInt(2, end);
 
+
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 LostBoard lost = new LostBoard();
                 lost.setIdx(rs.getInt("idx"));
-                lost.setId(rs.getString("m.id"));
+                lost.setId(rs.getString("id"));
                 lost.setTitle(rs.getString("title"));
                 lost.setContent(rs.getString("content"));
                 lost.setFileName(rs.getString("filename"));
@@ -97,8 +98,13 @@ public class LostDao {
             int refer = refermax + 1;
             pstmt.setString(1, lostBoard.getTitle());
             pstmt.setString(2, lostBoard.getContent());
-            pstmt.setString(3, lostBoard.getFileName());
-            pstmt.setString(4, lostBoard.getFilePath());
+            if (lostBoard.getFileName() != null) {
+                pstmt.setString(3, lostBoard.getFileName());
+                pstmt.setString(4, lostBoard.getFilePath());
+            } else {
+                pstmt.setString(3, "");
+                pstmt.setString(4, "");
+            }
 //            pstmt.setString(3, "test");
 //            pstmt.setString(4, "test");
             pstmt.setInt(5, refer);
@@ -111,6 +117,7 @@ public class LostDao {
             System.out.println(e.getMessage());
         } finally {
             ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
         }
         return resultRow;
     }
@@ -146,6 +153,7 @@ public class LostDao {
         } finally {
             ConnectionHelper.close(rs);
             ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
         }
         return lost;
     }
@@ -168,6 +176,7 @@ public class LostDao {
         } finally {
             ConnectionHelper.close(rs);
             ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
         }
         return refer_max;
     }
@@ -192,6 +201,7 @@ public class LostDao {
             System.out.println(e.getMessage());
         } finally {
             ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
         }
         return result;
     }
@@ -217,6 +227,7 @@ public class LostDao {
         } finally {
             ConnectionHelper.close(rs);
             ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
         }
         return totalcount;
 
@@ -231,7 +242,7 @@ public class LostDao {
 
         try {
             conn = ds.getConnection();
-            String sql = "";
+            String sql = "SELECT NO,CONTENT,WRITEDATE,ID,IDX FROM LOST_COMMENT WHERE IDX=? ORDER BY NO DESC";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, Integer.parseInt(idx));
@@ -256,8 +267,52 @@ public class LostDao {
         } finally {
             ConnectionHelper.close(rs);
             ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
         }
         return commentList;
+    }
+
+    public int writeLostComment(String id, String content, String idx) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int row = 0;
+        try {
+            conn = ConnectionHelper.getConnection("mysql");
+            String sql = "INSERT INTO LOST_COMMENT(NO,CONTENT,WRITEDATE,ID,IDX) VALUES (NO,?,CURRENT_TIMESTAMP,?,?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, content);
+            pstmt.setString(2, id);
+            pstmt.setInt(3, Integer.parseInt(idx));
+
+            row = pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return row;
+    }
+
+    public int deleteLostComment(int no) {
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        String sql = "DELETE FROM LOST_COMMENT WHERE no=?";
+
+        try {
+            conn = ConnectionHelper.getConnection("mysql");
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, no);
+            result = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return result;
     }
 
     public int modifyLost(LostBoard lost) {
@@ -281,6 +336,7 @@ public class LostDao {
             System.out.println(e.getMessage());
         } finally {
             ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
         }
 
         return result;
@@ -300,6 +356,98 @@ public class LostDao {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return resultRow;
+    }
+
+    public int replyLost(LostBoard lostBoard) {
+        int resultRow = 0;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Connection conn = null;
+
+        try {
+            conn = ConnectionHelper.getConnection("mysql");
+            int idx = lostBoard.getIdx();
+            String id = lostBoard.getId();
+            String title = lostBoard.getTitle();
+            String content = lostBoard.getContent();
+            String fileName = lostBoard.getFileName();
+            String filePath = lostBoard.getFilePath();
+
+            String refer_depth_step_sal = "select refer , depth , step from LOST where idx=?";
+            String find_step_sql = "SELECT MIN(STEP)step FROM LOST WHERE REFER = ? and STEP > ? and DEPTH <= ?";
+            String set_step_sql = "";
+            String reply_sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (IDX,?,?,0,current_timestamp,?,?,?,?,?,?)";
+
+            pstmt = conn.prepareStatement(refer_depth_step_sal);
+            pstmt.setInt(1, idx);
+            rs = pstmt.executeQuery();
+            System.out.println("here");
+
+            if (rs.next()) {
+                int refer = rs.getInt("refer");
+                int step = rs.getInt("step");
+                int depth = rs.getInt("depth");
+                System.out.println(refer);
+                System.out.println(step);
+                System.out.println(depth);
+
+                pstmt = conn.prepareStatement(find_step_sql);
+                pstmt.setInt(1, refer);
+                pstmt.setInt(2, step);
+                pstmt.setInt(3, depth);
+                ResultSet rs2 = pstmt.executeQuery();
+                int newStep = 0;
+
+                if (rs2.next()) {
+                    if (rs2.getInt("step") != 0) {
+                        int minStep = rs2.getInt("step");
+                        set_step_sql = "UPDATE LOST SET STEP=STEP+1 WHERE REFER=? and STEP>?";
+                        pstmt = conn.prepareStatement(set_step_sql);
+                        pstmt.setInt(1, refer);
+                        pstmt.setInt(2, minStep);
+                        resultRow = pstmt.executeUpdate();
+                        System.out.println(resultRow);
+                        newStep = step;
+                    } else {
+                        set_step_sql = "SELECT MAX(STEP)+1 FROM LOST WHERE REFER = ?";
+                        pstmt = conn.prepareStatement(set_step_sql);
+                        pstmt.setInt(1, refer);
+                        ResultSet rs3 = pstmt.executeQuery();
+                        if (rs3.next()) {
+                            newStep = rs3.getInt("MAX(STEP)+1");
+                            System.out.println(newStep);
+                        }
+                    }
+                }
+                int newDepth = depth + 1;
+
+                pstmt = conn.prepareStatement(reply_sql);
+                pstmt.setString(1, title);
+                pstmt.setString(2, content);
+                pstmt.setString(3, fileName);
+                pstmt.setString(4, filePath);
+                pstmt.setString(5, id);
+                pstmt.setInt(6, refer);
+                pstmt.setInt(7, newDepth);
+                pstmt.setInt(8, newStep);
+
+                int row = pstmt.executeUpdate();
+                if (row > 0) {
+                    resultRow = row;
+                } else {
+                    resultRow = -1;
+                }
+
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(rs);
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
         }
