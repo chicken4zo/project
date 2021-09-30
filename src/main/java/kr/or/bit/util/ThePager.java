@@ -24,17 +24,23 @@ public class ThePager {
     }
 
     public String toString() {
-        StringBuffer linkString = new StringBuffer();
+        StringBuilder linkString = new StringBuilder();
+        System.out.println("시작");
+        System.out.println(currentPage);
+        System.out.println(pagerSize);
+        System.out.println(pageSize);
+        System.out.println(pageCount);
 
         //1. 처음, 이전 항목 만들기
         if (currentPage > 1) {
+            linkString.append("<li class='page-item'>");
             linkString.append(
-                    String.format("[<a href='%s?cp=1'>처음</a>]", linkUrl));
-            linkString.append("&nbsp;");
-            linkString.append("&nbsp;");
+                    String.format("<a class='page-link' href='%s?cp=1' tabindex='-1'><<</a>", linkUrl));
+            linkString.append("</li>");
+            linkString.append("<li class='page-item'>");
             linkString.append(String.format(
-                    "[<a href='%s?cp=%d'>이전</a>]", linkUrl, currentPage - 1));
-            linkString.append("&nbsp;");
+                    "<a class='page-link' href='%s?cp=%d' tabindex='-1'><</a>", linkUrl, currentPage - 1));
+            linkString.append("</li>");
         }
 
         //2. 페이지 번호 Link 만들기
@@ -45,26 +51,49 @@ public class ThePager {
         int end = start + pagerSize; // 1+3 = 4 -> 4+3 = 7 -> 7+3 = 10 [7 8 9]
         for (int i = start; i < end; i++) {
             if (i > pageCount) break; // i가 pageCount를 넘어가면 더이상 번호를 만들지 않고 break 하여 for문 탈출 (9는 출력 x)
-            linkString.append("&nbsp;");
             if (i == currentPage) { // 현재 페이지가 i 라면 번호 만들어서 [i] 처럼 현재 해당되는 위치에 괄호 표시 (a링크 없음)
-                linkString.append(String.format("[%d]", i));
+                linkString.append("<li class='page-item active'>");
+                linkString.append("<a class='page-link' href='#'>");
+                linkString.append(String.format("%d", i));
+                linkString.append("<span class='sr-only'>(current)</span></a>");
             } else {
+                linkString.append("<li class='page-item'>");
                 linkString.append(String.format( // 그렇지 않으면 i에 해당하는 페이지에 해당하는 번호 형성 ([]괄호 없고 링크 걸림)
-                        "<a href='%s?cp=%d'>%d</a>", linkUrl, i, i));
+                        "<a class='page-link' href='%s?cp=%d'>%d</a></li>", linkUrl, i, i));
             }
-            linkString.append("&nbsp;");
         }
 
         //3. 다음, 마지막 항목 만들기
         if (currentPage < pageCount) {
-            linkString.append("&nbsp;");
+            linkString.append("<li class='page-item'>");
             linkString.append(String.format(
-                    "[<a href='%s?cp=%d'>다음</a>]", linkUrl, currentPage + 1));
-            linkString.append("&nbsp;");
-            linkString.append("&nbsp;");
+                    "<a class='page-link' href='%s?cp=%d'>></a>", linkUrl, currentPage + 1));
+            linkString.append("</li>");
+            linkString.append("<li class='page-item'>");
             linkString.append(String.format(
-                    "[<a href='%s?cp=%d'>마지막</a>]", linkUrl, pageCount));
+                    "<a class='page-link' href='%s?cp=%d'>>></a>", linkUrl, pageCount));
+            linkString.append("</li>");
         }
+
+//        <nav aria-label="...">
+//            <ul class="pagination justify-content-center">
+//                <li class="page-item disabled">
+//                    <a class="page-link" href="#" tabindex="-1"><</a>
+//                </li>
+//                <li class="page-item"><a class="page-link" href="#">1</a></li>
+//                <li class="page-item active">
+//                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+//                </li>
+//                <li class="page-item"><a class="page-link" href="#">3</a></li>
+//                <li class="page-item"><a class="page-link" href="#">4</a></li>
+//                <li class="page-item"><a class="page-link" href="#">5</a></li>
+//                <li class="page-item">
+//                    <a class="page-link" href="#">></a>
+//                </li>
+//            </ul>
+//        </nav>
+
+        System.out.println(linkString);
 
         return linkString.toString();
     }
