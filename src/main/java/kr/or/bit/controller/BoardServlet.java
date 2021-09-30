@@ -25,7 +25,6 @@ public class BoardServlet extends HttpServlet {
         ActionForward forward = null;
         Action action = null;
 
-        // 분실실종 게시판
         if (urlCommand.equals("/lostWrite.board")) {
             System.out.println("분실실종 글쓰기");
             action = new LostBoardWriteService();
@@ -59,37 +58,17 @@ public class BoardServlet extends HttpServlet {
             System.out.println("분실실종 답글 쓰기");
             action = new LostBoardReplyOkService();
             forward = action.execute(request, response);
-
-            // 상품 게시판
-
-        } else if (urlCommand.equals("/productDelete.board")) {
-            System.out.println("PRODUCTBOARD DELETE SERVICE 실행");
-            action = new ProductBoardDeleteService();
+        } else if (urlCommand.equals("/productList.board")) {
+            System.out.println("PRODUCTLIST SERVICE 실행");
+            action = new ProductBoardListService();
             forward = action.execute(request, response);
-
         } else if (urlCommand.equals("/productWrite.board")) {
-            System.out.println("PRODUCTBOARD WRITE SERVICE 실행");
-            action = new ProductBoardWriteService();
-            forward = action.execute(request, response);
-
-        } else if (urlCommand.equals("/productForm.board")) {
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/board/productWrite.jsp");
-
-        } else if (urlCommand.equals("/productContent.board")) {
-            System.out.println("PRODUCTBOARD CONTENT SERVICE 실행");
-            action = new ProductContentService();
-            forward = action.execute(request, response);
-
-        } else if (urlCommand.equals("/productModify.board")) {
-            System.out.println("PRODUCTBOARD MODIFY SERVICE 실행");
-            action = new ProductBoardModifyService();
-            forward = action.execute(request, response);
-
-        } else if (urlCommand.equals("/productList.board")) {
-            System.out.println("PRODUCTBOARD LIST SERVICE 실행");
-            action = new ProductBoardListService();
+        } else if (urlCommand.equals("/productWriteOk.board")) {
+            System.out.println("PRODUCTLIST WRITE SERVICE 실행");
+            action = new ProductBoardWriteService();
             forward = action.execute(request, response);
         } else if (urlCommand.equals("/dailyWrite.board")) {
 
