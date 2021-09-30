@@ -6,8 +6,22 @@ public class Member {
     private String address;
     private String name;
     private int birth;
+    
 
     public Member() {
+    }
+
+
+    public Member(String id, String password, String name, String address, int birth) {
+        this.id = id;
+        this.password = password;
+        this.address = address;
+        this.birth = birth;
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -16,17 +30,6 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Member(String id, String password, String address, int birth) {
-        this.id = id;
-        this.password = password;
-        this.address = address;
-        this.birth = birth;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public void setId(String id) {
@@ -64,6 +67,7 @@ public class Member {
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
                 ", birth=" + birth +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
