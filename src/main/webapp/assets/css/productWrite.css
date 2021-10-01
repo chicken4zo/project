@@ -4,7 +4,7 @@ body {
 
 .product-group {
     display: block;
-    width: 1024px;
+    width: 900px;
     margin: auto;
 }
 
@@ -13,6 +13,15 @@ body {
     margin-right: 16px;
     display: flex;
     align-items: center;
+}
+
+
+.title {
+    font-family: 'Jua', sans-serif;
+    color: #8B425A;
+    font-size: 24px;
+    margin-left: 120px;
+    margin-top: 40px;
 }
 
 .product-btn {
@@ -72,6 +81,15 @@ ol, ul {
     border-bottom: 1px solid rgb(220, 219, 228);
 }
 
+.idAddress {
+    display: flex;
+    flex-direction: column;
+}
+
+.idAddress div {
+    margin-top: 12px;
+}
+
 .info-detail {
     font-family: 'Jua', sans-serif;
     width: 12rem;
@@ -119,7 +137,6 @@ ol, ul {
     color: #fff;
     transform: translateY(-7px);
 }
-
 .ck.ck-editor {
     width: 78% !important;
 }

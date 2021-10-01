@@ -45,6 +45,7 @@ public class LostDao {
         // SELECT * FROM (SELECT ROWNUM rn, IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, ID FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, ID FROM LOST ORDER BY REFER DESC, STEP ASC)TB, WHERE rn BETWEEN ? AND ?
 
         try {
+
             conn = ConnectionHelper.getConnection(database);
 
             if (database.equals("mysql")) {
@@ -113,6 +114,7 @@ public class LostDao {
 
         try {
             conn = ConnectionHelper.getConnection(database);
+
             pstmt = conn.prepareStatement(sql);
             int refermax = getMaxRefer();
             int refer = refermax + 1;
@@ -153,6 +155,7 @@ public class LostDao {
 
         try {
             conn = ConnectionHelper.getConnection(database);
+
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, idx);
             rs = pstmt.executeQuery();
@@ -215,6 +218,7 @@ public class LostDao {
 
         try {
             conn = ConnectionHelper.getConnection(database);
+
             String sql = "UPDATE LOST SET HIT = HIT+1 WHERE IDX=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, idx);
@@ -268,7 +272,9 @@ public class LostDao {
         ArrayList<LostComment> commentList = null;
 
         try {
+
             conn = ConnectionHelper.getConnection(database);
+
             String sql = "SELECT NO,CONTENT,WRITEDATE,ID,IDX FROM LOST_COMMENT WHERE IDX=? ORDER BY NO DESC";
 
             pstmt = conn.prepareStatement(sql);
@@ -334,6 +340,7 @@ public class LostDao {
 
         try {
             conn = ConnectionHelper.getConnection(database);
+
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, no);
             result = pstmt.executeUpdate();
@@ -355,6 +362,7 @@ public class LostDao {
 
         try {
             conn = ConnectionHelper.getConnection(database);
+
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, lost.getTitle());
             pstmt.setString(2, lost.getContent());
@@ -382,6 +390,7 @@ public class LostDao {
 
         try {
             conn = ConnectionHelper.getConnection(database);
+
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, Integer.parseInt(idx));
             resultRow = pstmt.executeUpdate();

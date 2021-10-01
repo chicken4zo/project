@@ -20,6 +20,7 @@ public class ConnectionHelper {
                 // 오라클 사용 시 수정해야 하는 부분
                 DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/oracle");
 //                DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/oracle");
+
                 // 오라클 사용 시, 아래 주석 처리 해제
                 Connection conn = source.getConnection();
                 return conn;
