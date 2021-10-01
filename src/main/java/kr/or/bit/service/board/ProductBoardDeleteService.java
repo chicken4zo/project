@@ -12,7 +12,7 @@ public class ProductBoardDeleteService implements Action {
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         String idx = request.getParameter("idx");
         ProductDao dao = new ProductDao();
-//        int result = dao.deleteProduct(idx);
+        int result = dao.deleteProduct(idx);
 
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);

@@ -23,10 +23,10 @@ public class ProductBoardModifyService implements Action {
             if (request.getParameter("title") == null || request.getParameter("title").equals("")) {
                 String idx = request.getParameter("idx");
                 ProductDao dao = new ProductDao();
-//                ProductBoard productBoard = dao.getProductContent(idx);
+                ProductBoard productBoard = dao.getProductContent(idx);
 
-//                System.out.println(productBoard.toString());
-//                request.setAttribute("productBoard", productBoard);
+                System.out.println(productBoard.toString());
+                request.setAttribute("productBoard", productBoard);
 
                 forward = new ActionForward();
                 forward.setRedirect(false);
@@ -68,7 +68,11 @@ public class ProductBoardModifyService implements Action {
                 productBoard.setFileName3(files.get(2));
                 productBoard.setFilePath3(uploadpath);
 
+<<<<<<< HEAD
 //                int result = dao.modifyProduct(productBoard);
+=======
+                int result = dao.modifyProduct(productBoard);
+>>>>>>> origin/jisu
 
                 forward = new ActionForward();
                 forward.setRedirect(false);
