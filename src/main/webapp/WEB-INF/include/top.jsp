@@ -4,13 +4,14 @@
 <!--header-->
 <header>
     <div id="header_wrap">
-        <img id="logo_img" src="assets/images/gogu_logo.png" alt="logo" onclick="location.href='index.html';"
+        <img id="logo_img" src="${pageContext.request.contextPath}/assets/images/gogu_logo.png" alt="logo"
+             onclick="location.href='index.jsp';"
              style="cursor:pointer;">
         <div id="header_search">
             <div class="sel sel--black-panther">
-                <select name="select-profession" id="select-profession">
+                <select name="select-profession" id="select-profession" onchange="location.href=this.value">
                     <option value="" disabled>게시판</option>
-                    <option value="1">상품</option>
+                    <option value="http://www.webmadang.net">상품</option>
                     <option value="2">일상</option>
                     <option value="3">분실·실종</option>
                     <option value="4">반려동물</option>
@@ -23,7 +24,7 @@
         </div>
         <div id="header_nav">
             <ul>
-                <a href="#">
+                <a href="${pageContext.request.contextPath}/productForm.board">
                     <li>상품등록</li>
                 </a>
                 <a href="#">
@@ -36,11 +37,11 @@
                     <li>공지사항</li>
                 </a>
             </ul>
-            <a href="Register.member">
+            <a href="${pageContext.request.contextPath}/Register.member">
                 <div class="register_btn">Register</div>
             </a>
-            <a href="Login.member">
-                <div class="myPage_btn">My GUMA</div>
+            <a href="${pageContext.request.contextPath}/Login.member">
+                <div class="myPage_btn">Log In</div>
             </a>
         </div>
     </div>

@@ -50,6 +50,7 @@ public class LostBoardListService implements Action {
 
         int pagersize = 3;
         ThePager pager = new ThePager(totalLostCount, cpage, pagesize, pagersize, "lostList.board");
+        System.out.println(pager.toString());
 
         request.setAttribute("lostList", lostList);
         request.setAttribute("cpage", cpage);

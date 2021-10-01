@@ -70,7 +70,7 @@ public class MemberServlet extends HttpServlet {
         } else if (urlCommand.equals("/main.member")) { // 잠깐 로그인 성공시 가는 페이지 만든
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/loginok.jsp");
+            forward.setPath("/WEB-INF/views/productList.jsp");
         }
 
         if (forward != null) {
