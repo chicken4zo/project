@@ -91,9 +91,44 @@ public class BoardServlet extends HttpServlet {
             System.out.println("PRODUCTBOARD LIST SERVICE 실행");
             action = new ProductBoardListService();
             forward = action.execute(request, response);
-        } else if (urlCommand.equals("/dailyWrite.board")) {
-
         }
+
+        // 일상 게시판
+        else if (urlCommand.equals("/dailyWrite.board")) {
+            System.out.println("일상 게시판 쓰기");
+            action = new DailyBoardWriteService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/dailyContent.board")) {
+            System.out.println("일상 게시판 상세");
+            action = new DailyBoardContentService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/dailyList.board")) {
+            System.out.println("일상 게시판 리스트");
+            action = new DailyBoardListService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/dailyForm.board")) {
+            System.out.println("일상 게시판 입력 폼");
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/board/dailyWrite.jsp");
+        } else if (urlCommand.equals("/dailyModify.board")) {
+            System.out.println("일상 게시판 수정");
+            action = new DailyBoardModifyService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/dailyDelete.board")) {
+            System.out.println("일상 게시판 삭제");
+            action = new DailyBoardDeleteService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/dailyReply.board")) {
+            System.out.println("일상 게시판 답글 폼");
+            action = new DailyBoardReplyService();
+            forward = action.execute(request, response);
+        } else if (urlCommand.equals("/dailyReplyOk.board")) {
+            System.out.println("일상 게시판 답글 입력");
+            action = new DailyBoardReplyOkService();
+            forward = action.execute(request, response);
+        }
+
 
         if (forward != null) {
             if (forward.isRedirect()) { //true 페이지를 재요청

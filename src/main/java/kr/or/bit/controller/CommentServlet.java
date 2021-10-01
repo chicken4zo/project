@@ -2,7 +2,9 @@ package kr.or.bit.controller;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.dao.DailyDao;
 import kr.or.bit.dao.LostDao;
+import kr.or.bit.dto.DailyComment;
 import kr.or.bit.dto.LostComment;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -79,6 +81,57 @@ public class CommentServlet extends HttpServlet {
 
                 LostDao dao = new LostDao();
                 int result = dao.deleteLostComment(no);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            // 일상 댓글
+        } else if (urlCommand.equals("/dailyCommentWrite.comment")) {
+            String commentId = request.getParameter("commentId");
+            String content = request.getParameter("content");
+            String idx = request.getParameter("idx");
+
+            DailyDao dao = new DailyDao();
+            int result = dao.writeDailyComment(commentId, content, idx);
+        } else if (urlCommand.equals("/dailyCommentList.comment")) {
+            String idx = request.getParameter("idx");
+            DailyDao dao = new DailyDao();
+            List<DailyComment> commentList = dao.getDailyCommentList(idx);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            JSONArray jsonArray = new JSONArray();
+
+            for (int i = 0; i < commentList.size(); i++) {
+                String tempDate = dateFormat.format(commentList.get(i).getWriteDate());
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("no", commentList.get(i).getNo());
+                jsonObject.put("id", commentList.get(i).getId());
+                jsonObject.put("content", commentList.get(i).getContent());
+                jsonObject.put("writedate", tempDate);
+                jsonObject.put("idx_fk", commentList.get(i).getIdx());
+
+                jsonArray.add(jsonObject);
+            }
+
+            response.setContentType("application/x-json; charset=UTF-8");
+            response.getWriter().print(jsonArray);
+        } else if (urlCommand.equals("/dailyCommentDelete.comment")) {
+            String idx_fk = request.getParameter("idx_fk");
+            int no = Integer.parseInt(request.getParameter("no"));
+
+            try {
+
+                PrintWriter out = response.getWriter();
+
+                if (idx_fk == null) {
+                    out.print("<script>");
+                    out.print("alert('글번호가 넘어오지 않았습니다');");
+                    out.print("history.back();");
+                    out.print("</script>");
+                }
+
+                DailyDao dao = new DailyDao();
+                int result = dao.deleteDailyComment(no);
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());

@@ -19,7 +19,7 @@ import java.util.List;
 public class LostDao {
 
     DataSource ds = null;
-    String database = "oracle";
+    String database = "mysql";
     // String database에 oracle, mysql, myoracle 둘 중에 하나 입력
 
     public LostDao() {
