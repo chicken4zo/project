@@ -69,10 +69,7 @@ public class ProductBoardModifyService implements Action {
                 productBoard.setFilePath3(uploadpath);
 
 
-//                int result = dao.modifyProduct(productBoard);
-
                 int result = dao.modifyProduct(productBoard);
-
                 forward = new ActionForward();
                 forward.setRedirect(false);
                 forward.setPath("productList.board");

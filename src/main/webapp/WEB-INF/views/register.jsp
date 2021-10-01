@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: heewonseo
+  Date: 2021/09/27
+  Time: 23:15
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -39,27 +46,31 @@
         <div class="form-group">
             <form id="form1" action="RegisterOk.member" method="POST">
                 <label>아이디</label>
-                <input maxlength="20" id="id" name="id" class="login_input input" type="text">
+                <input maxlength="20" id="id" name="id" class="login_input input" type="text"
+                       title="3~16자리의 영문+숫자 조합으로 입력해주세요." required>
                 <button class="button search-btn" id="btn1" name="btn1" type="button">중복확인</button>
 
                 <label>이름</label>
-                <input maxlength="21" id="name" name="name" class="login_input input" type="text" required>
+                <input maxlength="21" id="name" name="name" class="login_input input" type="text" title="이름을 입력해주세요"
+                       required>
 
                 <label>패스워드</label>
-                <input maxlength="20" id="password" name="password" class="login_input input" type="password" required>
+                <input maxlength="20" id="password" name="password" class="login_input input" type="password"
+                       title="8~12자리의 영문+숫자+특수문자 조합으로 입력해주세요." required>
 
                 <label>패스워드 확인</label>
                 <input maxlength="20" id="password2" name="password2" class="login_input input" type="password"
+                       title="위와 일치하는 패스워드를 입력해주세요"
                        required>
 
                 <label>주소</label>
-                <input type="text" id="address" name="address" class="login_input input" required>
+                <input type="text" id="address" name="address" class="login_input input" required readonly>
                 <input type="button" class="button search-btn" onclick="sample6_execDaumPostcode()" value="검색">
 
 
                 <label>생년월일</label>
                 <input type="text" maxlength="8" id="birth" name="birth" class="login_input input"
-                       placeholder="&nbsp;8자리를 입력하세요 예)19990101" required>
+                       placeholder="&nbsp;8자리를 입력하세요 예)19990101" title="생년월일은 8자리(YYYYMMDD) 로 입력해주세요" required>
 
                 <div class="btn btn_wrap">
                     <button id="submit" type="submit" class="button">회원가입</button>
@@ -114,31 +125,17 @@
 
     $(document).ready(function () {
 
-        //아이디 유효성 검사
-        function NameCheck() {
-            const name = $('#name').val();
-            const kor = name.search(/^[가-힣]+$/g);
+        $('#form1').submit(function () {
+            const id = RegExp(/^[a-zA-Z0-9]{3,16}$/)
+            const id_val = $('#id').val();
 
-            if (name.length < 1 || name.length > 20) {
-                $('.tdname').text("1글자 이상 20글자 이하로 입력해주세요.")
+            if (!id.test(id_val)) {
+                alert("아이디 : 3~16자리의 영문+숫자 조합으로 입력해주세요.")
+                $('#id').focus();
                 return false;
-            } else if (name.search(/\s/) != -1) {
-                $('.tdname').text("공백은 입력할 수 없습니다");
-                return false;
-            } else if (kor < 0) {
-                $('.tdname').text("한글만 입력해 주세요.")
-                return false;
-            } else {
-                $('.tdname').text("");
-                return true;
             }
 
-        }
-
-        $('#name').on('keyup', NameCheck);
-
-        // 비밀번호 유효성 검사
-        function CheckPw() {
+            //    비밀번호 유효성
             const password = $('#password').val();
             const num = password.search(/[0-9]/g);
             const eng = password.search(/[0-9]/ig);
@@ -146,45 +143,29 @@
             const text = "";
             //1. 6자리 ~12자리
             if (password.length < 8 || password.length > 12) {
-                $('.tdpw').text("8-12자리 이내로 입력하세요");
+                alert("비밀번호 : 8-12자리 이내로 입력하세요");
+                $('#password').focus();
                 return false;
             } else if (password.search(/\s/) != -1) {
-                $('.tdpw').text("공백은 입력할 수 없습니다");
+                alert("비밀번호 : 공백은 입력할 수 없습니다");
+                $('#password').focus();
                 return false;
             } else if (num < 0 || eng < 0 || space < 0) {
-                $('.tdpw').text("영어,숫자,특수문자를 포함해주세요:)");
+                alert("비밀번호 : 영어,숫자,특수문자를 포함해주세요:)");
+                $('#password').focus();
                 return false;
-            } else {
-                $('.tdpw').text("");
-                return true;
             }
-            if (password == '') {
-                alert('비밀번호를 입력하세요');
-            }
-        }
 
-        /* 비밀번호 일치 체크 */
-        function CheckPw2() {
+            //  비밀번호 일치 체크
             const check = $('#password2').val();
-            const password = $('#password').val();
             if (!(check === password)) {
-                $('.tdpwch').text("비밀번호가 일치하지 않습니다");
+                alert("비밀번호를 확인해주세요");
                 return false;
-            } else {
-                $('.tdpwch').text("비밀번호가 일치합니다 :)");
-                return true;
             }
 
-            if (check == '') {
-                alert('비밀번호를 입력하세요');
-            }
-        }
 
-        $('#password').on('keyup', CheckPw);
-        $('#password2').on('keyup', CheckPw2);
+            //    생년월일
 
-
-        function isBirthday() {
             console.log("여기는 탑니까?");
             const birth = $('#birth').val();
             const birthreg = birth.search(/[0-9]/g);
@@ -196,28 +177,31 @@
             var yearNow = today.getFullYear(); // 올해 연도 가져옴
 
             if (birth.length < 7) { //연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
-                $('.tdbirth').text("생년월일은 8자리(YYYY/MM/DD 로 입력해주세요.");
+                alert("생년월일은 8자리(YYYY/MM/DD 로 입력해주세요.");
+                $('#birth').focus();
                 return false;
             } else if (1900 > year || year > yearNow) {
-                $('.tdbirth').text("제대로된 년도를 입력해주세요");
+                alert("생년월일 : 년도를 확인해주세요");
+                $('#birth').focus();
                 return false;
             } else if (month < 1 || month > 12) {
-                $('.tdbirth').text("제대로된 월을 입력해주세요");
+                alert("생년월일 : 월을 확인해주세요");
+                $('#birth').focus();
                 return false;
             } else if (day < 1 || day > 31) {
                 console.log("여기는 탑니까1?");
-                $('.tdbirth').text("제대로된 일을 입력해주세요");
+                alert("생년월일 : 일을 확인해주세요");
+                $('#birth').focus();
                 return false;
             } else if (birthreg < 0) {
-                $('.tdbirth').text("숫자만 입력해주세요");
+                alert("생년월일 : 숫자만 입력해주세요");
+                $('#birth').focus();
                 return false;
-            } else {
-                $('.tdbirth').text("");
-                return true;
             }
-        }
 
-        $('#birth').on('keyup', isBirthday);
+
+        });
+
     });
 
     function sample6_execDaumPostcode() {

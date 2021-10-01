@@ -7,7 +7,6 @@ body {
     width: 900px;
     margin: auto;
 }
-
 .product-wrap {
     height: 100%;
     margin-right: 16px;
@@ -15,13 +14,13 @@ body {
     align-items: center;
 }
 
-
 .title {
-    font-family: 'Jua', sans-serif;
     color: #8B425A;
-    font-size: 24px;
-    margin-left: 120px;
-    margin-top: 40px;
+    font-size: 29px;
+    margin-top: 30px;
+    margin-left: 116px;
+    font-family: 'Jua', sans-serif;
+
 }
 
 .product-btn {
@@ -73,7 +72,6 @@ body {
 ol, ul {
     list-style: none;
 }
-
 .info-title {
     width: 100%;
     display: flex;

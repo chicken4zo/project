@@ -9,9 +9,9 @@
              style="cursor:pointer;">
         <div id="header_search">
             <div class="sel sel--black-panther">
-                <select name="select-profession" id="select-profession" onchange="location.href=this.value">
+                <select name="select-profession" id="select-profession" onchange="window.open(value, '_self');">
                     <option value="" disabled>게시판</option>
-                    <option value="http://www.webmadang.net">상품</option>
+                    <option value="${pageContext.request.contextPath}/productForm.board">상품</option>
                     <option value="2">일상</option>
                     <option value="3">분실·실종</option>
                     <option value="4">반려동물</option>
@@ -37,7 +37,7 @@
                     <li>공지사항</li>
                 </a>
             </ul>
-            <a href="Register.member">
+            <a href="${pageContext.request.contextPath}/Register.member">
                 <div class="register_btn">Register</div>
             </a>
             <a href="${pageContext.request.contextPath}/Login.member">
@@ -48,6 +48,9 @@
 </header>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
+<script>
+    function moveurl(url) {
+        locstion.href = url;
+    }
+</script>
 
