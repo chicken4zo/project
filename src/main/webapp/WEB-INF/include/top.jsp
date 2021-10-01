@@ -27,10 +27,10 @@
                 <a href="${pageContext.request.contextPath}/productForm.board">
                     <li>상품등록</li>
                 </a>
-                <a href="#">
+                <a href="dailyList.board">
                     <li>우리동네</li>
                 </a>
-                <a href="#">
+                <a href="LoginLogout">
                     <li>구마차트</li>
                 </a>
                 <a href="#">

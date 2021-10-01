@@ -23,9 +23,12 @@
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
     <style>
-        .product-photo::before {
-            background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
-        }
+		.product-photo {
+			background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
+			background-size: 20%;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
     </style>
 
     <!-- ckeditor -->
@@ -48,8 +51,6 @@
                 <section class="product-wrap">
                     <!--    <h2>글쓰기</h2>-->
                     <ul class="product-info">
-
-
                         <li class="info-title idAddress">
                             <div class="info-detail">아이디</div>
                             <input type="text" name="id" placeholder="!!!아이디 불러오기" class="write-title" readonly>
@@ -82,13 +83,16 @@
                             <div class="info-detail">이미지</div>
 
                             <div class="product-photo">
-                                <input name="filename1" type="file" accept="image/jpeg, image/png, image/jpg" multiple>
+                                <input name="filename1" type="file" class="files"
+                                       accept="image/jpeg, image/png, image/jpg">
                             </div>
                             <div class="product-photo">
-                                <input name="filename2" type="file" accept="image/jpeg, image/png, image/jpg" multiple>
+                                <input name="filename2" type="file" class="files"
+                                       accept="image/jpeg, image/png, image/jpg">
                             </div>
                             <div class="product-photo">
-                                <input name="filename3" type="file" accept="image/jpeg, image/png, image/jpg" multiple>
+                                <input name="filename3" type="file" class="files"
+                                       accept="image/jpeg, image/png, image/jpg">
                             </div>
                         </li>
 
@@ -98,7 +102,7 @@
                             </div>
                             <textarea name="content" id="editor"></textarea>
                             <script>
-                                //CKEditor5를 생성할 textarea 지정
+			                    //CKEditor5를 생성할 textarea 지정
                                 ClassicEditor
                                     .create(document.querySelector('#editor'))
                                     .catch(error => {
@@ -122,9 +126,6 @@
 
 </body>
 <!--bootstrp js-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -135,4 +136,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/index.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+<script>
+	$('.files').on("change", fileChange);
+
+	function fileChange(e) {
+		const files = e.target.files;
+		const filesArr = Array.prototype.slice.call(files);
+		const productPhoto = $(this).parent('.product-photo');
+
+		filesArr.forEach(function (f) {
+			const reader = new FileReader();
+			reader.onload = function (e) {
+				productPhoto.css({
+					"background": "url(" + e.target.result + ")",
+					'background-repeat': 'no-repeat',
+					'background-position': 'center center',
+					'background-size': 'cover'
+				});
+			}
+			reader.readAsDataURL(f);
+		});
+	}
+</script>
 </html>
