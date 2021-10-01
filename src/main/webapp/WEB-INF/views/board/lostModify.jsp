@@ -110,4 +110,13 @@
 <%--    <input type="submit" value="수정">--%>
 <%--</form>--%>
 </body>
+<script>
+	const photo = document.querySelector(".product-photo");
+	const file = document.querySelector("#file");
+	const importedFile =
+	${lostBoard.fileName}
+	if (importedFile !== null) {
+
+	}
+</script>
 </html>
