@@ -37,7 +37,7 @@
                     <li>공지사항</li>
                 </a>
             </ul>
-            <a href="#">
+            <a href="Register.member">
                 <div class="register_btn">Register</div>
             </a>
             <a href="#">
