@@ -1,122 +1,117 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: heewonseo
-  Date: 2021/09/27
-  Time: 23:15
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#btn1').on('click', function () {
-                const actionurl = $('#form1').attr("action");
-                $.ajax({
-                    type: 'POST',
-                    url: '${pageContext.request.contextPath}/IdCheck.member',
-                    data: {"id": $('#id').val()},
-                    success: function (data) {
-                        if ($.trim(data) == 0) {
-                            alert('사용가능한 아이디 입니다.');
-                        } else {
-                            alert('사용불가, 다른 아이디를 입력해주세요.');
-                        }
-
-                    }
-                });
-            });
-        });
-
-    </script>
-
+    <title>고민하지말구, 고구마켓</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/mypage.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- fontawesome  -->
+    <script src="https://kit.fontawesome.com/a959489452.js" crossorigin="anonymous"></script>
+    <!--font-->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <!--weather icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
 </head>
 <body>
-<form id="form1" action="RegisterOk.member" method="post">
-    <table>
-        <tr>
-            <th colspan="2" class="title">회원가입</th>
-        </tr>
-        <tr>
-            <th>아이디</th>
-            <td>
-                <input type="text" maxlength="20" id="id" name="id" placeholder="아이디를 입력하세요"
-                       required="required">
-                <button class="w-20 btn btn-sm btn-warning" id="btn1" name="btn1" type="button">중복체크</button>
-                <div id="divid"></div>
-            </td>
-            <td class="tdid"></td>
+<div id="body_wrap">
+    <div class="wrapper">
+        <!--header-->
+        <jsp:include page="/WEB-INF/include/top.jsp"/>
 
-        </tr>
+        <%--weather--%>
+        <jsp:include page="/WEB-INF/include/weather.jsp"/>
 
+        <!--content-->
+        <div style="text-align: center; margin-top: 60px">
+            <img src="${pageContext.request.contextPath}/assets/images/registerlogo.png" width="35%" height="35%">
+        </div>
+        <div class="form-group">
+            <form id="form1" action="RegisterOk.member" method="POST">
+                <label>아이디</label>
+                <input maxlength="20" id="id" name="id" class="login_input input" type="text">
+                <button class="button search-btn" id="btn1" name="btn1" type="button">중복확인</button>
 
-        <tr>
-            <th>이름</th>
-            <td>
-                <input type="text" maxlength="21" id="name" name="name" required="required"
-                       placeholder="이름을 입력하세요">
+                <label>이름</label>
+                <input maxlength="21" id="name" name="name" class="login_input input" type="text" required>
 
-            </td>
-            <td class="tdname"></td>
-        </tr>
+                <label>패스워드</label>
+                <input maxlength="20" id="password" name="password" class="login_input input" type="password" required>
 
-        <tr>
-            <th>패스워드</th>
-            <td>
-                <input type="password" maxlength="20" id="password" name="password"
-                       placeholder="비밀번호를 입력하세요" required="required">
-
-            </td>
-            <td class="tdpw"></td>
-
-        </tr>
-
-        <tr>
-            <th>패스워드 확인</th>
-            <td><input type="password" maxlength="20" id="password2" name="password2" title="패스워드 확인"
+                <label>패스워드 확인</label>
+                <input maxlength="20" id="password2" name="password2" class="login_input input" type="password"
                        required>
 
-            </td>
-            <td class="tdpwch"></td>
-        </tr>
+                <label>주소</label>
+                <input type="text" id="address" name="address" class="login_input input" required>
+                <input type="button" class="button search-btn" onclick="sample6_execDaumPostcode()" value="검색">
 
-        <tr>
-            <th>생년월일</th>
-            <td>
-                <input type="text" maxlength="8" id="birth" name="birth" title="생년월일" placeholder="생년월일 입력"
-                       required="required">
-            </td>
-            <td class="tdbirth"></td>
-        </tr>
 
-        <tr>
-            <th>주소</th>
-            <td>
-                <input type="text" id="address" name="address" placeholder="주소" required="required">
-                <input type="button" onclick="sample6_execDaumPostcode()" value="주소찾기"><br>
+                <label>생년월일</label>
+                <input type="text" maxlength="8" id="birth" name="birth" class="login_input input"
+                       placeholder="&nbsp;8자리를 입력하세요 예)19990101" required>
 
-            </td>
+                <div class="btn btn_wrap">
+                    <button id="submit" type="submit" class="button">회원가입</button>
+                    <button type="reset" class="button" id="cancel">취소</button>
+                </div>
+            </form>
+        </div>
 
-        </tr>
 
-        <tr>
-            <td colspan="2">
-                <button class="w-100 btn btn-lg btn-warning" id="submit" type="submit">회원가입</button>
-                <input type="reset" value="입력취소">
-            </td>
-        </tr>
-    </table>
-</form>
+    </div>
+</div>
+<%--footer--%>
+<jsp:include page="/WEB-INF/include/footer.jsp"/>
+
 </body>
+<!--bootstrp js-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $('#btn1').on('click', function () {
+            const actionurl = $('#form1').attr("action");
+            $.ajax({
+                type: 'POST',
+                url: '${pageContext.request.contextPath}/IdCheck.member',
+                data: {"id": $('#id').val()},
+                success: function (data) {
+                    if ($.trim(data) == 0) {
+                        alert('사용가능한 아이디 입니다.');
+                    } else {
+                        alert('사용불가, 다른 아이디를 입력해주세요.');
+                    }
+
+                }
+            });
+        });
+    });
+
+    // 유효성 검사 ---
+
     $(document).ready(function () {
 
         //아이디 유효성 검사
@@ -245,30 +240,11 @@
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("address").value = addr;
 
-
             }
         }).open();
     }
 
-
 </script>
 
-<style>
-    body {
-        font-family: "malgun gothic";
-        font-size: 9pt;
-    }
-
-    th {
-        text-align: right;
-        background-color: #dbdbdb
-    }
-
-    th.title {
-        text-align: center;
-        font-size: 12pt;
-        background-color: #ffffff;
-    }
-</style>
 
 </html>

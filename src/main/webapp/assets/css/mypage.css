@@ -10,7 +10,7 @@ img {
 
 .form-group {
     background-color: white;
-    width: 400px;
+    /*width: 400px;*/
     /*height: 550px;*/
     border-radius: 60px;
     margin: 0 auto;
@@ -18,15 +18,19 @@ img {
     position: relative;
 }
 
+#id {
+    /*margin-left: 72px;*/
+}
+
 .form-group form label {
     display: block;
     text-align: left;
     padding: 25px 0 10px 0;
     font-weight: bold;
-    margin-left: 55px
+    margin-left: 457px
 }
 
-.form-group input {
+.input {
     width: 300px;
     height: 40px;
     border-radius: 20px;
@@ -42,6 +46,17 @@ img {
 .title h1 {
     font-family: 'Jua', sans-serif;
     color: #8B425A;
+}
+
+.btn_check {
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    border-radius: 10px;
+}
+
+.btn_wrap {
+    display: block !important;
 }
 
 .btn .button {
@@ -84,18 +99,24 @@ img {
     font-family: 'Jua', sans-serif;
 }
 
+button:focus {
+    border: none;
+    outline: none;
+}
 
-#search-btn {
+.search-btn {
     position: absolute;
     color: #8B425A;
     background-color: white;
-    height: 35px;
-    width: 50px;
+    width: 73px;
     text-align: center;
     border-radius: 20px;
     border: 1px solid #8B425A;
     margin-left: 5px;
     font-family: 'Jua', sans-serif;
+    padding-top: 5px;
+    letter-spacing: 1px;
+    margin-top: 5px;
 }
 
 label {
@@ -124,7 +145,6 @@ label {
     width: calc(33% - 16px);
     margin-right: 16px;
 }
-
 .post .post-photo {
     width: 100%;
     padding-top: 100%;
@@ -135,7 +155,6 @@ label {
     box-shadow: inset 0px 0px 0px 1px rgba(0 0 0 0.15);
     box-sizing: border-box;
 }
-
 .post .post-photo img {
     position: absolute;
     top: 0;
@@ -146,7 +165,6 @@ label {
     border: 1px solid transparent;
     border-color: #b7b7b7;
 }
-
 .post-desc {
     margin-top: 12px;
 }
