@@ -21,7 +21,6 @@ public class RegisterService implements Action {
         System.out.println("어디가 오류야 ");
 
         ActionForward forward = new ActionForward();
-
         MemberDao memberDao = new MemberDao();
         Member memberDto = new Member();
 

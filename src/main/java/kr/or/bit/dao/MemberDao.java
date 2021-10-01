@@ -23,7 +23,7 @@ public class MemberDao {
         int resultRow = 0;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection("oracle");
             String sql = "insert into member(id,password,address,birth,name) values(?,?,?,?,?)";
             pstmt = conn.prepareStatement(sql);
 
@@ -56,7 +56,7 @@ public class MemberDao {
 
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection("oracle");
             String sql = "select id,password from member where id=?";
             System.out.println("여기는2");
             pstmt = conn.prepareStatement(sql);
@@ -103,7 +103,7 @@ public class MemberDao {
 
         try (
 
-                Connection conn = ConnectionHelper.getConnection("mysql");
+                Connection conn = ConnectionHelper.getConnection("oracle");
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
             pstmt.setString(1, "%" + id + "%");
