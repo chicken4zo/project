@@ -4,7 +4,7 @@
 <!--header-->
 <header>
     <div id="header_wrap">
-        <img id="logo_img" src="/assets/images/gogu_logo.png" alt="logo" onclick="location.href='index.html';"
+        <img id="logo_img" src="assets/images/gogu_logo.png" alt="logo" onclick="location.href='index.html';"
              style="cursor:pointer;">
         <div id="header_search">
             <div class="sel sel--black-panther">
@@ -36,10 +36,10 @@
                     <li>공지사항</li>
                 </a>
             </ul>
-            <a href="#">
+            <a href="Register.member">
                 <div class="register_btn">Register</div>
             </a>
-            <a href="#">
+            <a href="Login.member">
                 <div class="myPage_btn">My GUMA</div>
             </a>
         </div>
