@@ -58,7 +58,6 @@
                                 <button id="delete" class="write-btn">삭제</button>
                             </c:if>
                             <input type="hidden" name="originalfile" value="${lostBoard.fileName}">
-                            <c:if test="${}"
                             <c:set target="${lostBoard.fileName}" property="name" value=""/>
                         </li>
                         <li class="info-title">

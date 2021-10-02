@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="lostlist" value="${requestScope.lostList}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
@@ -86,8 +87,18 @@
                                                     RE:
                                                 </c:if>
                                                 <a href="lostContent.board?idx=${lost.idx}&id=${lost.id}&cp=${cpage}&ps=${pagesize}">
-                                                        ${lost.title}
+                                                    <c:choose>
+                                                        <c:when test="${lost.title != null && fn:length(lost.title) > 10}">
+                                                            ${fn:substring(lost.title,0,10)}...
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${lost.title}
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </a>
+                                                <c:if test="${not empty lost.fileName}">
+                                                    <i class="far fa-image" style="margin-left: 5px"></i>
+                                                </c:if>
                                             </td>
                                             <td>${lost.id}</td>
                                             <td>${lost.address}</td>
@@ -104,108 +115,7 @@
                                     <td>등록된 글이 없습니다</td>
                                 </c:otherwise>
                             </c:choose>
-                            <%--                            <tr>--%>
-                            <%--                                <td>--%>
-                            <%--                                    1--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Dakota Rice--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Niger--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Oud-Turnhout--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    $36,738--%>
-                            <%--                                </td>--%>
-                            <%--                            </tr>--%>
-                            <%--                            <tr>--%>
-                            <%--                                <td>--%>
-                            <%--                                    2--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Minerva Hooper--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Curaçao--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Sinaai-Waas--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    $23,789--%>
-                            <%--                                </td>--%>
-                            <%--                            </tr>--%>
-                            <%--                            <tr>--%>
-                            <%--                                <td>--%>
-                            <%--                                    3--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Sage Rodriguez--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Netherlands--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Baileux--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    $56,142--%>
-                            <%--                                </td>--%>
-                            <%--                            </tr>--%>
-                            <%--                            <tr>--%>
-                            <%--                                <td>--%>
-                            <%--                                    4--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Philip Chaney--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Korea, South--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Overland Park--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    $38,735--%>
-                            <%--                                </td>--%>
-                            <%--                            </tr>--%>
-                            <%--                            <tr>--%>
-                            <%--                                <td>--%>
-                            <%--                                    5--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Doris Greene--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Malawi--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Feldkirchen in Kärnten--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    $63,542--%>
-                            <%--                                </td>--%>
-                            <%--                            </tr>--%>
-                            <%--                            <tr>--%>
-                            <%--                                <td>--%>
-                            <%--                                    6--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Mason Porter--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Chile--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    Gloucester--%>
-                            <%--                                </td>--%>
-                            <%--                                <td>--%>
-                            <%--                                    $78,615--%>
-                            <%--                                </td>--%>
-                            <%--                            </tr>--%>
+
                             </tbody>
                         </table>
                     </div>

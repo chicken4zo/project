@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="dailylist" value="${requestScope.dailyList}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
@@ -40,20 +41,8 @@
         <!--header-->
         <jsp:include page="../../include/top.jsp"/>
         <!-- weather -->
-        <article class="widget">
-            <div class="weatherIcon">
-                <div class="date">
-                    <h4 class="month" id="month"></h4>
-                    <h5 class="day" id="day"></h5>
-                </div>
-                <!--        <i class="wi wi-night-fog"></i>-->
-                <h1 id="temp" class="temperature">25&deg;</h1>
-            </div>
-            <div class="weatherData">
-                <h2 class="description">오늘,<br> 우리 동네는</h2>
-                <h3 class="city" id="comment">KR, Seochodong</h3>
-            </div>
-        </article>
+        <jsp:include page="../../include/weather.jsp"/>
+
 
         <!--content-->
         <div class="board-logo">
@@ -98,11 +87,25 @@
                                                     RE:
                                                 </c:if>
                                                 <a href="dailyContent.board?idx=${daily.idx}&id=${daily.id}&cp=${cpage}&ps=${pagesize}">
-                                                        ${daily.title}
+                                                    <c:choose>
+                                                        <c:when test="${daily.title != null && fn:length(daily.title) > 10}">
+                                                            ${fn:substring(daily.title,0,10)}...
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${daily.title}
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </a>
+                                                <c:if test="${not empty daily.fileName}">
+                                                    <i class="far fa-image" style="margin-left: 5px"></i>
+                                                </c:if>
                                             </td>
                                             <td>${daily.id}</td>
                                             <td>${daily.address}</td>
+
+                                                <%--    <c:if test="${lost.fileName!='empty'}">--%>
+                                                <%--        <img src="assets/upload/${lost.fileName}"/>--%>
+                                                <%--    </c:if>--%>
                                             <td>${daily.writeDate}</td>
                                             <td>${daily.hit}</td>
                                         </tr>
@@ -112,6 +115,108 @@
                                     <td>등록된 글이 없습니다</td>
                                 </c:otherwise>
                             </c:choose>
+                            <%--                            <tr>--%>
+                            <%--                                <td>--%>
+                            <%--                                    1--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Dakota Rice--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Niger--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Oud-Turnhout--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    $36,738--%>
+                            <%--                                </td>--%>
+                            <%--                            </tr>--%>
+                            <%--                            <tr>--%>
+                            <%--                                <td>--%>
+                            <%--                                    2--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Minerva Hooper--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Curaçao--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Sinaai-Waas--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    $23,789--%>
+                            <%--                                </td>--%>
+                            <%--                            </tr>--%>
+                            <%--                            <tr>--%>
+                            <%--                                <td>--%>
+                            <%--                                    3--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Sage Rodriguez--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Netherlands--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Baileux--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    $56,142--%>
+                            <%--                                </td>--%>
+                            <%--                            </tr>--%>
+                            <%--                            <tr>--%>
+                            <%--                                <td>--%>
+                            <%--                                    4--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Philip Chaney--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Korea, South--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Overland Park--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    $38,735--%>
+                            <%--                                </td>--%>
+                            <%--                            </tr>--%>
+                            <%--                            <tr>--%>
+                            <%--                                <td>--%>
+                            <%--                                    5--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Doris Greene--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Malawi--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Feldkirchen in Kärnten--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    $63,542--%>
+                            <%--                                </td>--%>
+                            <%--                            </tr>--%>
+                            <%--                            <tr>--%>
+                            <%--                                <td>--%>
+                            <%--                                    6--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Mason Porter--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Chile--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    Gloucester--%>
+                            <%--                                </td>--%>
+                            <%--                                <td>--%>
+                            <%--                                    $78,615--%>
+                            <%--                                </td>--%>
+                            <%--                            </tr>--%>
                             </tbody>
                         </table>
                     </div>
@@ -126,9 +231,9 @@
         </nav>
     </div>
 </div>
-<footer>
-    <p>Copyright © 2021 chicken 4JO. All rights reserved.</p>
-</footer>
+<jsp:include page="../../include/footer.jsp"/>
+
+
 </body>
 <!-- bootstrap4 -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

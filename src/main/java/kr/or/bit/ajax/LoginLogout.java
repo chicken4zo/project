@@ -19,7 +19,7 @@ public class LoginLogout extends HttpServlet {
         System.out.println("쳌1");
 
         if (id != null) {
-            out.print("<a href=/Register.member>");
+            out.print("<a href=/mypage.member>");
             out.print("<div class=\"register_btn\">My Guma</div>");
             out.print("</a>");
             out.print("<a href=/LogOut.member>");

@@ -1,228 +1,223 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: heewonseo
-  Date: 2021/09/27
-  Time: 23:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-<% pageContext.setAttribute("newLineChar", "\n"); %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>board : content</title>
-  <link rel="Stylesheet" href="${pageContext.request.contextPath}/style/default.css"/>
-  <!-- js -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <title>고민하지말구, 고구마켓</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/productPetContent.css">
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- fontawesome  -->
+  <script src="https://kit.fontawesome.com/a959489452.js" crossorigin="anonymous"></script>
+  <!--font-->
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+  <!--weather icon-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
+
+
 </head>
 <body>
-
-<c:set var="idx" value="${requestScope.idx}"></c:set>
-<c:set var="board" value="${requestScope.board}"></c:set>
-<c:set var="cpage" value="${requestScope.cpage}"></c:set>
-<c:set var="pagesize" value="${requestScope.pagesize}"></c:set>
+<c:set var="idx" value="${requestScope.idx}"/>
+<c:set var="board" value="${requestScope.board}"/>
+<c:set var="cpage" value="${requestScope.cpage}"/>
+<c:set var="pagesize" value="${requestScope.pagesize}"/>
 <c:set var="commentList" value="${requestScope.commentList}"/>
+<c:set var="id" value="${sessionScope.id}"/>
+
+<div id="body_wrap">
+  <div class="wrapper">
+    <!--header-->
+    <jsp:include page="/WEB-INF/include/top.jsp"/>
+
+    <%--weather--%>
+    <jsp:include page="/WEB-INF/include/weather.jsp"/>
+
+    <!--content-->
+    <div class="title_container">맛있구마</div>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <!--product details-->
+              <c:choose>
+
+                <c:when test="${not empty board.fileName}">
+                  <div class="row">
+                    <!--image space-->
+                    <!-- Gallery -->
+                    <div id="js-gallery" class="gallery col-xl-5 col-lg-6 text-center">
+
+                      <!--Gallery Hero-->
+                      <div class="gallery__hero parent">
+
+                        <img class="slide w-100 border-radius-lg shadow-lg mx-auto"
+                             src="assets/upload/${board.fileName}">
+                      </div>
+                      <!--Gallery Hero-->
+
+                    </div>
+
+                    <!--.gallery-->
+                    <!-- Gallery -->
+                    <div class="col-lg-5 mx-auto">
+                      <div class="titleContainer">
+                        <h5 class="mb-0 mt-3" style="font-size: 1.6rem">${board.title}</h5>
+                      </div>
+                      <div class="idAddr">
+                        <h4 class="mt-lg-0 mt-4 id">${board.id}</h4>
+                        <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>
+                            ${board.address}
+                        </h5>
+                      </div>
+                      <div class="detail_bar"></div>
+                      <ul class="view_icon">
+                        <li><i class="fas fa-eye"></i><span>${board.hit}</span></li>
+                        <li><i class="far fa-calendar-alt"></i><span>${board.writeDate}</span>
+                        </li>
+                      </ul>
+                      <div class="content">
+                          ${board.content}
+                      </div>
+
+                    </div>
+                  </div>
+                </c:when>
+                <c:otherwise>
+                  <div class="row">
 
 
-<div id="pageContainer">
-  <div style="padding-top: 30px; text-align: center; margin: 0 auto;">
-    <center>
-      <b>게시판 글내용</b>
-      <table width="80%" border="1">
-        <tr>
-          <td width="20%" align="center"><b> 글번호 </b></td>
-          <td width="30%">${idx}</td>
-          <td width="20%" align="center"><b>작성일</b></td>
-          <td>${board.writeDate}</td>
-        </tr>
-        <tr>
-          <td width="20%" align="center"><b>글쓴이</b></td>
-          <td width="30%">${board.id}</td>
-          <td width="20%" align="center"><b>조회수</b></td>
-          <td>${board.hit}</td>
-        </tr>
-        <tr>
-          <td width="20%" align="center">미리보기</td>
-          <td width="80%" align="left"><img id="preview" src="" width="300" alt=""></td>
-        </tr>
-        <tr>
-          <!-- 첨부파일 <file> -->
-          <td width="20%" align="center"><b>첨부파일</b></td>
-          <td>
-            <c:set var="originalfilename" value="${board.fileName}"/>
-            <c:set var="lowerfilename" value="${fn:toLowerCase(originalfilename)}"/>
-            <c:forTokens var="file" items="${lowerfilename}" delims="." varStatus="status">
-              <c:if test="${status.last}">
-                <c:choose>
-                  <c:when test="${empty board.fileName || board.fileName eq 'null'}">
-                    첨부파일이 없습니다
-                  </c:when>
-                  <c:when test="${file eq 'jpg' || file eq 'png' || file eq 'gif'}">
-                    <a href="upload/${originalfilename}" target="_blank">이미지 클릭해서 보기</a>
-                  </c:when>
-                  <c:otherwise>
-                    <a href="filedownload.board?fileName=${originalfilename}" id="download">${originalfilename}</a>
-                  </c:otherwise>
-                </c:choose>
-              </c:if>
-            </c:forTokens>
-          </td>
-          <!-- 첨부파일 <file> -->
-        </tr>
-        <tr>
-          <td width="20%" align="center"><b>제목</b></td>
-          <td colspan="3">${board.title}</td>
-        </tr>
-        <tr height="100">
-          <td width="20%" align="center"><b>글내용</b></td>
-          <td colspan="3">${fn:replace(board.content, newLineChar,"<br>")}</td>
-        </tr>
-        <tr>
-          <td colspan="4" align="center">
-            <a href="RestaurantList.board?cp=${cpage}&ps=${pagesize}">목록가기</a> |
-            <a href="RestaurantEdit.board?idx=${idx}&cp=${cpage}&ps=${pagesize}">편집</a> |
-            <a href="RestaurantDelete.board?idx=${idx}&cp=${cpage}&ps=${pagesize}">삭제</a>
-          </td>
-        </tr>
-      </table>
-      <!--  꼬리글 달기 테이블 -->
-      <form name="reply" method="POST">
-        <!-- hidden 태그  값을 숨겨서 처리  -->
-        <input type="hidden" name="idx" value="${idx}" id="idx">
-        <input type="hidden" name="userid" value="">
-        <!-- 추후 필요에 따라  -->
-        <!-- hidden data -->
-        <table width="80%" border="1">
-          <tr>
-            <th colspan="2">덧글 쓰기</th>
-          </tr>
-          <tr>
-            <td align="left">작성자 : <input type="text"
-                                          name="id" id="id"><br/> 내&nbsp;&nbsp;용 : <textarea
-                    name="comment" rows="2" cols="50" id="comment"></textarea>
-            </td>
-            <td align="right">댓글등록 <input type="button" value="등록" id="commentbtn">
-            </td>
-          </tr>
-        </table>
-      </form>
-      <!-- 유효성 체크	 -->
-      <br>
-      <!-- 꼬리글 목록 테이블 -->
-      <table width="80%" border="1">
-        <thead>
-        <tr>
-          <th colspan="2">COMMENT LIST</th>
-        </tr>
-        <thead>
-        <tbody id="tbody">
-        <tr align="left">
-          <td>등록된 댓글이 없습니다</td>
-        </tr>
-        </tbody>
-      </table>
-    </center>
+                    <!--.gallery-->
+                    <!-- Gallery -->
+                    <div class="col-12" style="padding: 0px 32px">
+                      <div class="titleContainer">
+                        <h5 class="mb-0 mt-3">${board.title}</h5>
+                      </div>
+                      <div class="idAddr">
+                        <h4 class="mt-lg-0 mt-4 id">${board.id}</h4>
+                        <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>
+                            ${board.address}
+                        </h5>
+                      </div>
+                      <div class="detail_bar" style="width: 100%"></div>
+                      <ul class="view_icon">
+                        <li><i class="fas fa-eye"></i><span>${board.hit}</span></li>
+                        <li><i class="far fa-calendar-alt"></i><span>${board.writeDate}</span>
+                        </li>
+                      </ul>
+                      <div class="content">
+                          ${board.content}
+                      </div>
+
+                    </div>
+                  </div>
+
+                </c:otherwise>
+              </c:choose>
+              <div class="row mt-5">
+                <div class="col-12">
+                  <div class="ms-3 button_container">
+                    <%--                                        <c:set value="${sessionScope.id}" var="id"/>--%>
+                    <c:if test="${board.id eq id}">
+                      <button type="button" class="btn btn-warning btn-sm"
+                              onclick="location.href='RestaurantEdit.board?idx=${idx}&cp=${cpage}&ps=${pagesize}'">
+                        <i class="fas fa-pen"></i>
+                        <span>수정</span>
+                      </button>
+                      <button type="button" class="btn btn-danger btn-sm"
+                              onclick="location.href='RestaurantDelete.board?idx=${idx}&cp=${cpage}&ps=${pagesize}'">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>삭제</span>
+                      </button>
+                    </c:if>
+                    <button type="button" class="btn btn-primary btn-sm"
+                            onclick="location.href='RestaurantList.board?cp=${cpage}&ps=${pagesize}'">
+                      <i class="fas fa-list-ul"></i>
+                      <span>목록</span>
+                    </button>
+
+                  </div>
+                  <!--댓글-->
+                  <div class="bottom_bar"></div>
+                  <div>
+                    <i class="far fa-comment-dots"></i>
+                    <span>댓글</span>
+                  </div>
+                  <!--댓글 리스트-->
+                  <div class="commentList_wrap">
+
+                    <div class="commentList">
+                      <h2>ID</h2>
+                      <p>내용 The most beautiful curves of this swivel stool adds an elegant touch
+                        to
+                        any environment Memory swivel seat returns to original seat position
+                        Comfortable integrated layered chair seat cushion design Fully
+                        assembled! No
+                        assembly required</p>
+                      <h4>2021. 09. 30</h4>
+                      <input type="button" value="삭제" onclick="">
+
+                    </div>
+                  </div>
+                  <!-- replylist_wrap END -->
+
+                  <!--reply write-->
+                  <form name="lostComment" method="POST" id="lostComment">
+                    <div class="commentWrite_Wrap">
+                      <input type="hidden" name="idx" id="idx" value="${idx}">
+                      <input type="hidden" name="writerid" id="id" value="${board.id}">
+                      <h2>${id}</h2>
+                      <input type="hidden" name="commentid" id="commentId" value="${id}">
+                      <textarea name="content" id="commentContent" placeholder="댓글을 남겨보세요"
+                                class="comment_inbox" rows="4"
+                                cols="140"></textarea>
+                      <input type="button" value="등록" id="commentWriteBtn"> <!-- onclick 유효성체크 -->
+
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+
 </div>
+<jsp:include page="/WEB-INF/include/footer.jsp"/>
+
 </body>
-<script type="text/javascript">
+<!--bootstrp js-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
+<!--image js-->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
-  $(function () {
-    replyList();
-    replyAdd();
-  });
-
-  function replyList() {
-    $.ajax({
-      url: "Replylist",
-      type: 'GET',
-      dataType: "json",
-      data: {
-        idx: $('#idx').val()
-      },
-      success: function (data) {
-
-        $('#tbody').empty();
-        if (data.length == 0) {
-          $('#tbody').append('<tr align="left"><td>등록된 댓글이 없습니다</td></tr>');
-
-        } else {
-          $.each(data, function (index, obj) {
-            $('#tbody').append('<tr align="left"><td width="80%">['
-                    + obj.writer + '] : ' + obj.content
-                    + '<br> 작성일 :' + obj.writedate + '</td><td width="20%">'
-                    + '<form method="POST" name="replyDel">'
-                    + '<input type="hidden" name="no" value="' + obj.no + '" class="comment_no">'
-                    + '<input type="hidden" name="idx" value="' + obj.idx_fk + '" class="comment_idx">'
-                    + ' <input type="button" value="삭제" onclick="comment_del(this.form)">'
-                    + '</form></td></tr>');
-          });
-        }
-      },
-      error: function () {
-        alert('댓글 로드 실패');
-      }
-    });
-
-  }
-
-  function replyAdd() {
-    $('#commentbtn').click(function () {
-
-      var frm = document.reply;
-      if (frm.comment_content.value == "") {
-        alert("댓글 내용을 입력해주세요.");
-        return false;
-      }
-
-      $.ajax({
-        url: "commentAdd",
-        type: 'POST',
-        data: {
-          "comment_content": $('#comment_content').val(),
-          "idx": $('#idx').val()
-        },
-        success: function (data) {
-          commentList();
-          $('#comment_content').val("");
-
-        },
-        error: function () {
-          alert('댓글 등록 실패');
-        }
-      });
-    });
-  }
-
-  function reply_del(frm) {
-
-    //console.log(frm);
-
-    $.ajax({
-      url: "Commentdelete",
-      type: 'POST',
-      datatype: "text",
-      data: {
-
-        "no": frm.no.value,
-        "idx_fk": frm.idx.value
-      },
-      success: function (data) {
-        commentList();
-      },
-      error: function () {
-        alert('댓글 삭제 실패');
-      }
-    });
-  }
-
-</script>
+<script src="${pageContext.request.contextPath}/assets/js/lostComment.js?ver=1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>
-

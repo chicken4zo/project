@@ -4,9 +4,17 @@ img {
     margin: 0 auto;
 }
 
+.board-logo {
+    color: #8B425A;
+    font-family: 'Jua', sans-serif;
+    font-size: 35px;
+    padding: 2% 0 0 10%;
+}
+
 .mypage-logo {
     margin-left: 1000px;
 }
+
 .form-group {
     background-color: white;
     /*width: 400px;*/
