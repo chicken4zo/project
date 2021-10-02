@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set value="${sessionScope.id}" var="id"/>
 <!--header-->
 <header>
     <div id="header_wrap">
@@ -27,45 +28,60 @@
             </select>
 
 
-            <div class="search-form">
-                <input type="text" name="search" value="Search" onclick="this.value=''; ">
-                <button type="submit" class="btn btn-search fa fa-search"></button>
-            </div>
         </div>
-        <div id="header_nav">
-            <ul>
-                <a href="${pageContext.request.contextPath}/productForm.board">
-                    <li>상품등록</li>
-                </a>
-                <a href="${pageContext.request.contextPath}/lostList.board">
-                    <li>우리동네</li>
-                </a>
-                <a href="${pageContext.request.contextPath}/lostForm.board">
-                    <li>구마차트</li>
-                </a>
-                <a href="#">
-                    <li>공지사항</li>
-                </a>
-            </ul>
-            <%--            <a href="${pageContext.request.contextPath}/Register.member">--%>
-            <%--                <div class="register_btn">Register</div>--%>
-            <%--            </a>--%>
-            <%--            <a href="${pageContext.request.contextPath}/Login.member">--%>
-            <%--                <div class="myPage_btn">Log In</div>--%>
-            <%--            </a>--%>
+        <div class="search-form">
+            <input type="text" name="search" value="Search" onclick="this.value=''; ">
+            <button type="submit" class="btn btn-search fa fa-search"></button>
         </div>
+        <%--            </c:if>--%>
+
+    </div>
+    <div id="header_nav">
+
+        <%--            <c:if test="${not empty id}">--%>
+
+        <ul>
+            <a href="${pageContext.request.contextPath}/productForm.board">
+                <li>상품등록</li>
+            </a>
+            <a href="${pageContext.request.contextPath}/lostList.board">
+                <li>우리동네</li>
+            </a>
+            <a href="${pageContext.request.contextPath}/productContent.board">
+                <li>구마차트</li>
+            </a>
+            <a href="${pageContext.request.contextPath}/productForm.board">
+                <li>공지사항</li>
+            </a>
+        </ul>
+        <%--            </c:if>--%>
+
+        <div id="loginlogout">
+        </div>
+
+        <%--login Logout Ajax--%>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            $.ajax(
+                {
+                    url: "LoginLogout",
+                    type: "GET",
+                    dataType: "html",
+                    success: function (responseData) {
+                        document.getElementById("loginlogout").innerHTML = responseData;
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.status);
+                    }
+                }
+            );
+        </script>
+    </div>
     </div>
 </header>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajaz/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-<script>
-	function moveurl(url) {
-		locstion.href = url;
-	}
-    $(document).ready(function () {
-        $('select').niceSelect();
-    });
-</script>
 
 <%--// test--%>
