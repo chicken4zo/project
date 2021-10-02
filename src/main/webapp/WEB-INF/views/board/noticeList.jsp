@@ -37,13 +37,6 @@
         <table width="80%" border="1" cellspacing="0" align="center">
             <tr>
                 <td colspan="5">
-                    <!--
-                        form 태그 action 전송 주소(목적지) >> submit()
-                        >> form name="list" ... action 없다면..
-                        >> [현재 URL 창에 있는 주소] 그대로 갑니다
-                        >> board_list.jsp?ps=select 태그 값으로 .... 다시 호출 .....
-                        >>http://192.168.0.169:8090/WebServlet_5_Board_Model1_Sample/board/board_list.jsp?ps=10
-                    -->
                     <form name="list" >
                         PageSize설정: <!-- 한 페이지안에 보여줄 게시글 건수 -->
                         <select name="ps" onchange="submit()">

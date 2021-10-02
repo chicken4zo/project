@@ -24,9 +24,6 @@ public class MemberServlet extends HttpServlet {
         ActionForward forward = null;
         Action action = null;
 
-        if (urlCommand.equals("/boardList.do")) {
-
-        }
 
         if (forward != null) {
             if (forward.isRedirect()) { //true 페이지를 재요청
