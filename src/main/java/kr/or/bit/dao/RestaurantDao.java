@@ -2,6 +2,7 @@ package kr.or.bit.dao;
 
 
 import kr.or.bit.dto.RestaurantBoard;
+import kr.or.bit.dto.RestaurantComment;
 import kr.or.bit.util.ConnectionHelper;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 //맛집게시판, 댓글O, 답글X
@@ -287,35 +289,69 @@ public class RestaurantDao {
         return row;
     }
 
-    //댓글삭제하기
-    public int commentDelete(String no) {
+    //맛집 댓글목록 가져오기
+    public List<RestaurantComment> getRestaurantCommentList(String idx) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        int row = 0;
+        ArrayList<RestaurantComment> commentList = null;
 
         try {
-            String sql = "delete from Restaurant_comment where no=?";
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select no, content, writedate, id, idx from Restaurant_comment where idx=? order by no desc";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, Integer.parseInt(no));
-
+            pstmt.setInt(1, Integer.parseInt(idx));
             rs = pstmt.executeQuery();
-            if (rs.next()) {
-                pstmt = conn.prepareStatement(sql);
-                pstmt.setInt(1, Integer.parseInt(no));
 
-                row = pstmt.executeUpdate();
-            } else {
-                row = 0;
+            commentList = new ArrayList<>();
+            while (rs.next()) {
+                int no = rs.getInt("no");
+                String content = rs.getString("content");
+                Date writeDate = rs.getDate("writedate");
+                String id = rs.getString("id");
+                int idx_fk = rs.getInt("idx");
+
+                RestaurantComment comment = new RestaurantComment(no, content, writeDate, id, idx_fk);
+                commentList.add(comment);
             }
         } catch (Exception e) {
+            System.out.println("맛집DAO 오류 : " + e.getMessage());
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(rs);
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
         }
-        return row;
+
+        return commentList;
+
+
+    }
+
+    //댓글삭제하기
+    public int commentDelete(String no) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int result = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oralce");
+            String sql = "delete from Restaurant_comment where no=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, Integer.parseInt(no));
+
+            result = pstmt.executeUpdate();
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, Integer.parseInt(no));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return result;
     }
 
 

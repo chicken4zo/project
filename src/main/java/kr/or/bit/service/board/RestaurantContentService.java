@@ -4,9 +4,12 @@ import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.RestaurantDao;
 import kr.or.bit.dto.RestaurantBoard;
+import kr.or.bit.dto.RestaurantComment;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RestaurantContentService implements Action {
     @Override
@@ -25,6 +28,7 @@ public class RestaurantContentService implements Action {
             String cpage = request.getParameter("cp");
             String pagesize = request.getParameter("ps");
 
+
             if (cpage == null || cpage.trim().equals("")) {
                 cpage = "1";
             }
@@ -32,9 +36,11 @@ public class RestaurantContentService implements Action {
                 pagesize = "10";
             }
 
+            List<RestaurantComment> commentList = new ArrayList<>();
             RestaurantDao dao = new RestaurantDao();
-            boolean isread = dao.getReadNum(idx);
-            if (isread) System.out.println("조회수 증가 : " + isread);
+            boolean isread = false;
+            isread = dao.getReadNum(idx);
+            if (isread) commentList = dao.getRestaurantCommentList(idx);
 
             RestaurantBoard board = dao.getContent(Integer.parseInt(idx));
             System.out.println("contentservice들어있냐? : " + board);
@@ -44,6 +50,7 @@ public class RestaurantContentService implements Action {
             request.setAttribute("pagesize", pagesize);
             request.setAttribute("idx", idx);
             request.setAttribute("board", board);
+            request.setAttribute("commentList", commentList);
 
             forward = new ActionForward();
             forward.setRedirect(false);
