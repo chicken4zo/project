@@ -7,6 +7,7 @@
     <title>고민하지말구, 고구마켓</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/mypage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/nice-select.css">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
@@ -16,6 +17,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- fontawesome  -->
     <script src="https://kit.fontawesome.com/a959489452.js" crossorigin="anonymous"></script>
+
     <!--font-->
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
