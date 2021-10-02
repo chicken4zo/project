@@ -13,7 +13,6 @@ function fileChange(e) {
 				'background-position': 'center center',
 				'background-size': 'cover'
 			});
-			$('.product-photo::before').css({'background-image': 'url("")'});
 		}
 		reader.readAsDataURL(f);
 	})
@@ -46,7 +45,8 @@ const fileName = document.querySelector(".product-photo").getAttribute("id");
 
 $('#delete').click(function (e) {
 	e.preventDefault();
-	fileDelete(e)
+	$('.file').val("<c:set target='${dailyBoard.fileName}' value=''/>");
+	fileDelete(e);
 })
 
 if (fileName !== null) {

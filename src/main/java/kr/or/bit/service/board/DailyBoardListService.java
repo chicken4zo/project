@@ -49,7 +49,7 @@ public class DailyBoardListService implements Action {
         }
 
         int pagersize = 3;
-        ThePager pager = new ThePager(totalDailyCount, cpage, pagesize, pagersize, "lostList.board");
+        ThePager pager = new ThePager(totalDailyCount, cpage, pagesize, pagersize, "dailyList.board");
 
         request.setAttribute("dailyList", dailyList);
         request.setAttribute("cpage", cpage);

@@ -19,7 +19,7 @@ import java.util.List;
 public class DailyDao {
 
     DataSource ds = null;
-    String database = "mysql";
+    String database = "oracle";
     // String database에 oracle, mysql, myoracle 둘 중에 하나 입력
 
 
@@ -95,14 +95,15 @@ public class DailyDao {
             if (database.equals("mysql")) {
                 listSql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, (@ROWNUM:=@ROWNUM+1) RN FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID ORDER BY REFER DESC, STEP ASC) L, (SELECT @ROWNUM:=0) R LIMIT ?,?";
             } else {
-                listSql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, ROWNUM FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID ORDER BY REFER DESC, STEP ASC) L WHERE ROWNUM BETWEEN ? AND ?";
+                listSql = "SELECT * FROM (SELECT ROWNUM RN, IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, ROWNUM FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID ORDER BY REFER DESC, STEP ASC) L) WHERE RN BETWEEN ? and ?";
             }
             pstmt = conn.prepareStatement(listSql);
 
             int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
             int end = cpage * pagesize; // 1 * 5 >> 5;
-            System.out.println(pagesize);
-            System.out.println(start - 1);
+            System.out.println("start: " + start);
+            System.out.println("end: " + end);
+            System.out.println("cpage: " + cpage);
 
             if (database.equals("mysql")) {
                 pstmt.setInt(1, start - 1);
@@ -129,6 +130,7 @@ public class DailyDao {
                 daily.setDepth(rs.getInt("depth"));
                 daily.setStep(rs.getInt("step"));
                 daily.setAddress(rs.getString("address"));
+                System.out.println("객체:" + daily);
 
                 list.add(daily);
             }
