@@ -88,27 +88,28 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
 <script>
 
-	$('#file').on("change", fileChange);
-
-	function fileChange(e) {
-		const files = e.target.files;
-		const filesArr = Array.prototype.slice.call(files);
-
-		filesArr.forEach(function (f) {
-			const reader = new FileReader();
-			reader.onload = function (e) {
-				$('.product-photo').css({
-					"background": "url(" + e.target.result + ")",
-					'background-repeat': 'no-repeat',
-					'background-position': 'center center',
-					'background-size': 'cover'
-				});
-				$('.product-photo::before').css({'background-image': 'url("")'});
-			}
-			reader.readAsDataURL(f);
-		})
-	}
+	// $('#file').on("change", fileChange);
+	//
+	// function fileChange(e) {
+	// 	const files = e.target.files;
+	// 	const filesArr = Array.prototype.slice.call(files);
+	//
+	// 	filesArr.forEach(function (f) {
+	// 		const reader = new FileReader();
+	// 		reader.onload = function (e) {
+	// 			$('.product-photo').css({
+	// 				"background": "url(" + e.target.result + ")",
+	// 				'background-repeat': 'no-repeat',
+	// 				'background-position': 'center center',
+	// 				'background-size': 'cover'
+	// 			});
+	// 			$('.product-photo::before').css({'backgrounddl-image': 'url("")'});
+	// 		}
+	// 		reader.readAsDataURL(f);
+	// 	})
+	// }
 </script>
 </html>

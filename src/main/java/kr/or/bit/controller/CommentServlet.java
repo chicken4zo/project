@@ -2,8 +2,13 @@ package kr.or.bit.controller;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.dao.DailyDao;
 import kr.or.bit.dao.LostDao;
+
 import kr.or.bit.dao.ProductDao;
+
+import kr.or.bit.dto.DailyComment;
+
 import kr.or.bit.dto.LostComment;
 import kr.or.bit.dto.ProductComment;
 import net.sf.json.JSONArray;
@@ -86,18 +91,24 @@ public class CommentServlet extends HttpServlet {
                 System.out.println(e.getMessage());
             }
 
+
         } else if (urlCommand.equals("/productCommentWrite.board")) {
+
+            // 일상 댓글
+        } else if (urlCommand.equals("/dailyCommentWrite.comment")) {
+
             String commentId = request.getParameter("commentId");
             String content = request.getParameter("content");
             String idx = request.getParameter("idx");
 
-            ProductDao dao = new ProductDao();
-            int result = dao.writeProductComment(commentId, content, idx);
 
-        } else if (urlCommand.equals("/productCommentList.board")) {
+            DailyDao dao = new DailyDao();
+            int result = dao.writeDailyComment(commentId, content, idx);
+        } else if (urlCommand.equals("/dailyCommentList.comment")) {
             String idx = request.getParameter("idx");
-            ProductDao dao = new ProductDao();
-            List<ProductComment> commentList = dao.getProductCommentList(idx);
+            DailyDao dao = new DailyDao();
+            List<DailyComment> commentList = dao.getDailyCommentList(idx);
+
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             JSONArray jsonArray = new JSONArray();
 
@@ -116,23 +127,29 @@ public class CommentServlet extends HttpServlet {
 
             response.setContentType("application/x-json; charset=UTF-8");
             response.getWriter().print(jsonArray);
-        } else if (urlCommand.equals("/productCommentDelete.board")) {
-            String idx = request.getParameter("idx");
+
+        } else if (urlCommand.equals("/dailyCommentDelete.comment")) {
+            String idx_fk = request.getParameter("idx_fk");
+
             int no = Integer.parseInt(request.getParameter("no"));
 
             try {
 
                 PrintWriter out = response.getWriter();
 
-                if (idx == null) {
+
+                if (idx_fk == null) {
+
                     out.print("<script>");
                     out.print("alert('글번호가 넘어오지 않았습니다');");
                     out.print("history.back();");
                     out.print("</script>");
                 }
 
-                ProductDao dao = new ProductDao();
-                int result = dao.deleteProductComment(no);
+
+                DailyDao dao = new DailyDao();
+                int result = dao.deleteDailyComment(no);
+
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());

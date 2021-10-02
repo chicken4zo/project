@@ -19,11 +19,13 @@ import java.util.List;
 public class LostDao {
 
     DataSource ds = null;
+    String database = "mysql";
+    // String database에 oracle, mysql, myoracle 둘 중에 하나 입력
 
     public LostDao() {
         try {
             Context context = new InitialContext();
-            ds = (DataSource) context.lookup("java:comp/env/jdbc/mysql");
+            ds = (DataSource) context.lookup("java:comp/env/jdbc/" + database);
         } catch (NamingException e) {
             System.out.println(e.getMessage());
         }
@@ -34,8 +36,7 @@ public class LostDao {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
-        String listSql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, (@ROWNUM:=@ROWNUM+1) RN FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, LOST.ID FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID ORDER BY REFER DESC, STEP ASC) L, (SELECT @ROWNUM:=0) R LIMIT ?,?";
+        String listSql = null;
 
         ArrayList<LostBoard> list = new ArrayList<>();
 
@@ -44,22 +45,34 @@ public class LostDao {
         // SELECT * FROM (SELECT ROWNUM rn, IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, ID FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, ID FROM LOST ORDER BY REFER DESC, STEP ASC)TB, WHERE rn BETWEEN ? AND ?
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+
+            conn = ConnectionHelper.getConnection(database);
+
+            if (database.equals("mysql")) {
+                listSql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, (@ROWNUM:=@ROWNUM+1) RN FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, LOST.ID FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID ORDER BY REFER DESC, STEP ASC) L, (SELECT @ROWNUM:=0) R LIMIT ?,?";
+            } else {
+                listSql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, ROWNUM FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, LOST.ID FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID ORDER BY REFER DESC, STEP ASC) L WHERE ROWNUM BETWEEN ? AND ?";
+            }
             pstmt = conn.prepareStatement(listSql);
 
-            int start = cpage * pagesize - (pagesize - 1) - 1; //1 * 5 - (5 - 1) >> 1
+            int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
             int end = cpage * pagesize; // 1 * 5 >> 5;
-            System.out.println("start" + start);
-            System.out.println("end" + end);
+            System.out.println(pagesize);
+            System.out.println(start - 1);
 
-            pstmt.setInt(1, start);
-            pstmt.setInt(2, pagesize);
-
+            if (database.equals("mysql")) {
+                pstmt.setInt(1, start - 1);
+                pstmt.setInt(2, pagesize);
+            } else {
+                pstmt.setInt(1, start);
+                pstmt.setInt(2, end);
+            }
 
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 LostBoard lost = new LostBoard();
+                System.out.println(rs.getInt("idx"));
                 lost.setIdx(rs.getInt("idx"));
                 lost.setId(rs.getString("id"));
                 lost.setTitle(rs.getString("title"));
@@ -89,15 +102,23 @@ public class LostDao {
     public int writeLost(LostBoard lostBoard) {
         int resultRow = 0;
         PreparedStatement pstmt = null;
-        String sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,REFER,ID) VALUES (IDX,?,?,0,current_timestamp,?,?,?,?)";
+        String sql = null;
+
+        if (database.equals("mysql")) {
+            sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,REFER,DEPTH,STEP,ID) VALUES (IDX,?,?,0,current_timestamp,?,?,?,0,0,?)";
+        } else {
+            sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,REFER,DEPTH,STEP,ID) VALUES (LOST_SEQ.nextval,?,?,0,SYSDATE,?,?,?,0,0,?)";
+        }
 
         Connection conn = null;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection(database);
+
             pstmt = conn.prepareStatement(sql);
             int refermax = getMaxRefer();
             int refer = refermax + 1;
+            System.out.println(lostBoard);
             pstmt.setString(1, lostBoard.getTitle());
             pstmt.setString(2, lostBoard.getContent());
             if (lostBoard.getFileName() != null) {
@@ -113,10 +134,11 @@ public class LostDao {
             pstmt.setString(6, lostBoard.getId());
 
             resultRow = pstmt.executeUpdate();
+            System.out.println("resultRow" + resultRow);
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("글쓰기 오류: " + e.getMessage());
         } finally {
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
@@ -132,7 +154,8 @@ public class LostDao {
         String sql = "SELECT IDX, ID, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH FROM LOST WHERE IDX = ?";
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection(database);
+
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, idx);
             rs = pstmt.executeQuery();
@@ -166,8 +189,13 @@ public class LostDao {
         ResultSet rs = null;
         int refer_max = 0;
         try {
-            conn = ConnectionHelper.getConnection("mysql");
-            String sql = "select ifnull(max(refer),0) from LOST";
+            conn = ConnectionHelper.getConnection(database);
+            String sql = "";
+            if (database.equals("mysql")) {
+                sql = "select ifnull(max(refer),0) from LOST";
+            } else {
+                sql = "select nvl(max(refer),0) from LOST";
+            }
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -189,7 +217,8 @@ public class LostDao {
         boolean result = false;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection(database);
+
             String sql = "UPDATE LOST SET HIT = HIT+1 WHERE IDX=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, idx);
@@ -215,7 +244,7 @@ public class LostDao {
         int totalcount = 0;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection(database);
             String sql = "SELECT Count(*) cnt from LOST";
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
@@ -224,7 +253,7 @@ public class LostDao {
                 totalcount = rs.getInt("cnt");
 //                System.out.println(totalcount);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(rs);
@@ -243,7 +272,9 @@ public class LostDao {
         ArrayList<LostComment> commentList = null;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+
+            conn = ConnectionHelper.getConnection(database);
+
             String sql = "SELECT NO,CONTENT,WRITEDATE,ID,IDX FROM LOST_COMMENT WHERE IDX=? ORDER BY NO DESC";
 
             pstmt = conn.prepareStatement(sql);
@@ -279,8 +310,13 @@ public class LostDao {
         PreparedStatement pstmt = null;
         int row = 0;
         try {
-            conn = ConnectionHelper.getConnection("mysql");
-            String sql = "INSERT INTO LOST_COMMENT(NO,CONTENT,WRITEDATE,ID,IDX) VALUES (NO,?,CURRENT_TIMESTAMP,?,?)";
+            conn = ConnectionHelper.getConnection(database);
+            String sql = null;
+            if (database.equals("mysql")) {
+                sql = "INSERT INTO LOST_COMMENT(NO,CONTENT,WRITEDATE,ID,IDX) VALUES (NO,?,CURRENT_TIMESTAMP,?,?)";
+            } else {
+                sql = "INSERT INTO LOST_COMMENT(NO,CONTENT,WRITEDATE,ID,IDX) VALUES (LOST_COMMENT_SEQ.nextval,?,SYSDATE,?,?)";
+            }
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, content);
             pstmt.setString(2, id);
@@ -303,7 +339,8 @@ public class LostDao {
         String sql = "DELETE FROM LOST_COMMENT WHERE no=?";
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection(database);
+
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, no);
             result = pstmt.executeUpdate();
@@ -324,7 +361,8 @@ public class LostDao {
         String sql = "UPDATE LOST SET TITLE=?, CONTENT=?, FILENAME=?, FILEPATH=? WHERE IDX = ?";
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection(database);
+
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, lost.getTitle());
             pstmt.setString(2, lost.getContent());
@@ -335,7 +373,7 @@ public class LostDao {
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("글쓰기 오류: " + e.getMessage());
         } finally {
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
@@ -351,7 +389,8 @@ public class LostDao {
         Connection conn = null;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection(database);
+
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, Integer.parseInt(idx));
             resultRow = pstmt.executeUpdate();
@@ -371,7 +410,7 @@ public class LostDao {
         Connection conn = null;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection(database);
             int idx = lostBoard.getIdx();
             String id = lostBoard.getId();
             String title = lostBoard.getTitle();
@@ -382,7 +421,12 @@ public class LostDao {
             String refer_depth_step_sal = "select refer , depth , step from LOST where idx=?";
             String find_step_sql = "SELECT MIN(STEP)step FROM LOST WHERE REFER = ? and STEP > ? and DEPTH <= ?";
             String set_step_sql = "";
-            String reply_sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (IDX,?,?,0,current_timestamp,?,?,?,?,?,?)";
+            String reply_sql = "";
+            if (database.equals("mysql")) {
+                reply_sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (IDX,?,?,0,current_timestamp,?,?,?,?,?,?)";
+            } else {
+                reply_sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (IDX,?,?,0,SYSDATE,?,?,?,?,?,?)";
+            }
 
             pstmt = conn.prepareStatement(refer_depth_step_sal);
             pstmt.setInt(1, idx);

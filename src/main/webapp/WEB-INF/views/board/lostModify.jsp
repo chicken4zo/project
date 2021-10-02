@@ -52,13 +52,11 @@
                         <li class="info-title">
                             <div class="info-detail">이미지</div>
 
-                            <div class="product-photo">
+                            <div class="product-photo" id="${lostBoard.fileName}">
                                 <input type="file" id="file" name="file" accept="image/jpeg, image/png, image/jpg">
                             </div>
                             <c:if test="${not empty lostBoard.fileName}">
-                                <img src="assets/upload/${lostBoard.fileName}"/>
-                                <button>삭제</button>
-                                <div>${lostBoard.fileName}</div>
+                                <button id="delete" class="write-btn">삭제</button>
                             </c:if>
                         </li>
                         <li class="info-title">
@@ -110,4 +108,64 @@
 <%--    <input type="submit" value="수정">--%>
 <%--</form>--%>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
+<script>
+	<%--const file = document.querySelector("#file");--%>
+	<%--const fileName = document.querySelector(".product-photo").getAttribute("id");--%>
+
+
+	<%--$('#delete').click(function (e) {--%>
+	<%--	e.preventDefault();--%>
+	<%--    fileDelete(e)--%>
+	<%--})--%>
+
+	<%--if (fileName !== null) {--%>
+	<%--	$('.product-photo').css({--%>
+	<%--		"background": "url(${pageContext.request.contextPath}/assets/upload/" + fileName + ")",--%>
+	<%--		'background-repeat': 'no-repeat',--%>
+	<%--		'background-position': 'center center',--%>
+	<%--		'background-size': 'cover'--%>
+	<%--	})--%>
+	<%--} else {--%>
+	<%--	$('.product-photo').css({--%>
+	<%--		"background": "url(${pageContext.request.contextPath}/assets/images/upload.png)",--%>
+	<%--		'background-repeat': 'no-repeat',--%>
+	<%--		'background-position': 'center center',--%>
+	<%--		'background-size': '20%'--%>
+	<%--	})--%>
+	<%--}--%>
+
+	<%--function fileDelete(e) {--%>
+	<%--			$('.product-photo').css({--%>
+	<%--				"background": "url(${pageContext.request.contextPath}/assets/images/upload.png)",--%>
+	<%--				'background-repeat': 'no-repeat',--%>
+	<%--				'background-position': 'center center',--%>
+	<%--				'background-size': '20%'--%>
+	<%--			});--%>
+	<%--}--%>
+
+	<%--$('#file').on("change", fileChange);--%>
+
+	<%--function fileChange(e) {--%>
+	<%--	const files = e.target.files;--%>
+	<%--	const filesArr = Array.prototype.slice.call(files);--%>
+
+	<%--	filesArr.forEach(function (f) {--%>
+	<%--		const reader = new FileReader();--%>
+	<%--		reader.onload = function (e) {--%>
+	<%--			$('.product-photo').css({--%>
+	<%--				"background": "url(${pageContext.request.contextPath}/assets/upload/" + e.target.result + ")",--%>
+	<%--				'background-repeat': 'no-repeat',--%>
+	<%--				'background-position': 'center center',--%>
+	<%--				'background-size': 'cover'--%>
+	<%--			});--%>
+	<%--			$('.product-photo::before').css({'background-image': 'url("")'});--%>
+	<%--		}--%>
+	<%--		reader.readAsDataURL(f);--%>
+	<%--	})--%>
+	<%--}--%>
+</script>
 </html>

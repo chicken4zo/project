@@ -9,9 +9,9 @@
              style="cursor:pointer;">
         <div id="header_search">
             <div class="sel sel--black-panther">
-                <select name="select-profession" id="select-profession">
+                <select name="select-profession" id="select-profession" onchange="window.open(value, '_self');">
                     <option value="" disabled>게시판</option>
-                    <option value="1">상품</option>
+                    <option value="${pageContext.request.contextPath}/productForm.board">상품</option>
                     <option value="2">일상</option>
                     <option value="3">분실·실종</option>
                     <option value="4">반려동물</option>
@@ -24,30 +24,33 @@
         </div>
         <div id="header_nav">
             <ul>
-                <a href="productForm.board">
+                <a href="${pageContext.request.contextPath}/productForm.board">
                     <li>상품등록</li>
                 </a>
-                <a href="lostList.board">
+                <a href="dailyList.board">
                     <li>우리동네</li>
                 </a>
-                <a href="#">
+                <a href="LoginLogout">
                     <li>구마차트</li>
                 </a>
                 <a href="#">
                     <li>공지사항</li>
                 </a>
             </ul>
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/Register.member">
                 <div class="register_btn">Register</div>
             </a>
-            <a href="#">
-                <div class="myPage_btn">My GUMA</div>
+            <a href="${pageContext.request.contextPath}/Login.member">
+                <div class="myPage_btn">Log In</div>
             </a>
         </div>
     </div>
 </header>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
+<script>
+    function moveurl(url) {
+        locstion.href = url;
+    }
+</script>
 

@@ -23,7 +23,7 @@ public class MemberDao {
         int resultRow = 0;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection("oracle");
             String sql = "insert into member(id,password,address,birth,name) values(?,?,?,?,?)";
             pstmt = conn.prepareStatement(sql);
 
@@ -96,19 +96,19 @@ public class MemberDao {
     // 아이디 체크
     public List<Member> IdCheck(String id) {
         List<Member> list = new ArrayList<Member>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-        String sql = "select id, password, address, birth,name "
-                + "from member where id like ?";
 
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select id, password, address, birth,name "
+                    + "from member where id like ?";
 
-        try (
-
-                Connection conn = ConnectionHelper.getConnection("mysql");
-                PreparedStatement pstmt = conn.prepareStatement(sql);) {
-
+            pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, "%" + id + "%");
-
-            ResultSet rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 Member memberdto = new Member();
@@ -123,8 +123,9 @@ public class MemberDao {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
+        } finally {
 
+        }
 
         return list;
     }
