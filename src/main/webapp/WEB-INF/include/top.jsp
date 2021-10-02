@@ -47,12 +47,12 @@
                     <li>공지사항</li>
                 </a>
             </ul>
-            <a href="${pageContext.request.contextPath}/Register.member">
-                <div class="register_btn">Register</div>
-            </a>
-            <a href="${pageContext.request.contextPath}/Login.member">
-                <div class="myPage_btn">Log In</div>
-            </a>
+            <%--            <a href="${pageContext.request.contextPath}/Register.member">--%>
+            <%--                <div class="register_btn">Register</div>--%>
+            <%--            </a>--%>
+            <%--            <a href="${pageContext.request.contextPath}/Login.member">--%>
+            <%--                <div class="myPage_btn">Log In</div>--%>
+            <%--            </a>--%>
         </div>
     </div>
 </header>
