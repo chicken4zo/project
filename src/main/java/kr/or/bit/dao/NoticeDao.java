@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class NoticeDao {
@@ -243,7 +242,7 @@ public class NoticeDao {
             pstmt.setString(1, idx);
 
             rs = pstmt.executeQuery();
-            System.out.println("rs : " + rs);
+            System.out.println("rs: " + rs);
             if(rs.next()) {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, idx);

@@ -1,17 +1,13 @@
 package kr.or.bit.service.board;
 
-import com.mysql.cj.protocol.x.Notice;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.NoticeDao;
-import kr.or.bit.dto.NoticeBoard;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
 
 public class NoticeWriteService implements Action {
 
@@ -19,12 +15,12 @@ public class NoticeWriteService implements Action {
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("서비스왔냐");
         String title = request.getParameter("title");
-        String content = request.getParameter("content");
         String admin = request.getParameter("writer");
+        String content = request.getParameter("content");
         System.out.println(title);
         NoticeDao dao = new NoticeDao();
         int result = dao.writeOk(title, content, admin);
-        System.out.println(result);
+        System.out.println("result : " + result);
 
 
         String msg = "";

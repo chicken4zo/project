@@ -39,6 +39,7 @@ public class CommentServlet extends HttpServlet {
         ActionForward forward = null;
         Action action = null;
 
+
         if (urlCommand.equals("/lostCommentWrite.comment")) {
             String commentId = request.getParameter("commentId");
             String content = request.getParameter("content");
@@ -155,6 +156,7 @@ public class CommentServlet extends HttpServlet {
                 System.out.println(e.getMessage());
             }
         }
+
 
         if (forward != null) {
             if (forward.isRedirect()) { //true 페이지를 재요청
