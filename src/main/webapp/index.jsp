@@ -38,18 +38,21 @@
         <div style="text-align: center; margin-top: 60px">
             <img src="${pageContext.request.contextPath}/assets/images/loginlogo.png" width="30%" height="30%">
         </div>
+
         <div class="form-group">
             <form action="LoginOk.member" method="POST">
+
                 <label>아이디</label>
                 <input class="login_input input" type="text" name="id" id="id" required>
 
 
                 <label>패스워드</label>
                 <input name="password" id="password" class="login_input input" type="password">
+                <div class="btn login_btn">
+                    <button type="submit" class="button">로그인</button>
+                </div>
             </form>
-            <div class="btn">
-                <button type="submit" class="button">로그인</button>
-            </div>
+
         </div>
 
 

@@ -29,10 +29,10 @@
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
-        <jsp:include page="${pageContext.request.contextPath}/WEB-INF/include/top.jsp"/>
+        <jsp:include page="/WEB-INF/include/top.jsp"/>
 
         <%--weather--%>
-        <jsp:include page="${pageContext.request.contextPath}/WEB-INF/include/weather.jsp"/>
+        <jsp:include page="/WEB-INF/include/weather.jsp"/>
 
         <!--content-->
         <div class="container-fluid py-4">
@@ -190,7 +190,7 @@
 
 
 </div>
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/include/footer.jsp"/>
+<jsp:include page="/WEB-INF/include/footer.jsp"/>
 
 </body>
 <!--bootstrp js-->

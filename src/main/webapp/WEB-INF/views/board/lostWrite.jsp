@@ -14,19 +14,27 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/productWrite.css">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- fontawesome  -->
+    <script src="https://kit.fontawesome.com/a959489452.js" crossorigin="anonymous"></script>
+    <!--font-->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <!--weather icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
     <style>
-		.product-photo {
-			background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
-			background-size: 20%;
-			background-position: center center;
-			background-repeat: no-repeat;
-		}
+        .product-photo {
+            background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
+            background-size: 20%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
     </style>
+
     <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 </head>
 <body>
@@ -34,9 +42,11 @@
     <div class="wrapper">
         <!--header-->
         <jsp:include page="../../include/top.jsp"/>
-        <div class="board-logo">
-            <h3>분실·실종</h3>
-        </div>
+        <%--weather--%>
+        <jsp:include page="../../include/weather.jsp"/>
+
+        <%--content--%>
+        <div class="title">분실·실종</div>
         <form name="lost" action="lostWrite.board" method="post" enctype="multipart/form-data">
             <div class="produdct-group">
                 <section class="product-wrap">
@@ -89,15 +99,17 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+
 <script>
 
-	// $('#file').on("change", fileChange);
-	//
-	// function fileChange(e) {
-	// 	const files = e.target.files;
-	// 	const filesArr = Array.prototype.slice.call(files);
-	//
-	// 	filesArr.forEach(function (f) {
+    // $('#file').on("change", fileChange);
+    //
+    // function fileChange(e) {
+    // 	const files = e.target.files;
+    // 	const filesArr = Array.prototype.slice.call(files);
+    //
+    // 	filesArr.forEach(function (f) {
 	// 		const reader = new FileReader();
 	// 		reader.onload = function (e) {
 	// 			$('.product-photo').css({

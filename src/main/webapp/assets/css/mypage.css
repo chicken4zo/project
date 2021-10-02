@@ -58,6 +58,10 @@ img {
     display: block !important;
 }
 
+.login_btn {
+    display: block !important;
+}
+
 .btn .button {
     color: #8B425A;
     background-color: ghostwhite;

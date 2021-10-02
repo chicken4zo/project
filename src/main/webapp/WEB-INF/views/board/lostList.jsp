@@ -40,20 +40,8 @@
         <!--header-->
         <jsp:include page="../../include/top.jsp"/>
         <!-- weather -->
-        <article class="widget">
-            <div class="weatherIcon">
-                <div class="date">
-                    <h4 class="month" id="month"></h4>
-                    <h5 class="day" id="day"></h5>
-                </div>
-                <!--        <i class="wi wi-night-fog"></i>-->
-                <h1 id="temp" class="temperature">25&deg;</h1>
-            </div>
-            <div class="weatherData">
-                <h2 class="description">오늘,<br> 우리 동네는</h2>
-                <h3 class="city" id="comment">KR, Seochodong</h3>
-            </div>
-        </article>
+        <jsp:include page="../../include/weather.jsp"/>
+
 
         <!--content-->
         <div class="board-logo">
@@ -245,9 +233,8 @@
         </nav>
     </div>
 </div>
-<footer>
-    <p>Copyright © 2021 chicken 4JO. All rights reserved.</p>
-</footer>
+<jsp:include page="../../include/footer.jsp"/>
+
 <%--<c:choose>--%>
 <%--    <c:when test="${not empty lostlist}">--%>
 <%--        <c:forEach var="lost" items="${lostlist}">--%>
