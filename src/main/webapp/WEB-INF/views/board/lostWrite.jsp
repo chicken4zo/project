@@ -1,12 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: heewonseo
-  Date: 2021/09/27
-  Time: 23:23
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
@@ -48,7 +44,7 @@
         <%--content--%>
         <div class="title">분실·실종</div>
         <form name="lost" action="lostWrite.board" method="post" enctype="multipart/form-data">
-            <div class="produdct-group">
+            <div class="product-group">
                 <section class="product-wrap">
                     <!--    <h2>글쓰기</h2>-->
                     <ul class="product-info">
