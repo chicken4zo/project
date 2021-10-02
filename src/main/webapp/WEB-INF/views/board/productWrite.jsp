@@ -23,9 +23,9 @@
     <!--    mvp.css css 작업할 때 지워줘야함-->
     <!--    <link rel="stylesheet" href="https://unpkg.com/mvp.css">-->
     <style>
-		.product-photo::before {
-			background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
-		}
+        .product-photo::before {
+            background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
+        }
     </style>
     <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 </head>
@@ -33,7 +33,7 @@
 <div id="body_wrap">
     <div class="wrapper">
         <jsp:include page="../../include/top.jsp"/>
-        <form name="bbs" action="productWriteOk.board" method="POST" enctype="multipart/form-data">
+        <form name="bbs" action="productWrite.board" method="POST" enctype="multipart/form-data">
             <div class="board-logo">
                 <h3>상품 등록</h3>
             </div>
@@ -82,12 +82,12 @@
                             </div>
                             <textarea name="content" id="editor"></textarea>
                             <script>
-								//CKEditor5를 생성할 textarea 지정
-								ClassicEditor
-									.create(document.querySelector('#editor'))
-									.catch(error => {
-										console.error(error);
-									});
+                                //CKEditor5를 생성할 textarea 지정
+                                ClassicEditor
+                                    .create(document.querySelector('#editor'))
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
                             </script>
                         </li>
                     </ul>
@@ -120,25 +120,25 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
 
-	$('#file').on("change", fileChange);
+    $('#file').on("change", fileChange);
 
-	function fileChange(e) {
-		const files = e.target.files;
-		const filesArr = Array.prototype.slice.call(files);
+    function fileChange(e) {
+        const files = e.target.files;
+        const filesArr = Array.prototype.slice.call(files);
 
-		filesArr.forEach(function (f) {
-			const reader = new FileReader();
-			reader.onload = function (e) {
-				$('.product-photo').css({
-					"background": "url(" + e.target.result + ")",
-					'background-repeat': 'no-repeat',
-					'background-position': 'center center',
-					'background-size': 'cover'
-				});
-				$('.product-photo::before').css({'background-image': 'url("")'});
-			}
-			reader.readAsDataURL(f);
-		})
-	}
+        filesArr.forEach(function (f) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                $('.product-photo').css({
+                    "background": "url(" + e.target.result + ")",
+                    'background-repeat': 'no-repeat',
+                    'background-position': 'center center',
+                    'background-size': 'cover'
+                });
+                $('.product-photo::before').css({'background-image': 'url("")'});
+            }
+            reader.readAsDataURL(f);
+        })
+    }
 </script>
 </html>

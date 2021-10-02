@@ -5,13 +5,13 @@
               maxIdle="20"
               maxTotal="20"
               maxActive="20"
-              password="1004"
-              username="root"
-              url="jdbc:mysql://localhost:3306/TEST"
-              driverClassName="com.mysql.jdbc.Driver"
+              password="wjstjf1472$"
+              username="bituser"
+              url="jdbc:oracle:thin:@localhost:1521:XE"
+              driverClassName="oracle.jdbc.OracleDriver"
               type="javax.sql.DataSource"
               auth="Container"
-              name="jdbc/mysql"/>
+              name="jdbc/oracle"/>
 </Context>
 
         <!--오라클 사용 시 아래 부분 주석 해제
