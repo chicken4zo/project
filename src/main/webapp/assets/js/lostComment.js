@@ -45,10 +45,10 @@ $('#commentWriteBtn').click(function () {
 	const writerId = document.getElementById("writerId");
 	const content = document.getElementById("commentContent");
 
-	if (writerId.value === "" || content.value === "") {
-		alert("리플 내용, 작성자를 모두 입력해야합니다.");
-		return false;
-	}
+	// if (writerId.value === "" || content.value === "") {
+	// 	alert("리플 내용, 작성자를 모두 입력해야합니다.");
+	// 	return false;
+	// }
 
 	$.ajax({
 		url: "lostCommentWrite.comment",
