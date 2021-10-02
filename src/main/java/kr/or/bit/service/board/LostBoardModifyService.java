@@ -52,6 +52,7 @@ public class LostBoardModifyService implements Action {
             lostBoard.setTitle(multi.getParameter("title"));
             lostBoard.setContent(multi.getParameter("content"));
             lostBoard.setId(multi.getParameter("id"));
+            String originalFileName = multi.getOriginalFileName("originalfile");
             lostBoard.setIdx(idx);
             Enumeration fileNames = multi.getFileNames();
 

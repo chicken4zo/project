@@ -51,13 +51,15 @@
                         </li>
                         <li class="info-title">
                             <div class="info-detail">이미지</div>
-
                             <div class="product-photo" id="${lostBoard.fileName}">
                                 <input type="file" id="file" name="file" accept="image/jpeg, image/png, image/jpg">
                             </div>
                             <c:if test="${not empty lostBoard.fileName}">
                                 <button id="delete" class="write-btn">삭제</button>
                             </c:if>
+                            <input type="hidden" name="originalfile" value="${lostBoard.fileName}">
+                            <c:if test="${}"
+                            <c:set target="${lostBoard.fileName}" property="name" value=""/>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">제목</div>

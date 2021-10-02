@@ -58,6 +58,9 @@
                             <c:if test="${not empty dailyBoard.fileName}">
                                 <button id="delete" class="write-btn">삭제</button>
                             </c:if>
+                            <div class="file"></div>
+                            <input hidden class="originalfile" name="originalfile" value="${dailyBoard.fileName}">
+                            ${dailyBoard.fileName}
                         </li>
                         <li class="info-title">
                             <div class="info-detail">제목</div>
@@ -100,21 +103,21 @@
 	<%--	fileDelete(e)--%>
 	<%--})--%>
 
-	<%--if (fileName !== null) {--%>
-	<%--	$('.product-photo').css({--%>
-	<%--		"background": "url(${pageContext.request.contextPath}/assets/upload/" + fileName + ")",--%>
-	<%--		'background-repeat': 'no-repeat',--%>
-	<%--		'background-position': 'center center',--%>
-	<%--		'background-size': 'cover'--%>
-	<%--	})--%>
-	<%--} else {--%>
-	<%--	$('.product-photo').css({--%>
-	<%--		"background": "url(${pageContext.request.contextPath}/assets/images/upload.png)",--%>
-	<%--		'background-repeat': 'no-repeat',--%>
-	<%--		'background-position': 'center center',--%>
-	<%--		'background-size': '20%'--%>
-	<%--	})--%>
-	<%--}--%>
+	if (fileName !== null) {
+		$('.product-photo').css({
+			"background": "url(${pageContext.request.contextPath}/assets/upload/" + fileName + ")",
+			'background-repeat': 'no-repeat',
+			'background-position': 'center center',
+			'background-size': 'cover'
+		})
+	} else {
+		$('.product-photo').css({
+			"background": "url(${pageContext.request.contextPath}/assets/images/upload.png)",
+			'background-repeat': 'no-repeat',
+			'background-position': 'center center',
+			'background-size': '20%'
+		})
+	}
 
 	<%--function fileDelete(e) {--%>
 	<%--	$('.product-photo').css({--%>

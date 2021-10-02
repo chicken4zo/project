@@ -7,6 +7,8 @@ body {
     width: 900px;
     margin: auto;
 }
+
+
 .product-wrap {
     height: 100%;
     margin-right: 16px;
@@ -16,10 +18,9 @@ body {
 
 .title {
     color: #8B425A;
-    font-size: 29px;
-    margin-top: 30px;
-    margin-left: 116px;
     font-family: 'Jua', sans-serif;
+    font-size: 35px;
+    padding: 2% 0 0 10%;
 
 }
 

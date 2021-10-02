@@ -34,14 +34,14 @@ public class LoginService implements Action {
             String msg = "";
             String url = "";
             if (result == null) {
-                msg = "잘못된 메일 이거나 비밀번호 입니다.";
+                msg = "일치하는 회원정보가 없습니다.";
                 url = "Login.member";
             } else if (result != null) {
                 msg = "고구마켓에 어서오세요!";
                 url = "main.member";
 
 
-                session.setAttribute("id", result.getId());
+                session.setAttribute("id", id);
 
 
             }

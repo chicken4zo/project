@@ -46,20 +46,29 @@ public class DailyBoardModifyService implements Action {
                 System.out.println(e.getMessage());
             }
 
-            assert multi != null;
-            int idx = Integer.parseInt(multi.getParameter("idx"));
+            if (multi != null) {
+                int idx = Integer.parseInt(multi.getParameter("idx"));
 
-            dailyBoard.setTitle(multi.getParameter("title"));
-            dailyBoard.setContent(multi.getParameter("content"));
-            dailyBoard.setId(multi.getParameter("id"));
-            dailyBoard.setIdx(idx);
-            Enumeration fileNames = multi.getFileNames();
+                dailyBoard.setTitle(multi.getParameter("title"));
+                dailyBoard.setContent(multi.getParameter("content"));
+                dailyBoard.setId(multi.getParameter("id"));
+                dailyBoard.setIdx(idx);
+                String originalFileName = multi.getParameter("originalfile");
+                if (multi.getFileNames() != null) {
+                    Enumeration fileNames = multi.getFileNames();
 
-            String fileTag = (String) fileNames.nextElement();
-            String fileName = multi.getFilesystemName(fileTag);
-            String fileName2 = multi.getOriginalFileName(fileTag);
-            dailyBoard.setFileName(fileName);
-            dailyBoard.setFilePath(uploadPath);
+                    String fileTag = (String) fileNames.nextElement();
+                    String fileName = multi.getFilesystemName(fileTag);
+                    String fileName2 = multi.getOriginalFileName(fileTag);
+                    dailyBoard.setFileName(fileName);
+                    dailyBoard.setFilePath(uploadPath);
+                } else {
+                    dailyBoard.setFileName(originalFileName);
+                    dailyBoard.setFilePath(uploadPath);
+                }
+
+            }
+
 
             System.out.println(dailyBoard);
             int result = dao.modifyDaily(dailyBoard);
