@@ -71,6 +71,11 @@ public class MemberServlet extends HttpServlet {
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/login.jsp");
+        } else if (urlCommand.equals("/mypage.member")) {
+            System.out.println("mypage");
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/mypage.jsp");
         }
 
 

@@ -13,7 +13,7 @@
             <%--            <c:if test="${not empty id}">--%>
 
             <select class="selectpicker" data-width="fit" onchange="location.href=this.value">
-                <option value="" disabled style="color: black; font-size: 0.89rem">게시판</option>
+                <option value="" style="color: black; font-size: 0.89rem">게시판</option>
                 <option value="productList.board">상품</option>
                 <option value="dailyList.board">일상</option>
                 <option value="lostList.board">분실·실종</option>
@@ -38,10 +38,10 @@
                 <a href="${pageContext.request.contextPath}/lostList.board">
                     <li>우리동네</li>
                 </a>
-                <a href="${pageContext.request.contextPath}/productContent.board">
+                <a href="${pageContext.request.contextPath}/RestaurantList.board">
                     <li>구마차트</li>
                 </a>
-                <a href="${pageContext.request.contextPath}/productForm.board">
+                <a href="${pageContext.request.contextPath}/NoticeList.board">
                     <li>공지사항</li>
                 </a>
             </ul>

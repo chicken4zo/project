@@ -1,115 +1,147 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: heewonseo
-  Date: 2021/09/27
-  Time: 23:23
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>게시판 글쓰기</title>
-    <SCRIPT type="text/javascript">
-        function check() {
-            if (!restaurant.title.value) {
-                alert("제목을 입력하세요");
-                restaurant.title.focus();
-                return false;
-            }
-            if (!restaurant.id.value) {
-                alert("이름을 입력하세요");
-                restaurant.id.focus();
-                return false;
-            }
-            if (!restaurant.content.value) {
-                alert("글 내용을 입력하세요");
-                restaurant.content.focus();
-                return false;
-            }
-            document.restaurant.submit();
+    <meta charset="UTF-8">
+    <title>고민하지말구, 고구마켓</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/productWrite.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- fontawesome  -->
+    <script src="https://kit.fontawesome.com/a959489452.js" crossorigin="anonymous"></script>
+    <!--font-->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <!--weather icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
+    <style>
+        .product-photo {
+            background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
+            background-size: 20%;
+            background-position: center center;
+            background-repeat: no-repeat;
         }
-    </SCRIPT>
-    <!-- 첨부파일 <file> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </style>
 
-    <!-- summbernote -->
-    <!-- include libraries(jQuery, bootstrap) -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#filename').on("change", fileChange);
-            $('#summernote').summernote({
-                placeholder: '내용을 입력하세요',
-                tabsize: 2,
-                height: 300,
-                minHeight: 300,
-                maxHeight: 300,
-            });
-        })
-
-        function fileChange(e) {
-            var files = e.target.files;
-            var filesArr = Array.prototype.slice.call(files);
-
-            filesArr.forEach(function (f) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#preview').attr("src", e.target.result);
-                }
-                reader.readAsDataURL(f);
-            })
-        }
-
-    </script>
-    </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 </head>
 <body>
+<div id="body_wrap">
+    <div class="wrapper">
+        <!--header-->
+        <jsp:include page="../../include/top.jsp"/>
+        <%--weather--%>
+        <jsp:include page="../../include/weather.jsp"/>
 
+        <%--content--%>
+        <div class="title">맛있구마</div>
+        <form name="lost" action="RestaurantWriteOk.board" method="post" enctype="multipart/form-data">
+            <div class="product-group">
+                <section class="product-wrap">
+                    <!--    <h2>글쓰기</h2>-->
+                    <ul class="product-info">
+                        <li class="info-title">
+                            <div class="info-detail">아이디</div>
+                            <input type="text" name="id" value=""/>
+                        </li>
+                        <li class="info-title">
+                            <div class="info-detail">이미지</div>
 
-<div id="pageContainer">
-    <div style="padding-top: 25px; text-align: center">
-        <!-- form 시작 ---------->
-        <form name="restaurant" action="RestaurantWriteOk.board" method="POST" enctype="multipart/form-data">
-            <table width="95%" border="2" align="center">
-                <tr>
-                    <td width="20%" align="center">제목</td>
-                    <td width="80%" align="left"><input type="text" name="title" size="40"></td>
-                </tr>
-                <tr>
-                    <td width="20%" align="center">글쓴이</td>
-                    <td width="80%" align="left"><input type="text" name="id" size="40"></td>
-                </tr>
-                <tr>
-                    <td width="20%" align="center">글내용</td>
-                    <td width="80%" align="left"><textarea rows="10" cols="60" name="content"></textarea></td>
-                </tr>
-                <tr>
-                    <td width="20%" align="center">첨부파일</td>
-                    <td width="80%" align="left"><input type="file" id="filename" name="filename"></td>
-                </tr>
-                <tr>
-                    <td width="20%" align="center">미리보기</td>
-                    <td width="80%" align="left"><img id="preview" src="" width="300" alt=""></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="button" value="글쓰기" onclick="check();"/>
-                        <input type="reset" value="다시쓰기"/>
-                    </td>
-                </tr>
-            </table>
+                            <div class="product-photo">
+                                <input type="file" id="file" name="filename" accept="image/jpeg, image/png, image/jpg">
+                            </div>
+                        </li>
+                        <li class="info-title">
+                            <div class="info-detail">제목</div>
+                            <input type="text" name="title" placeholder="50자 내로 입력해주세요." id="writeTitle"
+                                   class="write-title" required>
+                        </li>
+                        <li class="info-title">
+                            <div class="info-detail">
+                                내용
+                            </div>
+                            <textarea placeholder="500자 내로 입력해주세요" name="content" id="editor"></textarea>
+                            <script>
+                                //CKEditor5를 생성할 textarea 지정
+                                ClassicEditor
+                                    .create(document.querySelector('#editor'), {
+                                        placeholder: '500자 내로 입력해주세요'
+                                    })
+                                    .then(newEditor => {
+                                        editor = newEditor;
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
+                            </script>
+                        </li>
+                    </ul>
+                </section>
+                <div class="product-btn">
+                    <input id="writeBtn" type="submit" class="write-btn" value="등록하기">
+                </div>
+            </div>
         </form>
     </div>
 </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+
+<script>
+
+    // $('#file').on("change", fileChange);
+    //
+    // function fileChange(e) {
+    // 	const files = e.target.files;
+    // 	const filesArr = Array.prototype.slice.call(files);
+    //
+    // 	filesArr.forEach(function (f) {
+    // 		const reader = new FileReader();
+    // 		reader.onload = function (e) {
+    // 			$('.product-photo').css({
+    // 				"background": "url(" + e.target.result + ")",
+    // 				'background-repeat': 'no-repeat',
+    // 				'background-position': 'center center',
+    // 				'background-size': 'cover'
+    // 			});
+    // 			$('.product-photo::before').css({'backgrounddl-image': 'url("")'});
+    // 		}
+    // 		reader.readAsDataURL(f);
+    // 	})
+    // }
+
+
+    // 유효성 ...  왜 안돼 .....
+    // const btn = document.querySelector('#writeBtn');
+    // const title = document.querySelector('#writeTitle');
+    // const content = editor.getData();
+    //
+    // btn.addEventListener('click', function (){
+    //
+    //    if(title.value.length > 50){
+    //        alert("제목을 50자 내로 입력해주세요.");
+    //        // title.focus();
+    //        return false;
+    //    }else if(content === ""){
+    //        alert("내용을 입력해주세요");
+    //        return false;
+    //    }else if(content.length > 500){
+    //        alert("내용을 500자 내로 입력해주세요.");
+    //        return false;
+    //    }
+    //
+    // });
+
+</script>
 </html>
