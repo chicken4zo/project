@@ -27,20 +27,7 @@
 <c:set var="board" value="${requestScope.board}"></c:set>
 <c:set var="cpage" value="${requestScope.cpage}"></c:set>
 <c:set var="pagesize" value="${requestScope.pagesize}"></c:set>
-<script type="text/javascript">
-  function fileChange(e) {
-    var files = e.target.files;
-    var filesArr = Array.prototype.slice.call(files);
-
-    filesArr.forEach(function (f) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        $('#preview').attr("src", e.target.result);
-      }
-      reader.readAsDataURL(f);
-    })
-  }
-</script>
+<c:set var="commentList" value="${requestScope.commentList}"/>
 
 
 <div id="pageContainer">
@@ -98,10 +85,9 @@
         </tr>
         <tr>
           <td colspan="4" align="center">
-            <a href="list.board?cp=${cpage}&ps=${pagesize}">목록가기</a> |
-            <a href="edit.board?idx=${idx}&cp=${cpage}&ps=${pagesize}">편집</a> |
-            <a href="delete.board?idx=${idx}&cp=${cpage}&ps=${pagesize}">삭제</a> |
-            <a href="rewrite.board?idx=${idx}&cp=${cpage}&ps=${pagesize}&subject=${board.title}">답글</a>
+            <a href="RestaurantList.board?cp=${cpage}&ps=${pagesize}">목록가기</a> |
+            <a href="RestaurantEdit.board?idx=${idx}&cp=${cpage}&ps=${pagesize}">편집</a> |
+            <a href="RestaurantDelete.board?idx=${idx}&cp=${cpage}&ps=${pagesize}">삭제</a>
           </td>
         </tr>
       </table>

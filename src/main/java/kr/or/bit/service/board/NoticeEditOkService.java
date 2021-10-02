@@ -1,10 +1,9 @@
 package kr.or.bit.service.board;
 
-import com.mysql.cj.protocol.x.Notice;
+
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.NoticeDao;
-import kr.or.bit.dto.NoticeBoard;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
