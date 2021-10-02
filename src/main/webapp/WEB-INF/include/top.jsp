@@ -62,21 +62,7 @@
         <%--login Logout Ajax--%>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-        <script type="text/javascript">
-            $.ajax(
-                {
-                    url: "LoginLogout",
-                    type: "GET",
-                    dataType: "html",
-                    success: function (responseData) {
-                        document.getElementById("loginlogout").innerHTML = responseData;
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.status);
-                    }
-                }
-            );
-        </script>
+            <div>TEST</div>
     </div>
     </div>
 </header>
