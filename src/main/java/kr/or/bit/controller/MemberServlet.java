@@ -2,6 +2,10 @@ package kr.or.bit.controller;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.service.member.LoginService;
+import kr.or.bit.service.member.LogoutService;
+import kr.or.bit.service.member.MemberCheckService;
+import kr.or.bit.service.member.RegisterService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +18,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "*.member")
 public class MemberServlet extends HttpServlet {
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("여기까진오냐 0");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
@@ -23,6 +28,50 @@ public class MemberServlet extends HttpServlet {
 
         ActionForward forward = null;
         Action action = null;
+
+
+        if (urlCommand.equals("/Register.member")) { //회원가입 페이지로 가는 태그
+
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/register.jsp");
+
+        } else if (urlCommand.equals("/RegisterOk.member")) { // 회원가입 완료
+            System.out.println("여기까진오냐1");
+            action = new RegisterService();
+            forward = action.execute(request, response);
+            System.out.println("MemberRegister Start");
+
+        } else if (urlCommand.equals("/Login.member")) { // 인덱스 페이지에서 누르면 로그인 폼으로 가는 태그
+            System.out.println("여기까진오냐 2");
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/login.jsp");
+
+        } else if (urlCommand.equals("/LoginOk.member")) {
+            System.out.println("여기까진오냐 3");
+            action = new LoginService();
+            forward = action.execute(request, response);
+            System.out.println("MemberJoin Start");
+
+        } else if (urlCommand.equals("/LogOut.member")) {
+            System.out.println("여기까진오냐4");
+            System.out.println("로그아웃완료");
+            action = new LogoutService();
+            forward = action.execute(request, response);
+            System.out.println("Logout Start");
+
+        } else if (urlCommand.equals("/IdCheck.member")) {
+            System.out.println("여기까진오냐5");
+            action = new MemberCheckService();
+            forward = action.execute(request, response);
+            System.out.println("IdCheck Start");
+
+        } else if (urlCommand.equals("/main.member")) { // 잠깐 로그인 성공시 가는 페이지 만든
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/login.jsp");
+        }
 
 
         if (forward != null) {

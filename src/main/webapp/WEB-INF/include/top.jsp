@@ -1,20 +1,56 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
-          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
-          integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--header-->
+<header>
+    <div id="header_wrap">
+        <img id="logo_img" src="${pageContext.request.contextPath}/assets/images/gogu_logo.png" alt="logo"
+             onclick="location.href='index.jsp';"
+             style="cursor:pointer;">
+        <div id="header_search">
+            <div class="sel sel--black-panther">
+                <select name="select-profession" id="select-profession" onchange="window.open(value, '_self');">
+                    <option value="" disabled>게시판</option>
+                    <option value="${pageContext.request.contextPath}/productForm.board">상품</option>
+                    <option value="2">일상</option>
+                    <option value="3">분실·실종</option>
+                    <option value="4">반려동물</option>
+                </select>
+            </div>
+            <div class="search-form">
+                <input type="text" name="search" value="Search" onclick="this.value=''; ">
+                <button type="submit" class="btn btn-search fa fa-search"></button>
+            </div>
+        </div>
+        <div id="header_nav">
+            <ul>
+                <a href="${pageContext.request.contextPath}/productForm.board">
+                    <li>상품등록</li>
+                </a>
+                <a href="dailyList.board">
+                    <li>우리동네</li>
+                </a>
+                <a href="LoginLogout">
+                    <li>구마차트</li>
+                </a>
+                <a href="#">
+                    <li>공지사항</li>
+                </a>
+            </ul>
+            <a href="${pageContext.request.contextPath}/Register.member">
+                <div class="register_btn">Register</div>
+            </a>
+            <a href="${pageContext.request.contextPath}/Login.member">
+                <div class="myPage_btn">Log In</div>
+            </a>
+        </div>
+    </div>
+</header>
 
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
-        integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
-</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    function moveurl(url) {
+        locstion.href = url;
+    }
+</script>
+

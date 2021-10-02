@@ -11,6 +11,16 @@ public class RestaurantBoard {
     private String fileName;
     private String filePath;
     private String id;
+    private String address;
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public RestaurantBoard() {
     }
@@ -90,6 +100,7 @@ public class RestaurantBoard {
         this.id = id;
     }
 
+
     @Override
     public String toString() {
         return "RestaurantBoard{" +
@@ -103,4 +114,5 @@ public class RestaurantBoard {
                 ", id='" + id + '\'' +
                 '}';
     }
+
 }

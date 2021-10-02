@@ -14,12 +14,14 @@ public class ProductBoard {
     private String filePath2;
     private String fileName3;
     private String filePath3;
+    private int price;
     private String id;
+    private String address;
 
     public ProductBoard() {
     }
 
-    public ProductBoard(int idx, String title, String content, int hit, Date writeDate, String fileName1, String filePath1, String fileName2, String filePath2, String fileName3, String filePath3, String id) {
+    public ProductBoard(int idx, String title, String content, int hit, Date writeDate, String fileName1, String filePath1, String fileName2, String filePath2, String fileName3, String filePath3, int price, String id, String address) {
         this.idx = idx;
         this.title = title;
         this.content = content;
@@ -31,7 +33,9 @@ public class ProductBoard {
         this.filePath2 = filePath2;
         this.fileName3 = fileName3;
         this.filePath3 = filePath3;
+        this.price = price;
         this.id = id;
+        this.address = address;
     }
 
     public int getIdx() {
@@ -122,12 +126,28 @@ public class ProductBoard {
         this.filePath3 = filePath3;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override

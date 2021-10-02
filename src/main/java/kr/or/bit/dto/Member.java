@@ -4,20 +4,32 @@ public class Member {
     private String id;
     private String password;
     private String address;
+    private String name;
     private int birth;
+    
 
     public Member() {
     }
 
-    public Member(String id, String password, String address, int birth) {
+
+    public Member(String id, String password, String name, String address, int birth) {
         this.id = id;
         this.password = password;
         this.address = address;
         this.birth = birth;
+        this.name = name;
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setId(String id) {
@@ -55,6 +67,7 @@ public class Member {
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
                 ", birth=" + birth +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
