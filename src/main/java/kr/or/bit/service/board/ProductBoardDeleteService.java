@@ -16,7 +16,7 @@ public class ProductBoardDeleteService implements Action {
 
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
-        forward.setPath("boardList.board");
+        forward.setPath("productList.board");
 
         return forward;
     }

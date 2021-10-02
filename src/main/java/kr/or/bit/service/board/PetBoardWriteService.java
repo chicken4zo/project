@@ -4,18 +4,17 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.dao.ProductDao;
-import kr.or.bit.dto.ProductBoard;
+import kr.or.bit.dao.PetDao;
+import kr.or.bit.dto.PetBoard;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-public class ProductBoardWriteService implements Action {
+public class PetBoardWriteService implements Action {
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-
         String uploadpath = request.getSession().getServletContext().getRealPath("/assets/upload");
         int size = 1024 * 1024 * 10;
         ActionForward forward = null;
@@ -34,8 +33,6 @@ public class ProductBoardWriteService implements Action {
             String id = multi.getParameter("id");
             String title = multi.getParameter("title");
             String content = multi.getParameter("content");
-            int price = Integer.parseInt(multi.getParameter("price"));
-            String address = multi.getParameter("address");
 
             Enumeration filenames = multi.getFileNames();
 
@@ -45,28 +42,27 @@ public class ProductBoardWriteService implements Action {
                 files.add(multi.getFilesystemName(file));
             }
 
-            ProductBoard productBoard = new ProductBoard();
-            productBoard.setId(id);
-            productBoard.setTitle(title);
-            productBoard.setContent(content);
-            productBoard.setPrice(price);
-            productBoard.setFileName1(files.get(0));
-            productBoard.setFilePath1(uploadpath);
-            productBoard.setFileName2(files.get(1));
-            productBoard.setFilePath2(uploadpath);
-            productBoard.setFileName3(files.get(2));
-            productBoard.setFilePath3(uploadpath);
+            PetBoard petBoard = new PetBoard();
+            petBoard.setId(id);
+            petBoard.setTitle(title);
+            petBoard.setContent(content);
+            petBoard.setFileName1(files.get(0));
+            petBoard.setFilePath1(uploadpath);
+            petBoard.setFileName2(files.get(1));
+            petBoard.setFilePath2(uploadpath);
+            petBoard.setFileName3(files.get(2));
+            petBoard.setFilePath3(uploadpath);
 
-            ProductDao dao = new ProductDao();
-            int result = dao.writeProductBoard(productBoard);
+            PetDao dao = new PetDao();
+            int result = dao.writePetBoard(petBoard);
 
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("productList.board");
+            forward.setPath("petList.board");
 
 
         } catch (Exception e) {
-            System.out.println("PRODUCTBOARD WRITE SERVICE 에러");
+            System.out.println("PETBOARD WRITE SERVICE 에러");
             e.printStackTrace();
         }
 
