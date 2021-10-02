@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProductDao {
@@ -195,6 +196,7 @@ public class ProductDao {
         return resultRow;
     }
 
+    // 제거하기
     public int deleteProduct(String idx) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -248,7 +250,7 @@ public class ProductDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "";
+            String sql = "select no, content, writedate, id, idx from product_comment where idx=? order by no desc";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, Integer.parseInt(index));
@@ -257,13 +259,74 @@ public class ProductDao {
             commentList = new ArrayList<>();
 
             while (rs.next()) {
+                int no = rs.getInt("no");
+                String content = rs.getString("content");
+                Date writeDate = rs.getDate("writedate");
+                String id = rs.getString("id");
+                int idx = rs.getInt("idx");
 
+                ProductComment comment = new ProductComment(no, content, writeDate, id, idx);
+                commentList.add(comment);
             }
         } catch (Exception e) {
-            System.out.println("PRODUCTDAO GETPRODUCTCOMMENTLIST 에러");
+            System.out.println("PRODUCTDAO GET PRODUCTCOMMENTLIST 에러");
             System.out.println(e);
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
         }
 
         return commentList;
+    }
+
+    // 댓글 작성
+    public int writeProductComment(String id, String content, String idx) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "insert into product_comment(no, content, id, writedate, idx) values (no, ?, sysdate, ?, ?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, content);
+            pstmt.setString(2, id);
+            pstmt.setInt(3, Integer.parseInt(idx));
+
+            resultRow = pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("PRODUCTDAO WRITE COMMENT 에러");
+            System.out.println(e);
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return resultRow;
+    }
+
+    // 댓글 제거
+    public int deleteProductComment(int no) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "delete from product_comment where no=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, no);
+
+            resultRow = pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("PRODUCTDAO DELETE COMMENT 에러");
+            System.out.println(e);
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return resultRow;
     }
 }

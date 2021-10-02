@@ -1,4 +1,335 @@
 package kr.or.bit.dao;
 
+import kr.or.bit.dto.PetBoard;
+import kr.or.bit.dto.PetComment;
+import kr.or.bit.util.ConnectionHelper;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PetDao {
+
+    // 총 게시물 수
+    public int totalPetCount() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int totalCount = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select count(*) cnt from pet";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                totalCount = rs.getInt("cnt");
+            }
+
+        } catch (Exception e) {
+            System.out.println("PETDAO TOTAL 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return totalCount;
+    }
+
+    // 리스트 불러오기
+    public List<PetBoard> getPetBoardList(int cpage, int pagesize) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<PetBoard> list = null;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select m.id, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath from pet p join member m on (p.id = m.id) order by idx desc";
+
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                PetBoard petBoard = new PetBoard();
+                list = new ArrayList<>();
+
+                petBoard.setId(rs.getString("id"));
+                petBoard.setIdx(rs.getInt("idx"));
+                petBoard.setTitle(rs.getString("title"));
+                petBoard.setContent(rs.getString("content"));
+                petBoard.setHit(rs.getInt("hit"));
+                petBoard.setWriteDate(rs.getDate("writedate"));
+                petBoard.setFileName1(rs.getString("filename"));
+                petBoard.setFilePath1(rs.getString("filepath"));
+
+                list.add(petBoard);
+            }
+        } catch (Exception e) {
+            System.out.println("PETBOARD DAO LIST 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return list;
+    }
+
+    // 글쓰기
+    public int writePetBoard(PetBoard petBoard) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "insert into pet(idx, title, content, hit, writedate, " +
+                    "filename, filefath, filename2, filepath2, filename3, filepath3)" +
+                    " values (pet_seq.nextval,?,?,0,sysdate,?,?,?,?,?,?)";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, petBoard.getTitle());
+            pstmt.setString(2, petBoard.getContent());
+            pstmt.setString(3, petBoard.getFileName1());
+            pstmt.setString(4, petBoard.getFilePath1());
+            pstmt.setString(5, petBoard.getFileName2());
+            pstmt.setString(6, petBoard.getFilePath2());
+            pstmt.setString(7, petBoard.getFileName3());
+            pstmt.setString(8, petBoard.getFilePath3());
+
+            resultRow = pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("PETDAO 글쓰기 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return resultRow;
+    }
+
+    // 상세보기
+    public PetBoard getPetBoardContent(String idx) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        PetBoard petBoard = null;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select idx, id, title, content, hit, writedate, filename, filepath, filename2, filepath2, filename3, filepath3 from pet where idx=?";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                petBoard = new PetBoard();
+                petBoard.setIdx(rs.getInt("idx"));
+                petBoard.setId(rs.getString("id"));
+                petBoard.setTitle(rs.getString("title"));
+                petBoard.setWriteDate(rs.getDate("writedate"));
+                petBoard.setFileName1(rs.getString("filename"));
+                petBoard.setFilePath1(rs.getString("filepath"));
+                petBoard.setFileName2(rs.getString("filename2"));
+                petBoard.setFilePath2(rs.getString("filepath2"));
+                petBoard.setFileName3(rs.getString("filename3"));
+                petBoard.setFilePath3(rs.getString("filepath3"));
+            }
+        } catch (Exception e) {
+            System.out.println("PETDAO 상세보기 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return petBoard;
+    }
+
+    // 조회수 가져오기
+    public boolean getHit(String idx) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        boolean result = false;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "update pet set hit=hit+1 where idx = ?";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, idx);
+
+            if (pstmt.executeUpdate() > 0) {
+                result = true;
+            }
+
+        } catch (Exception e) {
+            System.out.println("PETDAO 조회수 가져오기 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return result;
+    }
+
+    // 수정하기
+    public int modifyPet(PetBoard petBoard) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "update pet set title=?, content=?, filename=?, filepath=?, filename2=?, filepath2=?, filename3=?, filepath3=? where idx=?";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, petBoard.getTitle());
+            pstmt.setString(2, petBoard.getContent());
+            pstmt.setString(3, petBoard.getFileName1());
+            pstmt.setString(4, petBoard.getFilePath1());
+            pstmt.setString(5, petBoard.getFileName2());
+            pstmt.setString(6, petBoard.getFilePath2());
+            pstmt.setString(7, petBoard.getFileName3());
+            pstmt.setString(8, petBoard.getFilePath3());
+            pstmt.setInt(9, petBoard.getIdx());
+
+            resultRow = pstmt.executeUpdate();
+
+
+        } catch (Exception e) {
+            System.out.println("PETDAO 수정하기 오류");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return resultRow;
+    }
+
+    // 삭제하기
+    public int deletePet(String idx) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "delete from pet where idx=?";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, idx);
+            resultRow = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("PETDAO 삭제하기 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return resultRow;
+    }
+
+    // 댓글 가져오기
+    public List<PetComment> getPetCommentList(String idx) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<PetComment> commentList = null;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select no, content, writedate, id, idx, from pet_comment where idx=? order by no desc ";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, idx);
+            rs = pstmt.executeQuery();
+            commentList = new ArrayList<>();
+
+            while (rs.next()) {
+                PetComment petComment = new PetComment();
+
+
+                petComment.setNo(rs.getInt("no"));
+                petComment.setContent(rs.getString("content"));
+                petComment.setWriteDate(rs.getDate("writedate"));
+                petComment.setId(rs.getString("id"));
+                petComment.setIdx(rs.getInt("idx"));
+
+                commentList.add(petComment);
+            }
+        } catch (Exception e) {
+            System.out.println("PETDAO 댓글 가져오기 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return commentList;
+    }
+
+    // 댓글 작성
+    public int writePetComment(String id, String content, String idx) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "insert into pet_comment(no, content, writedate, id, idx) values (no, ?, sysdate, ?, ?)";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, content);
+            pstmt.setString(2, id);
+            pstmt.setInt(3, Integer.parseInt(idx));
+
+            resultRow = pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("PETDAO 댓글 작성 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return resultRow;
+    }
+
+    // 댓글 제거
+    public int deletePetComment(int no) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "delete from pet_comment where no=?";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, no);
+            resultRow = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("PETDAO 댓글 삭제 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return resultRow;
+    }
 }

@@ -25,8 +25,93 @@ public class BoardServlet extends HttpServlet {
         ActionForward forward = null;
         Action action = null;
 
-        // 분실실종 게시판
-        if (urlCommand.equals("/lostWrite.board")) {
+
+        if (urlCommand.equals("/NoticeWrite.board")) {
+            System.out.println("쓰기 ok 컨트롤러");
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/board/noticeWrite.jsp");
+
+            //글 저장
+        } else if (urlCommand.equals("/NoticeWriteOk.board")) {
+            action = new NoticeWriteService();
+            forward = action.execute(request, response);
+
+            //공지사항 목록보기
+        } else if (urlCommand.equals("/NoticeList.board")) {
+            System.out.println("컨트롤러탔다.");
+            //forward = new ActionForward();
+            //forward.setPath("/WEB-INF/views/board/noticeList.jsp");
+            //forward.setRedirect(false);
+            action = new NoticeBoardListService();
+            forward = action.execute(request, response);
+
+            //글 상세보기
+        } else if (urlCommand.equals("/NoticeContent.board")) {
+            System.out.println("content 컨트롤러 탔다.");
+            action = new NoticeContentService();
+            forward = action.execute(request, response);
+
+            //글 수정
+        } else if (urlCommand.equals("/NoticeEdit.board")) {
+            action = new NoticeEditService();
+            forward = action.execute(request, response);
+
+            //글 수정 완료
+        } else if (urlCommand.equals("/NoticeEditOk.board")) {
+            System.out.println("EditOk컨트롤러왔니..?");
+            action = new NoticeEditOkService();
+            forward = action.execute(request, response);
+
+            //글 삭제
+        } else if (urlCommand.equals("/NoticeDelete.board")) {
+            System.out.println("삭제 컨트롤러 탔다.");
+            action = new NoticeDeleteService();
+            forward = action.execute(request, response);
+
+            //맛집시작
+            //맛집 글쓰기
+        } else if (urlCommand.equals("/RestaurantWrite.board")) {
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/board/restaurantWrite.jsp");
+
+        //맛집 글ok
+        } else if (urlCommand.equals("/RestaurantWriteOk.board")) {
+            action = new RestaurantWriteService();
+            forward = action.execute(request, response);
+
+            //맛집 목록
+        } else if (urlCommand.equals("/RestaurantList.board")) {
+            action = new RestaurantBoardListService();
+            forward = action.execute(request, response);
+
+
+            //맛집 상세보기
+        } else if (urlCommand.equals("/RestaurantContent.board")) {
+            System.out.println("서블릿옴");
+            action = new RestaurantContentService();
+            forward = action.execute(request, response);
+
+            //맛집 글 수정
+        } else if (urlCommand.equals("/RestaurantEdit.board")) {
+            action = new RestaurantEditService();
+            forward = action.execute(request, response);
+
+            //맛집 글 삭제
+        } else if (urlCommand.equals("/RestaurantDelete.board")) {
+            System.out.println("삭제 컨트롤러 탔냐고ㅠㅠ");
+            action = new RestaurantDeleteService();
+            forward = action.execute(request, response);
+
+            //댓글 등록, 삭제
+        } else if (urlCommand.equals("/RestaurantComment.board")) {
+            System.out.println("댓글 서블릿옴");
+            action = new RestaurantCommentService();
+            forward = action.execute(request, response);
+
+            // 분실실종 게시판
+        } else if (urlCommand.equals("/lostWrite.board")) {
             System.out.println("분실실종 글쓰기");
             action = new LostBoardWriteService();
             forward = action.execute(request, response);
@@ -60,8 +145,29 @@ public class BoardServlet extends HttpServlet {
             action = new LostBoardReplyOkService();
             forward = action.execute(request, response);
 
-            // 상품 게시판
+            // 반려동물 게시판
+        } else if (urlCommand.equals("/petDelete.board")) {
+            System.out.println("PETBOARD DELETE SERVICE 실행");
 
+        } else if (urlCommand.equals("/petModify.board")) {
+            System.out.println("PETBOARD DELETE SERVICE 실행");
+
+        } else if (urlCommand.equals("/petWrite.board")) {
+            System.out.println("PETBOARD WRITE SERVICE 실행");
+
+        } else if (urlCommand.equals("/petForm.board")) {
+            System.out.println("PETBOARD FORM SERVICE 실행");
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/board/petWrite.jsp");
+
+        } else if (urlCommand.equals("/petContent.board")) {
+            System.out.println("PETBOARD CONTENT SERVICE 실행");
+
+        } else if (urlCommand.equals("/petList.board")) {
+            System.out.println("PETBOARD LIST SERVICE 실행");
+
+            // 상품 게시판
         } else if (urlCommand.equals("/productDelete.board")) {
             System.out.println("PRODUCTBOARD DELETE SERVICE 실행");
             action = new ProductBoardDeleteService();

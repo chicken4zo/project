@@ -40,7 +40,7 @@ public class RegisterService implements Action {
             String url = "";
             if (result > 0) {
                 msg = "회원가입에 성공하였습니다!";
-                url = "main.member";
+                url = "Login.member";
             } else {
                 msg = "회원가입에 실패하였습니다. 아이디 중복 체크를 해주세요.";
                 url = "Register.member";

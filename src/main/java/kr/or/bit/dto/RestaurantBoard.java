@@ -10,29 +10,9 @@ public class RestaurantBoard {
     private Date writeDate;
     private String fileName;
     private String filePath;
-    private int refer;
-    private int depth;
-    private int step;
     private String id;
     private String address;
 
-    @Override
-    public String toString() {
-        return "RestaurantBoard{" +
-                "idx=" + idx +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", hit=" + hit +
-                ", writeDate=" + writeDate +
-                ", fileName='" + fileName + '\'' +
-                ", filePath='" + filePath + '\'' +
-                ", refer=" + refer +
-                ", depth=" + depth +
-                ", step=" + step +
-                ", id='" + id + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
 
     public String getAddress() {
         return address;
@@ -45,7 +25,7 @@ public class RestaurantBoard {
     public RestaurantBoard() {
     }
 
-    public RestaurantBoard(int idx, String title, String content, int hit, Date writeDate, String fileName, String filePath, int refer, int depth, int step, String id) {
+    public RestaurantBoard(int idx, String title, String content, int hit, Date writeDate, String fileName, String filePath, String id) {
         this.idx = idx;
         this.title = title;
         this.content = content;
@@ -53,9 +33,6 @@ public class RestaurantBoard {
         this.writeDate = writeDate;
         this.fileName = fileName;
         this.filePath = filePath;
-        this.refer = refer;
-        this.depth = depth;
-        this.step = step;
         this.id = id;
     }
 
@@ -115,36 +92,27 @@ public class RestaurantBoard {
         this.filePath = filePath;
     }
 
-    public int getRefer() {
-        return refer;
-    }
-
-    public void setRefer(int refer) {
-        this.refer = refer;
-    }
-
-    public int getDepth() {
-        return depth;
-    }
-
-    public void setDepth(int depth) {
-        this.depth = depth;
-    }
-
-    public int getStep() {
-        return step;
-    }
-
-    public void setStep(int step) {
-        this.step = step;
-    }
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+
+    @Override
+    public String toString() {
+        return "RestaurantBoard{" +
+                "idx=" + idx +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", hit=" + hit +
+                ", writeDate=" + writeDate +
+                ", fileName='" + fileName + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", id='" + id + '\'' +
+                '}';
     }
 
 }

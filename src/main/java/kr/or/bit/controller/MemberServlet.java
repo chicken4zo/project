@@ -73,6 +73,7 @@ public class MemberServlet extends HttpServlet {
             forward.setPath("/WEB-INF/views/login.jsp");
         }
 
+
         if (forward != null) {
             if (forward.isRedirect()) { //true 페이지를 재요청
                 response.sendRedirect(forward.getPath());

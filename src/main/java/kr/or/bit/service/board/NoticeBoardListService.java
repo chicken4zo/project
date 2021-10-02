@@ -23,7 +23,7 @@ public class NoticeBoardListService implements Action {
             String ps = request.getParameter("ps");
             String cp = request.getParameter("cp");
 
-            if(cp == null || cp.trim().equals("")) {
+            if (ps == null || ps.trim().equals("")) {
                 ps = "10";
             }
 
@@ -50,7 +50,7 @@ public class NoticeBoardListService implements Action {
             }
 
             int pagersize = 10;
-            ThePager pager = new ThePager(totalNoticeCount, cpage, pagersize, pagersize, "NoticeList.board");
+            ThePager pager = new ThePager(totalNoticeCount, cpage, pagesize, pagersize, "NoticeList.board");
 
             request.setAttribute("pagesize", pagesize);
             request.setAttribute("cpage", cpage);
