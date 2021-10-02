@@ -312,6 +312,10 @@ header {
     letter-spacing: 1px;
 }
 
+#header_nav li:hover {
+    color: #8B425A;
+}
+
 #header_nav div {
     float: left;
 }

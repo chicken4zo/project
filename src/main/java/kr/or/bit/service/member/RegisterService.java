@@ -42,7 +42,7 @@ public class RegisterService implements Action {
                 msg = "회원가입에 성공하였습니다!";
                 url = "main.member";
             } else {
-                msg = "회원가입에 실패하였습니다 ㅠㅠ";
+                msg = "회원가입에 실패하였습니다. 아이디 중복 체크를 해주세요.";
                 url = "Register.member";
             }
             request.setAttribute("msg", msg);

@@ -4,15 +4,15 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.dao.ProductDao;
-import kr.or.bit.dto.ProductBoard;
+import kr.or.bit.dao.PetDao;
+import kr.or.bit.dto.PetBoard;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-public class ProductBoardModifyService implements Action {
+public class PetBoardModifyService implements Action {
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         String uploadpath = request.getSession().getServletContext().getRealPath("/assets/upload");
@@ -22,15 +22,15 @@ public class ProductBoardModifyService implements Action {
         try {
             if (request.getParameter("title") == null || request.getParameter("title").equals("")) {
                 String idx = request.getParameter("idx");
-                ProductDao dao = new ProductDao();
-                ProductBoard productBoard = dao.getProductContent(idx);
+                PetDao dao = new PetDao();
+                PetBoard petBoard = dao.getPetBoardContent(idx);
 
-                System.out.println(productBoard.toString());
-                request.setAttribute("productBoard", productBoard);
+                System.out.println(petBoard.toString());
+                request.setAttribute("petBoard", petBoard);
 
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setPath("/WEB-INF/views/board/productModify.jsp");
+                forward.setPath("/WEB-INF/views/board/petModify.jsp");
             } else {
                 MultipartRequest multi = new MultipartRequest(
                         request,
@@ -43,7 +43,6 @@ public class ProductBoardModifyService implements Action {
                 String idx = multi.getParameter("idx").trim();
                 String title = multi.getParameter("title").trim();
                 String content = multi.getParameter("content").trim();
-                int price = Integer.parseInt(multi.getParameter("price").trim());
 
                 Enumeration filenames = multi.getFileNames();
 
@@ -54,30 +53,33 @@ public class ProductBoardModifyService implements Action {
                     files.add(multi.getFilesystemName(file));
                 }
 
-                ProductDao dao = new ProductDao();
-                ProductBoard productBoard = dao.getProductContent(idx);
+                PetDao dao = new PetDao();
+                PetBoard petBoard = dao.getPetBoardContent(idx);
 
-                productBoard.setIdx(Integer.parseInt(idx));
-                productBoard.setTitle(title);
-                productBoard.setContent(content);
-                productBoard.setPrice(price);
-                productBoard.setFileName1(files.get(0));
-                productBoard.setFilePath1(uploadpath);
-                productBoard.setFileName2(files.get(1));
-                productBoard.setFilePath2(uploadpath);
-                productBoard.setFileName3(files.get(2));
-                productBoard.setFilePath3(uploadpath);
+                petBoard.setIdx(Integer.parseInt(idx));
+                petBoard.setTitle(title);
+                petBoard.setContent(content);
+                petBoard.setFileName1(files.get(0));
+                petBoard.setFilePath1(uploadpath);
+                petBoard.setFileName2(files.get(1));
+                petBoard.setFilePath2(uploadpath);
+                petBoard.setFileName3(files.get(2));
+                petBoard.setFilePath3(uploadpath);
 
 
-                int result = dao.modifyProduct(productBoard);
+//                int result = dao.modifyPet(petBoard);
+
+                int result = dao.modifyPet(petBoard);
+
+
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setPath("productList.board");
+                forward.setPath("petList.board");
             }
 
         } catch (Exception e) {
-            System.out.println("PRODUCTBOARD MODIFY SERVICE 에러");
-            System.out.println(e);
+            System.out.println("PETBOARD MODIFY SERVICE 에러");
+            e.printStackTrace();
         }
 
         return forward;

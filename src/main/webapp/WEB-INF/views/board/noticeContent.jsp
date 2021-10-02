@@ -43,7 +43,7 @@
                     <td width="30%">${board.id}</td>
                     <td width="20%" align="center"><b>조회수</b></td>
                     <td>${board.hit}</td>
-                </tr
+                </tr>
                 <tr>
                     <td width="20%" align="center"><b>제목</b></td>
                     <td colspan="3">${board.title}</td>

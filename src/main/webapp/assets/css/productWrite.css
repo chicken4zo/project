@@ -4,15 +4,23 @@ body {
 
 .product-group {
     display: block;
-    width: 1024px;
+    width: 900px;
     margin: auto;
 }
-
 .product-wrap {
     height: 100%;
     margin-right: 16px;
     display: flex;
     align-items: center;
+}
+
+.title {
+    color: #8B425A;
+    font-size: 29px;
+    margin-top: 30px;
+    margin-left: 116px;
+    font-family: 'Jua', sans-serif;
+
 }
 
 .product-btn {
@@ -64,12 +72,20 @@ body {
 ol, ul {
     list-style: none;
 }
-
 .info-title {
     width: 100%;
     display: flex;
     padding: 2rem 0px;
     border-bottom: 1px solid rgb(220, 219, 228);
+}
+
+.idAddress {
+    display: flex;
+    flex-direction: column;
+}
+
+.idAddress div {
+    margin-top: 12px;
 }
 
 .info-detail {
@@ -119,7 +135,6 @@ ol, ul {
     color: #fff;
     transform: translateY(-7px);
 }
-
 .ck.ck-editor {
     width: 78% !important;
 }
