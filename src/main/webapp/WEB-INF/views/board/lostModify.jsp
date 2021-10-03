@@ -58,7 +58,7 @@
                                 <button id="delete" class="write-btn">삭제</button>
                             </c:if>
                             <input type="hidden" name="originalfile" value="${lostBoard.fileName}">
-                            <c:set target="${lostBoard.fileName}" property="name" value=""/>
+                            <%--                            <c:set target="${lostBoard.fileName}" property="name" value=""/>--%>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">제목</div>

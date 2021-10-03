@@ -1,5 +1,6 @@
 commentList();
 
+
 function commentList() {
 	$.ajax({
 		url: "lostCommentList.comment",
@@ -11,21 +12,40 @@ function commentList() {
 		success: function (data) {
 
 			$('.commentList').empty();
+
+			console.log("list");
+
+			const loginId = $('.loginId').val();
+			const writerId = $('#writerid').val();
+			const commentId = $('#commentId').val();
+			console.log(loginId);
+
 			if (data.length === 0) {
 				$('.commentList').append('<tr align="left"><td>등록된 댓글이 없습니다</td></tr>');
-
 			} else {
 				$.each(data, function (index, obj) {
 					if (obj.id === $('#writerId').val()) {
 						$('.commentList').append('글쓴이');
 					}
-					$('.commentList').append('<h2>'
-						+ obj.id + '</h2><p>' + obj.content + '</p><h4>' + obj.writedate + '</h4>'
-						+ '<form method="POST" name="deleteComment">'
-						+ '<input type="hidden" name="no" value="' + obj.no + '" class="comment_no">'
-						+ '<input type="hidden" name="idx" value="' + $('#idx').val() + '" class="comment_idx">'
-						+ '<input type="button" value="삭제" class="deleteBtn">'
-						+ '</form>');
+
+					if (loginId === commentId) {
+						$('.commentList').append('<h2>'
+							+ obj.id + '</h2><p>' + obj.content + '</p><h4>' + obj.writedate + '</h4>'
+							+ '<form method="POST" name="deleteComment">'
+							+ '<input type="hidden" name="no" value="' + obj.no + '" class="comment_no">'
+							+ '<input type="hidden" name="idx" value="' + $('#idx').val() + '" class="comment_idx">'
+							+ '<input type="button" value="삭제" class="deleteBtn">'
+							+ '</form>');
+					} else {
+						$('.commentList').append('<h2>'
+							+ obj.id + '</h2><p>' + obj.content + '</p><h4>' + obj.writedate + '</h4>'
+							+ '<form method="POST" name="deleteComment">'
+							+ '<input type="hidden" name="no" value="' + obj.no + '" class="comment_no">'
+							+ '<input type="hidden" name="idx" value="' + $('#idx').val() + '" class="comment_idx">'
+							+ '</form>');
+					}
+
+
 					$('.deleteBtn').click(function () {
 						deleteComment(this.form);
 					});

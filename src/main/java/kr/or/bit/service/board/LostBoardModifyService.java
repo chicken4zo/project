@@ -22,6 +22,7 @@ public class LostBoardModifyService implements Action {
             String idx = request.getParameter("idx");
             LostBoard lost = new LostBoard();
             lost = dao.viewLostContent(idx);
+            System.out.println("수정");
 
             request.setAttribute("lostBoard", lost);
 
@@ -55,11 +56,16 @@ public class LostBoardModifyService implements Action {
             String originalFileName = multi.getOriginalFileName("originalfile");
             lostBoard.setIdx(idx);
             Enumeration fileNames = multi.getFileNames();
-
             String fileTag = (String) fileNames.nextElement();
             String fileName = multi.getFilesystemName(fileTag);
             String fileName2 = multi.getOriginalFileName(fileTag);
-            lostBoard.setFileName(fileName);
+
+            if (fileName == null || fileName.equals("")) {
+                lostBoard.setFileName(originalFileName);
+            } else {
+                lostBoard.setFileName(fileName);
+            }
+
             lostBoard.setFilePath(uploadPath);
 
             System.out.println(lostBoard);

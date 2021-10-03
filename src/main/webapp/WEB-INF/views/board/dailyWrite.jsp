@@ -23,12 +23,12 @@
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
     <style>
-        .product-photo {
-            background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
-            background-size: 20%;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
+		.product-photo {
+			background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
+			background-size: 20%;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
     </style>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
@@ -70,17 +70,17 @@
                             </div>
                             <textarea placeholder="500자 내로 입력해주세요" name="content" id="editor"></textarea>
                             <script>
-                                //CKEditor5를 생성할 textarea 지정
-                                ClassicEditor
-                                    .create(document.querySelector('#editor'), {
-                                        placeholder: '500자 내로 입력해주세요'
-                                    })
-                                    .then(newEditor => {
-                                        editor = newEditor;
-                                    })
-                                    .catch(error => {
-                                        console.error(error);
-                                    });
+								//CKEditor5를 생성할 textarea 지정
+								ClassicEditor
+									.create(document.querySelector('#editor'), {
+										placeholder: '500자 내로 입력해주세요'
+									})
+									.then(newEditor => {
+										editor = newEditor;
+									})
+									.catch(error => {
+										console.error(error);
+									});
                             </script>
                         </li>
                     </ul>
@@ -100,48 +100,48 @@
 
 <script>
 
-    // $('#file').on("change", fileChange);
-    //
-    // function fileChange(e) {
-    // 	const files = e.target.files;
-    // 	const filesArr = Array.prototype.slice.call(files);
-    //
-    // 	filesArr.forEach(function (f) {
-    // 		const reader = new FileReader();
-    // 		reader.onload = function (e) {
-    // 			$('.product-photo').css({
-    // 				"background": "url(" + e.target.result + ")",
-    // 				'background-repeat': 'no-repeat',
-    // 				'background-position': 'center center',
-    // 				'background-size': 'cover'
-    // 			});
-    // 			$('.product-photo::before').css({'backgrounddl-image': 'url("")'});
-    // 		}
-    // 		reader.readAsDataURL(f);
-    // 	})
-    // }
+	// $('#file').on("change", fileChange);
+	//
+	// function fileChange(e) {
+	// 	const files = e.target.files;
+	// 	const filesArr = Array.prototype.slice.call(files);
+	//
+	// 	filesArr.forEach(function (f) {
+	// 		const reader = new FileReader();
+	// 		reader.onload = function (e) {
+	// 			$('.product-photo').css({
+	// 				"background": "url(" + e.target.result + ")",
+	// 				'background-repeat': 'no-repeat',
+	// 				'background-position': 'center center',
+	// 				'background-size': 'cover'
+	// 			});
+	// 			$('.product-photo::before').css({'backgrounddl-image': 'url("")'});
+	// 		}
+	// 		reader.readAsDataURL(f);
+	// 	})
+	// }
 
 
-    // 유효성 ...  왜 안돼 .....
-    // const btn = document.querySelector('#writeBtn');
-    // const title = document.querySelector('#writeTitle');
-    // const content = editor.getData();
-    //
-    // btn.addEventListener('click', function (){
-    //
-    //    if(title.value.length > 50){
-    //        alert("제목을 50자 내로 입력해주세요.");
-    //        // title.focus();
-    //        return false;
-    //    }else if(content === ""){
-    //        alert("내용을 입력해주세요");
-    //        return false;
-    //    }else if(content.length > 500){
-    //        alert("내용을 500자 내로 입력해주세요.");
-    //        return false;
-    //    }
-    //
-    // });
+	// 유효성 ...  왜 안돼 .....
+	// const btn = document.querySelector('#writeBtn');
+	// const title = document.querySelector('#writeTitle');
+	// const content = editor.getData();
+	//
+	// btn.addEventListener('click', function (){
+	//
+	//    if(title.value.length > 50){
+	//        alert("제목을 50자 내로 입력해주세요.");
+	//        // title.focus();
+	//        return false;
+	//    }else if(content === ""){
+	//        alert("내용을 입력해주세요");
+	//        return false;
+	//    }else if(content.length > 500){
+	//        alert("내용을 500자 내로 입력해주세요.");
+	//        return false;
+	//    }
+	//
+	// });
 
 </script>
 </html>
