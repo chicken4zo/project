@@ -12,7 +12,7 @@ import java.io.IOException;
 public class RestaurantEditService implements Action {
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-        RestaurantDao dao = new RestaurantDao();
+        System.out.println("수정 서비스 탔니");
         String idx = request.getParameter("idx");
         ActionForward forward = null;
 
@@ -23,12 +23,11 @@ public class RestaurantEditService implements Action {
             if (idx == null || idx.trim().equals("")) {
                 response.sendRedirect("RestaurantList.board");
             }
-
-            RestaurantDao doa = new RestaurantDao();
+            RestaurantDao dao = new RestaurantDao();
             RestaurantBoard board = dao.getEditContent(idx);
 
             if (board == null) {
-                msg = "데이터 오류";
+                msg = "수정할 게시글이 존재하지 않습니다.";
                 url = "RestaurantList.board";
 
                 request.setAttribute("board_msg", msg);
@@ -43,7 +42,7 @@ public class RestaurantEditService implements Action {
 
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setPath("/WEB-INF/views/board/restaurantEdit.jsp");
+                forward.setPath("/WEB-INF/views/board/RestaurantEdit.jsp");
             }
         } catch (IOException e) {
             e.printStackTrace();

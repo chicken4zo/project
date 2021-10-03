@@ -10,7 +10,7 @@
              style="cursor:pointer;">
 
         <div id="header_search">
-            <%--            <c:if test="${not empty id}">--%>
+<%--                        <c:if test="${not empty id}">--%>
 
             <select class="selectpicker" data-width="fit" onchange="location.href=this.value">
                 <option value="" style="color: black; font-size: 0.89rem">게시판</option>
@@ -24,12 +24,12 @@
                 <input type="text" name="search" value="Search" onclick="this.value=''; ">
                 <button type="submit" class="btn btn-search fa fa-search"></button>
             </div>
-            <%--            </c:if>--%>
+            <%--                        </c:if>--%>
 
         </div>
         <div id="header_nav">
 
-            <%--            <c:if test="${not empty id}">--%>
+            <%--                        <c:if test="${not empty id}">--%>
 
             <ul>
                 <a href="${pageContext.request.contextPath}/productForm.board">
@@ -45,7 +45,7 @@
                     <li>공지사항</li>
                 </a>
             </ul>
-            <%--            </c:if>--%>
+            <%--                        </c:if>--%>
 
             <div id="loginlogout">
             </div>

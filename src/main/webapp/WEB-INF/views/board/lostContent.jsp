@@ -91,6 +91,8 @@
                                                 <h5 class="mb-0 mt-3" style="font-size: 1.6rem">${lost.title}</h5>
                                             </div>
                                             <div class="idAddr">
+                                                <input type="hidden" value="${lost.id}" class="loginId">
+                                                <input type="hidden" value="${lost.id}" class="loginId">
                                                 <h4 class="mt-lg-0 mt-4 id">${lost.id}</h4>
                                                 <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>
                                                         ${lost.address}
