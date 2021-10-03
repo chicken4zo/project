@@ -26,6 +26,7 @@
 
 </head>
 <body>
+<c:set var="mylist" value="${requestScope.lostList}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -43,36 +44,40 @@
         </div>
         <section id="post-group">
             <section class="post-wrap">
-                <article class="post">
-                    <div class="post-photo">
-                        <img alt="사진이름" src="/assets/images/logo.png">
-                    </div>
-                    <div class="post-desc">
-                        <h2 class="post-title">글제목</h2>
-                        <div class="post-price">50,000원</div>
-                        <div class="post-content">내용</div>
-                    </div>
-                </article>
-                <article class="post">
-                    <div class="post-photo">
-                        <img alt="사진이름" src="/assets/images/logo.png">
-                    </div>
-                    <div class="post-desc">
-                        <h2 class="post-title">글제목</h2>
-                        <div class="post-price">50,000원</div>
-                        <div class="post-content">내용</div>
-                    </div>
-                </article>
-                <article class="post">
-                    <div class="post-photo">
-                        <img alt="사진이름" src="/assets/images/logo.png">
-                    </div>
-                    <div class="post-desc">
-                        <h2 class="post-title">글제목</h2>
-                        <div class="post-price">50,000원</div>
-                        <div class="post-content">내용</div>
-                    </div>
-                </article>
+
+                <c:forEach items="${mylist}" var="post">
+                    <article class="post">
+                        <div class="post-photo">
+                            <img alt="사진이름" src="${pageContext.request.contextPath}/assets/upload/${post.fileName}">
+                        </div>
+                        <div class="post-desc">
+                            <a href="lostContent.board?idx=${post.idx}"><h2 class="post-title">${post.title}</h2></a>
+                            <div class="post-price">${post.address}</div>
+                            <div class="post-content">${post.content}</div>
+                        </div>
+                    </article>
+                </c:forEach>
+
+                <%--                <article class="post">--%>
+                <%--                    <div class="post-photo">--%>
+                <%--                        <img alt="사진이름" src="/assets/images/logo.png">--%>
+                <%--                    </div>--%>
+                <%--                    <div class="post-desc">--%>
+                <%--                        <h2 class="post-title">글제목</h2>--%>
+                <%--                        <div class="post-price">50,000원</div>--%>
+                <%--                        <div class="post-content">내용</div>--%>
+                <%--                    </div>--%>
+                <%--                </article>--%>
+                <%--                <article class="post">--%>
+                <%--                    <div class="post-photo">--%>
+                <%--                        <img alt="사진이름" src="/assets/images/logo.png">--%>
+                <%--                    </div>--%>
+                <%--                    <div class="post-desc">--%>
+                <%--                        <h2 class="post-title">글제목</h2>--%>
+                <%--                        <div class="post-price">50,000원</div>--%>
+                <%--                        <div class="post-content">내용</div>--%>
+                <%--                    </div>--%>
+                <%--                </article>--%>
             </section>
         </section>
         <div class="post-main">

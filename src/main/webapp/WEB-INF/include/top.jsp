@@ -12,17 +12,20 @@
         <div id="header_search">
 <%--                        <c:if test="${not empty id}">--%>
 
-            <select class="selectpicker" data-width="fit" onchange="location.href=this.value">
-                <option value="" style="color: black; font-size: 0.89rem">게시판</option>
-                <option value="productList.board">상품</option>
-                <option value="dailyList.board">일상</option>
-                <option value="lostList.board">분실·실종</option>
-                <option value="petList.board">반려동물</option>
-            </select>
+            <label>
+                <select class="selectpicker" data-width="fit">
+                    <option value="" style="color: black; font-size: 0.89rem">게시판</option>
+                    <option value="product">상품</option>
+                    <option value="daily">일상</option>
+                    <option value="lost">분실·실종</option>
+                    <option value="pet">반려동물</option>
+                    <option value="restaurant">맛있구마</option>
+                </select>
+            </label>
 
             <div class="search-form">
-                <input type="text" name="search" value="Search" onclick="this.value=''; ">
-                <button type="submit" class="btn btn-search fa fa-search"></button>
+                <input type="text" name="search" id="searchText" value="Search" onclick="this.value=''; ">
+                <button id="searchBtn" class="btn btn-search fa fa-search"></button>
             </div>
             <%--                        </c:if>--%>
 
@@ -35,7 +38,7 @@
                 <a href="${pageContext.request.contextPath}/productForm.board">
                     <li>상품등록</li>
                 </a>
-                <a href="${pageContext.request.contextPath}/lostList.board">
+                <a href="${pageContext.request.contextPath}/dailyList.board">
                     <li>우리동네</li>
                 </a>
                 <a href="${pageContext.request.contextPath}/RestaurantList.board">
@@ -63,7 +66,7 @@
                             document.getElementById("loginlogout").innerHTML = responseData;
                         },
                         error: function (xhr) {
-                            console.log(xhr.status);
+	                        console.log(xhr.status);
                         }
                     }
                 );
@@ -73,9 +76,16 @@
 </header>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajaz/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('select').niceSelect();
-    });
+	$(document).ready(function () {
+		$('select').niceSelect();
+	});
+
+	$('#searchBtn').click(function () {
+
+		const boardName = $('.selectpicker').val();
+		const searchText = $('#searchText').val();
+		location.href = "search.board?boardName=" + boardName + "&searchText=" + searchText;
+	})
 </script>

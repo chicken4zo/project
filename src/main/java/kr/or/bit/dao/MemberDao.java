@@ -1,5 +1,6 @@
 package kr.or.bit.dao;
 
+import kr.or.bit.dto.LostBoard;
 import kr.or.bit.dto.Member;
 import kr.or.bit.util.ConnectionHelper;
 
@@ -127,10 +128,56 @@ public class MemberDao {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
 
         }
 
         return list;
     }
 
+    public List<LostBoard> searchLostById(String id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<LostBoard> lostList = new ArrayList<>();
+
+        try {
+            conn = ConnectionHelper.getConnection("mysql");
+            String sql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, (@ROWNUM:=@ROWNUM+1) RN FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, LOST.ID FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID and LOST.ID = ? ORDER BY REFER DESC, STEP ASC) L, (SELECT @ROWNUM:=0) R LIMIT 0,3";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                LostBoard lost = new LostBoard();
+                lost.setIdx(rs.getInt("idx"));
+                lost.setId(rs.getString("id"));
+                lost.setTitle(rs.getString("title"));
+                lost.setContent(rs.getString("content"));
+                lost.setFileName(rs.getString("filename"));
+                lost.setFilePath(rs.getString("filepath"));
+                lost.setHit(rs.getInt("hit"));
+                lost.setWriteDate(rs.getDate("writedate"));
+                lost.setRefer(rs.getInt("refer"));
+                lost.setDepth(rs.getInt("depth"));
+                lost.setStep(rs.getInt("step"));
+                lost.setAddress(rs.getString("address"));
+
+                System.out.println(lost);
+
+                lostList.add(lost);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return lostList;
+    }
 }
