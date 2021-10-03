@@ -4,13 +4,10 @@ import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.DailyDao;
 import kr.or.bit.dao.LostDao;
-
-import kr.or.bit.dao.ProductDao;
-
+import kr.or.bit.dao.RestaurantDao;
 import kr.or.bit.dto.DailyComment;
-
 import kr.or.bit.dto.LostComment;
-import kr.or.bit.dto.ProductComment;
+import kr.or.bit.dto.RestaurantComment;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -155,8 +152,65 @@ public class CommentServlet extends HttpServlet {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-        }
 
+
+            //맛집 게시판 댓글
+        } else if (urlCommand.equals("/RestaurantCommentWrite.comment")) {
+            String id = request.getParameter("id");
+            String content = request.getParameter("content");
+            int idx = Integer.parseInt(request.getParameter("idx"));
+
+            RestaurantDao dao = new RestaurantDao();
+            int result = dao.commentWrite(idx, id, content);
+
+            //e댓글 목록보기
+        } else if (urlCommand.equals("/RestaurantCommentList.comment")) {
+            String idx = request.getParameter("idx");
+            RestaurantDao dao = new RestaurantDao();
+            List<RestaurantComment> commentList = dao.getRestaurantCommentList(idx);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            JSONArray jsonArray = new JSONArray();
+
+            for (int i = 0; i < commentList.size(); i++) {
+                String tempDate = dateFormat.format(commentList.get(i).getWriteDate());
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("no", commentList.get(i).getNo());
+                jsonObject.put("id", commentList.get(i).getId());
+                jsonObject.put("content", commentList.get(i).getContent());
+                jsonObject.put("writedate", tempDate);
+                jsonObject.put("idx_fk", commentList.get(i).getIdx());
+
+                jsonArray.add(jsonObject);
+            }
+
+            response.setContentType("application/x-json; charset=UTF-8");
+            response.getWriter().print(jsonArray);
+
+            //댓글 삭제하기
+        } else if (urlCommand.equals("/commentDelete.comment")) {
+            String idx_fk = request.getParameter("idx_fk");
+            int no = Integer.parseInt(request.getParameter("no"));
+
+            try {
+
+                PrintWriter out = response.getWriter();
+
+                if (idx_fk == null) {
+                    out.print("<script>");
+                    out.print("alert('글번호가 넘어오지 않았습니다');");
+                    out.print("history.back();");
+                    out.print("</script>");
+                }
+
+                LostDao dao = new LostDao();
+                int result = dao.deleteLostComment(no);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
 
         if (forward != null) {
             if (forward.isRedirect()) { //true 페이지를 재요청
@@ -175,7 +229,6 @@ public class CommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doProcess(request, response);
-
     }
 
     @Override
@@ -184,4 +237,5 @@ public class CommentServlet extends HttpServlet {
 
     }
 }
+
 

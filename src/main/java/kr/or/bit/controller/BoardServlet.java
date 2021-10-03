@@ -25,7 +25,6 @@ public class BoardServlet extends HttpServlet {
         ActionForward forward = null;
         Action action = null;
 
-
         if (urlCommand.equals("/NoticeWrite.board")) {
             System.out.println("쓰기 ok 컨트롤러");
             forward = new ActionForward();
@@ -69,6 +68,7 @@ public class BoardServlet extends HttpServlet {
             action = new NoticeDeleteService();
             forward = action.execute(request, response);
 
+
             //맛집시작
             //맛집 글쓰기
         } else if (urlCommand.equals("/RestaurantWrite.board")) {
@@ -86,7 +86,6 @@ public class BoardServlet extends HttpServlet {
             action = new RestaurantBoardListService();
             forward = action.execute(request, response);
 
-
             //맛집 상세보기
         } else if (urlCommand.equals("/RestaurantContent.board")) {
             System.out.println("서블릿옴");
@@ -95,19 +94,21 @@ public class BoardServlet extends HttpServlet {
 
             //맛집 글 수정
         } else if (urlCommand.equals("/RestaurantEdit.board")) {
+            System.out.println("맛집 글 수정 컨트롤러 탔냐고");
             action = new RestaurantEditService();
             forward = action.execute(request, response);
+            System.out.println("수정서비스간다.");
+
+        } else if (urlCommand.equals("RestaurantEditOk.board")) {
+            action = new RestaurantEditOkService();
+            forward = action.execute(request, response);
+            System.out.println("수정완료서비스");
+
 
             //맛집 글 삭제
         } else if (urlCommand.equals("/RestaurantDelete.board")) {
             System.out.println("삭제 컨트롤러 탔냐고ㅠㅠ");
             action = new RestaurantDeleteService();
-            forward = action.execute(request, response);
-
-            //댓글 등록, 삭제
-        } else if (urlCommand.equals("/RestaurantComment.board")) {
-            System.out.println("댓글 서블릿옴");
-            action = new RestaurantCommentService();
             forward = action.execute(request, response);
 
             // 분실실종 게시판
