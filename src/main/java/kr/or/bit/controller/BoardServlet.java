@@ -76,7 +76,7 @@ public class BoardServlet extends HttpServlet {
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/board/restaurantWrite.jsp");
 
-        //맛집 글ok
+            //맛집 글ok
         } else if (urlCommand.equals("/RestaurantWriteOk.board")) {
             action = new RestaurantWriteService();
             forward = action.execute(request, response);
@@ -101,7 +101,7 @@ public class BoardServlet extends HttpServlet {
             //맛집 글 삭제
         } else if (urlCommand.equals("/RestaurantDelete.board")) {
             System.out.println("삭제 컨트롤러 탔냐고ㅠㅠ");
-            action = new RestaurantDeleteService();
+//            action = new RestaurantDeleteService();
             forward = action.execute(request, response);
 
             //댓글 등록, 삭제
@@ -155,7 +155,6 @@ public class BoardServlet extends HttpServlet {
             System.out.println("PETBOARD WRITE SERVICE 실행");
             action = new PetBoardWriteService();
             forward = action.execute(request, response);
-
 
         } else if (urlCommand.equals("/petForm.board")) {
             System.out.println("PETBOARD FORM SERVICE 실행");
