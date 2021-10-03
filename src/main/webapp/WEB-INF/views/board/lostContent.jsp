@@ -205,7 +205,6 @@
                                                       class="comment_inbox" rows="4"
                                                       cols="140"></textarea>
                                             <input type="button" value="등록" id="commentWriteBtn"> <!-- onclick 유효성체크 -->
-
                                         </div>
                                     </form>
                                 </div>

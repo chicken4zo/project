@@ -76,7 +76,7 @@ public class BoardServlet extends HttpServlet {
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/board/restaurantWrite.jsp");
 
-        //맛집 글ok
+            //맛집 글ok
         } else if (urlCommand.equals("/RestaurantWriteOk.board")) {
             action = new RestaurantWriteService();
             forward = action.execute(request, response);
@@ -108,7 +108,7 @@ public class BoardServlet extends HttpServlet {
             //맛집 글 삭제
         } else if (urlCommand.equals("/RestaurantDelete.board")) {
             System.out.println("삭제 컨트롤러 탔냐고ㅠㅠ");
-            action = new RestaurantDeleteService();
+            // action = new RestaurantDeleteService();
             forward = action.execute(request, response);
 
             // 분실실종 게시판
@@ -148,41 +148,45 @@ public class BoardServlet extends HttpServlet {
 
             // 반려동물 게시판
         } else if (urlCommand.equals("/petDelete.board")) {
-            System.out.println("PETBOARD DELETE SERVICE 실행");
+            System.out.println("PET BOARD DELETE SERVICE 실행");
             action = new PetBoardDeleteService();
             forward = action.execute(request, response);
 
         } else if (urlCommand.equals("/petWrite.board")) {
-            System.out.println("PETBOARD WRITE SERVICE 실행");
+            System.out.println("PET BOARD WRITE SERVICE 실행");
             action = new PetBoardWriteService();
             forward = action.execute(request, response);
 
 
         } else if (urlCommand.equals("/petForm.board")) {
-            System.out.println("PETBOARD FORM SERVICE 실행");
+            System.out.println("PET BOARD FORM SERVICE 실행");
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/board/petWrite.jsp");
 
         } else if (urlCommand.equals("/petContent.board")) {
-            System.out.println("PETBOARD CONTENT SERVICE 실행");
+            System.out.println("PET BOARD CONTENT SERVICE 실행");
             action = new PetContentService();
             forward = action.execute(request, response);
 
+        } else if (urlCommand.equals("/petModify.board")) {
+            System.out.println("PET BOARD MODIFY SERVICE 실행");
+            action = new PetBoardModifyService();
+            forward = action.execute(request, response);
 
         } else if (urlCommand.equals("/petList.board")) {
-            System.out.println("PETBOARD LIST SERVICE 실행");
+            System.out.println("PET BOARD LIST SERVICE 실행");
             action = new PetBoardListService();
             forward = action.execute(request, response);
 
             // 상품 게시판
         } else if (urlCommand.equals("/productDelete.board")) {
-            System.out.println("PRODUCTBOARD DELETE SERVICE 실행");
+            System.out.println("PRODUCT BOARD DELETE SERVICE 실행");
             action = new ProductBoardDeleteService();
             forward = action.execute(request, response);
 
         } else if (urlCommand.equals("/productWrite.board")) {
-            System.out.println("PRODUCTBOARD WRITE SERVICE 실행");
+            System.out.println("PRODUCT BOARD WRITE SERVICE 실행");
             action = new ProductBoardWriteService();
             forward = action.execute(request, response);
 
@@ -192,17 +196,17 @@ public class BoardServlet extends HttpServlet {
             forward.setPath("/WEB-INF/views/board/productWrite.jsp");
 
         } else if (urlCommand.equals("/productContent.board")) {
-            System.out.println("PRODUCTBOARD CONTENT SERVICE 실행");
+            System.out.println("PRODUCT BOARD CONTENT SERVICE 실행");
             action = new ProductContentService();
             forward = action.execute(request, response);
 
         } else if (urlCommand.equals("/productModify.board")) {
-            System.out.println("PRODUCTBOARD MODIFY SERVICE 실행");
+            System.out.println("PRODUCT BOARD MODIFY SERVICE 실행");
             action = new ProductBoardModifyService();
             forward = action.execute(request, response);
 
         } else if (urlCommand.equals("/productList.board")) {
-            System.out.println("PRODUCTBOARD LIST SERVICE 실행");
+            System.out.println("PRODUCT BOARD LIST SERVICE 실행");
             action = new ProductBoardListService();
             forward = action.execute(request, response);
         }

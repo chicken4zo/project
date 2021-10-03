@@ -118,58 +118,6 @@
                     </a>
                 </div>
             </c:forEach>
-
-
-            <!-- 지우기 ..-->
-
-            <%--<div class="content_wrap">
-                <a href="#">
-                    <div class="product_wrap">
-                        <div class="product_img_wrap">
-                            <img src="${pageContext.request.contextPath}/assets/images/ex_img.jpg">
-                            <ul class="product_detail">
-                                <li><i class="fas fa-user"></i> ID</li>
-                                <li><i class="far fa-calendar-alt"></i> 2021. 10. 11</li>
-                            </ul>
-                        </div>
-                        <div class="product_description">
-                            <h1>제목</h1>
-                            <h2>50,000원</h2>
-                            <div class="bar"></div>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto
-                                obcaecati enim dicta praesentium, quam nobis!
-                            </p>
-                            <div class="deal">거래중</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-
-            <div class="content_wrap">
-                <a href="#">
-                    <div class="product_wrap">
-                        <div class="product_img_wrap">
-                            <img src="${pageContext.request.contextPath}/assets/images/ex_img.jpg">
-                            <ul class="product_detail">
-                                <li><i class="fas fa-user"></i> ID</li>
-                                <li><i class="far fa-calendar-alt"></i> 2021. 10. 11</li>
-                            </ul>
-                        </div>
-                        <div class="product_description">
-                            <h1>제목</h1>
-                            <h2>50,000원</h2>
-                            <div class="bar"></div>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto
-                                obcaecati enim dicta praesentium, quam nobis!
-                            </p>
-                            <div class="deal">거래중</div>
-                        </div>
-                    </div>
-                </a>
-            </div>--%>
         </section>
         <!-- 지우기 ..-->
         <nav aria-label="...">

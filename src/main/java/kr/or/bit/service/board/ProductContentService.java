@@ -58,7 +58,7 @@ public class ProductContentService implements Action {
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/board/productContent.jsp");
         } catch (Exception e) {
-            System.out.println("PRODUCTCONTENT SERVICE 에러");
+            System.out.println("PRODUCT CONTENT SERVICE 에러");
             System.out.println(e);
         }
 

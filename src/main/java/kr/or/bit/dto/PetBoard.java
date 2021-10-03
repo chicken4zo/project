@@ -17,6 +17,25 @@ public class PetBoard {
     private String id;
     private String address;
 
+    public PetBoard() {
+    }
+
+    public PetBoard(int idx, String title, String content, int hit, Date writeDate, String fileName1, String filePath1, String fileName2, String filePath2, String fileName3, String filePath3, String id, String address) {
+        this.idx = idx;
+        this.title = title;
+        this.content = content;
+        this.hit = hit;
+        this.writeDate = writeDate;
+        this.fileName1 = fileName1;
+        this.filePath1 = filePath1;
+        this.fileName2 = fileName2;
+        this.filePath2 = filePath2;
+        this.fileName3 = fileName3;
+        this.filePath3 = filePath3;
+        this.id = id;
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "PetBoard{" +
@@ -34,32 +53,6 @@ public class PetBoard {
                 ", id='" + id + '\'' +
                 ", address='" + address + '\'' +
                 '}';
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public PetBoard() {
-    }
-
-    public PetBoard(int idx, String title, String content, int hit, Date writeDate, String fileName1, String filePath1, String fileName2, String filePath2, String fileName3, String filePath3, String id) {
-        this.idx = idx;
-        this.title = title;
-        this.content = content;
-        this.hit = hit;
-        this.writeDate = writeDate;
-        this.fileName1 = fileName1;
-        this.filePath1 = filePath1;
-        this.fileName2 = fileName2;
-        this.filePath2 = filePath2;
-        this.fileName3 = fileName3;
-        this.filePath3 = filePath3;
-        this.id = id;
     }
 
     public int getIdx() {
@@ -156,6 +149,14 @@ public class PetBoard {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 }

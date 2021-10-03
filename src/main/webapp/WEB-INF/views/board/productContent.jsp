@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="product" value="${requestScope.product}"/>
+<c:set var="cpage" value="${requestScope.cpage}"/>
+<c:set var="pagesize" value="${requestScope.pagesize}"/>
+<c:set var="commentList" value="${requestScope.commentList}"/>
+<c:set var="id" value="${sessionScope.id}"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +57,7 @@
                                     <div class="gallery__hero parent">
 
                                         <img class="slide w-100 border-radius-lg shadow-lg mx-auto"
-                                             src="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-01.jpg">
+                                             src="${pageContext.request.contextPath}/assets/upload/${product.fileName1}">
                                         <!--                                        <img class="slide" src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-02.jpg">-->
                                         <!--                                        <img class="slide" src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-03.jpg">-->
                                     </div>
@@ -59,17 +65,17 @@
 
                                     <!--Gallery Thumbs-->
                                     <div class="gallery__thumbs">
-                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-01.jpg"
+                                        <a href="${pageContext.request.contextPath}/assets/upload/${product.fileName1}"
                                            data-gallery="thumb" class="is-active">
-                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-01.jpg">
+                                            <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName1}">
                                         </a>
-                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-02.jpg"
+                                        <a href="${pageContext.request.contextPath}/assets/upload/${product.fileName2}"
                                            data-gallery="thumb">
-                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-02.jpg">
+                                            <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName2}">
                                         </a>
-                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-03.jpg"
+                                        <a href="${pageContext.request.contextPath}/assets/upload/${product.fileName3}"
                                            data-gallery="thumb">
-                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-03.jpg">
+                                            <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName3}">
                                         </a>
                                     </div>
                                     <!--Gallery Thumbs-->
@@ -77,21 +83,26 @@
                                 </div><!--.gallery-->
                                 <!-- Gallery -->
                                 <div class="col-lg-5 mx-auto">
-                                    <h4 class="mt-lg-0 mt-4 id">ID</h4>
-                                    <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>강남구 역삼동</h5>
-                                    <div class="detail_bar"></div>
 
-                                    <ul class="view_icon">
-                                        <li><i class="fas fa-eye"></i><span>100</span></li>
-                                        <li><i class="far fa-calendar-alt"></i><span>2021. 09. 30</span></li>
-                                    </ul>
-                                    <h5 class="mb-0 mt-3">제목</h5>
-                                    <div class="content">
-                                        내용 The most beautiful curves of this swivel stool adds an elegant touch to any
-                                        environment Memory swivel seat returns to original seat position Comfortable
-                                        integrated layered chair seat cushion design Fully assembled! No assembly
-                                        required
+                                    <div class="titleContainer">
+                                        <h5 class="mb-0 mt-3" style="font-size: 1.6rem">${product.title}</h5>
                                     </div>
+                                    <div class="idAddr">
+                                        <h4 class="mt-lg-0 mt-4 id">${product.id}</h4>
+                                        <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>
+                                            ${product.address}
+                                        </h5>
+                                    </div>
+                                    <div class="detail_bar"></div>
+                                    <ul class="view_icon">
+                                        <li><i class="fas fa-eye"></i><span>${product.hit}</span></li>
+                                        <li><i class="far fa-calendar-alt"></i><span>${product.writeDate}</span>
+                                        </li>
+                                    </ul>
+                                    <div class="content">
+                                        ${product.content}
+                                    </div>
+
 
                                 </div>
                             </div>
@@ -100,21 +111,23 @@
                                     <!--                                    <div class="bottom_bar"></div>-->
                                     <div class="ms-3 button_container">
                                         <button type="button" class="btn btn-warning btn-sm"
-                                                onclick="location.href='#'">
+                                                onclick="location.href='productModify.board?idx=${product.idx}&id=${product.id}'">
                                             <i class="fas fa-pen"></i>
                                             <span>수정</span>
                                         </button>
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="location.href='#'">
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                                onclick="location.href='productDelete.board?idx=${product.idx}&id=${product.id}'">
                                             <i class="fas fa-trash-alt"></i>
                                             <span>삭제</span>
                                         </button>
                                         <button type="button" class="btn btn-primary btn-sm"
-                                                onclick="location.href='#'">
+                                                onclick="location.href='productList.board'">
                                             <i class="fas fa-list-ul"></i>
                                             <span>목록</span>
                                         </button>
 
                                     </div>
+
                                     <!--댓글-->
                                     <div class="bottom_bar"></div>
                                     <div>
@@ -125,57 +138,25 @@
                                     <div class="commentList_wrap">
 
                                         <div class="commentList">
-                                            <h2>ID</h2>
-                                            <p>내용 The most beautiful curves of this swivel stool adds an elegant touch
-                                                to
-                                                any environment Memory swivel seat returns to original seat position
-                                                Comfortable integrated layered chair seat cushion design Fully
-                                                assembled! No
-                                                assembly required</p>
-                                            <h4>2021. 09. 30</h4>
+                                            <h2></h2>
+                                            <p></p>
+                                            <h4></h4>
                                             <input type="button" value="삭제" onclick="">
-
                                         </div>
-                                        <!--지우기-->
-                                        <div class="commentList">
-                                            <h2>ID</h2>
-                                            <p>내용 The most beautiful curves of this swivel stool adds an elegant touch
-                                                to
-                                                any environment Memory swivel seat returns to original seat position
-                                                Comfortable integrated layered chair seat cushion design Fully
-                                                assembled! No
-                                                assembly required</p>
-                                            <h4>2021. 09. 30</h4>
-                                            <input type="button" value="삭제" onclick="">
-
-                                        </div>
-
-
-                                        <div class="commentList">
-                                            <h2>ID</h2>
-                                            <p>내용 The most beautiful curves of this swivel stool adds an elegant touch
-                                                to
-                                                any environment Memory swivel seat returns to original seat position
-                                                Comfortable integrated layered chair seat cushion design Fully
-                                                assembled! No
-                                                assembly required</p>
-                                            <h4>2021. 09. 30</h4>
-                                            <input type="button" value="삭제" onclick="">
-
-                                        </div>
-                                        <!--지우기-->
                                     </div>
                                     <!-- replylist_wrap END -->
 
                                     <!--reply write-->
-                                    <form>
+                                    <form name="productComment" method="POST" id="productComment">
                                         <div class="commentWrite_Wrap">
-                                            <input type="hidden" name="idx" value="${idx}">
-                                            <h2>ID</h2>
-                                            <textarea placeholder="댓글을 남겨보세요" class="comment_inbox" rows="4"
+                                            <input type="hidden" name="idx" id="idx" value="${product.idx}">
+                                            <input type="hidden" name="writerid" id="writerId" value="${product.id}">
+                                            <h2>${id}</h2>
+                                            <input type="text" name="commentid" id="commentId">
+                                            <textarea name="content" id="commentContent" placeholder="댓글을 남겨보세요"
+                                                      class="comment_inbox" rows="4"
                                                       cols="140"></textarea>
-                                            <input type="button" value="등록" onclick=""> <!-- onclick 유효성체크 -->
-
+                                            <input type="button" value="등록" id="commentWriteBtn"> <!-- onclick 유효성체크 -->
                                         </div>
                                     </form>
                                 </div>
@@ -209,6 +190,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
+<script src="${pageContext.request.contextPath}/assets/js/productComment.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>
