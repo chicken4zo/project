@@ -145,17 +145,17 @@
                                 <div class="col-12">
                                     <div class="ms-3 button_container">
                                         <%--                                        <c:set value="${sessionScope.id}" var="id"/>--%>
-                                            <c:if test="${lost.id eq loginId}">
-                                                <button type="button" class="btn btn-warning btn-sm"
-                                                        onclick="location.href='lostModify.board?idx=${lost.idx}&id=${lost.id}'">
-                                                    <i class="fas fa-pen"></i>
-                                                    <span>수정</span>
-                                                </button>
-                                                <button type="button" class="btn btn-danger btn-sm"
-                                                        onclick="location.href='lostDelete.board?idx=${lost.idx}'">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                    <span>삭제</span>
-                                                </button>
+                                        <c:if test="${lost.id eq loginId}">
+                                            <button type="button" class="btn btn-warning btn-sm"
+                                                    onclick="location.href='lostModify.board?idx=${lost.idx}&id=${lost.id}'">
+                                                <i class="fas fa-pen"></i>
+                                                <span>수정</span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm"
+                                                    onclick="location.href='lostDelete.board?idx=${lost.idx}'">
+                                                <i class="fas fa-trash-alt"></i>
+                                                <span>삭제</span>
+                                            </button>
                                         </c:if>
                                         <button type="button" class="btn btn-primary btn-sm"
                                                 onclick="location.href='lostList.board'">
