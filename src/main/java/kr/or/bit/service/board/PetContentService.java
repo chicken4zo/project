@@ -49,11 +49,11 @@ public class PetContentService implements Action {
             request.setAttribute("pagesize", pagesize);
             isRead = dao.getHit(idx);
 
-            if (isRead) {
-                commentList = dao.getPetCommentList(idx);
-            }
-
-            request.setAttribute("commentList", commentList);
+//            if (isRead) {
+//                commentList = dao.getPetCommentList(idx);
+//            }
+//
+//            request.setAttribute("commentList", commentList);
 
             forward = new ActionForward();
             forward.setRedirect(false);

@@ -251,6 +251,34 @@ public class ProductDao {
         return result;
     }
 
+    // 총 댓글 갯수
+    public int getPetCommentCount() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int totalCommentCount = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select count(*) cnt from product_comment";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                totalCommentCount = rs.getInt("cnt");
+            }
+
+        } catch (Exception e) {
+            System.out.println("PRODUCT DAO 총 댓글 갯수 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return totalCommentCount;
+    }
+
     // 댓글 가져오기
     public List<ProductComment> getProductCommentList(String index) {
         Connection conn = null;
@@ -298,7 +326,7 @@ public class ProductDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "insert into product_comment(no, content, id, writedate, idx) values (no, ?, sysdate, ?, ?)";
+            String sql = "insert into product_comment(no, content, id, writedate, idx) values (product_comment_seq.nextval, ?, ?, sysdate, ?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, content);
             pstmt.setString(2, id);
@@ -306,7 +334,7 @@ public class ProductDao {
 
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
-            System.out.println("PRODUCTDAO WRITE COMMENT 에러");
+            System.out.println("PRODUCT DAO 댓글 작성 에러");
             System.out.println(e);
         } finally {
             ConnectionHelper.close(pstmt);

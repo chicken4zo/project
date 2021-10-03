@@ -44,6 +44,10 @@ public class PetBoardModifyService implements Action {
                 String title = multi.getParameter("title").trim();
                 String content = multi.getParameter("content").trim();
 
+                String originalFileName1 = multi.getOriginalFileName("originalfile1");
+                String originalFileName2 = multi.getOriginalFileName("originalfile2");
+                String originalFileName3 = multi.getOriginalFileName("originalfile3");
+
                 Enumeration filenames = multi.getFileNames();
 
                 // 이미지 대신 글만 수정하고 싶을 땐?
