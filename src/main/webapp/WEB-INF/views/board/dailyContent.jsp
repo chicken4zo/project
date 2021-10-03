@@ -41,7 +41,8 @@
         <jsp:include page="/WEB-INF/include/weather.jsp"/>
 
         <!--content-->
-        <div class="title_container">분실·실종</div>
+        <div class="title_container">일상</div>
+        <input hidden id="boardName" value="daily">
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-12">
