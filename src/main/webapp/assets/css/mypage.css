@@ -4,7 +4,7 @@ img {
     margin: 0 auto;
 }
 
-.board-logo {
+.board-logo h3 {
     color: #8B425A;
     font-family: 'Jua', sans-serif;
     font-size: 35px;
@@ -27,6 +27,13 @@ img {
 
 #id {
     /*margin-left: 72px;*/
+}
+
+.submit_btn:hover {
+    background-color: rgba(139, 66, 90, 0.75);
+    box-shadow: 0px 15px 20px #b7b7b7;
+    color: #fff;
+    transform: translateY(-7px);
 }
 
 .form-group form label {
