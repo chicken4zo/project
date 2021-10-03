@@ -23,7 +23,7 @@ public class NoticeDao {
         try {
             conn = ConnectionHelper.getConnection("oracle");
             System.out.println("try들어왔니...?");
-            String sql = "insert into NOTICE(idx, title, content, hit, writedate, id) values(NOTICE_IDX.nextval,?,?,0,sysdate,?)";
+            String sql = "insert into NOTICE(idx, title, content, hit, writedate, id) values(NOTICE_SEQ.nextval,?,?,0,sysdate,?)";
             pstmt = conn.prepareStatement(sql);
             System.out.println("pstmt : " + pstmt);
             System.out.println(title);

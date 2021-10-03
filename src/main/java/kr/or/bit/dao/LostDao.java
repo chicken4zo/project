@@ -425,7 +425,7 @@ public class LostDao {
             if (database.equals("mysql")) {
                 reply_sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (IDX,?,?,0,current_timestamp,?,?,?,?,?,?)";
             } else {
-                reply_sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (IDX,?,?,0,SYSDATE,?,?,?,?,?,?)";
+                reply_sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (LOST_SEQ.NEXTVAL,?,?,0,SYSDATE,?,?,?,?,?,?)";
             }
 
             pstmt = conn.prepareStatement(refer_depth_step_sal);
