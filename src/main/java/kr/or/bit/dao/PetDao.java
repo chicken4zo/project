@@ -49,9 +49,17 @@ public class PetDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "select m.id, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath from pet p join member m on (p.id = m.id) order by idx desc";
-
+//            String sql = "select * from (select rownum rn, m.id, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath from pet p join member m on(p.id = m.id) order by idx desc) where rn between ? and ?";
+            String sql = "select * from(SELECT ROWNUM rn, id,  idx, title,address, content, hit, writedate, filename, filepath from (select m.id,m.address, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath from pet p join member m on(p.id = m.id) order by idx desc) where rownum <=?) where rn>=?";
             pstmt = conn.prepareStatement(sql);
+
+
+            //공식같은 로직
+            int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
+            int end = cpage * pagesize; // 1 * 5 >> 5
+
+            pstmt.setInt(1, end);
+            pstmt.setInt(2, start);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -60,6 +68,7 @@ public class PetDao {
 
                 petBoard.setId(rs.getString("id"));
                 petBoard.setIdx(rs.getInt("idx"));
+                petBoard.setAddress(rs.getString("address"));
                 petBoard.setTitle(rs.getString("title"));
                 petBoard.setContent(rs.getString("content"));
                 petBoard.setHit(rs.getInt("hit"));
@@ -89,19 +98,20 @@ public class PetDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "insert into pet(idx, title, content, hit, writedate, " +
-                    "filename, filefath, filename2, filepath2, filename3, filepath3)" +
-                    " values (pet_seq.nextval,?,?,0,sysdate,?,?,?,?,?,?)";
+            String sql = "insert into pet(idx, title,id, content, hit, writedate, " +
+                    "filename, filepath, filename2, filepath2, filename3, filepath3)" +
+                    " values (pet_seq.nextval,?,?,?,0,sysdate,?,?,?,?,?,?)";
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, petBoard.getTitle());
-            pstmt.setString(2, petBoard.getContent());
-            pstmt.setString(3, petBoard.getFileName1());
-            pstmt.setString(4, petBoard.getFilePath1());
-            pstmt.setString(5, petBoard.getFileName2());
-            pstmt.setString(6, petBoard.getFilePath2());
-            pstmt.setString(7, petBoard.getFileName3());
-            pstmt.setString(8, petBoard.getFilePath3());
+            pstmt.setString(2, petBoard.getId());
+            pstmt.setString(3, petBoard.getContent());
+            pstmt.setString(4, petBoard.getFileName1());
+            pstmt.setString(5, petBoard.getFilePath1());
+            pstmt.setString(6, petBoard.getFileName2());
+            pstmt.setString(7, petBoard.getFilePath2());
+            pstmt.setString(8, petBoard.getFileName3());
+            pstmt.setString(9, petBoard.getFilePath3());
 
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {

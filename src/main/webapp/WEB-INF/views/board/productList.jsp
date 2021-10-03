@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="productBoardList" value="${requestScope.productBoardList}"/>
+<c:set var="pagesize" value="${requestScope.pagesize}"/>
+<c:set var="cpage" value="${requestScope.cpage}"/>
+<c:set var="pagecount" value="${requestScope.pagecount}"/>
+<c:set var="pager" value="${requestScope.pager}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,34 +86,43 @@
 
         <!--content-->
         <section id="content">
-            <div class="content_wrap">
-                <a href="#">
-                    <div class="product_wrap">
-                        <div class="product_img_wrap">
-                            <img src="${pageContext.request.contextPath}/assets/images/ex_img.jpg">
-                            <ul class="product_detail">
-                                <li><i class="fas fa-user"></i> ID</li>
-                                <li><i class="far fa-calendar-alt"></i> 2021. 10. 11</li>
-                            </ul>
+            <c:forEach var="product" items="${productBoardList}">
+                <div class="content_wrap">
+                    <a href="productContent.board?idx=${product.idx}&id=${product.id}&cp=${cpage}&ps=${pagesize}">
+                        <div class="product_wrap">
+                            <div class="product_img_wrap">
+                                <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName1}">
+                                <ul class="product_detail">
+                                    <li><i class="fas fa-user"></i>${product.id}</li>
+                                    <li><i class="far fa-calendar-alt"></i>${product.writeDate}</li>
+                                    <li><i class="fas fa-map-marker-alt"></i>${product.address}</li>
+                                </ul>
+                            </div>
+                            <div class="product_description">
+                                <h1>${product.title}</h1>
+                                <h2>${product.price}원</h2>
+                                <div class="bar"></div>
+                                <p>
+                                    <c:choose>
+                                        <c:when test="${product.content.length() > 100}">
+                                            ${product.content.substring(0,60)}...
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${product.content}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </p>
+                                <div class="deal">거래중</div>
+                            </div>
                         </div>
-                        <div class="product_description">
-                            <h1>제목</h1>
-                            <h2>50,000원</h2>
-                            <div class="bar"></div>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum dolorum architecto
-                                obcaecati enim dicta praesentium, quam nobis!
-                            </p>
-                            <div class="deal">거래중</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            </c:forEach>
 
 
             <!-- 지우기 ..-->
 
-            <div class="content_wrap">
+            <%--<div class="content_wrap">
                 <a href="#">
                     <div class="product_wrap">
                         <div class="product_img_wrap">
@@ -155,10 +169,14 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </div>--%>
         </section>
         <!-- 지우기 ..-->
-
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
+                ${pager}
+            </ul>
+        </nav>
     </div>
 
 

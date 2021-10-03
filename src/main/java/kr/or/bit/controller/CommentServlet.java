@@ -4,11 +4,8 @@ import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.DailyDao;
 import kr.or.bit.dao.LostDao;
-
 import kr.or.bit.dao.ProductDao;
-
 import kr.or.bit.dto.DailyComment;
-
 import kr.or.bit.dto.LostComment;
 import kr.or.bit.dto.ProductComment;
 import net.sf.json.JSONArray;
@@ -134,7 +131,6 @@ public class CommentServlet extends HttpServlet {
             int no = Integer.parseInt(request.getParameter("no"));
 
             try {
-
                 PrintWriter out = response.getWriter();
 
 
@@ -150,6 +146,61 @@ public class CommentServlet extends HttpServlet {
                 DailyDao dao = new DailyDao();
                 int result = dao.deleteDailyComment(no);
 
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        } else if (urlCommand.equals("/productCommentWrite.comment")) {
+            System.out.println("PRODUCT 댓글 작성 서비스 실행");
+            String commentId = request.getParameter("commentId");
+            String content = request.getParameter("content");
+            String idx = request.getParameter("idx");
+
+            ProductDao dao = new ProductDao();
+            int result = dao.writeProductComment(commentId, content, idx);
+            System.out.println("PRODUCT 댓글 작성 result : " + result);
+
+        } else if (urlCommand.equals("/productCommentList.comment")) {
+            String idx = request.getParameter("idx");
+            ProductDao dao = new ProductDao();
+            List<ProductComment> commentList = dao.getProductCommentList(idx);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            JSONArray jsonArray = new JSONArray();
+
+            for (int i = 0; i < commentList.size(); i++) {
+                String tempDate = dateFormat.format(commentList.get(i).getWriteDate());
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("no", commentList.get(i).getNo());
+                jsonObject.put("id", commentList.get(i).getId());
+                jsonObject.put("content", commentList.get(i).getContent());
+                jsonObject.put("writedate", tempDate);
+                jsonObject.put("idx_fk", commentList.get(i).getIdx());
+
+                jsonArray.add(jsonObject);
+            }
+
+            response.setContentType("application/x-json; charset=UTF-8");
+            response.getWriter().print(jsonArray);
+
+        } else if (urlCommand.equals("/productCommentDelete.comment")) {
+            String idx = request.getParameter("idx");
+            int no = Integer.parseInt(request.getParameter("no"));
+
+            try {
+
+                PrintWriter out = response.getWriter();
+
+                if (idx == null) {
+                    out.print("<script>");
+                    out.print("alert('글번호가 넘어오지 않았습니다');");
+                    out.print("history.back();");
+                    out.print("</script>");
+                }
+
+                ProductDao dao = new ProductDao();
+                int result = dao.deleteProductComment(no);
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
