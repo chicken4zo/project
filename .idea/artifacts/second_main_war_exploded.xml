@@ -10,9 +10,23 @@
           <element id="library" level="project" name="Gradle: mysql:mysql-connector-java:8.0.26" />
           <element id="library" level="project" name="Gradle: com.oracle.database.jdbc:ojdbc10:19.12.0.0" />
           <element id="library" level="project" name="Gradle: com.google.protobuf:protobuf-java:3.11.4" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/commons-beanutils-1.8.3.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/commons-collections-3.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/commons-logging-1.1.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/commons-lang-2.6.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/cos.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/ezmorph-1.0.6.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/javax.servlet.jsp.jstl-api-1.2.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/javax.servlet.jsp.jstl-1.2.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.26.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/json-lib-2.4-jdk15.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/ojdbc6.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/jsp-api.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/servlet-api.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/protobuf-java-3.11.4.jar" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="second.main/web/Web" />
+      <element id="javaee-facet-resources" facet="second.main/web/Web Gradle : second-1.0-SNAPSHOT.war" />
     </root>
   </artifact>
 </component>

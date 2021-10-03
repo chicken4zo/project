@@ -10,27 +10,26 @@
              style="cursor:pointer;">
 
         <div id="header_search">
-            <%--            <c:if test="${not empty id}">--%>
+<%--                        <c:if test="${not empty id}">--%>
 
-            <div class="sel sel--black-panther">
-                <select name="select-profession" id="select-profession" onchange="window.open(value, '_self');">
-                    <option value="" disabled>게시판</option>
-                    <option value="${pageContext.request.contextPath}/productForm.board">상품</option>
-                    <option value="2">일상</option>
-                    <option value="3">분실·실종</option>
-                    <option value="4">반려동물</option>
-                </select>
-            </div>
+            <select class="selectpicker" data-width="fit" onchange="location.href=this.value">
+                <option value="" style="color: black; font-size: 0.89rem">게시판</option>
+                <option value="productList.board">상품</option>
+                <option value="dailyList.board">일상</option>
+                <option value="lostList.board">분실·실종</option>
+                <option value="petList.board">반려동물</option>
+            </select>
+
             <div class="search-form">
                 <input type="text" name="search" value="Search" onclick="this.value=''; ">
                 <button type="submit" class="btn btn-search fa fa-search"></button>
             </div>
-            <%--            </c:if>--%>
+            <%--                        </c:if>--%>
 
         </div>
         <div id="header_nav">
 
-            <%--            <c:if test="${not empty id}">--%>
+            <%--                        <c:if test="${not empty id}">--%>
 
             <ul>
                 <a href="${pageContext.request.contextPath}/productForm.board">
@@ -39,14 +38,14 @@
                 <a href="${pageContext.request.contextPath}/lostList.board">
                     <li>우리동네</li>
                 </a>
-                <a href="${pageContext.request.contextPath}/productContent.board">
+                <a href="${pageContext.request.contextPath}/RestaurantList.board">
                     <li>구마차트</li>
                 </a>
-                <a href="${pageContext.request.contextPath}/productForm.board">
+                <a href="${pageContext.request.contextPath}/NoticeList.board">
                     <li>공지사항</li>
                 </a>
             </ul>
-            <%--            </c:if>--%>
+            <%--                        </c:if>--%>
 
             <div id="loginlogout">
             </div>
@@ -73,5 +72,10 @@
     </div>
 </header>
 
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajaz/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('select').niceSelect();
+    });
+</script>

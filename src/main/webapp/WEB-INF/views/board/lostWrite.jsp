@@ -1,12 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: heewonseo
-  Date: 2021/09/27
-  Time: 23:23
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
@@ -48,7 +44,7 @@
         <%--content--%>
         <div class="title">분실·실종</div>
         <form name="lost" action="lostWrite.board" method="post" enctype="multipart/form-data">
-            <div class="produdct-group">
+            <div class="product-group">
                 <section class="product-wrap">
                     <!--    <h2>글쓰기</h2>-->
                     <ul class="product-info">
@@ -65,26 +61,32 @@
                         </li>
                         <li class="info-title">
                             <div class="info-detail">제목</div>
-                            <input type="text" name="title" placeholder="제목을 입력하세요." class="write-title" value>
+                            <input type="text" name="title" placeholder="50자 내로 입력해주세요." id="writeTitle"
+                                   class="write-title" required>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">
                                 내용
                             </div>
-                            <textarea name="content" id="editor"></textarea>
+                            <textarea placeholder="500자 내로 입력해주세요" name="content" id="editor"></textarea>
                             <script>
-								//CKEditor5를 생성할 textarea 지정
-								ClassicEditor
-									.create(document.querySelector('#editor'))
-									.catch(error => {
-										console.error(error);
-									});
+                                //CKEditor5를 생성할 textarea 지정
+                                ClassicEditor
+                                    .create(document.querySelector('#editor'), {
+                                        placeholder: '500자 내로 입력해주세요'
+                                    })
+                                    .then(newEditor => {
+                                        editor = newEditor;
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
                             </script>
                         </li>
                     </ul>
                 </section>
                 <div class="product-btn">
-                    <input type="submit" class="write-btn" value="등록하기">
+                    <input id="writeBtn" type="submit" class="write-btn" value="등록하기">
                 </div>
                 <%--    <img src="" id="preview"/>--%>
                 <%--    <input type="text" name="id">--%>
@@ -113,15 +115,38 @@
 	// 		const reader = new FileReader();
 	// 		reader.onload = function (e) {
 	// 			$('.product-photo').css({
-	// 				"background": "url(" + e.target.result + ")",
-	// 				'background-repeat': 'no-repeat',
-	// 				'background-position': 'center center',
-	// 				'background-size': 'cover'
-	// 			});
-	// 			$('.product-photo::before').css({'backgrounddl-image': 'url("")'});
-	// 		}
-	// 		reader.readAsDataURL(f);
-	// 	})
-	// }
+    // 				"background": "url(" + e.target.result + ")",
+    // 				'background-repeat': 'no-repeat',
+    // 				'background-position': 'center center',
+    // 				'background-size': 'cover'
+    // 			});
+    // 			$('.product-photo::before').css({'backgrounddl-image': 'url("")'});
+    // 		}
+    // 		reader.readAsDataURL(f);
+    // 	})
+    // }
+
+
+    // 유효성 ...  왜 안돼 .....
+    // const btn = document.querySelector('#writeBtn');
+    // const title = document.querySelector('#writeTitle');
+    // const content = editor.getData();
+    //
+    // btn.addEventListener('click', function (){
+    //
+    //    if(title.value.length > 50){
+    //        alert("제목을 50자 내로 입력해주세요.");
+    //        // title.focus();
+    //        return false;
+    //    }else if(content === ""){
+    //        alert("내용을 입력해주세요");
+    //        return false;
+    //    }else if(content.length > 500){
+    //        alert("내용을 500자 내로 입력해주세요.");
+    //        return false;
+    //    }
+    //
+    // });
+
 </script>
 </html>

@@ -23,12 +23,12 @@
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
     <style>
-		.product-photo {
-			background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
-			background-size: 20%;
-			background-position: center center;
-			background-repeat: no-repeat;
-		}
+        .product-photo {
+            background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
+            background-size: 20%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
     </style>
 
     <!-- ckeditor -->
@@ -46,16 +46,16 @@
 
         <!--content-->
         <div class="title">상품등록</div>
-        <form name="bbs" action="petWriteOk.board" method="POST" enctype="multipart/form-data">
+        <form name="bbs" action="productWrite.board" method="POST" enctype="multipart/form-data">
             <div class="product-group">
                 <section class="product-wrap">
                     <!--    <h2>글쓰기</h2>-->
                     <ul class="product-info">
                         <li class="info-title idAddress">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" placeholder="!!!아이디 불러오기" class="write-title" readonly>
+                            <input type="text" name="id" placeholder="!!!아이디 불러오기" class="write-title">
                             <div class="info-detail">주소</div>
-                            <input type="text" name="address" placeholder="!!!주소 불러오기" class="write-title" readonly>
+                            <input type="text" name="address" placeholder="!!!주소 불러오기" class="write-title">
                         </li>
 
                         <li class="info-title">
@@ -102,7 +102,7 @@
                             </div>
                             <textarea name="content" id="editor"></textarea>
                             <script>
-			                    //CKEditor5를 생성할 textarea 지정
+                                //CKEditor5를 생성할 textarea 지정
                                 ClassicEditor
                                     .create(document.querySelector('#editor'))
                                     .catch(error => {
@@ -137,25 +137,25 @@
 <script src="${pageContext.request.contextPath}/assets/js/index.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 <script>
-	$('.files').on("change", fileChange);
+    $('.files').on("change", fileChange);
 
-	function fileChange(e) {
-		const files = e.target.files;
-		const filesArr = Array.prototype.slice.call(files);
-		const productPhoto = $(this).parent('.product-photo');
+    function fileChange(e) {
+        const files = e.target.files;
+        const filesArr = Array.prototype.slice.call(files);
+        const productPhoto = $(this).parent('.product-photo');
 
-		filesArr.forEach(function (f) {
-			const reader = new FileReader();
-			reader.onload = function (e) {
-				productPhoto.css({
-					"background": "url(" + e.target.result + ")",
-					'background-repeat': 'no-repeat',
-					'background-position': 'center center',
-					'background-size': 'cover'
-				});
-			}
-			reader.readAsDataURL(f);
-		});
-	}
+        filesArr.forEach(function (f) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                productPhoto.css({
+                    "background": "url(" + e.target.result + ")",
+                    'background-repeat': 'no-repeat',
+                    'background-position': 'center center',
+                    'background-size': 'cover'
+                });
+            }
+            reader.readAsDataURL(f);
+        });
+    }
 </script>
 </html>

@@ -19,13 +19,13 @@ function commentList() {
 					if (obj.id === $('#writerId').val()) {
 						$('.commentList').append('글쓴이');
 					}
-					$('.commentList').append('<div>['
-						+ obj.id + '] : ' + obj.content + obj.writedate
+					$('.commentList').append('<h2>'
+						+ obj.id + '</h2><p>' + obj.content + '</p><h4>' + obj.writedate + '</h4>'
 						+ '<form method="POST" name="deleteComment">'
 						+ '<input type="hidden" name="no" value="' + obj.no + '" class="comment_no">'
 						+ '<input type="hidden" name="idx" value="' + $('#idx').val() + '" class="comment_idx">'
 						+ '<input type="button" value="삭제" class="deleteBtn">'
-						+ '</form></div>');
+						+ '</form>');
 					$('.deleteBtn').click(function () {
 						deleteComment(this.form);
 					});
@@ -87,5 +87,7 @@ function deleteComment(frm) {
 		}
 	});
 }
+
+
 
 

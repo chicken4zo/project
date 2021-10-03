@@ -24,8 +24,18 @@ public class ProductDao {
             conn = ConnectionHelper.getConnection("oracle");
 
             // 상품게시판과 멤버의 정보를 idx desc 정렬
-            String sql = "select m.id, m.address, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath, p.price from product p join member m on(p.id = m.id) order by idx desc";
+            // String sql = "select * from (select rownum rn, m.id, m.address, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath, p.price from product p join member m on(p.id = m.id) order by idx desc) where rn between ? and ? ";
+            String sql = "select * from(SELECT ROWNUM rn, id,  address, idx, title, content, hit, writedate, filename, filepath, price from (select m.id, m.address, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath, p.price from product p join member m on(p.id = m.id) order by idx desc) where rownum <=?) where rn>=?";
+
             pstmt = conn.prepareStatement(sql);
+
+            //공식같은 로직
+            int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
+            int end = cpage * pagesize; // 1 * 5 >> 5
+
+            pstmt.setInt(1, end);
+            pstmt.setInt(2, start);
+
             rs = pstmt.executeQuery();
 
             list = new ArrayList<>();
@@ -153,7 +163,6 @@ public class ProductDao {
                 productBoard.setFilePath2(rs.getString("filepath2"));
                 productBoard.setFileName3(rs.getString("filename3"));
                 productBoard.setFilePath3(rs.getString("filepath3"));
-                System.out.println(productBoard.getFileName3());
             }
         } catch (Exception e) {
             System.out.println("PRODUCTDAO GET CONTENT 에러");
@@ -206,6 +215,7 @@ public class ProductDao {
             conn = ConnectionHelper.getConnection("oracle");
             String sql = "delete from product where idx=?";
             pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, idx);
 
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {

@@ -7,6 +7,13 @@
     border-radius: 1rem !important;
 }
 
+.title_container {
+    color: #8B425A;
+    font-family: 'Jua', sans-serif;
+    font-size: 35px;
+    padding: 2% 0 0 10%;
+}
+
 /* product img*/
 
 .container {
@@ -57,22 +64,27 @@
 }
 
 .id {
-    margin-bottom: 13px;
+    margin-bottom: 5px;
+    font-size: 1rem !important;
 }
 
 .address {
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
 }
 
 .address i {
     padding-right: 5px;
 }
 
+.idAddr {
+    margin-top: 11px;
+}
+
 .detail_bar {
     width: 110%;
     height: 2px;
     background-color: #dee2e6;
-    margin-top: 17px;
+    margin-top: 9px;
 }
 
 .view_icon {

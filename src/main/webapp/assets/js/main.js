@@ -45,6 +45,33 @@ $('.sel__box__options').click(function () {
     $currentSel.children('select').prop('selectedIndex', index + 1);
 });
 
+//select
+// window.onload = function() {
+//     let selectbox = document.getElementById("selectbox");
+//     selectbox.addEventListener("mouseover", changeBgcolor, false);
+//
+//     function changeBgcolor(e) {
+//         // let selectedColor = document.getElementById("selectbox")
+//         //     .options[document.getElementById("selectbox")
+//         //     .selectedIndex].value;
+//         // e.currentTarget.style.backgroundColor = selectedColor;
+//
+//         let item = document.getElementById("selectbox");
+//         item.setAttribute("style", "background-color:pink;")
+//     }
+// };
+
+// var sel = document.getElementById('selectbox');
+// sel.addEventListener('click', function(el){
+//     var options = this.children;
+//     for(var i=0; i < this.childElementCount; i++){
+//         options[i].style.color = 'white';
+//     }
+//     var selected = this.children[this.selectedIndex];
+//     selected.style.color = 'red';
+// }, false);
+
+
 // weather
 let d = new Date();
 document.getElementById("day").innerHTML = d.getDate();
@@ -134,3 +161,4 @@ function onGeoError() {
 }
 
 navigator.geolocation.getCurrentPosition(getWeather, onGeoError);
+

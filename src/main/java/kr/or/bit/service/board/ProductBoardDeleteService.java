@@ -12,11 +12,25 @@ public class ProductBoardDeleteService implements Action {
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         String idx = request.getParameter("idx");
         ProductDao dao = new ProductDao();
+
         int result = dao.deleteProduct(idx);
+
+//        ActionForward forward = new ActionForward();
+//        forward.setRedirect(false);
+//        forward.setPath("productList.board");
+
+        String url = "";
+        if (result > 0) {
+            url = "productList.board";
+        } else {
+            url = "productList.board";
+        }
+
+        request.setAttribute("board_url", url);
 
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
-        forward.setPath("productList.board");
+        forward.setPath("/WEB-INF/views/redirect.jsp");
 
         return forward;
     }

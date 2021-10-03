@@ -26,10 +26,15 @@
 
 </head>
 <body>
+
+<c:set var="idx" value="${requestScope.idx}"/>
 <c:set var="board" value="${requestScope.board}"/>
 <c:set var="cpage" value="${requestScope.cpage}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
 <c:set var="commentList" value="${requestScope.commentList}"/>
+
+<c:set var="id" value="${sessionScope.id}"/>
+
 <div id="body_wrap">
   <div class="wrapper">
     <!--header-->
@@ -39,12 +44,17 @@
     <jsp:include page="/WEB-INF/include/weather.jsp"/>
 
     <!--content-->
+
+
+    <div class="title_container">맛있구마</div>
+
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-body">
               <!--product details-->
+
               <div class="row">
                 <!--image space-->
                 <!-- Gallery -->
@@ -115,6 +125,100 @@
                     </button>
                     <button type="button" class="btn btn-primary btn-sm"
                             onclick="location.href='RestaurantList.board'">
+
+              <c:choose>
+
+                <c:when test="${not empty board.fileName}">
+                  <div class="row">
+                    <!--image space-->
+                    <!-- Gallery -->
+                    <div id="js-gallery" class="gallery col-xl-5 col-lg-6 text-center">
+
+                      <!--Gallery Hero-->
+                      <div class="gallery__hero parent">
+
+                        <img class="slide w-100 border-radius-lg shadow-lg mx-auto"
+                             src="assets/upload/${board.fileName}">
+                      </div>
+                      <!--Gallery Hero-->
+
+                    </div>
+
+                    <!--.gallery-->
+                    <!-- Gallery -->
+                    <div class="col-lg-5 mx-auto">
+                      <div class="titleContainer">
+                        <h5 class="mb-0 mt-3" style="font-size: 1.6rem">${board.title}</h5>
+                      </div>
+                      <div class="idAddr">
+                        <h4 class="mt-lg-0 mt-4 id">${board.id}</h4>
+                        <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>
+                            ${board.address}
+                        </h5>
+                      </div>
+                      <div class="detail_bar"></div>
+                      <ul class="view_icon">
+                        <li><i class="fas fa-eye"></i><span>${board.hit}</span></li>
+                        <li><i class="far fa-calendar-alt"></i><span>${board.writeDate}</span>
+                        </li>
+                      </ul>
+                      <div class="content">
+                          ${board.content}
+                      </div>
+
+                    </div>
+                  </div>
+                </c:when>
+                <c:otherwise>
+                  <div class="row">
+
+
+                    <!--.gallery-->
+                    <!-- Gallery -->
+                    <div class="col-12" style="padding: 0px 32px">
+                      <div class="titleContainer">
+                        <h5 class="mb-0 mt-3">${board.title}</h5>
+                      </div>
+                      <div class="idAddr">
+                        <h4 class="mt-lg-0 mt-4 id">${board.id}</h4>
+                        <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>
+                            ${board.address}
+                        </h5>
+                      </div>
+                      <div class="detail_bar" style="width: 100%"></div>
+                      <ul class="view_icon">
+                        <li><i class="fas fa-eye"></i><span>${board.hit}</span></li>
+                        <li><i class="far fa-calendar-alt"></i><span>${board.writeDate}</span>
+                        </li>
+                      </ul>
+                      <div class="content">
+                          ${board.content}
+                      </div>
+
+                    </div>
+                  </div>
+
+                </c:otherwise>
+              </c:choose>
+              <div class="row mt-5">
+                <div class="col-12">
+                  <div class="ms-3 button_container">
+                    <%--                                        <c:set value="${sessionScope.id}" var="id"/>--%>
+                    <c:if test="${board.id eq id}">
+                      <button type="button" class="btn btn-warning btn-sm"
+                              onclick="location.href='RestaurantEdit.board?idx=${idx}&cp=${cpage}&ps=${pagesize}'">
+                        <i class="fas fa-pen"></i>
+                        <span>수정</span>
+                      </button>
+                      <button type="button" class="btn btn-danger btn-sm"
+                              onclick="location.href='RestaurantDelete.board?idx=${idx}&cp=${cpage}&ps=${pagesize}'">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>삭제</span>
+                      </button>
+                    </c:if>
+                    <button type="button" class="btn btn-primary btn-sm"
+                            onclick="location.href='RestaurantList.board?cp=${cpage}&ps=${pagesize}'">
+
                       <i class="fas fa-list-ul"></i>
                       <span>목록</span>
                     </button>
@@ -145,10 +249,16 @@
                   <!-- replylist_wrap END -->
 
                   <!--reply write-->
+
                   <c:set value="${sessionScope.id}" var="id"/>
                   <form name="lostComment" method="POST" id="lostComment">
                     <div class="commentWrite_Wrap">
                       <input type="hidden" name="idx" id="idx" value="${board.idx}">
+
+                  <form name="lostComment" method="POST" id="lostComment">
+                    <div class="commentWrite_Wrap">
+                      <input type="hidden" name="idx" id="idx" value="${idx}">
+
                       <input type="hidden" name="writerid" id="id" value="${board.id}">
                       <h2>${id}</h2>
                       <input type="hidden" name="commentid" id="commentId" value="${id}">
@@ -192,7 +302,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
+
 <script src="${pageContext.request.contextPath}/assets/js/restaurantComment.js?ver=1"></script>
+
+<script src="${pageContext.request.contextPath}/assets/js/lostComment.js?ver=1"></script>
+
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>

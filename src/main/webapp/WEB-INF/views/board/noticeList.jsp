@@ -2,136 +2,181 @@
   Created by IntelliJ IDEA.
   User: heewonseo
   Date: 2021/09/27
-  Time: 23:17
+  Time: 23:16
   To change this template use File | Settings | File Templates.
 --%>
-<%@page import="kr.or.bit.util.ThePager"%>
-<%@page import="kr.or.bit.dto.NoticeBoard"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="pagesize" value="${requestScope.pagesize}"/>
+<c:set var="cpage" value="${requestScope.cpage}"/>
+<c:set var="pagecount" value="${requestScope.pagecount}"/>
+<c:set var="list" value="${requestScope.list}"/>
+<c:set var="totalnoticecount" value="${requestScope.totalNoticeCount}"/>
+<c:set var="pager" value="${requestScope.pager}"/>
+<c:set var="id" value="${sessionScope.id}"/>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>고민하지말구, 고구마켓</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardList.css">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- fontawesome  -->
+    <script src="https://kit.fontawesome.com/a959489452.js" crossorigin="anonymous"></script>
+    <!--font-->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <!--weather icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
 </head>
 <body>
+<div id="body_wrap">
+    <div class="wrapper">
+        <!--header-->
+        <jsp:include page="../../include/top.jsp"/>
+        <!-- weather -->
+        <jsp:include page="../../include/weather.jsp"/>
 
-게시판 목록
-<br>
 
-<c:set var="pagesize" value="${requestScope.pagesize}" />
-<c:set var="cpage" value="${requestScope.cpage}" />
-<c:set var="pagecount" value="${requestScope.pagecount}" />
-<c:set var="list" value="${requestScope.list}" />
-<c:set var="totalnoticecount" value="${requestScope.totalNoticeCount}" />
-<c:set var="pager" value="${requestScope.pager}" />
-
-<div id="pagecontainer">
-    <div style="padding-top: 30px; text-align: center">
-        <table width="80%" border="1" cellspacing="0" align="center">
-            <tr>
-                <td colspan="5">
-                    <form name="list" >
-                        PageSize설정: <!-- 한 페이지안에 보여줄 게시글 건수 -->
-                        <select name="ps" onchange="submit()">
-                            <c:forEach var="i" begin="5" end="20" step="5">
-                                <c:choose>
-                                    <c:when test="${pagesize == i}">
-                                        <option value="${i}" selected>${i}건</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="${i}">${i}건 </option>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </select>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <th width="10%">NO</th>
-                <th width="40%">제목</th>
-                <th width="20%">글쓴이</th>
-                <th width="20%">날짜</th>
-                <th width="10%">조회수</th>
-            </tr>
-            <!-- 데이터가 한건도 없는 경우  -->
-
-            <!-- forEach()  목록 출력하기  -->
-            <c:forEach var="notice" items="${list}">
-                <tr onmouseover="this.style.backgroundColor='gray'" onmouseout="this.style.backgroundColor='white'">
-                    <td align="center">${notice.idx}</td>
-                    <td align="left">
-                        <a href="NoticeContent.board?idx=${notice.idx}&cp=${cpage}&ps=${pagesize}">
+        <!--content-->
+        <div class="board-logo">
+            <h3>공지사항</h3>
+        </div>
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="">
+                            <th>
+                                번호
+                            </th>
+                            <th>
+                                제목
+                            </th>
+                            <th>
+                                작성자
+                            </th>
+                            <th>
+                                작성일
+                            </th>
+                            <th>
+                                조회수
+                            </th>
+                            </thead>
+                            <tbody>
                             <c:choose>
-                                <c:when test="${notice.title != null && fn:length(notice.title) > 10}">
-                                    ${fn:substring(notice.title,0,10)}...
+                                <c:when test="${not empty list}">
+                                    <c:forEach var="notice" items="${list}">
+                                        <tr>
+                                            <td>${notice.idx}</td>
+                                            <td>
+                                                <a href="NoticeContent.board?idx=${notice.idx}&cp=${cpage}&ps=${pagesize}">
+                                                    <c:choose>
+                                                        <c:when test="${notice.title != null && fn:length(notice.title) > 10}">
+                                                            ${fn:substring(notice.title,0,10)}...
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${notice.title}
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </a>
+                                            </td>
+                                            <td>${notice.id}</td>
+
+                                                <%--    <c:if test="${lost.fileName!='empty'}">--%>
+                                                <%--        <img src="assets/upload/${lost.fileName}"/>--%>
+                                                <%--    </c:if>--%>
+                                            <td>${notice.writeDate}</td>
+                                            <td>${notice.hit}</td>
+                                        </tr>
+                                    </c:forEach>
                                 </c:when>
                                 <c:otherwise>
-                                    ${notice.title}
+                                    <td>등록된 글이 없습니다</td>
                                 </c:otherwise>
                             </c:choose>
-                        </a>
-                    </td>
-                    <td align="center">${notice.id}</td>
-                    <td align="center">${notice.writeDate}</td>
-                    <td align="center">${notice.hit}</td>
-                </tr>
-            </c:forEach>
-            <!-- forEach()  -->
-            <tr>
-                <td colspan="5" align="center">
-                    <hr width="100%" color="red">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" align="center">
-                    <!--
-                    원칙적인 방법 아래 처럼 구현
-                    [1][2][3][다음]
-                    [이전][4][5][6][다음]
-                    [이전][7][8][9][다음]
-                    [이전][10][11]
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <c:if test="${id eq 'admin'}">
 
-                    현재 아래 코드 [][][][][][][]...
-                    -->
+            <button class="write-btn" onclick="location.href='NoticeWrite.board'">글쓰기</button>
+        </c:if>
+        <form name="list">
+            <!-- 한 페이지안에 보여줄 게시글 건수 -->
+            <select name="ps" onchange="submit()"
+                    style="color: rgb(73,80,87); border-radius: 15%; border: 1px solid #858585; font-size: 0.7rem;">
+                <c:forEach var="i" begin="5" end="20" step="5">
+                    <c:choose>
+                        <c:when test="${pagesize == i}">
+                            <option value="${i}" selected>${i}건</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${i}">${i}건</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </select>
+        </form>
 
-                    <!--이전 링크 -->
-                    <c:if test="${cpage > 1}">
-                        <a href="NoticeList.board?cp=${cpage-1}&ps=${pagesize}">이전</a>
-                    </c:if>
-                    <!-- page 목록 나열하기 -->
-                    <c:forEach var="i" begin="1" end="${pagecount}" step="1">
-                        <c:choose>
-                            <c:when test="${cpage==i}">
-                                <font color="red" >[${i}]</font>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="NoticeList.board?cp=${i}&ps=${pagesize}">[${i}]</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                    <!--다음 링크 -->
-                    <c:if test="${cpage < pagecount}">
-                        <a href="NoticeList.board?cp=${cpage+1}&ps=${pagesize}">다음</a>
-                    </c:if>
-                </td>
-                <td colspan="2" align="center">총 게시물 수 : ${totalnoticecount}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="5" align="center">
-                    ${pager}
-                </td>
-        </table>
-        <a href="NoticeWrite.board">공지사항 글쓰러가기</a>
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
+                ${pager}
+            </ul>
+        </nav>
     </div>
 </div>
+<jsp:include page="../../include/footer.jsp"/>
+
+
 </body>
+<!-- bootstrap4 -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<!--   Core JS Files   -->
+<script src="${pageContext.request.contextPath}/assets/js/core/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/core/bootstrap-material-design.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+<script src="${pageContext.request.contextPath}/assets/js/plugins/jquery.dataTables.min.js"></script>
+<!--bootstrp js-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<!--image js-->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
+
+<script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>

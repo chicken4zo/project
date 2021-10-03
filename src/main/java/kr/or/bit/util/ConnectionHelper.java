@@ -3,10 +3,7 @@ package kr.or.bit.util;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 //POOL
 public class ConnectionHelper {
@@ -14,13 +11,11 @@ public class ConnectionHelper {
 
         if (dbname.equalsIgnoreCase("oracle")) {
             try {
-                System.out.println("connection oracle");
                 Context initContext = new InitialContext();
-//                DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/oracle");
-                // 오라클 사용 시 수정해야 하는 부분
                 DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/oracle");
+                // 오라클 사용 시 수정해야 하는 부분
+                //               DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/mysql");
 //                DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/oracle");
-
                 // 오라클 사용 시, 아래 주석 처리 해제
                 Connection conn = source.getConnection();
                 return conn;
@@ -31,19 +26,9 @@ public class ConnectionHelper {
         } else if (dbname.equalsIgnoreCase("mysql")) {
             try {
                 // 1.
-                System.out.println("connection sql");
-
-                Context initContext = new InitialContext();
-//                DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/oracle");
-                // 오라클 사용 시 수정해야 하는 부분
-                DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/mysql");
-//                DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/oracle");
-                // 오라클 사용 시, 아래 주석 처리 해제
-                Connection conn = source.getConnection();
-                return conn;
-//                Class.forName("com.mysql.jdbc.Driver");
-//                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/PROJECT", "root",
-//                        "1004");
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/PROJECT", "root",
+                        "1004");
 
                 // 2.
                 /*
@@ -52,29 +37,14 @@ public class ConnectionHelper {
                  * (DataSource)context.lookup("mysql/demoweb"); Connection conn =
                  * source.getConnection();
                  */
-//                return conn;
-            } catch (Exception ex) {
-                return null;
-            }
-        }
-        if (dbname.equalsIgnoreCase("myoracle")) {
-            try {
-                System.out.println("connection oracle");
-                Context initContext = new InitialContext();
-//                DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/oracle");
-                // 오라클 사용 시 수정해야 하는 부분
-                DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/myoracle");
-//                DataSource source = (DataSource) initContext.lookup("java:comp/env/jdbc/oracle");
-                // 오라클 사용 시, 아래 주석 처리 해제
-                Connection conn = source.getConnection();
                 return conn;
             } catch (Exception ex) {
-                System.out.println("connection" + ex.getMessage());
                 return null;
             }
         } else {
             return null;
         }
+
     }
 
 
