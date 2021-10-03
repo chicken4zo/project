@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Context>
-    <!--    <Resource maxWait="-1"-->
-    <!--              maxIdle="20"-->
-    <!--              maxTotal="20"-->
-    <!--              maxActive="20"-->
-    <!--              password="1004"-->
-    <!--              username="root"-->
-    <!--              url="jdbc:mysql://localhost:3306/TEST"-->
-    <!--              driverClassName="com.mysql.jdbc.Driver"-->
-    <!--              type="javax.sql.DataSource"-->
-    <!--              auth="Container"-->
-    <!--              name="jdbc/mysql"/>-->
-
-    <!--오라클 사용 시 아래 부분 주석 해제 -->
-    <Resource
-            auth="Container"
-            driverClassName="oracle.jdbc.driver.OracleDriver"
-            maxTotal="20"
-            maxIdle="20"
-            maxActive="20"
-            name="jdbc/oracle"
-            type="javax.sql.DataSource"
-            url="jdbc:oracle:thin:@localhost:1521:xe"
-            username="bituser"
-            password="1004"/>
-    <!-- -->
+    <Resource maxWait="-1"
+              maxIdle="20"
+              maxTotal="20"
+              maxActive="20"
+              password="wjstjf1472$"
+              username="bituser"
+              url="jdbc:oracle:thin:@localhost:1521:XE"
+              driverClassName="oracle.jdbc.OracleDriver"
+              type="javax.sql.DataSource"
+              auth="Container"
+              name="jdbc/oracle"/>
 </Context>
+
+        <!--오라클 사용 시 아래 부분 주석 해제
+                <Resource
+                auth="Container"
+                driverClassName="oracle.jdbc.driver.OracleDriver"
+                maxTotal="20"
+                maxIdle="20"
+                maxActive="20"
+                name="jdbc/oracle"
+                type="javax.sql.DataSource"
+                url="jdbc:oracle:thin:@localhost:1521:xe"
+                username="bituser"
+                password="1004"/>
+                -->
+
 
         <!--
         Resource  커넥션풀을 만드는 기본 설정 (어떤DB , 계정을 가지고 접속 설정)

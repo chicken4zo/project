@@ -23,7 +23,7 @@ public class PetBoardListService implements Action {
             int totalBoardCount = dao.totalPetCount();
 
             if (ps == null || ps.trim().equals("")) {
-                ps = "9";
+                ps = "6";
             }
 
             if (cp == null || cp.trim().equals("")) {

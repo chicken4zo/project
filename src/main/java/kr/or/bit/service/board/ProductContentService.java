@@ -43,8 +43,6 @@ public class ProductContentService implements Action {
             ProductDao dao = new ProductDao();
             ProductBoard product = dao.getProductContent(idx);
 
-            System.out.println(product);
-
             request.setAttribute("product", product);
             request.setAttribute("cpage", cpage);
             request.setAttribute("pagesize", pagesize);

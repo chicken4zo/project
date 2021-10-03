@@ -148,12 +148,14 @@ public class BoardServlet extends HttpServlet {
             // 반려동물 게시판
         } else if (urlCommand.equals("/petDelete.board")) {
             System.out.println("PETBOARD DELETE SERVICE 실행");
-
-        } else if (urlCommand.equals("/petModify.board")) {
-            System.out.println("PETBOARD DELETE SERVICE 실행");
+            action = new PetBoardDeleteService();
+            forward = action.execute(request, response);
 
         } else if (urlCommand.equals("/petWrite.board")) {
             System.out.println("PETBOARD WRITE SERVICE 실행");
+            action = new PetBoardWriteService();
+            forward = action.execute(request, response);
+
 
         } else if (urlCommand.equals("/petForm.board")) {
             System.out.println("PETBOARD FORM SERVICE 실행");
@@ -163,9 +165,14 @@ public class BoardServlet extends HttpServlet {
 
         } else if (urlCommand.equals("/petContent.board")) {
             System.out.println("PETBOARD CONTENT SERVICE 실행");
+            action = new PetContentService();
+            forward = action.execute(request, response);
+
 
         } else if (urlCommand.equals("/petList.board")) {
             System.out.println("PETBOARD LIST SERVICE 실행");
+            action = new PetBoardListService();
+            forward = action.execute(request, response);
 
             // 상품 게시판
         } else if (urlCommand.equals("/productDelete.board")) {

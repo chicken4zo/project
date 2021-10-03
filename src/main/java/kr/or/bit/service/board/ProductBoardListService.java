@@ -4,6 +4,7 @@ import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.ProductDao;
 import kr.or.bit.dto.ProductBoard;
+import kr.or.bit.util.ThePager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ public class ProductBoardListService implements Action {
             int totalBoardCount = dao.totalProductBoard();
 
             if (ps == null || ps.trim().equals("")) {
-                ps = "5";
+                ps = "3";
             }
 
             if (cp == null || cp.trim().equals("")) {
@@ -41,12 +42,15 @@ public class ProductBoardListService implements Action {
             }
 
             List<ProductBoard> productBoardList = dao.getProductBoardList(cpage, pagesize);
+            int pagersize = 3;
+            ThePager pager = new ThePager(totalBoardCount, cpage, pagesize, pagersize, "productList.board");
 
             request.setAttribute("productBoardList", productBoardList);
             request.setAttribute("pagesize", pagesize);
             request.setAttribute("cpage", cpage);
             request.setAttribute("pagecount", pagecount);
             request.setAttribute("totalBoardCount", totalBoardCount);
+            request.setAttribute("pager", pager);
 
             forward = new ActionForward();
             forward.setRedirect(false);
