@@ -244,8 +244,11 @@ public class BoardServlet extends HttpServlet {
             System.out.println("일상 게시판 답글 입력");
             action = new DailyBoardReplyOkService();
             forward = action.execute(request, response);
+        } else if (urlCommand.equals("/search.board")) {
+            System.out.println("게시판 검색");
+            action = new SearchBoardService();
+            forward = action.execute(request, response);
         }
-
 
         if (forward != null) {
             if (forward.isRedirect()) { //true 페이지를 재요청

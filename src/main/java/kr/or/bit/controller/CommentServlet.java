@@ -92,9 +92,6 @@ public class CommentServlet extends HttpServlet {
             }
 
 
-        } else if (urlCommand.equals("/productCommentWrite.board")) {
-
-            // 일상 댓글
         } else if (urlCommand.equals("/dailyCommentWrite.comment")) {
 
             String commentId = request.getParameter("commentId");

@@ -43,6 +43,8 @@
 
     <!--content-->
     <div class="title_container">맛있구마</div>
+    <input hidden id="boardName" value="restaurant">
+
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
@@ -217,7 +219,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/lostComment.js?ver=1"></script>
+
+<%--<script src="${pageContext.request.contextPath}/assets/js/restaurantComment.js?ver=1"></script>--%>
+
+<script src="${pageContext.request.contextPath}/assets/js/comment.js?ver=1"></script>
+
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>
