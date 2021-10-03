@@ -19,7 +19,7 @@ import java.util.List;
 public class LostDao {
 
     DataSource ds = null;
-    String database = "oracle";
+    String database = "mysql";
     // String database에 oracle, mysql, myoracle 둘 중에 하나 입력
 
     public LostDao() {
@@ -151,7 +151,7 @@ public class LostDao {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         LostBoard lost = null;
-        String sql = "SELECT IDX, ID, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH FROM LOST WHERE IDX = ?";
+        String sql = "SELECT IDX, M.ID, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, M.ADDRESS FROM LOST,MEMBER M WHERE IDX = ? AND LOST.ID=M.ID";
 
         try {
             conn = ConnectionHelper.getConnection(database);
@@ -163,12 +163,14 @@ public class LostDao {
             if (rs.next()) {
                 lost = new LostBoard();
                 lost.setIdx(rs.getInt("idx"));
-                lost.setId(rs.getString("id"));
+                lost.setId(rs.getString("m.id"));
                 lost.setTitle(rs.getString("title"));
                 lost.setContent(rs.getString("content"));
                 lost.setFilePath(rs.getString("filepath"));
                 lost.setFileName(rs.getString("filename"));
                 lost.setWriteDate(rs.getDate("writedate"));
+                lost.setHit(rs.getInt("hit"));
+                lost.setAddress(rs.getString("m.address"));
             } else {
                 lost = null;
             }
@@ -425,7 +427,7 @@ public class LostDao {
             if (database.equals("mysql")) {
                 reply_sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (IDX,?,?,0,current_timestamp,?,?,?,?,?,?)";
             } else {
-                reply_sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (LOST_SEQ.NEXTVAL,?,?,0,SYSDATE,?,?,?,?,?,?)";
+                reply_sql = "INSERT INTO LOST(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (LOST_SEQ.nextval,?,?,0,SYSDATE,?,?,?,?,?,?)";
             }
 
             pstmt = conn.prepareStatement(refer_depth_step_sal);

@@ -4,13 +4,11 @@ import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.DailyDao;
 import kr.or.bit.dao.LostDao;
-
-import kr.or.bit.dao.RestaurantDao;
-
 import kr.or.bit.dao.ProductDao;
-
+import kr.or.bit.dao.RestaurantDao;
 import kr.or.bit.dto.DailyComment;
 import kr.or.bit.dto.LostComment;
+import kr.or.bit.dto.ProductComment;
 import kr.or.bit.dto.RestaurantComment;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -211,8 +209,6 @@ public class CommentServlet extends HttpServlet {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-        }
-
 
 
             //맛집 게시판 댓글

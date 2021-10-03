@@ -72,6 +72,7 @@
                                                 <h5 class="mb-0 mt-3" style="font-size: 1.6rem">${daily.title}</h5>
                                             </div>
                                             <div class="idAddr">
+                                                <input type="hidden" value="${daily.id}" class="loginId">
                                                 <h4 class="mt-lg-0 mt-4 id">${daily.id}</h4>
                                                 <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>
                                                         ${daily.address}
