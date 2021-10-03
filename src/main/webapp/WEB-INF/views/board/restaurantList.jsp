@@ -45,6 +45,14 @@
         <jsp:include page="../../include/weather.jsp"/>
 
 
+
+            <!-- forEach()  목록 출력하기  -->
+            <c:forEach var="restaurant" items="${list}">
+                <tr onmouseover="this.style.backgroundColor='gray'" onmouseout="this.style.backgroundColor='white'">
+                    <td align="center">${restaurant.idx}</td>
+                    <td align="left">
+                        <a href="RestaurantContent.board?idx=${restaurant.idx}&id=${restaurant.id}&cp=${cpage}&ps=${pagesize}">
+
         <!--content-->
         <div class="board-logo">
             <h3>맛있구마</h3>
@@ -75,6 +83,7 @@
                             </th>
                             </thead>
                             <tbody>
+
                             <c:choose>
                                 <c:when test="${not empty list}">
                                     <c:forEach var="restaurant" items="${list}">
