@@ -129,14 +129,18 @@
 }
 
 .commentList {
+    display: flex;
+    flex-direction: column;
     margin-top: 20px;
 }
 
 .commentList h2 {
     clear: both;
     font-size: 1.1rem;
+    margin-right: 5px;
     margin-top: 35px;
 }
+
 
 .commentList p {
     font-size: 0.8rem;
@@ -186,4 +190,17 @@
     float: right;
     font-size: 0.7rem;
     margin-top: 19px;
+}
+
+.writer {
+    background-color: #8167A9;
+    border-radius: 80%;
+    color: #EDF0FF;
+    font-size: 0.7rem;
+    margin: 0;
+    padding: 3px;
+}
+
+#me {
+    background-color: rgba(129, 103, 169, 0.19);
 }
