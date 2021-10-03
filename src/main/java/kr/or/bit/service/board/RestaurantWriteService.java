@@ -15,7 +15,9 @@ public class RestaurantWriteService implements Action {
 
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-        String uploadpath = request.getSession().getServletContext().getRealPath("upload");
+        RestaurantBoard restaurantBoard = new RestaurantBoard();
+        String uploadpath = request.getRealPath("assets/upload");
+        System.out.println(uploadpath);
         int size = 1024 * 1024 * 10;
 
         ActionForward forward = null;
@@ -40,14 +42,14 @@ public class RestaurantWriteService implements Action {
                 filename = "";
             }
 
-            RestaurantBoard board = new RestaurantBoard();
-            board.setTitle(title);
-            board.setContent(content);
-            board.setFileName(filename);
-            board.setId(id);
+            restaurantBoard.setTitle(title);
+            restaurantBoard.setContent(content);
+            restaurantBoard.setFileName(filename);
+            restaurantBoard.setId(id);
+            restaurantBoard.setFilePath(uploadpath);
 
             RestaurantDao dao = new RestaurantDao();
-            int result = dao.writeOk(board);
+            int result = dao.writeOk(restaurantBoard);
             System.out.println(result);
 
             String msg = "";

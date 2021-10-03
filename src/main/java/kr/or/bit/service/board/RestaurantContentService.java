@@ -15,7 +15,10 @@ public class RestaurantContentService implements Action {
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("맛집서비스들어옴");
+        String id = request.getParameter("id");
         String idx = request.getParameter("idx");
+        String cpage = request.getParameter("cp");
+        String pagesize = request.getParameter("ps");
         ActionForward forward = null;
 
         try {
@@ -25,13 +28,10 @@ public class RestaurantContentService implements Action {
 
             idx = idx.trim();
 
-            String cpage = request.getParameter("cp");
-            String pagesize = request.getParameter("ps");
-
-
             if (cpage == null || cpage.trim().equals("")) {
                 cpage = "1";
             }
+
             if (pagesize == null || pagesize.trim().equals("")) {
                 pagesize = "10";
             }
@@ -42,9 +42,8 @@ public class RestaurantContentService implements Action {
             isread = dao.getReadNum(idx);
             if (isread) commentList = dao.getRestaurantCommentList(idx);
 
-            RestaurantBoard board = dao.getContent(Integer.parseInt(idx));
+            RestaurantBoard board = dao.getContent(idx);
             System.out.println("contentservice들어있냐? : " + board);
-
 
             request.setAttribute("cpage", cpage);
             request.setAttribute("pagesize", pagesize);

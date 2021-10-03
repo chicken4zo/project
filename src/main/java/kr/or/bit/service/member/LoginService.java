@@ -38,7 +38,7 @@ public class LoginService implements Action {
                 url = "Login.member";
             } else if (result != null) {
                 msg = "고구마켓에 어서오세요!";
-                url = "main.member";
+                url = "productList.board";
 
 
                 session.setAttribute("id", id);

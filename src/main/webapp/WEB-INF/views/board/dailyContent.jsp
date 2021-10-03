@@ -41,7 +41,8 @@
         <jsp:include page="/WEB-INF/include/weather.jsp"/>
 
         <!--content-->
-        <div class="title_container">분실·실종</div>
+        <div class="title_container">일상</div>
+        <input hidden id="boardName" value="daily">
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-12">
@@ -72,6 +73,7 @@
                                                 <h5 class="mb-0 mt-3" style="font-size: 1.6rem">${daily.title}</h5>
                                             </div>
                                             <div class="idAddr">
+                                                <input type="hidden" value="${daily.id}" class="loginId">
                                                 <h4 class="mt-lg-0 mt-4 id">${daily.id}</h4>
                                                 <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>
                                                         ${daily.address}

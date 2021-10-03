@@ -5,7 +5,6 @@ import kr.or.bit.dto.RestaurantBoard;
 import kr.or.bit.dto.RestaurantComment;
 import kr.or.bit.util.ConnectionHelper;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -126,7 +125,7 @@ public class RestaurantDao {
     }
 
     //게시물 상세보기
-    public RestaurantBoard getContent(int idx) {
+    public RestaurantBoard getContent(String idx) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -135,35 +134,32 @@ public class RestaurantDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "select title, content, hit, writedate, filename, filepath, id from Restaurant where idx=?";
+            String sql = "select idx, id, title, content, hit, writedate, filename, filepath from Restaurant where idx=?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, idx);
+            pstmt.setString(1, idx);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                String title = rs.getString("title");
-                String content = rs.getString("content");
-                int hit = rs.getInt("hit");
-                java.sql.Date writedate = rs.getDate("writedate");
-                String filename = rs.getString("filename");
-                String filepath = rs.getString("filepath");
-                String id = rs.getString("id");
-
-                board = new RestaurantBoard(idx, title, content, hit, writedate, filename, filepath, id);
+                board = new RestaurantBoard();
+                board.setIdx(rs.getInt("idx"));
+                board.setId(rs.getString("id"));
+                board.setTitle(rs.getString("title"));
+                board.setContent(rs.getString("content"));
+                board.setWriteDate(rs.getDate("writedate"));
+                board.setFileName(rs.getString("filename"));
+                board.setFilePath(rs.getString("filepath"));
                 System.out.println("Dao board : " + board);
+            } else {
+                System.out.println("출력할 데이터 없음");
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
+
                 ConnectionHelper.close(rs);
                 ConnectionHelper.close(pstmt);
                 ConnectionHelper.close(conn);
-            } catch (Exception e) {
-                message = "empty";
-                System.out.println(message);
-                e.printStackTrace();
-            }
+
         }
         return board;
     }
@@ -195,35 +191,36 @@ public class RestaurantDao {
 
     //게시물 수정하기 화면
     public RestaurantBoard getEditContent(String idx) {
-        return this.getContent(Integer.parseInt(idx));
+        return this.getContent(idx);
     }
 
     //게시물 수정처리
-    public int boardEditOk(HttpServletRequest board) {
-        int idx = Integer.parseInt(board.getParameter("idx"));
-        String title = board.getParameter("title");
-        String content = board.getParameter("content");
-        int hit = Integer.parseInt(board.getParameter("hit"));
-        String Date = board.getParameter("writedate");
-        String filename = board.getParameter("filename");
-        String id = board.getParameter("id");
-
+    public int boardEditOk(RestaurantBoard board) {
+        int idx = board.getIdx();
+        String id = board.getId();
+        String title = board.getTitle();
+        String content = board.getContent();
+        String filename = board.getFileName();
+        String filepath = board.getFilePath();
         Connection conn = null;
         PreparedStatement pstmt = null;
+        ResultSet rs = null;
         int row = 0;
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "update Restaurant set title=?, content=?, filename=? where idx=?";
+            String sql = "update Restaurant title=?, content=?, filename=?, filepath=? where idx=?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, title);
-            pstmt.setString(2, content);
-            pstmt.setString(3, filename);
-            pstmt.setInt(4, idx);
+            pstmt.setString(1, board.getTitle());
+            pstmt.setString(2, board.getContent());
+            pstmt.setString(3, board.getFileName());
+            pstmt.setString(4, board.getFilePath());
+            pstmt.setInt(5, board.getIdx());
 
             row = pstmt.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("글쓰기 오류 : " + e.getMessage());
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(pstmt);
@@ -322,10 +319,7 @@ public class RestaurantDao {
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
         }
-
         return commentList;
-
-
     }
 
     //댓글삭제하기
@@ -353,7 +347,6 @@ public class RestaurantDao {
         }
         return result;
     }
-
 
 }
 
