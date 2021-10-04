@@ -55,9 +55,6 @@
                                     <div class="titleContainer">
                                         <h5 class="mb-0 mt-3">${board.title}</h5>
                                     </div>
-                                    <div class="idAddr">
-                                        <h4 class="mt-lg-0 mt-4 id">${board.id}</h4>
-                                    </div>
                                     <div class="detail_bar" style="width: 100%"></div>
                                     <ul class="view_icon">
                                         <li><i class="fas fa-eye"></i><span>${board.hit}</span></li>

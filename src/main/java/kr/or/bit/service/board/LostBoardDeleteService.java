@@ -18,10 +18,10 @@ public class LostBoardDeleteService implements Action {
         String url = "";
 
         if (result > 0) {
-            msg = "fail";
+            msg = "success";
             url = "lostList.board";
         } else {
-            msg = "success";
+            msg = "fail";
             url = "lostList.board";
         }
 

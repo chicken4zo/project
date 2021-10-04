@@ -5,7 +5,6 @@
 <!--header-->
 <header>
     <div id="header_wrap">
-
         <c:choose>
             <c:when test="${not empty id}">
                 <img id="logo_img" src="${pageContext.request.contextPath}/assets/images/gogu_logo.png" alt="logo"
@@ -15,8 +14,7 @@
             <c:otherwise>
                 <img id="logo_img" src="${pageContext.request.contextPath}/assets/images/gogu_logo.png" alt="logo"
                      onclick="location.href='index.jsp';"
-                     style="cursor:pointer; margin-left: 50px">
-
+                     style="cursor:pointer;">
             </c:otherwise>
         </c:choose>
 

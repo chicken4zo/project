@@ -64,9 +64,6 @@
                                 제목
                             </th>
                             <th>
-                                작성자
-                            </th>
-                            <th>
                                 작성일
                             </th>
                             <th>
@@ -98,11 +95,6 @@
                                                     </c:choose>
                                                 </a>
                                             </td>
-                                            <td>${notice.id}</td>
-
-                                                <%--    <c:if test="${lost.fileName!='empty'}">--%>
-                                                <%--        <img src="assets/upload/${lost.fileName}"/>--%>
-                                                <%--    </c:if>--%>
                                             <td>${notice.writeDate}</td>
                                             <td>${notice.hit}</td>
                                         </tr>

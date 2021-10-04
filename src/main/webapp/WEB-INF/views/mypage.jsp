@@ -26,7 +26,7 @@
 
 </head>
 <body>
-<c:set var="mylist" value="${requestScope.lostList}"/>
+<c:set var="mylist" value="${requestScope.list}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -44,40 +44,28 @@
         </div>
         <section id="post-group">
             <section class="post-wrap">
+                <c:choose>
+                    <c:when test="${not empty mylist}">
 
-                <c:forEach items="${mylist}" var="post">
-                    <article class="post">
-                        <div class="post-photo">
-                            <img alt="사진이름" src="${pageContext.request.contextPath}/assets/upload/${post.fileName}">
-                        </div>
-                        <div class="post-desc">
-                            <a href="lostContent.board?idx=${post.idx}"><h2 class="post-title">${post.title}</h2></a>
-                            <div class="post-price">${post.address}</div>
-                            <div class="post-content">${post.content}</div>
-                        </div>
-                    </article>
-                </c:forEach>
-
-                <%--                <article class="post">--%>
-                <%--                    <div class="post-photo">--%>
-                <%--                        <img alt="사진이름" src="/assets/images/logo.png">--%>
-                <%--                    </div>--%>
-                <%--                    <div class="post-desc">--%>
-                <%--                        <h2 class="post-title">글제목</h2>--%>
-                <%--                        <div class="post-price">50,000원</div>--%>
-                <%--                        <div class="post-content">내용</div>--%>
-                <%--                    </div>--%>
-                <%--                </article>--%>
-                <%--                <article class="post">--%>
-                <%--                    <div class="post-photo">--%>
-                <%--                        <img alt="사진이름" src="/assets/images/logo.png">--%>
-                <%--                    </div>--%>
-                <%--                    <div class="post-desc">--%>
-                <%--                        <h2 class="post-title">글제목</h2>--%>
-                <%--                        <div class="post-price">50,000원</div>--%>
-                <%--                        <div class="post-content">내용</div>--%>
-                <%--                    </div>--%>
-                <%--                </article>--%>
+                        <c:forEach items="${mylist}" var="post">
+                            <article class="post">
+                                <div class="post-photo">
+                                    <img alt="사진이름"
+                                         src="${pageContext.request.contextPath}/assets/upload/${post.fileName1}">
+                                </div>
+                                <div class="post-desc">
+                                    <a href="productContent.board?idx=${post.idx}"><h2
+                                            class="post-title">${post.title}</h2></a>
+                                    <div class="post-price">${post.address}</div>
+                                    <div class="post-content">${post.content}</div>
+                                </div>
+                            </article>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <h4>게시한 상품이 없습니다</h4>
+                    </c:otherwise>
+                </c:choose>
             </section>
         </section>
         <div class="post-main">
@@ -85,7 +73,7 @@
         </div>
         <div class="form-group">
             <c:set var="memberDto" value="${requestScope.memberDto}"/>
-            <form id="form1" action="ModifyMember.member" method="post">
+            <form id="form1" action="EditMember.member" method="post">
                 <label>아이디</label>
                 <input type="text" class="login_input input" name="id" id="id" value="${memberDto.id}" readonly>
 
@@ -108,7 +96,6 @@
                     <button type="submit" class="button" id="submit" class="submit_btn" onclick="location.href= 'ModifyMember.member?id=${memberDto.id}'">정보수정</button>
                     <button type="button" class="button" id="cancel" style="border: none;" onclick="location.href='Unregister.member?id=${memberDto.id}'">회원탈퇴</button>
                 </div>
-
             </form>
         </div>
 
@@ -134,19 +121,19 @@
 
 <script>
 
-    $(document).ready(function () {
+	$(document).ready(function () {
 
-        $('#form1').submit(function () {
-            const id = RegExp(/^[a-zA-Z0-9]{3,16}$/)
-            const id_val = $('#id').val();
+		$('#form1').click(function () {
+			const id = RegExp(/^[a-zA-Z0-9]{3,16}$/)
+			const id_val = $('#id').val();
 
 
-            //    비밀번호 유효성
-            const password = $('#password').val();
-            const num = password.search(/[0-9]/g);
-            const eng = password.search(/[0-9]/ig);
-            const space = password.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
-            const text = "";
+			//    비밀번호 유효성
+			const password = $('#password').val();
+			const num = password.search(/[0-9]/g);
+			const eng = password.search(/[0-9]/ig);
+			const space = password.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
+			const text = "";
             //1. 6자리 ~12자리
             if (password.length < 8 || password.length > 12) {
                 alert("비밀번호 : 8-12자리 이내로 입력하세요");

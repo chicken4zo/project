@@ -44,11 +44,11 @@ public class MemberModifyService implements Action {
             String url = "";
 
             if (result > 0) {
-                msg = "수정이 완료되었습니다.";
-                url = "mypage.member";
+                msg = "success";
+                url = "Mypage.member";
             } else {
-                msg = "수정이 실패하였습니다.";
-                url = "mypage.member";
+                msg = "fail";
+                url = "Mypage.member";
             }
 
             request.setAttribute("msg", msg);
@@ -56,7 +56,7 @@ public class MemberModifyService implements Action {
 
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/redirect.jsp");
+            forward.setPath("/WEB-INF/views/board/boardModifyPop.jsp");
 
         }
         return forward;

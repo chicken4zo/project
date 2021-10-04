@@ -59,22 +59,6 @@
         <div class="board-logo">
             <h3>맛있구마</h3>
         </div>
-        <form name="list">
-            <!-- 한 페이지안에 보여줄 게시글 건수 -->
-            <select name="ps" onchange="submit()"
-                    style="color: rgb(73,80,87); border-radius: 15%; border: 1px solid #858585; font-size: 0.7rem;">
-                <c:forEach var="i" begin="5" end="20" step="5">
-                    <c:choose>
-                        <c:when test="${pagesize == i}">
-                            <option value="${i}" selected>${i}건</option>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${i}">${i}건</option>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </select>
-        </form>
         <div class="col-md-12">
             <div class="card card-plain">
                 <div class="card-body">
@@ -130,9 +114,9 @@
 
                                             </td>
                                             <td>${restaurant.id}</td>
-                                            <td>${restaurant.address}</td>
+                                            <td>${fn:substring(restaurant.address,0,3)}</td>
 
-                                                            <%--    <c:if test="${lost.fileName!='empty'}">--%>
+                                                <%--    <c:if test="${lost.fileName!='empty'}">--%>
                                                 <%--        <img src="assets/upload/${lost.fileName}"/>--%>
                                                 <%--    </c:if>--%>
                                             <td>${restaurant.writeDate}</td>

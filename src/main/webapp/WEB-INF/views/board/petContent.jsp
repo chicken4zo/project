@@ -32,6 +32,7 @@
 
 </head>
 <body>
+<c:set var="id" value="${sessionScope.id}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -73,39 +74,23 @@
                                             </a>
                                         </c:if>
                                         <c:if test="${not empty pet.fileName2}">
-
                                             <a href="${pageContext.request.contextPath}/assets/upload/${pet.fileName2}"
                                                data-gallery="thumb">
                                                 <img src="${pageContext.request.contextPath}/assets/upload/${pet.fileName2}">
                                             </a>
                                         </c:if>
                                         <c:if test="${not empty pet.fileName3}">
-
                                             <a href="${pageContext.request.contextPath}/assets/upload/${pet.fileName3}"
                                                data-gallery="thumb">
                                                 <img src="${pageContext.request.contextPath}/assets/upload/${pet.fileName3}">
                                             </a>
                                         </c:if>
-
                                     </div>
                                     <!--Gallery Thumbs-->
 
                                 </div><!--.gallery-->
                                 <!-- Gallery -->
                                 <div class="col-lg-5 mx-auto">
-                                    <%--<h4 class="mt-lg-0 mt-4 id">${pet.id}</h4>
-                                    <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>${pet.address}
-                                    </h5>
-                                    <div class="detail_bar"></div>
-
-                                    <ul class="view_icon">
-                                        <li><i class="fas fa-eye"></i><span>${pet.hit}</span></li>
-                                        <li><i class="far fa-calendar-alt"></i><span>${pet.writeDate}</span></li>
-                                    </ul>
-                                    <h5 class="mb-0 mt-3">${pet.title}</h5>
-                                    <div class="content">
-                                        ${pet.content}
-                                    </div>--%>
                                     <div class="titleContainer">
                                         <h5 class="mb-0 mt-3" style="font-size: 1.6rem">${pet.title}</h5>
                                     </div>

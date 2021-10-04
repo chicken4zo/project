@@ -65,7 +65,7 @@
 
                         <li class="info-title">
                             <div class="info-detail">제목</div>
-                            <input type="text" name="title" placeholder="제목을 입력하세요." class="write-title" value required>
+                            <input type="text" name="title" placeholder="제목을 입력하세요." class="write-title" required>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">카테고리</div>
@@ -80,8 +80,9 @@
                         </li>
                         <li class="info-title">
                             <div class="info-detail">가격</div>
-                            <input type="text" name="price" placeholder="가격을 입력하세요." class="write-price" value required> <span
-                                class="product-price">원</span>
+                            <input type="number" name="price" placeholder="가격을 입력하세요." class="write-price" required>
+                            <span
+                                    class="product-price">원</span>
                         </li>
 
                         <li class="info-title">
@@ -105,7 +106,7 @@
                             <div class="info-detail">
                                 내용
                             </div>
-                            <textarea name="content" id="editor"></textarea>
+                            <textarea name="content" id="editor" required></textarea>
                             <script>
                                 //CKEditor5를 생성할 textarea 지정
                                 ClassicEditor

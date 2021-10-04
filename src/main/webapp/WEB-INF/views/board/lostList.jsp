@@ -113,11 +113,7 @@
                                                 </c:if>
                                             </td>
                                             <td>${lost.id}</td>
-                                            <td>${lost.address}</td>
-
-                                                <%--    <c:if test="${lost.fileName!='empty'}">--%>
-                                                <%--        <img src="assets/upload/${lost.fileName}"/>--%>
-                                                <%--    </c:if>--%>
+                                            <td>${fn:substring(lost.address,0,3)}</td>
                                             <td>${lost.writeDate}</td>
                                             <td>${lost.hit}</td>
                                         </tr>
@@ -137,19 +133,6 @@
             <nav aria-label="...">
                 <ul class="pagination justify-content-center" style="display: flex">
                     ${pager}
-                    <%--                <li class="page-item disabled">--%>
-                    <%--                    <a class="page-link" href="#" tabindex="-1"><</a>--%>
-                    <%--                </li>--%>
-                    <%--                <li class="page-item"><a class="page-link" href="#">1</a></li>--%>
-                    <%--                <li class="page-item active">--%>
-                    <%--                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>--%>
-                    <%--                </li>--%>
-                    <%--                <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
-                    <%--                <li class="page-item"><a class="page-link" href="#">4</a></li>--%>
-                    <%--                <li class="page-item"><a class="page-link" href="#">5</a></li>--%>
-                    <%--                <li class="page-item">--%>
-                    <%--                    <a class="page-link" href="#">></a>--%>
-                    <%--                </li>--%>
                 </ul>
             </nav>
 
@@ -159,30 +142,6 @@
     </div>
 </div>
 <jsp:include page="../../include/footer.jsp"/>
-
-<%--<c:choose>--%>
-<%--    <c:when test="${not empty lostlist}">--%>
-<%--        <c:forEach var="lost" items="${lostlist}">--%>
-<%--            <p>${lost.idx} / ${lost.id} / ${lost.address}--%>
-<%--                <c:forEach var="i" begin="1" end="${lost.depth}" step="1">--%>
-<%--                    &nbsp;&nbsp;&nbsp;--%>
-<%--                </c:forEach>--%>
-<%--                <c:if test="${lost.depth>0}">--%>
-<%--                    RE:--%>
-<%--                </c:if>--%>
-<%--                <a href="lostContent.board?idx=${lost.idx}&id=${lost.id}&cp=${cpage}&ps=${pagesize}">--%>
-<%--                        ${lost.title}--%>
-<%--                </a>--%>
-<%--            </p>--%>
-<%--            &lt;%&ndash;    <c:if test="${lost.fileName!='empty'}">&ndash;%&gt;--%>
-<%--            &lt;%&ndash;        <img src="assets/upload/${lost.fileName}"/>&ndash;%&gt;--%>
-<%--            &lt;%&ndash;    </c:if>&ndash;%&gt;--%>
-<%--            <hr>--%>
-<%--        </c:forEach>--%>
-<%--    </c:when>--%>
-<%--    <c:otherwise> 등록된 글이 없습니다</c:otherwise>--%>
-<%--</c:choose>--%>
-
 
 </body>
 <!-- bootstrap4 -->

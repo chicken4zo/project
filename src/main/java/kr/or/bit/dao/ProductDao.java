@@ -114,10 +114,21 @@ public class ProductDao {
             pstmt.setString(4, productBoard.getContent());
             pstmt.setString(5, productBoard.getFileName1());
             pstmt.setString(6, productBoard.getFilePath1());
-            pstmt.setString(7, productBoard.getFileName2());
-            pstmt.setString(8, productBoard.getFilePath2());
-            pstmt.setString(9, productBoard.getFileName3());
-            pstmt.setString(10, productBoard.getFilePath3());
+
+            if (productBoard.getFileName2() != null) {
+                pstmt.setString(7, productBoard.getFileName2());
+                pstmt.setString(8, productBoard.getFilePath2());
+            } else {
+                pstmt.setString(7, "");
+                pstmt.setString(8, "");
+            }
+            if (productBoard.getFileName3() != null) {
+                pstmt.setString(9, productBoard.getFileName3());
+                pstmt.setString(10, productBoard.getFilePath3());
+            } else {
+                pstmt.setString(9, "");
+                pstmt.setString(10, "");
+            }
 
             resultRow = pstmt.executeUpdate();
 

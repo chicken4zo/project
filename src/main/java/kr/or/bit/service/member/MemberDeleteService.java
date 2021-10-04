@@ -10,30 +10,36 @@ import javax.servlet.http.HttpServletResponse;
 public class MemberDeleteService implements Action {
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-        String[] ids = request.getParameterValues("subject");
-        MemberDao dao = new MemberDao();
-        String msg="";
-        String url="";
+        String[] ids = request.getParameterValues("id");
 
-        int n =dao.deleteMember(ids);
-
-
-        if(n > 0){
-            msg ="회원을 삭제했습니다.";
-            url ="adminlist.member";
-        }else{
-            msg="삭제실패";
-            url="adminlist.member";
+        if (ids.length > 0) {
+            System.out.println("가져옴");
         }
+        MemberDao dao = new MemberDao();
+//        String msg="";
+//        String url="";
 
-        request.setAttribute("msg", msg);
-        request.setAttribute("url", url);
+        int n = dao.deleteMember(ids);
+        System.out.println(n);
 
-        ActionForward forward = new ActionForward();
-        forward.setRedirect(false);
-        forward.setPath("/WEB-INF/views/redirect.jsp");
 
-        return forward;
+//        if(n > 0){
+//            msg ="회원을 삭제했습니다.";
+//            url ="Admin.member";
+//        }else{
+//            msg="삭제실패";
+//            url="Admin.member";
+//        }
+//
+//        request.setAttribute("msg", msg);
+//        request.setAttribute("url", url);
+//
+//        ActionForward forward = new ActionForward();
+//        forward.setRedirect(false);
+//        forward.setPath("/WEB-INF/views/adminPop.jsp");
+//
+//        return forward;
+        return null;
     }
 
 }

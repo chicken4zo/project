@@ -30,7 +30,7 @@
 <c:set var="cpage" value="${requestScope.cpage}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
 <c:set var="commentList" value="${requestScope.commentList}"/>
-<c:set var="loginId" value="${sessionScope.id}"/>
+<c:set var="id" value="${sessionScope.id}"/>
 
 <div id="body_wrap">
     <div class="wrapper">
@@ -167,9 +167,9 @@
                                         <div class="commentWrite_Wrap">
                                             <input type="hidden" name="idx" id="idx" value="${lost.idx}">
                                             <input type="hidden" name="writerid" id="writerId" value="${lost.id}">
-                                            <input type="hidden" value="${loginId}" id="loginId">
-                                            <h2>${loginId}</h2>
-                                            <input type="hidden" name="commentid" id="commentId" value="${loginId}">
+                                            <input type="hidden" value="${id}" id="loginId">
+                                            <h2>${id}</h2>
+                                            <input type="hidden" name="commentid" id="commentId" value="${id}">
                                             <textarea name="content" id="commentContent" placeholder="댓글을 남겨보세요"
                                                       class="comment_inbox" rows="4"
                                                       cols="140"></textarea>

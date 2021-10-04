@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class MemberListService implements Action {
+public class AdminMemberList implements Action {
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
+
         System.out.println("여기왔나요?");
         ActionForward forward = null;
         try {
@@ -21,11 +22,12 @@ public class MemberListService implements Action {
 
             forward = new ActionForward();
             forward.setRedirect(false); //forward
-            forward.setPath("/WEB-INF/views/MemberList.jsp");
+            forward.setPath("/WEB-INF/views/admin.jsp");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return forward;
+
     }
 
 }

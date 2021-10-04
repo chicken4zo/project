@@ -1,3 +1,12 @@
+const url = window.location.href.split("/");
+
+console.log(url);
+
+// if ((url[4]!=="Login.member" || url[4]!=="index.jsp") || ($('#id').val()===""||$('#id').val()==null)) {
+//     location.href = "index.jsp";
+// }
+
+
 /* ===== Logic for creating fake Select Boxes ===== */
 $('.sel').each(function () {
     $(this).children('select').css('display', 'none');
@@ -198,17 +207,14 @@ _gaq.push(['_setDomainName', 'jqueryscript.net']);
 _gaq.push(['_trackPageview']);
 
 (function () {
-	var ga = document.createElement('script');
-	ga.type = 'text/javascript';
-	ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0];
-	s.parentNode.insertBefore(ga, s);
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
 })();
 
-// if ($('#loginId').val()===""||$('#loginId').val()==null) {
-//     location.href = "index.jsp";
-// }
 
 
 
