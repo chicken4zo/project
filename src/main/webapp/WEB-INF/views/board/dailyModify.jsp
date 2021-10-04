@@ -72,12 +72,18 @@
                             </div>
                             <textarea name="content" id="editor">${dailyBoard.content}</textarea>
                             <script>
-								//CKEditor5를 생성할 textarea 지정
-								ClassicEditor
-									.create(document.querySelector('#editor'))
-									.catch(error => {
-										console.error(error);
-									});
+                                //CKEditor5를 생성할 textarea 지정
+                                ClassicEditor
+                                    .create(document.querySelector('#editor'), {
+                                        placeholder: '500자 내로 입력해주세요',
+                                        removePlugins: ['ImageUpload']
+                                    })
+                                    .then(newEditor => {
+                                        editor = newEditor;
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
                             </script>
                         </li>
                     </ul>
