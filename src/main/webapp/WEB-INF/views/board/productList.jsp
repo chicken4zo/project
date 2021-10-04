@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="productBoardList" value="${requestScope.productBoardList}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
 <c:set var="cpage" value="${requestScope.cpage}"/>
@@ -109,7 +110,7 @@
                                     </div>
                                     <div class="product_description">
                                         <h1>${product.title}</h1>
-                                        <h2>${product.price}원</h2>
+                                        <h2><fmt:formatNumber>${product.price}</fmt:formatNumber>원</h2>
                                         <div class="bar"></div>
                                         <p>
                                             <c:choose>
@@ -130,12 +131,13 @@
                 </c:choose>
             </c:forEach>
         </section>
+        <button class="write-btn" onclick="location.href='productForm.board'">글쓰기</button>
+
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 ${pager}
             </ul>
         </nav>
-        <button class="write-btn" onclick="location.href='productForm.board'">글쓰기</button>
 
 
     </div>

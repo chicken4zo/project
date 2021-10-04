@@ -65,7 +65,7 @@
 
                         <li class="info-title">
                             <div class="info-detail">제목</div>
-                            <input type="text" name="title" placeholder="제목을 입력하세요." class="write-title" value>
+                            <input type="text" name="title" placeholder="제목을 입력하세요." class="write-title" value required>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">카테고리</div>
@@ -80,7 +80,7 @@
                         </li>
                         <li class="info-title">
                             <div class="info-detail">가격</div>
-                            <input type="text" name="price" placeholder="가격을 입력하세요." class="write-price" value> <span
+                            <input type="text" name="price" placeholder="가격을 입력하세요." class="write-price" value required> <span
                                 class="product-price">원</span>
                         </li>
 
@@ -89,15 +89,15 @@
 
                             <div class="product-photo">
                                 <input name="filename1" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                             <div class="product-photo">
                                 <input name="filename2" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                             <div class="product-photo">
                                 <input name="filename3" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                         </li>
 
@@ -124,7 +124,7 @@
                     </ul>
                 </section>
                 <div class="product-btn">
-                    <button type="submit" class="write-btn">등록하기</button>
+                    <button type="submit" id="submit1" class="write-btn">등록하기</button>
                 </div>
             </div>
         </form>
@@ -168,5 +168,6 @@
             reader.readAsDataURL(f);
         });
     }
+
 </script>
 </html>
