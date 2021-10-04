@@ -43,7 +43,7 @@
 
         <%--content--%>
         <div class="title">분실·실종</div>
-        <form name="lost" action="lostWrite.board" method="post" enctype="multipart/form-data">
+        <form name="lost" action="lostWrite.board" method="post">
             <div class="product-group">
                 <section class="product-wrap">
                     <!--    <h2>글쓰기</h2>-->
