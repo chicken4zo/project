@@ -19,7 +19,7 @@ import java.util.List;
 public class DailyDao {
 
     DataSource ds = null;
-    String database = "mysql";
+    String database = "oracle";
     // String database에 oracle, mysql, myoracle 둘 중에 하나 입력
 
 
@@ -510,7 +510,9 @@ public class DailyDao {
             if (database.equals("mysql")) {
                 sql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, (@ROWNUM:=@ROWNUM+1) RN FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY REFER DESC, STEP ASC) L , (SELECT @ROWNUM:=0) R LIMIT ?,?";
             } else {
-                sql = "SELECT * FROM (SELECT ROWNUM RN, IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, ROWNUM FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY REFER DESC, STEP ASC) L) WHERE RN BETWEEN ? and ?";
+                sql = "SELECT * FROM (SELECT ROWNUM RN, IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, " +
+                        "ROWNUM FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER " +
+                        "WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY REFER DESC, STEP ASC) L) WHERE RN BETWEEN ? and ?";
             }
 
             int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
