@@ -62,26 +62,6 @@
                                                 <img class="slide w-100 border-radius-lg shadow-lg mx-auto"
                                                      src="assets/upload/${lost.fileName}">
                                             </div>
-                                            <!--Gallery Hero-->
-
-                                            <!--Gallery Thumbs-->
-
-                                                <%--                                    <div class="gallery__thumbs">--%>
-                                                <%--                                        --%>
-                                                <%--                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-01.jpg"--%>
-                                                <%--                                           data-gallery="thumb" class="is-active">--%>
-                                                <%--                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-01.jpg">--%>
-                                                <%--                                        </a>--%>
-                                                <%--                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-02.jpg"--%>
-                                                <%--                                           data-gallery="thumb">--%>
-                                                <%--                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-02.jpg">--%>
-                                                <%--                                        </a>--%>
-                                                <%--                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-03.jpg"--%>
-                                                <%--                                           data-gallery="thumb">--%>
-                                                <%--                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-03.jpg">--%>
-                                                <%--                                        </a>--%>
-                                                <%--                                    </div>--%>
-                                            <!--Gallery Thumbs-->
 
                                         </div>
 
@@ -145,17 +125,17 @@
                                 <div class="col-12">
                                     <div class="ms-3 button_container">
                                         <%--                                        <c:set value="${sessionScope.id}" var="id"/>--%>
-                                        <c:if test="${lost.id eq loginId}">
-                                            <button type="button" class="btn btn-warning btn-sm"
-                                                    onclick="location.href='lostModify.board?idx=${lost.idx}&id=${lost.id}'">
-                                                <i class="fas fa-pen"></i>
-                                                <span>수정</span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm"
-                                                    onclick="location.href='lostDelete.board?idx=${lost.idx}'">
-                                                <i class="fas fa-trash-alt"></i>
-                                                <span>삭제</span>
-                                            </button>
+                                            <c:if test="${lost.id eq loginId}">
+                                                <button type="button" class="btn btn-warning btn-sm"
+                                                        onclick="location.href='lostModify.board?idx=${lost.idx}&id=${lost.id}'">
+                                                    <i class="fas fa-pen"></i>
+                                                    <span>수정</span>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                        onclick="location.href='lostDelete.board?idx=${lost.idx}'">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                    <span>삭제</span>
+                                                </button>
                                         </c:if>
                                         <button type="button" class="btn btn-primary btn-sm"
                                                 onclick="location.href='lostList.board'">

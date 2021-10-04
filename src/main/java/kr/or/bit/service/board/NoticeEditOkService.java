@@ -17,7 +17,7 @@ public class NoticeEditOkService implements Action {
         String id = request.getParameter("writer");
         int hit = Integer.parseInt(request.getParameter("hit"));
         String content = request.getParameter("content");
-       NoticeDao dao = new NoticeDao();
+        NoticeDao dao = new NoticeDao();
 
         String msg ="";
         String url ="";

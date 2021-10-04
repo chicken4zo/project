@@ -315,6 +315,7 @@ public class CommentServlet extends HttpServlet {
             }
 
 
+
             //맛집 게시판 댓글
         } else if (urlCommand.equals("/restaurantCommentWrite.comment")) {
             String id = request.getParameter("commentId");

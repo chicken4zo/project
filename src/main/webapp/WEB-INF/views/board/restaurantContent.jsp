@@ -46,6 +46,7 @@
     <!--content-->
     <div class="title_container">맛있구마</div>
     <input hidden id="boardName" value="restaurant">
+
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12">
@@ -128,20 +129,21 @@
                 <div class="col-12">
                   <div class="ms-3 button_container">
                     <%--                                        <c:set value="${sessionScope.id}" var="id"/>--%>
-                    <c:if test="${board.id eq id}">
-                      <button type="button" class="btn btn-warning btn-sm"
-                              onclick="location.href='RestaurantEdit.board?idx=${board.idx}&id=${board.id}'">
-                        <i class="fas fa-pen"></i>
-                        <span>수정</span>
-                      </button>
-                      <button type="button" class="btn btn-danger btn-sm"
-                              onclick="location.href='RestaurantDelete.board?idx=${board.idx}'">
-                        <i class="fas fa-trash-alt"></i>
-                        <span>삭제</span>
-                      </button>
-                    </c:if>
+                      <c:if test="${board.id eq id}">
+                        <button type="button" class="btn btn-warning btn-sm"
+                                onclick="location.href='RestaurantEdit.board?idx=${board.idx}&id=${board.id}'">
+                          <i class="fas fa-pen"></i>
+                          <span>수정</span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm"
+                                onclick="location.href='RestaurantDelete.board?idx=${board.idx}'">
+                          <i class="fas fa-trash-alt"></i>
+                          <span>삭제</span>
+                        </button>
+                      </c:if>
                     <button type="button" class="btn btn-primary btn-sm"
-                            onclick="location.href='RestaurantList.board'">
+                            onclick="location.href='RestaurantList.board?cp=${cpage}&ps=${pagesize}'">
+
                       <i class="fas fa-list-ul"></i>
                       <span>목록</span>
                     </button>
@@ -191,7 +193,6 @@
 
 </div>
 <jsp:include page="/WEB-INF/include/footer.jsp"/>
-
 </body>
 <!--bootstrp js-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

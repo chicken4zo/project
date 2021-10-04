@@ -54,14 +54,14 @@ public class RestaurantDao {
         List<RestaurantBoard> list = null;
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "select idx, title, content, hit, writedate, filename, id, rownum rn from Restaurant where rownum between ? and ? order by idx desc";
+            String sql = "select * from (select rownum  rn, idx, title, content, hit, writedate, filename, id from (select * from RESTAURANT order by idx desc) where rownum <=? ) where rn >=? ";
             pstmt = conn.prepareStatement(sql);
 
             int start = cpage * pagesize - (pagesize - 1);
             int end = cpage * pagesize;
 
-            pstmt.setInt(1, start);
-            pstmt.setInt(2, end);
+            pstmt.setInt(1, end);
+            pstmt.setInt(2, start);
 
             rs = pstmt.executeQuery();
             list = new ArrayList<RestaurantBoard>();
