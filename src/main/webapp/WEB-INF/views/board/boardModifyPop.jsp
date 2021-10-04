@@ -19,15 +19,17 @@
 <c:choose>
     <c:when test="${msg == 'success'}">
         <script>
-			Swal.fire({
-				toast: true,
-				icon: 'success',
-				title: '게시글 수정 성공',
-				animation: true,
-				position: 'top-right',
-				showConfirmButton: false,
-				// title: '',
-				<%--text: '${msg}'--%>
+            Swal.fire({
+                toast: true,
+                icon: 'success',
+                title: '게시글 수정 성공',
+                animation: true,
+                // position: 'top-right',
+                showConfirmButton: false,
+                //2초 후 창 자동꺼짐
+                timer: 2000
+                // title: '',
+                <%--text: '${msg}'--%>
             }).then(function () {
                 window.location.href = '${url}';
                 swal.close();
@@ -36,13 +38,15 @@
     </c:when>
     <c:otherwise>
         <script>
-		    Swal.fire({
-			    toast: true,
+            Swal.fire({
+                toast: true,
                 icon: 'error',
                 title: '게시글 수정 실패',
                 animation: true,
-                position: 'top-right',
+                // position: 'top-right',
                 showConfirmButton: false,
+                //2초 후 창 자동꺼짐
+                timer: 2000
                 <%--text: '${msg}'--%>
             }).then(function () {
                 window.location.href = '${url}';

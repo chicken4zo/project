@@ -78,10 +78,10 @@ public class MemberServlet extends HttpServlet {
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/admin.jsp");
-        } else if (urlCommand.equals("/adminlist.member")){
-            action = new AdminMemberList();
-            forward = action.execute(request, response);
-            System.out.println("/Adminlist Start");
+//        } else if (urlCommand.equals("/adminlist.member")){
+//            action = new AdminMemberList();
+//            forward = action.execute(request, response);
+//            System.out.println("/Adminlist Start");
         }else if (urlCommand.equals("/memberDelete.member")) {
             action = new MemberDeleteService();
             forward = action.execute(request, response);
