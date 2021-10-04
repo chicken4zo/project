@@ -237,10 +237,11 @@ public class PetDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "delete from pet where idx=?";
+            String sql = "UPDATE PET SET TITLE = ? WHERE IDX = ?";
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, idx);
+            pstmt.setString(1, "deleted");
+            pstmt.setString(2, idx);
             resultRow = pstmt.executeUpdate();
 
         } catch (Exception e) {

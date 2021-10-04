@@ -2,16 +2,8 @@ package kr.or.bit.controller;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.dao.DailyDao;
-import kr.or.bit.dao.LostDao;
-import kr.or.bit.dao.PetDao;
-import kr.or.bit.dao.ProductDao;
-import kr.or.bit.dao.RestaurantDao;
-import kr.or.bit.dto.DailyComment;
-import kr.or.bit.dto.LostComment;
-import kr.or.bit.dto.PetComment;
-import kr.or.bit.dto.ProductComment;
-import kr.or.bit.dto.RestaurantComment;
+import kr.or.bit.dao.*;
+import kr.or.bit.dto.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -377,6 +369,15 @@ public class CommentServlet extends HttpServlet {
                 System.out.println(e.getMessage());
             }
 
+        } else if (urlCommand.equals("/chart.comment")) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("test", "dkdkdkdkdk");
+            response.setContentType("application/x-json; charset=UTF-8");
+            response.getWriter().print(jsonObject);
+        } else if (urlCommand.equals("/chartView.comment")) {
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/chartpage.jsp");
         }
 
         if (forward != null) {

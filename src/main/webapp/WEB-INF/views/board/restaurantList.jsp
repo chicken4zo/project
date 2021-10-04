@@ -90,7 +90,12 @@
                                         <tr>
                                             <td>${restaurant.idx}</td>
                                             <td>
-                                                <a href="RestaurantContent.board?idx=${restaurant.idx}&cp=${cpage}&ps=${pagesize}">
+                                                <c:choose>
+                                                <c:when test="${restaurant.title=='deleted'}">
+                                                    삭제된 게시글 입니다
+                                                </c:when>
+                                                <c:otherwise>
+                                                <a href="restaurantContent.board?idx=${restaurant.idx}&id=${restaurant.id}&cp=${cpage}&ps=${pagesize}">
                                                     <c:choose>
                                                         <c:when test="${restaurant.title != null && fn:length(restaurant.title) > 10}">
                                                             ${fn:substring(restaurant.title,0,10)}...
@@ -99,10 +104,13 @@
                                                             ${restaurant.title}
                                                         </c:otherwise>
                                                     </c:choose>
+                                                    <c:if test="${not empty restaurant.fileName}">
+                                                        <i class="far fa-image" style="margin-left: 5px"></i>
+                                                    </c:if>
+                                                    </c:otherwise>
+                                                    </c:choose>
                                                 </a>
-                                                <c:if test="${not empty restaurant.fileName}">
-                                                    <i class="far fa-image" style="margin-left: 5px"></i>
-                                                </c:if>
+
                                             </td>
                                             <td>${restaurant.id}</td>
                                             <td>${restaurant.address}</td>

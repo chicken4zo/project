@@ -238,10 +238,11 @@ public class RestaurantDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "delete from Restaurant where idx = ?";
+            String sql = "UPDATE RESTAURANT SET TITLE = ? WHERE IDX = ?";
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, idx);
+            pstmt.setString(1, "deleted");
+            pstmt.setString(2, idx);
 
             rs = pstmt.executeQuery();
             if (rs.next()) {

@@ -213,9 +213,10 @@ public class ProductDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "delete from product where idx=?";
+            String sql = "UPDATE PRODUCT SET TITLE = ? WHERE IDX = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, idx);
+            pstmt.setString(1, "deleted");
+            pstmt.setString(2, idx);
 
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
@@ -335,7 +336,7 @@ public class ProductDao {
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println("PRODUCT DAO 댓글 작성 에러");
-            System.out.println(e);
+            System.out.println(e.getMessage());
         } finally {
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
@@ -366,5 +367,52 @@ public class ProductDao {
         }
 
         return resultRow;
+    }
+
+    public List<ProductBoard> searchProductById(String id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<ProductBoard> productList = new ArrayList<>();
+        String database = "mysql";
+        String sql = "";
+
+        try {
+            conn = ConnectionHelper.getConnection(database);
+            if (database.equals("mysql")) {
+                sql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, PASSWORD, ADDRESS, BIRTH, NAME, ID, (@ROWNUM:=@ROWNUM+1) RN FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, PASSWORD, ADDRESS, BIRTH, NAME, PRODUCT.ID FROM PRODUCT,MEMBER WHERE PRODUCT.ID=MEMBER.ID and PRODUCT.ID = ?) L, (SELECT @ROWNUM:=0) R LIMIT 0,3";
+            } else {
+                sql = "select * from(SELECT ROWNUM rn, id,  address, idx, title, content, hit, writedate, filename, filepath, price from (select m.id, m.address, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath, p.price from product p join member m on(p.id = m.id) order by idx desc) where rownum <=3) where rn>=1 and ID = ?";
+            }
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                ProductBoard product = new ProductBoard();
+                product.setIdx(rs.getInt("idx"));
+                product.setId(rs.getString("id"));
+                product.setTitle(rs.getString("title"));
+                product.setContent(rs.getString("content"));
+                product.setFileName1(rs.getString("filename"));
+                product.setFilePath1(rs.getString("filepath"));
+                product.setHit(rs.getInt("hit"));
+                product.setWriteDate(rs.getDate("writedate"));
+                product.setAddress(rs.getString("address"));
+
+                System.out.println(product);
+
+                productList.add(product);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return productList;
     }
 }

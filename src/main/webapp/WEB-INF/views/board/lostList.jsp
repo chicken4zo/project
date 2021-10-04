@@ -86,6 +86,11 @@
                                                 <c:if test="${lost.depth>0}">
                                                     RE:
                                                 </c:if>
+                                                <c:choose>
+                                                <c:when test="${lost.title=='deleted'}">
+                                                    삭제된 게시글 입니다
+                                                </c:when>
+                                                <c:otherwise>
                                                 <a href="lostContent.board?idx=${lost.idx}&id=${lost.id}&cp=${cpage}&ps=${pagesize}">
                                                     <c:choose>
                                                         <c:when test="${lost.title != null && fn:length(lost.title) > 10}">
@@ -94,6 +99,8 @@
                                                         <c:otherwise>
                                                             ${lost.title}
                                                         </c:otherwise>
+                                                    </c:choose>
+                                                    </c:otherwise>
                                                     </c:choose>
                                                 </a>
                                                 <c:if test="${not empty lost.fileName}">

@@ -387,14 +387,15 @@ public class LostDao {
     public int deleteLost(String idx) {
         int resultRow = 0;
         PreparedStatement pstmt = null;
-        String sql = "DELETE FROM LOST WHERE IDX = ?";
+        String sql = "UPDATE LOST SET TITLE = ? WHERE IDX = ?";
         Connection conn = null;
 
         try {
             conn = ConnectionHelper.getConnection(database);
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, Integer.parseInt(idx));
+            pstmt.setString(1, "deleted");
+            pstmt.setInt(2, Integer.parseInt(idx));
             resultRow = pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

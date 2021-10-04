@@ -86,6 +86,11 @@
                                                 <c:if test="${daily.depth>0}">
                                                     RE:
                                                 </c:if>
+                                                <c:choose>
+                                                <c:when test="${daily.title=='deleted'}">
+                                                    삭제된 게시글 입니다
+                                                </c:when>
+                                                <c:otherwise>
                                                 <a href="dailyContent.board?idx=${daily.idx}&id=${daily.id}&cp=${cpage}&ps=${pagesize}">
                                                     <c:choose>
                                                         <c:when test="${daily.title != null && fn:length(daily.title) > 10}">
@@ -95,6 +100,9 @@
                                                             ${daily.title}
                                                         </c:otherwise>
                                                     </c:choose>
+                                                    </c:otherwise>
+                                                    </c:choose>
+
                                                 </a>
                                                 <c:if test="${not empty daily.fileName}">
                                                     <i class="far fa-image" style="margin-left: 5px"></i>

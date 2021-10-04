@@ -60,7 +60,6 @@
                             </c:if>
                             <div class="file"></div>
                             <input hidden class="originalfile" name="originalfile" value="${dailyBoard.fileName}">
-                            ${dailyBoard.fileName}
                         </li>
                         <li class="info-title">
                             <div class="info-detail">제목</div>
@@ -92,7 +91,7 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
         integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-<script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/fileChange.js?ver=1"></script>
 <script>
 	<%--const file = document.querySelector("#file");--%>
 	<%--const fileName = document.querySelector(".product-photo").getAttribute("id");--%>

@@ -161,15 +161,6 @@
                                     <div class="commentList_wrap">
 
                                         <div class="commentList">
-                                            <h2>ID</h2>
-                                            <p>내용 The most beautiful curves of this swivel stool adds an elegant touch
-                                                to
-                                                any environment Memory swivel seat returns to original seat position
-                                                Comfortable integrated layered chair seat cushion design Fully
-                                                assembled! No
-                                                assembly required</p>
-                                            <h4>2021. 09. 30</h4>
-                                            <input type="button" value="삭제" onclick="">
 
                                         </div>
                                     </div>
@@ -179,7 +170,8 @@
                                     <form name="lostComment" method="POST" id="lostComment">
                                         <div class="commentWrite_Wrap">
                                             <input type="hidden" name="idx" id="idx" value="${daily.idx}">
-                                            <input type="hidden" name="writerid" id="id" value="${daily.id}">
+                                            <input type="hidden" name="loginid" id="loginId" value="${sessionScope.id}">
+                                            <input type="hidden" name="writerid" id="writerId" value="${daily.id}">
                                             <h2>${id}</h2>
                                             <input type="hidden" name="commentid" id="commentId" value="${id}">
                                             <textarea name="content" id="commentContent" placeholder="댓글을 남겨보세요"
