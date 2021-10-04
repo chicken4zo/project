@@ -70,7 +70,8 @@
                     </div>
                 </article>
             </c:forEach>
-
+            <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기
+            </button>
 
             <%--<article class="card card--2">
                 <div class="card__info-hover">
@@ -182,9 +183,8 @@
                 ${pager}
             </ul>
         </nav>
-
-        <button class="write-btn" onclick="location.href='petForm.board'">글쓰기</button>
-
+        <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기
+        </button>
     </div>
 
 

@@ -38,7 +38,7 @@
                 <a href="${pageContext.request.contextPath}/productForm.board">
                     <li>상품등록</li>
                 </a>
-                <a href="${pageContext.request.contextPath}/dailyList.board">
+                <a href="${pageContext.request.contextPath}/lostList.board">
                     <li>우리동네</li>
                 </a>
                 <a href="${pageContext.request.contextPath}/RestaurantList.board">

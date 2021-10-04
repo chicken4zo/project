@@ -48,12 +48,13 @@
         <jsp:include page="../../include/weather.jsp"/>
 
 
-        <!-- forEach() 목록 출력하기 -->
-        <c:forEach var="restaurant" items="${list}">
-        <tr onmouseover="this.style.backgroundColor='gray'" onmouseout="this.style.backgroundColor='white'">
-            <td align="center">${restaurant.idx}</td>
-            <td align="left">
-                <a href="RestaurantContent.board?idx=${restaurant.idx}&id=${restaurant.id}&cp=${cpage}&ps=${pagesize}">
+
+        <!-- forEach()  목록 출력하기  -->
+        <%--            <c:forEach var="restaurant" items="${list}">--%>
+        <%--                <tr onmouseover="this.style.backgroundColor='gray'" onmouseout="this.style.backgroundColor='white'">--%>
+        <%--                    <td align="center">${restaurant.idx}</td>--%>
+        <%--                    <td align="left">--%>
+        <%--                        <a href="RestaurantContent.board?idx=${restaurant.idx}&id=${restaurant.id}&cp=${cpage}&ps=${pagesize}">--%>
 
                     <!--content-->
                     <div class="board-logo">
@@ -153,6 +154,10 @@
                     </c:forEach>
     </div>
 </div>
+<jsp:include page="../../include/footer.jsp"/>
+
+
+</body>
 <!-- bootstrap4 -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
