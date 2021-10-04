@@ -67,7 +67,7 @@ public class RestaurantEditOkService implements Action {
 
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/board/redirect.jsp");
+            forward.setPath("/WEB-INF/board/boardModifyPop.jsp");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

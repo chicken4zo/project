@@ -52,17 +52,17 @@ public class RestaurantWriteService implements Action {
             int result = dao.writeOk(restaurantBoard);
             System.out.println(result);
 
-            String msg = "";
+//            String msg = "";
             String url = "";
             if (result > 0) {
-                msg = "게시글 작성이 완료되었습니다.";
+//                msg = "게시글 작성이 완료되었습니다.";
                 url = "RestaurantList.board";
             } else {
-                msg = "작성실패, 다시 시도해주세요.";
+//                msg = "작성실패, 다시 시도해주세요.";
                 url = "RestaurantWrite.board";
             }
 
-            request.setAttribute("board_msg", msg);
+//            request.setAttribute("board_msg", msg);
             request.setAttribute("board_url", url);
 
             forward = new ActionForward();

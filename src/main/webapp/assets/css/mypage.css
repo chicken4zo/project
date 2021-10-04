@@ -219,6 +219,7 @@ label {
 .post-main h3 {
     font-family: 'Jua', sans-serif;
     color: #8B425A;
+    /*color: #495057;*/
     font-size: 30px;
     text-align: left;
     line-height: 1.47;
@@ -227,3 +228,4 @@ label {
     padding: 50px 0 0 200px;
     margin-bottom: 30px;
 }
+
