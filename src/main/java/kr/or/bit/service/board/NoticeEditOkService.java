@@ -17,7 +17,7 @@ public class NoticeEditOkService implements Action {
         String id = request.getParameter("writer");
         int hit = Integer.parseInt(request.getParameter("hit"));
         String content = request.getParameter("content");
-       NoticeDao dao = new NoticeDao();
+        NoticeDao dao = new NoticeDao();
 
         String msg ="";
         String url ="";
@@ -34,10 +34,10 @@ public class NoticeEditOkService implements Action {
                 int result = dao.boardEditOk(request);
                 System.out.println("result : " + result);
                 if(result > 0) {
-                    msg = "공지사항 수정이 완료되었습니다.";
+                    msg = "수정이 완료되었습니다.";
                     url = "NoticeList.board";
                 } else {
-                    msg = "수정실패";
+                    msg = "수정 오류";
                     url = "NoticeEdit.board?idx=" + idx;
                 }
             }
@@ -46,7 +46,7 @@ public class NoticeEditOkService implements Action {
 
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/board/redirect.jsp");
+            forward.setPath("/WEB-INF/board/boardModifyPop.jsp");
         } catch (Exception e) {
             e.printStackTrace();
         }

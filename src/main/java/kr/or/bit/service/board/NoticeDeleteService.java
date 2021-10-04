@@ -19,17 +19,16 @@ public class NoticeDeleteService implements Action {
 
         try {
             int result = dao.NoticeDelete(idx);
-            String msg ="";
-            String url ="";
-            if(idx == null || idx.trim().equals("")) {
-                msg = "프로그램 오류";
+            String msg = "";
+            String url = "";
+//            if(idx == null || idx.trim().equals("")) {
+//                msg = "프로그램 오류";
+//                url = "NoticeList.board";
+//            }
+            if (result > 0) {
+                msg = "삭제 실패되었습니다.";
                 url = "NoticeList.board";
-            }
-            if(result > 0) {
-                msg = "삭제 실패 오류";
-                url = "NoticeList.board";
-            }
-             else {
+            } else {
                 msg = "삭제가 완료되었습니다.";
                 url = "NoticeList.board";
             }
@@ -39,7 +38,7 @@ public class NoticeDeleteService implements Action {
 
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/board/redirect.jsp");
+            forward.setPath("/WEB-INF/views/board/boardDeletePop.jsp");
         } catch (Exception e) {
             e.printStackTrace();
         }

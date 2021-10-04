@@ -14,9 +14,24 @@ public class LostBoardDeleteService implements Action {
         LostDao dao = new LostDao();
         int result = dao.deleteLost(idx);
 
+        String msg = "";
+        String url = "";
+
+        if (result > 0) {
+            msg = "삭제 실패되었습니다.";
+            url = "lostList.board";
+        } else {
+            msg = "삭제가 완료되었습니다.";
+            url = "lostList.board";
+        }
+
+        request.setAttribute("board_msg", msg);
+        request.setAttribute("board_url", url);
+
+
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
-        forward.setPath("lostList.board");
+        forward.setPath("/WEB-INF/views/board/boardDeletePop.jsp");
 
         return forward;
     }

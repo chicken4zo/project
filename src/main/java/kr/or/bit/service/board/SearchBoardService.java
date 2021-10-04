@@ -6,6 +6,7 @@ import kr.or.bit.dao.DailyDao;
 import kr.or.bit.dao.LostDao;
 import kr.or.bit.dto.DailyBoard;
 import kr.or.bit.dto.LostBoard;
+import kr.or.bit.util.TheSearchPager;
 import kr.or.bit.util.ThePager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ public class SearchBoardService implements Action {
         String ps = request.getParameter("ps");
         String cp = request.getParameter("cp");
 
-        ThePager pager = null;
+        TheSearchPager pager = null;
 
         String path = null;
 
@@ -54,10 +55,12 @@ public class SearchBoardService implements Action {
             }
 
             int pagersize = 3;
-            pager = new ThePager(result, cpage, pagesize, pagersize, "search.board");
+            pager = new TheSearchPager(result, cpage, pagesize, pagersize, "search.board", boardName);
 
             request.setAttribute("dailyList", list);
             request.setAttribute("pager", pager);
+
+            System.out.println(pager);
 
             path = "/WEB-INF/views/board/dailyList.jsp";
 
@@ -74,7 +77,7 @@ public class SearchBoardService implements Action {
             }
 
             int pagersize = 3;
-            pager = new ThePager(result, cpage, pagesize, pagersize, "search.board");
+            pager = new TheSearchPager(result, cpage, pagesize, pagersize, "search.board", boardName);
             System.out.println(pager);
 
             request.setAttribute("lostList", list);
@@ -83,12 +86,67 @@ public class SearchBoardService implements Action {
             path = "/WEB-INF/views/board/lostList.jsp";
 
         } else if (boardName.equals("product")) {
+            ProductDao productDao = new ProductDao();
+            ArrayList<ProductBoard> list = productDao.searchProduct(searchText, cpage, pagesize);
+            int result = productDao.totalSearchCount(searchText);
+            System.out.println("상품 검색 결과 건수 : " + result);
+
+            if (result % pagesize == 0) {
+                pagecount = result / pagesize;
+            } else {
+                pagecount = (result / pagesize) + 1;
+            }
+
+            int pagersize = 3;
+            pager = new ThePager(result, cpage, pagesize, pagersize, "search.board");
+            System.out.println(pager);
+
+            request.setAttribute("productBoardList", list);
+            request.setAttribute("pager", pager);
+
+            path = "/WEB-INF/views/board/productList.jsp";
 
         } else if (boardName.equals("pet")) {
+            PetDao petDao = new PetDao();
+            ArrayList<PetBoard> list = petDao.searchPet(searchText, cpage, pagesize);
+            int result = petDao.totalSearchCount(searchText);
+            System.out.println("검색결과 건수 :" + result);
+
+            if (result % pagesize == 0) {
+                pagecount = result / pagesize;
+            } else {
+                pagecount = (result / pagesize) + 1;
+
+                int pagersize = 3;
+                pager = new ThePager(result, cpage, pagesize, pagersize, "search.board");
+                System.out.println(pager);
+
+                request.setAttribute("petBoardList", list);
+                request.setAttribute("pager", pager);
+
+                path = "/WEB-INF/views/board/petList.jsp";
+            }
 
         } else if (boardName.equals("restaurant")) {
+            RestaurantDao restaurantDao = new RestaurantDao();
+            ArrayList<RestaurantBoard> list = restaurantDao.searchRestaurant(searchText, cpage, pagesize);
+            int result = restaurantDao.totalSerachCount(searchText);
+            System.out.println("검색결과 건수 :" + result);
 
-        } else {
+            if (result % pagesize == 0) {
+                pagecount = result / pagesize;
+            } else {
+                pagecount = (result / pagesize) + 1;
+
+                int pagersize = 3;
+                pager = new ThePager(result, cpage, pagesize, pagersize, "search.board");
+                System.out.println(pager);
+
+                request.setAttribute("list", list);
+                request.setAttribute("pager", pager);
+
+                path = "/WEB-INF/views/board/restaurantList.jsp";
+            }
 
         }
 

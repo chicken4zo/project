@@ -5,7 +5,7 @@
               maxIdle="20"
               maxTotal="20"
               maxActive="20"
-              password="wjstjf1472$"
+              password="1004"
               username="bituser"
               url="jdbc:oracle:thin:@localhost:1521:XE"
               driverClassName="oracle.jdbc.OracleDriver"

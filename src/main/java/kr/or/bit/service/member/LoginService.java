@@ -55,7 +55,7 @@ public class LoginService implements Action {
              */
 
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/redirect.jsp");
+            forward.setPath("/WEB-INF/views/board/loginPop.jsp");
 
         } catch (Exception e) {
             System.out.println("로그인 오류 : " + e.getMessage());

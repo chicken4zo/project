@@ -80,7 +80,12 @@
                                         <tr>
                                             <td>${notice.idx}</td>
                                             <td>
-                                                <a href="NoticeContent.board?idx=${notice.idx}&cp=${cpage}&ps=${pagesize}">
+                                                <c:choose>
+                                                <c:when test="${notice.title=='deleted'}">
+                                                    삭제된 게시글 입니다
+                                                </c:when>
+                                                <c:otherwise>
+                                                <a href="noticeContent.board?idx=${notice.idx}&id=${notice.id}&cp=${cpage}&ps=${pagesize}">
                                                     <c:choose>
                                                         <c:when test="${notice.title != null && fn:length(notice.title) > 10}">
                                                             ${fn:substring(notice.title,0,10)}...
@@ -88,6 +93,8 @@
                                                         <c:otherwise>
                                                             ${notice.title}
                                                         </c:otherwise>
+                                                    </c:choose>
+                                                    </c:otherwise>
                                                     </c:choose>
                                                 </a>
                                             </td>
@@ -111,10 +118,7 @@
                 </div>
             </div>
         </div>
-        <c:if test="${id eq 'admin'}">
 
-            <button class="write-btn" onclick="location.href='NoticeWrite.board'">글쓰기</button>
-        </c:if>
         <form name="list">
             <!-- 한 페이지안에 보여줄 게시글 건수 -->
             <select name="ps" onchange="submit()"
@@ -131,7 +135,9 @@
                 </c:forEach>
             </select>
         </form>
-
+        <c:if test="${id eq 'admin'}">
+            <button class="write-btn" onclick="location.href='NoticeWrite.board'">글쓰기</button>
+        </c:if>
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 ${pager}
@@ -177,6 +183,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
+
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>

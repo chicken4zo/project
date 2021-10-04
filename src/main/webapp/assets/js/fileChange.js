@@ -45,7 +45,7 @@ const fileName = document.querySelector(".product-photo").getAttribute("id");
 
 $('#delete').click(function (e) {
 	e.preventDefault();
-	$('.file').val("<c:set target='${dailyBoard.fileName}' value=''/>");
+	$('.originalfile').val("");
 	fileDelete(e);
 })
 

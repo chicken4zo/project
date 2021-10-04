@@ -114,6 +114,22 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
 <script>
+
+	if (fileName !== null) {
+		$('.product-photo').css({
+			"background": "url(${pageContext.request.contextPath}/assets/upload/" + fileName + ")",
+			'background-repeat': 'no-repeat',
+			'background-position': 'center center',
+			'background-size': 'cover'
+		})
+	} else {
+		$('.product-photo').css({
+			"background": "url(${pageContext.request.contextPath}/assets/images/upload.png)",
+			'background-repeat': 'no-repeat',
+			'background-position': 'center center',
+			'background-size': '20%'
+		})
+	}
 	<%--const file = document.querySelector("#file");--%>
 	<%--const fileName = document.querySelector(".product-photo").getAttribute("id");--%>
 

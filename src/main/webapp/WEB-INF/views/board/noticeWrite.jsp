@@ -35,14 +35,14 @@
 
         <%--content--%>
         <div class="title">공지사항</div>
-        <form name="notice" action="NoticeWriteOk.board" method="post" enctype="multipart/form-data">
+        <form name="notice" action="NoticeWriteOk.board" method="post">
             <div class="product-group">
                 <section class="product-wrap">
                     <!--    <h2>글쓰기</h2>-->
                     <ul class="product-info">
                         <li class="info-title">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="writer" value=""/>
+                            <input type="text" name="id" value=""/>
                         </li>
 
                         <li class="info-title">

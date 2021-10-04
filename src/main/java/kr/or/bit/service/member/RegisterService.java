@@ -53,7 +53,6 @@ public class RegisterService implements Action {
             e.printStackTrace();
         }
 
-
         return forward;
     }
 

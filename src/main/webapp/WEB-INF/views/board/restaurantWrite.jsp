@@ -34,6 +34,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 </head>
 <body>
+<c:set var="userId" value="${sessionScope.userId}"></c:set>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->

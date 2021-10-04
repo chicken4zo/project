@@ -34,12 +34,17 @@
           rel="stylesheet">
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
+
 </head>
 <body>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
         <jsp:include page="../../include/top.jsp"/>
+
+        <%--dropdown--%>
+        <jsp:include page="../../include/boardMenu.jsp"/>
+
         <!-- weather -->
         <jsp:include page="../../include/weather.jsp"/>
 
@@ -86,6 +91,11 @@
                                                 <c:if test="${lost.depth>0}">
                                                     RE:
                                                 </c:if>
+                                                <c:choose>
+                                                <c:when test="${lost.title=='deleted'}">
+                                                    삭제된 게시글 입니다
+                                                </c:when>
+                                                <c:otherwise>
                                                 <a href="lostContent.board?idx=${lost.idx}&id=${lost.id}&cp=${cpage}&ps=${pagesize}">
                                                     <c:choose>
                                                         <c:when test="${lost.title != null && fn:length(lost.title) > 10}">
@@ -94,6 +104,8 @@
                                                         <c:otherwise>
                                                             ${lost.title}
                                                         </c:otherwise>
+                                                    </c:choose>
+                                                    </c:otherwise>
                                                     </c:choose>
                                                 </a>
                                                 <c:if test="${not empty lost.fileName}">
@@ -121,26 +133,29 @@
                     </div>
                 </div>
             </div>
+            <button class="write-btn" onclick="location.href='lostForm.board'">글쓰기</button>
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center" style="display: flex">
+                    ${pager}
+                    <%--                <li class="page-item disabled">--%>
+                    <%--                    <a class="page-link" href="#" tabindex="-1"><</a>--%>
+                    <%--                </li>--%>
+                    <%--                <li class="page-item"><a class="page-link" href="#">1</a></li>--%>
+                    <%--                <li class="page-item active">--%>
+                    <%--                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>--%>
+                    <%--                </li>--%>
+                    <%--                <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
+                    <%--                <li class="page-item"><a class="page-link" href="#">4</a></li>--%>
+                    <%--                <li class="page-item"><a class="page-link" href="#">5</a></li>--%>
+                    <%--                <li class="page-item">--%>
+                    <%--                    <a class="page-link" href="#">></a>--%>
+                    <%--                </li>--%>
+                </ul>
+            </nav>
+
         </div>
-        <button class="write-btn" onclick="location.href='lostForm.board'">글쓰기</button>
-        <nav aria-label="...">
-            <ul class="pagination justify-content-center">
-                ${pager}
-                <%--                <li class="page-item disabled">--%>
-                <%--                    <a class="page-link" href="#" tabindex="-1"><</a>--%>
-                <%--                </li>--%>
-                <%--                <li class="page-item"><a class="page-link" href="#">1</a></li>--%>
-                <%--                <li class="page-item active">--%>
-                <%--                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>--%>
-                <%--                </li>--%>
-                <%--                <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
-                <%--                <li class="page-item"><a class="page-link" href="#">4</a></li>--%>
-                <%--                <li class="page-item"><a class="page-link" href="#">5</a></li>--%>
-                <%--                <li class="page-item">--%>
-                <%--                    <a class="page-link" href="#">></a>--%>
-                <%--                </li>--%>
-            </ul>
-        </nav>
+
+
     </div>
 </div>
 <jsp:include page="../../include/footer.jsp"/>
@@ -188,22 +203,34 @@
 <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
 <script src="${pageContext.request.contextPath}/assets/js/plugins/jquery.dataTables.min.js"></script>
 <!--bootstrp js-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+        integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+        crossorigin="anonymous"></script>
+<%--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"--%>
+<%--        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"--%>
+<%--        crossorigin="anonymous"></script>--%>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"--%>
+<%--        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"--%>
+<%--        crossorigin="anonymous"></script>--%>
+<%--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"--%>
+<%--        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"--%>
+<%--        crossorigin="anonymous"></script>--%>
+<%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>--%>
+
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>--%>
+<%--<script src="https://code.jquery.com/jquery-3.3.1.min.js"--%>
+<%--        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"--%>
+<%--        crossorigin="anonymous"></script>--%>
 
 <!--image js-->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js?ver=2"></script>
 </html>
