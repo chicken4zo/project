@@ -1,4 +1,5 @@
 let boardName = $('#boardName').val();
+console.log(boardName);
 
 
 commentList();
@@ -13,6 +14,9 @@ function commentList() {
 			idx: $('#idx').val()
 		},
 		success: function (data) {
+
+			console.log(data);
+			console.log(boardName);
 
 			$('.commentList').empty();
 

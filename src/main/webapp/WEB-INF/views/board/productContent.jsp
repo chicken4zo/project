@@ -5,7 +5,7 @@
 <c:set var="cpage" value="${requestScope.cpage}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
 <c:set var="commentList" value="${requestScope.commentList}"/>
-<c:set var="id" value="${sessionScope.id}"/>
+<c:set var="userId" value="${sessionScope.userId}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,6 +47,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="mb-4">Product Details</h5>
+                            <input hidden id="boardName" value="product">
                             <!--product details-->
                             <div class="row">
                                 <!--image space-->
@@ -136,12 +137,7 @@
                                     </div>
                                     <!--댓글 리스트-->
                                     <div class="commentList_wrap">
-
                                         <div class="commentList">
-                                            <h2></h2>
-                                            <p></p>
-                                            <h4></h4>
-                                            <input type="button" value="삭제" onclick="">
                                         </div>
                                     </div>
                                     <!-- replylist_wrap END -->
@@ -150,9 +146,10 @@
                                     <form name="productComment" method="POST" id="productComment">
                                         <div class="commentWrite_Wrap">
                                             <input type="hidden" name="idx" id="idx" value="${product.idx}">
+                                            <input type="hidden" value="${userId}" id="loginId">
                                             <input type="hidden" name="writerid" id="writerId" value="${product.id}">
-                                            <h2>${id}</h2>
-                                            <input type="text" name="commentid" id="commentId">
+                                            <h2>${userId}</h2>
+                                            <input type="hidden" name="commentid" id="commentId" value="${userId}">
                                             <textarea name="content" id="commentContent" placeholder="댓글을 남겨보세요"
                                                       class="comment_inbox" rows="4"
                                                       cols="140"></textarea>
@@ -190,7 +187,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/productComment.js"></script>
+
+<script src="${pageContext.request.contextPath}/assets/js/comment.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>

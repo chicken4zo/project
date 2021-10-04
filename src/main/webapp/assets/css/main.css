@@ -94,11 +94,11 @@ header {
     margin-top: 19px;
 }
 
-.dropdown {
-    float: left;
-    font-family: 'Jua', sans-serif !important;
-    font-family: 'Noto Sans KR', sans-serif !important;
-}
+/*.dropdown {*/
+/*    float: left;*/
+/*    font-family: 'Jua', sans-serif !important;*/
+/*    font-family: 'Noto Sans KR', sans-serif !important;*/
+/*}*/
 
 /*!*select_form*!*/
 /*!* ===== Select Box ===== *!*/
@@ -509,3 +509,19 @@ footer p {
     font-size: 14px;
     text-align: center;
 }
+
+
+/*dropdown*/
+.dropdown {
+    position: absolute !important;
+    top: 123px;
+    left: 181px;
+}
+
+.fas {
+    font-size: 22px;
+}
+
+
+
+

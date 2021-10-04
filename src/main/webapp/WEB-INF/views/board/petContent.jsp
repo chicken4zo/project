@@ -47,6 +47,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="mb-4">Details</h5>
+                            <input hidden id="boardName" value="pet">
                             <!--product details-->
                             <div class="row">
                                 <!--image space-->
@@ -200,7 +201,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/petComment.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/comment.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>

@@ -16,7 +16,6 @@ public class LoginLogout extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         String id = (String) session.getAttribute("id");
         PrintWriter out = response.getWriter();
-        System.out.println("쳌1");
 
         if (id != null) {
 
@@ -45,6 +44,7 @@ public class LoginLogout extends HttpServlet {
             out.print("<div class=\"myPage_btn\">Log In</div>");
             out.print("</a>");
         }
+
 
     }
 

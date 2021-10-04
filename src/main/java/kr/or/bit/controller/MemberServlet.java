@@ -15,11 +15,6 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "*.member")
 public class MemberServlet extends HttpServlet {
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 뒤로가기 캐쉬삭퇴
-
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-        response.setHeader("Expires", "0"); // Proxies.
 
 
         System.out.println("여기까진오냐 0");
@@ -35,52 +30,51 @@ public class MemberServlet extends HttpServlet {
 
 
         if (urlCommand.equals("/Register.member")) { //회원가입 페이지로 가는 태그
-
+            System.out.println("REGISTER 실행");
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/register.jsp");
 
         } else if (urlCommand.equals("/RegisterOk.member")) { // 회원가입 완료
-            System.out.println("여기까진오냐1");
+            System.out.println("REGISTER OK 실행");
             action = new RegisterService();
             forward = action.execute(request, response);
             System.out.println("MemberRegister Start");
 
         } else if (urlCommand.equals("/Login.member")) { // 인덱스 페이지에서 누르면 로그인 폼으로 가는 태그
-            System.out.println("여기까진오냐 2");
+            System.out.println("LOGIN 실행");
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/login.jsp");
 
         } else if (urlCommand.equals("/LoginOk.member")) {
-            System.out.println("여기까진오냐 3");
+            System.out.println("LOGIN OK 실행");
             action = new LoginService();
             forward = action.execute(request, response);
-            System.out.println("MemberJoin Start");
 
         } else if (urlCommand.equals("/LogOut.member")) {
-            System.out.println("여기까진오냐4");
-            System.out.println("로그아웃완료");
+            System.out.println("LOGOUT 실행");
             action = new LogoutService();
             forward = action.execute(request, response);
-            System.out.println("Logout Start");
 
         } else if (urlCommand.equals("/IdCheck.member")) {
-            System.out.println("여기까진오냐5");
+            System.out.println("ID CHECK 실행");
             action = new MemberCheckService();
             forward = action.execute(request, response);
-            System.out.println("IdCheck Start");
 
         } else if (urlCommand.equals("/main.member")) { // 잠깐 로그인 성공시 가는 페이지 만든
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/login.jsp");
+
         } else if (urlCommand.equals("/mypage.member")) {
-            System.out.println("mypage");
+           
             action = new MemberInfoService();
             forward = action.execute(request, response);
-            System.out.println("IdCheck Start");
+            System.out.println("MY PAGE 실행");
+        
         } else if (urlCommand.equals("/admin.member")) {
+            System.out.println("ADMIN 실행");
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/admin.jsp");

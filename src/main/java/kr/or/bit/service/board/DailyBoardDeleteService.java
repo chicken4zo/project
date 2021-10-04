@@ -14,9 +14,23 @@ public class DailyBoardDeleteService implements Action {
         DailyDao dao = new DailyDao();
         int result = dao.deleteDaily(idx);
 
+        String msg = "";
+        String url = "";
+
+        if (result > 0) {
+            msg = "삭제 실패되었습니다.";
+            url = "dailyList.board";
+        } else {
+            msg = "삭제가 완료되었습니다.";
+            url = "dailyList.board";
+        }
+
+        request.setAttribute("board_msg", msg);
+        request.setAttribute("board_url", url);
+
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
-        forward.setPath("dailyList.board");
+        forward.setPath("/WEB-INF/views/board/boardDeletePop.jsp");
 
         return forward;
     }

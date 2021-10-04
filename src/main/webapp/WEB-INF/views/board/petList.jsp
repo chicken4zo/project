@@ -28,13 +28,15 @@
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
 
-
 </head>
 <body>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
         <jsp:include page="/WEB-INF/include/top.jsp"/>
+
+        <%--dropdown--%>
+        <jsp:include page="../../include/boardMenu.jsp"/>
 
         <%--weather--%>
         <jsp:include page="/WEB-INF/include/weather.jsp"/>
@@ -46,29 +48,40 @@
 
         <section class="cards">
             <c:forEach var="pet" items="${petBoardList}">
-                <article class="card card--1">
-                    <div class="card__info-hover">
-                        <i class="far fa-heart" style="color:#dadada"></i><span class="hit-size">${pet.hit}</span>
-                        <div class="card__hit-info">
-                            <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
-                            <i class="far fa-comment" style="color:#dadada"></i><span
-                                class="hit-size"></span>
-                        </div>
-                    </div>
-                    <div class="card__img">
-                        <img src="${pageContext.request.contextPath}/assets/upload/${pet.fileName1}" alt="pet">
-                    </div>
-                    <a href="petContent.board?idx=${pet.idx}&id=${pet.id}&cp=${cpage}&ps=${pagesize}" class="card_link">
-                        <div class="card__img--hover"></div>
-                    </a>
-                    <div class="card__info">
-                        <button type="button" class="card__btn">${pet.address}</button>
-                        <h3 class="card__title">${pet.title}</h3>
-                        <span class="card__by">${pet.id}</span>
-                    </div>
-                </article>
-            </c:forEach>
+                <c:choose>
+                    <c:when test="${pet.title=='deleted'}">
+                    </c:when>
+                    <c:otherwise>
+                        <article class="card card--1">
+                            <div class="card__info-hover">
+                                <i class="far fa-heart" style="color:#dadada"></i><span
+                                    class="hit-size">${pet.hit}</span>
+                                <div class="card__hit-info">
+                                    <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
+                                    <i class="far fa-comment" style="color:#dadada"></i><span
+                                        class="hit-size"></span>
+                                </div>
+                            </div>
+                            <div class="card__img">
+                                <img src="${pageContext.request.contextPath}/assets/upload/${pet.fileName1}" alt="pet">
+                            </div>
+                            <a href="petContent.board?idx=${pet.idx}&id=${pet.id}&cp=${cpage}&ps=${pagesize}"
+                               class="card_link">
+                                <div class="card__img--hover"></div>
+                            </a>
+                            <div class="card__info">
+                                <button type="button" class="card__btn">${pet.address}</button>
+                                <h3 class="card__title">${pet.title}</h3>
+                                <span class="card__by">${pet.id}</span>
+                            </div>
+                        </article>
+                    </c:otherwise>
+                </c:choose>
 
+
+            </c:forEach>
+            <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기
+            </button>
 
             <%--<article class="card card--2">
                 <div class="card__info-hover">
@@ -99,6 +112,18 @@
                 <a href="#" class="card_link">
                     <div class="card__img--hover"></div>
                 </a>
+            <article class="card card--1">
+                <div class="card__info-hover">
+                    <i class="far fa-heart" style="color:#dadada"></i><span class="hit-size">&nbsp;22</span>
+                    <div class="card__hit-info">
+                        <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
+                        <i class="far fa-comment" style="color:#dadada"></i><span class="hit-size">&nbsp;11</span>
+                    </div>
+                </div>
+                <div class="card__img">
+                    <img src="https://miro.medium.com/max/3600/0*n-2bW82Z6m6U2bij.jpeg">
+                </div>
+
                 <div class="card__info">
                     <button type="button" class="card__btn">고양이</button>
                     <h3 class="card__title">제목</h3>
@@ -106,17 +131,19 @@
                 </div>
             </article>
 
-            <article class="card card--4">
+
+            <article class="card card--1">
                 <div class="card__info-hover">
-                    <i class="far fa-heart" style="color:#dadada"></i>
+                    <i class="far fa-heart" style="color:#dadada"></i><span class="hit-size">&nbsp;22</span>
                     <div class="card__hit-info">
-                        <i class="far fa-comment" style="color:#dadada"></i>
+                        <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
+                        <i class="far fa-comment" style="color:#dadada"></i><span class="hit-size">&nbsp;11</span>
                     </div>
                 </div>
-                <div class="card__img"></div>
-                <a href="#" class="card_link">
-                    <div class="card__img--hover"></div>
-                </a>
+                <div class="card__img">
+                    <img src="https://miro.medium.com/max/3600/0*n-2bW82Z6m6U2bij.jpeg">
+                </div>
+
                 <div class="card__info">
                     <button type="button" class="card__btn">고양이</button>
                     <h3 class="card__title">제목</h3>
@@ -124,37 +151,20 @@
                 </div>
             </article>
 
-            <article class="card card--5">
+            <article class="card card--1">
                 <div class="card__info-hover">
-                    <i class="far fa-heart" style="color:#dadada"></i>
+                    <i class="far fa-heart" style="color:#dadada"></i><span class="hit-size">&nbsp;22</span>
                     <div class="card__hit-info">
-                        <i class="far fa-comment" style="color:#dadada"></i>
+                        <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
+                        <i class="far fa-comment" style="color:#dadada"></i><span class="hit-size">&nbsp;11</span>
                     </div>
                 </div>
-                <div class="card__img"></div>
-                <a href="#" class="card_link">
-                    <div class="card__img--hover"></div>
-                </a>
-                <div class="card__info">
-                    <button type="button" class="card__btn">강아지</button>
-                    <h3 class="card__title">제목</h3>
-                    <span class="card__by">아이디</span>
+                <div class="card__img">
+                    <img src="https://miro.medium.com/max/3600/0*n-2bW82Z6m6U2bij.jpeg">
                 </div>
-            </article>
 
-            <article class="card card--6">
-                <div class="card__info-hover">
-                    <i class="far fa-heart" style="color:#dadada"></i>
-                    <div class="card__hit-info">
-                        <i class="far fa-comment" style="color:#dadada"></i>
-                    </div>
-                </div>
-                <div class="card__img"></div>
-                <a href="#" class="card_link">
-                    <div class="card__img--hover"></div>
-                </a>
                 <div class="card__info">
-                    <button type="button" class="card__btn">강아지</button>
+                    <button type="button" class="card__btn">고양이</button>
                     <h3 class="card__title">제목</h3>
                     <span class="card__by">아이디</span>
                 </div>
@@ -202,7 +212,20 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+
+<!--bootstrp js-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+        integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+        crossorigin="anonymous"></script>
+
+
 </html>

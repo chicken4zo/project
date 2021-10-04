@@ -37,7 +37,7 @@
         <!--header-->
         <jsp:include page="../../include/top.jsp"/>
         <div class="board-logo">
-            <h3>반려동물</h3>
+            <h3>상품</h3>
         </div>
         <form action="productModify.board?title=${productBoard.title}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="idx" value="${productBoard.idx}">
@@ -62,7 +62,8 @@
                         </li>
                         <li class="info-title">
                             <div class="info-detail">가격</div>
-                            <input type="text" name="price" placeholder="가격을 입력하세요." class="write-price" value> <span
+                            <input type="text" name="price" placeholder="가격을 입력하세요." class="write-price"
+                                   value="${productBoard.price}"> <span
                                 class="product-price">원</span>
                         </li>
                         <li class="info-title">

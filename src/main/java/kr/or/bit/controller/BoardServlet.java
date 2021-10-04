@@ -2,6 +2,7 @@ package kr.or.bit.controller;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
+import kr.or.bit.dao.MemberDao;
 import kr.or.bit.service.board.*;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "*.board")
@@ -21,6 +23,16 @@ public class BoardServlet extends HttpServlet {
         String requestURI = request.getRequestURI();
         String contextPath = request.getContextPath();
         String urlCommand = requestURI.substring(contextPath.length());
+
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("id");
+
+        // 주소 가져오기
+        MemberDao dao = new MemberDao();
+        String address = dao.getAddress(userId);
+
+        session.setAttribute("userId", userId);
+        session.setAttribute("address", address);
 
         ActionForward forward = null;
         Action action = null;
@@ -245,8 +257,11 @@ public class BoardServlet extends HttpServlet {
             System.out.println("일상 게시판 답글 입력");
             action = new DailyBoardReplyOkService();
             forward = action.execute(request, response);
+        } else if (urlCommand.equals("/search.board")) {
+            System.out.println("게시판 검색");
+            action = new SearchBoardService();
+            forward = action.execute(request, response);
         }
-
 
         if (forward != null) {
             if (forward.isRedirect()) { //true 페이지를 재요청

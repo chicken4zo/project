@@ -29,6 +29,11 @@
           rel="stylesheet">
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
+    <!-- sweet alert -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <%--<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>--%>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
 </head>
 <body>
 <div id="body_wrap">
@@ -101,6 +106,11 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+<!-- sweet alert -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<%--<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>--%>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -112,18 +122,30 @@
                 data: {"id": $('#id').val()},
                 success: function (data) {
                     if ($.trim(data) == 0) {
-                        alert('사용가능한 아이디 입니다.');
+                        swal({
+                            icon: 'success',
+                            text: '사용가능한 아이디 입니다.'
+                            <%--}).then(function () {--%>
+                            <%--    window.location.href = '${url}';--%>
+                            <%--    swal.close();--%>
+                        });
+                        // alert('사용가능한 아이디 입니다.');
                     } else {
-                        alert('사용불가, 다른 아이디를 입력해주세요.');
+                        swal({
+                            icon: 'warning',
+                            text: '사용불가, 다른 아이디를 입력해주세요.'
+                        }).then(function () {
+                            <%--window.location.href = '${url}';--%>
+                            <%--swal.close();--%>
+                        });
+                        // alert('사용불가, 다른 아이디를 입력해주세요.');
                     }
-
                 }
             });
         });
     });
 
     // 유효성 검사 ---
-
     $(document).ready(function () {
 
         $('#form1').submit(function () {
@@ -231,5 +253,36 @@
 
 </script>
 
+<%--<script type="text/javascript">--%>
+<%--    $().ready(function () {--%>
+<%--        $("#submit").click(function () {--%>
+<%--            Swal.fire({--%>
+<%--                icon: 'success',--%>
+<%--                title: '회원가입 성공',--%>
+<%--                text: '고구마켓에 오신 걸 환영합니다!',--%>
+<%--            });--%>
+<%--        });--%>
+<%--    });--%>
 
+<%--    $().ready(function () {--%>
+<%--        $("#cancel").click(function () {--%>
+<%--            Swal.fire({--%>
+<%--                icon: 'error',--%>
+<%--                title:'회원가입 실패',--%>
+<%--                text: '다시 시도하세요.',--%>
+<%--            });--%>
+<%--        });--%>
+<%--    });--%>
+<%--</script>--%>
+<%--<script type="text/javascript">--%>
+<%--    $().ready(function () {--%>
+<%--        $("#submit").click(function () {--%>
+<%--            Swal.fire({--%>
+<%--                icon: 'success',--%>
+<%--                title: '',--%>
+<%--                text: '고구마켓에 오신 걸 환영합니다!',--%>
+<%--            });--%>
+<%--        });--%>
+<%--    });--%>
+<%--</script>--%>
 </html>

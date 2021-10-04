@@ -19,7 +19,7 @@ import java.util.List;
 public class DailyDao {
 
     DataSource ds = null;
-    String database = "mysql";
+    String database = "oracle";
     // String database에 oracle, mysql, myoracle 둘 중에 하나 입력
 
 
@@ -150,7 +150,7 @@ public class DailyDao {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         DailyBoard daily = null;
-        String sql = "SELECT IDX, ID, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH FROM DAILY WHERE IDX = ?";
+        String sql = "SELECT IDX, M.ID, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, M.ADDRESS FROM DAILY,MEMBER M WHERE IDX = ? AND DAILY.ID=M.ID";
 
         try {
             conn = ConnectionHelper.getConnection(database);
@@ -162,12 +162,14 @@ public class DailyDao {
             if (rs.next()) {
                 daily = new DailyBoard();
                 daily.setIdx(rs.getInt("idx"));
-                daily.setId(rs.getString("id"));
+                daily.setId(rs.getString("m.id"));
                 daily.setTitle(rs.getString("title"));
                 daily.setContent(rs.getString("content"));
                 daily.setFilePath(rs.getString("filepath"));
                 daily.setFileName(rs.getString("filename"));
                 daily.setWriteDate(rs.getDate("writedate"));
+                daily.setHit(rs.getInt("hit"));
+                daily.setAddress(rs.getString("m.address"));
             } else {
                 daily = null;
             }
@@ -382,14 +384,15 @@ public class DailyDao {
     public int deleteDaily(String idx) {
         int resultRow = 0;
         PreparedStatement pstmt = null;
-        String sql = "DELETE FROM DAILY WHERE IDX = ?";
+        String sql = "UPDATE DAILY SET TITLE = ? WHERE IDX = ?";
         Connection conn = null;
 
         try {
             conn = ConnectionHelper.getConnection(database);
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, Integer.parseInt(idx));
+            pstmt.setString(1, "deleted");
+            pstmt.setInt(2, Integer.parseInt(idx));
             resultRow = pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -495,6 +498,103 @@ public class DailyDao {
             ConnectionHelper.close(conn);
         }
         return resultRow;
+    }
+
+    public ArrayList<DailyBoard> searchDaily(String text, int cpage, int pagesize) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<DailyBoard> searchList = new ArrayList<>();
+        String sql = "";
+
+        try {
+            conn = ConnectionHelper.getConnection(database);
+
+            if (database.equals("mysql")) {
+                sql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, (@ROWNUM:=@ROWNUM+1) RN FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY REFER DESC, STEP ASC) L , (SELECT @ROWNUM:=0) R LIMIT ?,?";
+            } else {
+                sql = "SELECT * FROM (SELECT ROWNUM RN, IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, ROWNUM FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY REFER DESC, STEP ASC) L) WHERE RN BETWEEN ? and ?";
+            }
+
+            int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
+            int end = cpage * pagesize; // 1 * 5 >> 5;
+            System.out.println("start: " + start);
+            System.out.println("end: " + end);
+            System.out.println("cpage: " + cpage);
+
+            pstmt = conn.prepareStatement(sql);
+
+            if (database.equals("mysql")) {
+                pstmt.setInt(1, start - 1);
+                pstmt.setInt(2, pagesize);
+            } else {
+                pstmt.setInt(1, start);
+                pstmt.setInt(2, end);
+            }
+
+            rs = pstmt.executeQuery();
+
+
+            while (rs.next()) {
+                DailyBoard daily = new DailyBoard();
+                System.out.println(rs.getInt("idx"));
+                daily.setIdx(rs.getInt("idx"));
+                daily.setId(rs.getString("id"));
+                daily.setTitle(rs.getString("title"));
+                daily.setContent(rs.getString("content"));
+                daily.setFileName(rs.getString("filename"));
+                daily.setFilePath(rs.getString("filepath"));
+                daily.setHit(rs.getInt("hit"));
+                daily.setWriteDate(rs.getDate("writedate"));
+                daily.setRefer(rs.getInt("refer"));
+                daily.setDepth(rs.getInt("depth"));
+                daily.setStep(rs.getInt("step"));
+                daily.setAddress(rs.getString("address"));
+                System.out.println("객체:" + daily);
+
+                searchList.add(daily);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+
+        return searchList;
+    }
+
+    public int totalSearchCount(String text) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int result = 0;
+
+        String sql = "SELECT count(*) cnt FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY REFER DESC, STEP ASC) L";
+
+        try {
+            conn = ConnectionHelper.getConnection(database);
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getInt("cnt");
+                System.out.println("dao 안 result" + result);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return result;
     }
 }
 

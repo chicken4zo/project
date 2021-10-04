@@ -2,16 +2,8 @@ package kr.or.bit.controller;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.dao.DailyDao;
-import kr.or.bit.dao.LostDao;
-import kr.or.bit.dao.PetDao;
-import kr.or.bit.dao.ProductDao;
-import kr.or.bit.dao.RestaurantDao;
-import kr.or.bit.dto.DailyComment;
-import kr.or.bit.dto.LostComment;
-import kr.or.bit.dto.PetComment;
-import kr.or.bit.dto.ProductComment;
-import kr.or.bit.dto.RestaurantComment;
+import kr.or.bit.dao.*;
+import kr.or.bit.dto.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -71,6 +63,7 @@ public class CommentServlet extends HttpServlet {
 
             response.setContentType("application/x-json; charset=UTF-8");
             response.getWriter().print(jsonArray);
+
         } else if (urlCommand.equals("/lostCommentDelete.comment")) {
             String idx_fk = request.getParameter("idx_fk");
             int no = Integer.parseInt(request.getParameter("no"));
@@ -94,9 +87,6 @@ public class CommentServlet extends HttpServlet {
             }
 
 
-        } else if (urlCommand.equals("/productCommentWrite.board")) {
-
-            // 일상 댓글
         } else if (urlCommand.equals("/dailyCommentWrite.comment")) {
 
             String commentId = request.getParameter("commentId");
@@ -106,6 +96,7 @@ public class CommentServlet extends HttpServlet {
 
             DailyDao dao = new DailyDao();
             int result = dao.writeDailyComment(commentId, content, idx);
+
         } else if (urlCommand.equals("/dailyCommentList.comment")) {
             String idx = request.getParameter("idx");
             DailyDao dao = new DailyDao();
@@ -151,6 +142,61 @@ public class CommentServlet extends HttpServlet {
                 DailyDao dao = new DailyDao();
                 int result = dao.deleteDailyComment(no);
 
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        } else if (urlCommand.equals("/petCommentWrite.comment")) {
+            System.out.println("PET 댓글 작성 서비스 실행");
+            String commentId = request.getParameter("commentId");
+            String content = request.getParameter("content");
+            String idx = request.getParameter("idx");
+
+            PetDao dao = new PetDao();
+            int result = dao.writePetComment(commentId, content, idx);
+            System.out.println("PET 댓글 작성 result : " + result);
+
+        } else if (urlCommand.equals("/petCommentList.comment")) {
+            String idx = request.getParameter("idx");
+            PetDao dao = new PetDao();
+            List<PetComment> commentList = dao.getPetCommentList(idx);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            JSONArray jsonArray = new JSONArray();
+
+            for (int i = 0; i < commentList.size(); i++) {
+                String tempDate = dateFormat.format(commentList.get(i).getWriteDate());
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("no", commentList.get(i).getNo());
+                jsonObject.put("id", commentList.get(i).getId());
+                jsonObject.put("content", commentList.get(i).getContent());
+                jsonObject.put("writedate", tempDate);
+                jsonObject.put("idx_fk", commentList.get(i).getIdx());
+
+                jsonArray.add(jsonObject);
+            }
+
+            response.setContentType("application/x-json; charset=UTF-8");
+            response.getWriter().print(jsonArray);
+
+        } else if (urlCommand.equals("/petCommentDelete.comment")) {
+            String idx = request.getParameter("idx");
+            int no = Integer.parseInt(request.getParameter("no"));
+
+            try {
+
+                PrintWriter out = response.getWriter();
+
+                if (idx == null) {
+                    out.print("<script>");
+                    out.print("alert('글번호가 넘어오지 않았습니다');");
+                    out.print("history.back();");
+                    out.print("</script>");
+                }
+
+                PetDao dao = new PetDao();
+                int result = dao.deletePetComment(no);
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -269,9 +315,10 @@ public class CommentServlet extends HttpServlet {
             }
 
 
+
             //맛집 게시판 댓글
-        } else if (urlCommand.equals("/RestaurantCommentWrite.comment")) {
-            String id = request.getParameter("id");
+        } else if (urlCommand.equals("/restaurantCommentWrite.comment")) {
+            String id = request.getParameter("commentId");
             String content = request.getParameter("content");
             int idx = Integer.parseInt(request.getParameter("idx"));
 
@@ -279,8 +326,10 @@ public class CommentServlet extends HttpServlet {
             int result = dao.commentWrite(idx, id, content);
 
             //e댓글 목록보기
-        } else if (urlCommand.equals("/RestaurantCommentList.comment")) {
+        } else if (urlCommand.equals("/restaurantCommentList.comment")) {
+            System.out.println("여기타고있니..?");
             String idx = request.getParameter("idx");
+            System.out.println(idx);
             RestaurantDao dao = new RestaurantDao();
             List<RestaurantComment> commentList = dao.getRestaurantCommentList(idx);
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -303,7 +352,7 @@ public class CommentServlet extends HttpServlet {
             response.getWriter().print(jsonArray);
 
             //댓글 삭제하기
-        } else if (urlCommand.equals("/commentDelete.comment")) {
+        } else if (urlCommand.equals("/restaurantCommentDelete.comment")) {
             String idx_fk = request.getParameter("idx_fk");
             int no = Integer.parseInt(request.getParameter("no"));
 
@@ -318,13 +367,22 @@ public class CommentServlet extends HttpServlet {
                     out.print("</script>");
                 }
 
-                LostDao dao = new LostDao();
-                int result = dao.deleteLostComment(no);
+                RestaurantDao dao = new RestaurantDao();
+                int result = dao.commentDelete(no);
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 
+        } else if (urlCommand.equals("/chart.comment")) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("test", "dkdkdkdkdk");
+            response.setContentType("application/x-json; charset=UTF-8");
+            response.getWriter().print(jsonObject);
+        } else if (urlCommand.equals("/chartView.comment")) {
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/chartpage.jsp");
         }
 
         if (forward != null) {

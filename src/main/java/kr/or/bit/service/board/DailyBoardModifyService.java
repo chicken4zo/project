@@ -17,6 +17,9 @@ public class DailyBoardModifyService implements Action {
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         DailyDao dao = new DailyDao();
         ActionForward forward = new ActionForward();
+        String msg = "";
+        String url = "";
+
         if (request.getParameter("title") == null || request.getParameter("title").equals("")) {
             String id = request.getParameter("id");
             String idx = request.getParameter("idx");
@@ -54,11 +57,11 @@ public class DailyBoardModifyService implements Action {
                 dailyBoard.setId(multi.getParameter("id"));
                 dailyBoard.setIdx(idx);
                 String originalFileName = multi.getParameter("originalfile");
-                if (multi.getFileNames() != null) {
                     Enumeration fileNames = multi.getFileNames();
 
                     String fileTag = (String) fileNames.nextElement();
                     String fileName = multi.getFilesystemName(fileTag);
+                if (fileName != null) {
                     String fileName2 = multi.getOriginalFileName(fileTag);
                     dailyBoard.setFileName(fileName);
                     dailyBoard.setFilePath(uploadPath);
@@ -72,9 +75,22 @@ public class DailyBoardModifyService implements Action {
 
             System.out.println(dailyBoard);
             int result = dao.modifyDaily(dailyBoard);
+            String idx = request.getParameter("idx");
+
+            if (result > 0) {
+                msg = "수정이 완료되었습니다.";
+                url = "dailyList.board";
+            } else {
+                msg = "수정 오류";
+                url = "dailyModify.board?idx=" + idx;
+            }
+
+            request.setAttribute("board_msg", msg);
+            request.setAttribute("board_url", url);
+
 
             forward.setRedirect(false);
-            forward.setPath("dailyList.board");
+            forward.setPath("/WEB-INF/board/boardModifyPop.jsp");
         }
 
         return forward;

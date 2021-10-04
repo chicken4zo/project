@@ -25,11 +25,6 @@ public class ThePager {
 
     public String toString() {
         StringBuilder linkString = new StringBuilder();
-        System.out.println("시작");
-        System.out.println(currentPage);
-        System.out.println(pagerSize);
-        System.out.println(pageSize);
-        System.out.println(pageCount);
 
         //1. 처음, 이전 항목 만들기
         if (currentPage > 1) {
@@ -74,24 +69,6 @@ public class ThePager {
                     "<a class='page-link' href='%s?cp=%d'>>></a>", linkUrl, pageCount));
             linkString.append("</li>");
         }
-
-//        <nav aria-label="...">
-//            <ul class="pagination justify-content-center">
-//                <li class="page-item disabled">
-//                    <a class="page-link" href="#" tabindex="-1"><</a>
-//                </li>
-//                <li class="page-item"><a class="page-link" href="#">1</a></li>
-//                <li class="page-item active">
-//                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-//                </li>
-//                <li class="page-item"><a class="page-link" href="#">3</a></li>
-//                <li class="page-item"><a class="page-link" href="#">4</a></li>
-//                <li class="page-item"><a class="page-link" href="#">5</a></li>
-//                <li class="page-item">
-//                    <a class="page-link" href="#">></a>
-//                </li>
-//            </ul>
-//        </nav>
 
         System.out.println(linkString);
 
