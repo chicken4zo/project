@@ -163,14 +163,14 @@ public class LostDao {
             if (rs.next()) {
                 lost = new LostBoard();
                 lost.setIdx(rs.getInt("idx"));
-                lost.setId(rs.getString("m.id"));
+                lost.setId(rs.getString("id"));
                 lost.setTitle(rs.getString("title"));
                 lost.setContent(rs.getString("content"));
                 lost.setFilePath(rs.getString("filepath"));
                 lost.setFileName(rs.getString("filename"));
                 lost.setWriteDate(rs.getDate("writedate"));
                 lost.setHit(rs.getInt("hit"));
-                lost.setAddress(rs.getString("m.address"));
+                lost.setAddress(rs.getString("address"));
             } else {
                 lost = null;
             }

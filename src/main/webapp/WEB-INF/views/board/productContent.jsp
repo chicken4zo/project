@@ -137,12 +137,7 @@
                                     </div>
                                     <!--댓글 리스트-->
                                     <div class="commentList_wrap">
-
                                         <div class="commentList">
-                                            <h2></h2>
-                                            <p></p>
-                                            <h4></h4>
-                                            <input type="button" value="삭제" onclick="">
                                         </div>
                                     </div>
                                     <!-- replylist_wrap END -->

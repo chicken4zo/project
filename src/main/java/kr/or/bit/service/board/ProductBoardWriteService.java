@@ -61,6 +61,21 @@ public class ProductBoardWriteService implements Action {
             ProductDao dao = new ProductDao();
             int result = dao.writeProductBoard(productBoard);
 
+
+
+//            String url = "";
+//            if (result > 0) {
+//                url = "productList.board";
+//            } else {
+//                url = "productWrite.board";
+//            }
+//
+//            request.setAttribute("board_url", url);
+//
+//            forward = new ActionForward();
+//            forward.setRedirect(false);
+//            forward.setPath("/WEB-INF/views/redirect.jsp");
+
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("productList.board");

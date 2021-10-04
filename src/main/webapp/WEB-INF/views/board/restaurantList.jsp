@@ -133,52 +133,48 @@
                                             <td>${restaurant.address}</td>
 
                                                             <%--    <c:if test="${lost.fileName!='empty'}">--%>
-                                                            <%--        <img src="assets/upload/${lost.fileName}"/>--%>
-                                                            <%--    </c:if>--%>
-                                                        <td>${restaurant.writeDate}</td>
-                                                        <td>${restaurant.hit}</td>
-                                                    </tr>
-                                                </c:forEach>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <td>등록된 글이 없습니다</td>
-                                            </c:otherwise>
-                                        </c:choose>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                                                <%--        <img src="assets/upload/${lost.fileName}"/>--%>
+                                                <%--    </c:if>--%>
+                                            <td>${restaurant.writeDate}</td>
+                                            <td>${restaurant.hit}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>등록된 글이 없습니다</td>
+                                </c:otherwise>
+                            </c:choose>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-                    <button class="write-btn" onclick="location.href='RestaurantWrite.board'">글쓰기</button>
-                    <form name="list">
-                        <!-- 한 페이지안에 보여줄 게시글 건수 -->
-                        <select name="ps" onchange="submit()"
-                                style="color: rgb(73,80,87); border-radius: 15%; border: 1px solid #858585; font-size: 0.7rem;">
-                            <c:forEach var="i" begin="5" end="20" step="5">
-                                <c:choose>
-                                    <c:when test="${pagesize == i}">
-                                        <option value="${i}" selected>${i}건</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="${i}">${i}건</option>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </select>
-                    </form>
-
-                    <nav aria-label="...">
-                        <ul class="pagination justify-content-center">
-                                ${pager}
-                        </ul>
-                    </nav>
-                    </c:forEach>
     </div>
 </div>
+<button class="write-btn" onclick="location.href='RestaurantWrite.board'">글쓰기</button>
+<%--                    <form name="list">--%>
+<%--                        <!-- 한 페이지안에 보여줄 게시글 건수 -->--%>
+<%--                        <select name="ps" onchange="submit()"--%>
+<%--                                style="color: rgb(73,80,87); border-radius: 15%; border: 1px solid #858585; font-size: 0.7rem;">--%>
+<%--                            <c:forEach var="i" begin="5" end="20" step="5">--%>
+<%--                                <c:choose>--%>
+<%--                                    <c:when test="${pagesize == i}">--%>
+<%--                                        <option value="${i}" selected>${i}건</option>--%>
+<%--                                    </c:when>--%>
+<%--                                    <c:otherwise>--%>
+<%--                                        <option value="${i}">${i}건</option>--%>
+<%--                                    </c:otherwise>--%>
+<%--                                </c:choose>--%>
+<%--                            </c:forEach>--%>
+<%--                        </select>--%>
+<%--                    </form>--%>
+
+<nav aria-label="...">
+    <ul class="pagination justify-content-center">
+        ${pager}
+    </ul>
+</nav>
 <jsp:include page="../../include/footer.jsp"/>
 
 
