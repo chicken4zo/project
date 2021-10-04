@@ -79,24 +79,29 @@
             <h3>정보수정</h3>
         </div>
         <div class="form-group">
-            <form id="form1">
+            <c:set var="memberDto" value="${requestScope.memberDto}"/>
+            <form id="form1" action="ModifyMember.member" method="post">
                 <label>아이디</label>
-                <input type="text" class="login_input input">
+                <input type="text" class="login_input input" name="id" id="id" value="${memberDto.id}" readonly>
 
                 <label>패스워드</label>
-                <input type="password" class="login_input input" id="password">
+                <input type="password" class="login_input input" id="password" name="password" value="${memberDto.password}">
+
+                <label>이름</label>
+                <input type="text" class="login_input input" id="name" name="name" value="${memberDto.name}">
 
                 <label>주소</label>
-                <input type="text" id="address" name="address" class="login_input input" required readonly>
+                <input type="text" id="address" name="address" class="login_input input" value="${memberDto.address}">
                 <input type="button" class="button search-btn" onclick="sample6_execDaumPostcode()" value="검색">
 
 
                 <label>생년월일</label>
-                <input placeholder="&nbsp;8자리를 입력하세요 예)19990101" type="text" class="login_input input" id="birth">
+                <input placeholder="&nbsp;8자리를 입력하세요 예)19990101" type="text" class="login_input input" id="birth"
+                name = "birth" value="${memberDto.birth}">
 
                 <div class="edit-btn">
-                    <button type="submit" class="button" id="submit" class="submit_btn">정보수정</button>
-                    <button type="button" class="button" id="cancel" style="border: none;">회원탈퇴</button>
+                    <button type="submit" class="button" id="submit" class="submit_btn" onclick="location.href= 'ModifyMember.member?id=${memberDto.id}'">정보수정</button>
+                    <button type="button" class="button" id="cancel" style="border: none;" onclick="location.href='Unregister.member?id=${memberDto.id}'">회원탈퇴</button>
                 </div>
 
             </form>
@@ -143,15 +148,15 @@
             if (password.length < 8 || password.length > 12) {
                 alert("비밀번호 : 8-12자리 이내로 입력하세요");
                 $('#password').focus();
-                return false;
+                return true;
             } else if (password.search(/\s/) != -1) {
                 alert("비밀번호 : 공백은 입력할 수 없습니다");
                 $('#password').focus();
-                return false;
+                return true;
             } else if (num < 0 || eng < 0 || space < 0) {
                 alert("비밀번호 : 영어,숫자,특수문자를 포함해주세요:)");
                 $('#password').focus();
-                return false;
+                return true;
             }
 
 
@@ -170,24 +175,24 @@
             if (birth.length < 7) { //연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
                 alert("생년월일은 8자리(YYYY/MM/DD 로 입력해주세요.");
                 $('#birth').focus();
-                return false;
+                return true;
             } else if (1900 > year || year > yearNow) {
                 alert("생년월일 : 년도를 확인해주세요");
                 $('#birth').focus();
-                return false;
+                return true;
             } else if (month < 1 || month > 12) {
                 alert("생년월일 : 월을 확인해주세요");
                 $('#birth').focus();
-                return false;
+                return true;
             } else if (day < 1 || day > 31) {
                 console.log("여기는 탑니까1?");
                 alert("생년월일 : 일을 확인해주세요");
                 $('#birth').focus();
-                return false;
+                return true;
             } else if (birthreg < 0) {
                 alert("생년월일 : 숫자만 입력해주세요");
                 $('#birth').focus();
-                return false;
+                return true;
             }
 
 

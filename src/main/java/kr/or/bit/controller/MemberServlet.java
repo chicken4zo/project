@@ -2,10 +2,7 @@ package kr.or.bit.controller;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.service.member.LoginService;
-import kr.or.bit.service.member.LogoutService;
-import kr.or.bit.service.member.MemberCheckService;
-import kr.or.bit.service.member.RegisterService;
+import kr.or.bit.service.member.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +15,13 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "*.member")
 public class MemberServlet extends HttpServlet {
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 뒤로가기 캐쉬삭퇴
+
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        response.setHeader("Expires", "0"); // Proxies.
+
+
         System.out.println("여기까진오냐 0");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -73,13 +77,37 @@ public class MemberServlet extends HttpServlet {
             forward.setPath("/WEB-INF/views/login.jsp");
         } else if (urlCommand.equals("/mypage.member")) {
             System.out.println("mypage");
-            forward = new ActionForward();
-            forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/mypage.jsp");
+            action = new MemberInfoService();
+            forward = action.execute(request, response);
+            System.out.println("IdCheck Start");
         } else if (urlCommand.equals("/admin.member")) {
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/admin.jsp");
+        } else if (urlCommand.equals("/adminlist.member")){
+            action = new AdminMemberList();
+            forward = action.execute(request, response);
+            System.out.println("/Adminlist Start");
+        }else if (urlCommand.equals("/memberDelete.member")) {
+            action = new MemberDeleteService();
+            forward = action.execute(request, response);
+            System.out.println("MemberDelete Start");
+        }else if (urlCommand.equals("/ModifyMember.member")){
+            action = new MemberModifyService();
+            forward = action.execute(request,response);
+            System.out.println("MemberModify Start");
+        }else if (urlCommand.equals("/Unregi.member")) {
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/unregister.jsp");
+        }else if (urlCommand.equals("/Unregister.member")) {
+            action = new UnregisterService();
+            forward = action.execute(request, response);
+            System.out.println("Unregister Start");
+        }else if(urlCommand.equals("/Index.member")) {
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/index.jsp");
         }
 
 
