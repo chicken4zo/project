@@ -23,17 +23,17 @@ public class NoticeWriteService implements Action {
         System.out.println("result : " + result);
 
 
-        String msg = "";
+//        String msg = "";
         String url = "";
         if(result > 0) {
-            msg = "공지사항 등록이 완료되었습니다.";
+//            msg = "공지사항 등록이 완료되었습니다.";
             url = "NoticeList.board";
         } else {
-            msg = "오류가 발생하였습니다.";
+//            msg = "오류가 발생하였습니다.";
             url = "NoticeWrite.board";
         }
 
-        request.setAttribute("board_msg", msg);
+//        request.setAttribute("board_msg", msg);
         request.setAttribute("board_url", url);
 
         ActionForward forward = new ActionForward();

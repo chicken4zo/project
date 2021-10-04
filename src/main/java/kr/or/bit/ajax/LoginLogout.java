@@ -46,6 +46,7 @@ public class LoginLogout extends HttpServlet {
             out.print("</a>");
         }
 
+
     }
 
     @Override

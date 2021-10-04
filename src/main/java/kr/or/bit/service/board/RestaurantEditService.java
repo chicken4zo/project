@@ -16,7 +16,7 @@ public class RestaurantEditService implements Action {
         String idx = request.getParameter("idx");
         ActionForward forward = null;
 
-        String msg = "";
+//        String msg = "";
         String url = "";
 
         try {
@@ -27,10 +27,10 @@ public class RestaurantEditService implements Action {
             RestaurantBoard board = dao.getEditContent(idx);
 
             if (board == null) {
-                msg = "수정할 게시글이 존재하지 않습니다.";
+//                msg = "수정할 게시글이 존재하지 않습니다.";
                 url = "RestaurantList.board";
 
-                request.setAttribute("board_msg", msg);
+//                request.setAttribute("board_msg", msg);
                 request.setAttribute("board_url", url);
 
                 forward = new ActionForward();

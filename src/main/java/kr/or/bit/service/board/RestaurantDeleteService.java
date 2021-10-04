@@ -22,10 +22,10 @@ public class RestaurantDeleteService implements Action {
             String msg = "";
             String url = "";
 
-            if (idx == null || idx.trim().equals("")) {
-                msg = "프로그램 오류";
-                url = "RestaurantList.board";
-            }
+//            if (idx == null || idx.trim().equals("")) {
+//                msg = "프로그램 오류";
+//                url = "RestaurantList.board";
+//            }
             if (result > 0) {
                 msg = "삭제 실패되었습니다.";
                 url = "RestaurantList.board";
@@ -39,7 +39,7 @@ public class RestaurantDeleteService implements Action {
 
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/board/redirect.jsp");
+            forward.setPath("/WEB-INF/views/board/boardDeletePop.jsp");
             System.out.println("너왜안뜨니");
 
         } catch (Exception e) {

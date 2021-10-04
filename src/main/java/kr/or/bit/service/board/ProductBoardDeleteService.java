@@ -18,19 +18,23 @@ public class ProductBoardDeleteService implements Action {
 //        ActionForward forward = new ActionForward();
 //        forward.setRedirect(false);
 //        forward.setPath("productList.board");
-
+        String msg = "";
         String url = "";
+
         if (result > 0) {
+            msg = "삭제 실패되었습니다.";
             url = "productList.board";
         } else {
+            msg = "삭제가 완료되었습니다.";
             url = "productList.board";
         }
 
+        request.setAttribute("board_msg", msg);
         request.setAttribute("board_url", url);
 
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
-        forward.setPath("/WEB-INF/views/redirect.jsp");
+        forward.setPath("/WEB-INF/views/board/boardDeletePop.jsp");
 
         return forward;
     }

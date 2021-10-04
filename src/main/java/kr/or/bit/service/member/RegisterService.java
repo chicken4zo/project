@@ -55,7 +55,7 @@ public class RegisterService implements Action {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        forward.setPath("/WEB-INF/views/redirect.jsp");
+        forward.setPath("/WEB-INF/views/board/registerPop.jsp");
         return forward;
 
     }

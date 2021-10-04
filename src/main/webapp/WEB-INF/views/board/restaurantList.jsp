@@ -44,19 +44,34 @@
         <!-- weather -->
         <jsp:include page="../../include/weather.jsp"/>
 
-
-
-            <!-- forEach()  목록 출력하기  -->
-            <c:forEach var="restaurant" items="${list}">
-                <tr onmouseover="this.style.backgroundColor='gray'" onmouseout="this.style.backgroundColor='white'">
-                    <td align="center">${restaurant.idx}</td>
-                    <td align="left">
-                        <a href="RestaurantContent.board?idx=${restaurant.idx}&id=${restaurant.id}&cp=${cpage}&ps=${pagesize}">
-
+        <!-- forEach()  목록 출력하기  -->
+        <%--            <c:forEach var="restaurant" items="${list}">--%>
+        <%--                <tr onmouseover="this.style.backgroundColor='gray'" onmouseout="this.style.backgroundColor='white'">--%>
+        <%--                    <td align="center">${restaurant.idx}</td>--%>
+        <%--                <td align="left"></td>--%>
+        <%--                <a href="RestaurantContent.board?idx=${restaurant.idx}&id=${restaurant.id}&cp=${cpage}&ps=${pagesize}"></a>--%>
+        <%--                </tr>--%>
+        <%--            </c:forEach>--%>
         <!--content-->
         <div class="board-logo">
             <h3>맛있구마</h3>
         </div>
+        <form name="list">
+            <!-- 한 페이지안에 보여줄 게시글 건수 -->
+            <select name="ps" onchange="submit()"
+                    style="color: rgb(73,80,87); border-radius: 15%; border: 1px solid #858585; font-size: 0.7rem;">
+                <c:forEach var="i" begin="5" end="20" step="5">
+                    <c:choose>
+                        <c:when test="${pagesize == i}">
+                            <option value="${i}" selected>${i}건</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${i}">${i}건</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </select>
+        </form>
         <div class="col-md-12">
             <div class="card card-plain">
                 <div class="card-body">
@@ -126,22 +141,7 @@
             </div>
         </div>
         <button class="write-btn" onclick="location.href='RestaurantWrite.board'">글쓰기</button>
-        <form name="list">
-            <!-- 한 페이지안에 보여줄 게시글 건수 -->
-            <select name="ps" onchange="submit()"
-                    style="color: rgb(73,80,87); border-radius: 15%; border: 1px solid #858585; font-size: 0.7rem;">
-                <c:forEach var="i" begin="5" end="20" step="5">
-                    <c:choose>
-                        <c:when test="${pagesize == i}">
-                            <option value="${i}" selected>${i}건</option>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${i}">${i}건</option>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </select>
-        </form>
+
 
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
