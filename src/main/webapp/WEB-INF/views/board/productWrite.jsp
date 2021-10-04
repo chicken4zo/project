@@ -36,6 +36,9 @@
 
 </head>
 <body>
+<c:set var="pager" value="${requestScope.pager}"/>
+<c:set var="userId" value="${sessionScope.userId}"/>
+<c:set var="address" value="${sessionScope.address}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -53,9 +56,11 @@
                     <ul class="product-info">
                         <li class="info-title idAddress">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" placeholder="!!!아이디 불러오기" class="write-title">
+                            <input type="text" name="id" value="${userId}" placeholder="${userId}" class="write-title"
+                                   readonly>
                             <div class="info-detail">주소</div>
-                            <input type="text" name="address" placeholder="!!!주소 불러오기" class="write-title">
+                            <input type="text" name="address" value="${address}" placeholder="${address}"
+                                   class="write-title" readonly>
                         </li>
 
                         <li class="info-title">
