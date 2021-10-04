@@ -19,18 +19,22 @@ public class ProductBoardDeleteService implements Action {
 //        forward.setRedirect(false);
 //        forward.setPath("productList.board");
 
-        String url = "";
+    /*    String url = "";
         if (result > 0) {
             url = "productList.board";
         } else {
             url = "productList.board";
         }
 
-        request.setAttribute("board_url", url);
+        request.setAttribute("board_url", url);*/
+
+        /*ActionForward forward = new ActionForward();
+        forward.setRedirect(false);
+        forward.setPath("/WEB-INF/views/redirect.jsp");*/
 
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
-        forward.setPath("/WEB-INF/views/redirect.jsp");
+        forward.setPath("productList.board");
 
         return forward;
     }
