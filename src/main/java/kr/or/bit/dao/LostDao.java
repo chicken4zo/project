@@ -19,7 +19,7 @@ import java.util.List;
 public class LostDao {
 
     DataSource ds = null;
-    String database = "mysql";
+    String database = "oracle";
     // String database에 oracle, mysql, myoracle 둘 중에 하나 입력
 
     public LostDao() {
@@ -163,14 +163,14 @@ public class LostDao {
             if (rs.next()) {
                 lost = new LostBoard();
                 lost.setIdx(rs.getInt("idx"));
-                lost.setId(rs.getString("m.id"));
+                lost.setId(rs.getString("id"));
                 lost.setTitle(rs.getString("title"));
                 lost.setContent(rs.getString("content"));
                 lost.setFilePath(rs.getString("filepath"));
                 lost.setFileName(rs.getString("filename"));
                 lost.setWriteDate(rs.getDate("writedate"));
                 lost.setHit(rs.getInt("hit"));
-                lost.setAddress(rs.getString("m.address"));
+                lost.setAddress(rs.getString("address"));
             } else {
                 lost = null;
             }

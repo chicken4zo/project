@@ -9,7 +9,7 @@
     <div class="dropdown-menu">
         <a class="dropdown-item" href="productList.board">상품구마</a>
         <a class="dropdown-item" href="dailyList.board">일상구마</a>
-        <a class="dropdown-item" href="restaurantList.board">맛있구마</a>
+        <a class="dropdown-item" href="RestaurantList.board">맛있구마</a>
         <a class="dropdown-item" href="petList.board">반려동물</a>
         <a class="dropdown-item" href="lostList.board">분실·실종</a>
     </div>

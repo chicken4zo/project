@@ -60,22 +60,22 @@ public class ProductBoardWriteService implements Action {
             ProductDao dao = new ProductDao();
             int result = dao.writeProductBoard(productBoard);
 
-//            forward = new ActionForward();
-//            forward.setRedirect(false);
-//            forward.setPath("productList.board");
-
-            String url = "";
-            if (result > 0) {
-                url = "productList.board";
-            } else {
-                url = "productWrite.board";
-            }
-
-            request.setAttribute("board_url", url);
-
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/redirect.jsp");
+            forward.setPath("productList.board");
+
+//            String url = "";
+//            if (result > 0) {
+//                url = "productList.board";
+//            } else {
+//                url = "productWrite.board";
+//            }
+//
+//            request.setAttribute("board_url", url);
+//
+//            forward = new ActionForward();
+//            forward.setRedirect(false);
+//            forward.setPath("/WEB-INF/views/redirect.jsp");
 
         } catch (Exception e) {
             System.out.println("PRODUCTBOARD WRITE SERVICE 에러");

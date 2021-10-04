@@ -137,12 +137,7 @@
                                     </div>
                                     <!--댓글 리스트-->
                                     <div class="commentList_wrap">
-
                                         <div class="commentList">
-                                            <h2></h2>
-                                            <p></p>
-                                            <h4></h4>
-                                            <input type="button" value="삭제" onclick="">
                                         </div>
                                     </div>
                                     <!-- replylist_wrap END -->
@@ -151,6 +146,7 @@
                                     <form name="productComment" method="POST" id="productComment">
                                         <div class="commentWrite_Wrap">
                                             <input type="hidden" name="idx" id="idx" value="${product.idx}">
+                                            <input type="hidden" name="loginId" id="loginId" value="${sessionScope.id}">
                                             <input type="hidden" name="writerid" id="writerId" value="${product.id}">
                                             <h2>${id}</h2>
                                             <input type="text" name="commentid" id="commentId">
