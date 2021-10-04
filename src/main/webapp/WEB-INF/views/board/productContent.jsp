@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="product" value="${requestScope.product}"/>
 <c:set var="cpage" value="${requestScope.cpage}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
@@ -102,9 +103,14 @@
                                     <div class="detail_bar"></div>
                                     <ul class="view_icon">
                                         <li><i class="fas fa-eye"></i><span>${product.hit}</span></li>
-                                        <li><i class="far fa-calendar-alt"></i><span>${product.writeDate}</span>
-                                        </li>
+                                        <li><i class="far fa-calendar-alt"></i><span>${product.writeDate}</span></li>
                                     </ul>
+                                    <div class="price">
+                                        <i class="fas fa-tags"></i>
+                                        <span><fmt:formatNumber>${product.price}</fmt:formatNumber>원</span>
+                                    </div>
+
+
                                     <div class="content">
                                         ${product.content}
                                     </div>
@@ -194,4 +200,5 @@
 <script src="${pageContext.request.contextPath}/assets/js/comment.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+
 </html>

@@ -91,7 +91,7 @@ public class PetBoardModifyService implements Action {
 
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setPath("/WEB-INF/board/boardModifyPop.jsp");
+                forward.setPath("/WEB-INF/views/board/boardModifyPop.jsp");
             }
 
         } catch (Exception e) {

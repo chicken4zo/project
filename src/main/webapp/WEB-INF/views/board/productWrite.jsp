@@ -94,11 +94,11 @@
                             </div>
                             <div class="product-photo">
                                 <input name="filename2" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                             <div class="product-photo">
                                 <input name="filename3" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                         </li>
 
@@ -108,18 +108,24 @@
                             </div>
                             <textarea name="content" id="editor" required></textarea>
                             <script>
-			                    //CKEditor5를 생성할 textarea 지정
-			                    ClassicEditor
-				                    .create(document.querySelector('#editor'))
-				                    .catch(error => {
-					                    console.error(error);
-				                    });
+                                //CKEditor5를 생성할 textarea 지정
+                                ClassicEditor
+                                    .create(document.querySelector('#editor'), {
+                                        placeholder: '500자 내로 입력해주세요',
+                                        removePlugins: ['ImageUpload']
+                                    })
+                                    .then(newEditor => {
+                                        editor = newEditor;
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
                             </script>
                         </li>
                     </ul>
                 </section>
                 <div class="product-btn">
-                    <button type="submit" class="write-btn">등록하기</button>
+                    <button type="submit" id="submit1" class="write-btn">등록하기</button>
                 </div>
             </div>
         </form>
@@ -163,5 +169,6 @@
             reader.readAsDataURL(f);
         });
     }
+
 </script>
 </html>

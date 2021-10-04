@@ -55,12 +55,10 @@
                     <c:otherwise>
                         <article class="card card--1">
                             <div class="card__info-hover">
-                                <i class="far fa-heart" style="color:#dadada"></i><span
+                                <i class="fas fa-eye" style="color:#dadada; font-size: 0.9rem; margin-right: 4px"></i><span
                                     class="hit-size">${pet.hit}</span>
                                 <div class="card__hit-info">
                                     <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
-                                    <i class="far fa-comment" style="color:#dadada"></i><span
-                                        class="hit-size"></span>
                                 </div>
                             </div>
                             <div class="card__img">
@@ -80,13 +78,12 @@
                 </c:choose>
             </c:forEach>
         </section>
+        <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기</button>
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 ${pager}
             </ul>
         </nav>
-        <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기
-        </button>
     </div>
 
 

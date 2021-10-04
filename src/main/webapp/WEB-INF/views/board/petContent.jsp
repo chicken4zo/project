@@ -58,19 +58,21 @@
                                     <!--Gallery Hero-->
                                     <div class="gallery__hero parent">
 
+
                                         <img class="slide w-100 border-radius-lg shadow-lg mx-auto"
-                                             src="${pageContext.request.contextPath}/assets/upload/${pet.fileName1}">
-                                        <!--                                        <img class="slide" src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-02.jpg">-->
-                                        <!--                                        <img class="slide" src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-03.jpg">-->
+                                             src="${pageContext.request.contextPath}/assets/upload/${pet.fileName3}">
+
                                     </div>
                                     <!--Gallery Hero-->
 
                                     <!--Gallery Thumbs-->
                                     <div class="gallery__thumbs">
-                                        <a href="${pageContext.request.contextPath}/assets/upload/${pet.fileName1}"
-                                           data-gallery="thumb" class="is-active">
-                                            <img src="${pageContext.request.contextPath}/assets/upload/${pet.fileName1}">
-                                        </a>
+                                        <c:if test="${not empty pet.fileName1}">
+                                            <a href="${pageContext.request.contextPath}/assets/upload/${pet.fileName1}"
+                                               data-gallery="thumb" class="is-active">
+                                                <img src="${pageContext.request.contextPath}/assets/upload/${pet.fileName1}">
+                                            </a>
+                                        </c:if>
                                         <c:if test="${not empty pet.fileName2}">
                                             <a href="${pageContext.request.contextPath}/assets/upload/${pet.fileName2}"
                                                data-gallery="thumb">
@@ -112,7 +114,7 @@
                             </div>
                             <div class="row mt-5">
                                 <div class="col-12">
-                                    <!--                                    <div class="bottom_bar"></div>-->
+                                    <!-- <div class="bottom_bar"></div>-->
                                     <div class="ms-3 button_container">
                                         <c:if test="${pet.id eq id}">
                                             <button type="button" class="btn btn-warning btn-sm"
@@ -156,8 +158,9 @@
                                         <div class="commentWrite_Wrap">
                                             <input type="hidden" name="idx" id="idx" value="${pet.idx}">
                                             <input type="hidden" name="writerid" id="writerId" value="${pet.id}">
+                                            <input type="hidden" value="${id}" id="loginId">
                                             <h2>${id}</h2>
-                                            <input type="text" name="commentid" id="commentId">
+                                            <input type="hidden" name="commentid" id="commentId" value="${id}">
                                             <textarea name="content" id="commentContent" placeholder="댓글을 남겨보세요"
                                                       class="comment_inbox" rows="4"
                                                       cols="140"></textarea>
