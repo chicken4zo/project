@@ -54,14 +54,14 @@ public class RestaurantDao {
         List<RestaurantBoard> list = null;
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "select idx, title, content, hit, writedate, filename, id, rownum rn from Restaurant where rownum between ? and ? order by idx desc";
+            String sql = "select * from (select rownum  rn, idx, title, content, hit, writedate, filename, id from (select * from RESTAURANT order by idx desc) where rownum <=? ) where rn >=? ";
             pstmt = conn.prepareStatement(sql);
 
             int start = cpage * pagesize - (pagesize - 1);
             int end = cpage * pagesize;
 
-            pstmt.setInt(1, start);
-            pstmt.setInt(2, end);
+            pstmt.setInt(1, end);
+            pstmt.setInt(2, start);
 
             rs = pstmt.executeQuery();
             list = new ArrayList<RestaurantBoard>();
@@ -313,7 +313,7 @@ public class RestaurantDao {
                 commentList.add(comment);
             }
         } catch (Exception e) {
-            System.out.println("맛집DAO 오류 : " + e.getMessage());
+            System.out.println("맛집DAO 댓글 목록 불러오기  오류 : " + e.getMessage());
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(rs);
@@ -324,25 +324,106 @@ public class RestaurantDao {
     }
 
     //댓글삭제하기
-    public int commentDelete(String no) {
+    public int commentDelete(int no) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         int result = 0;
+        String sql = "delete from Restaurant_comment where no=?";
 
         try {
-            conn = ConnectionHelper.getConnection("oralce");
-            String sql = "delete from Restaurant_comment where no=?";
+            conn = ConnectionHelper.getConnection("oracle");
+            System.out.println("no : " + no);
+            System.out.println(sql);
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, Integer.parseInt(no));
+            pstmt.setInt(1, no);
 
             result = pstmt.executeUpdate();
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, Integer.parseInt(no));
 
         } catch (Exception e) {
+            System.out.println("삭제 왜안돼 " + e.getMessage());
             e.printStackTrace();
         } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return result;
+    }
+
+    //게시물 검색하기
+    public ArrayList<RestaurantBoard> searchRestaurant(String text, int cpage, int pagesize) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<RestaurantBoard> searchList = new ArrayList<>();
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME,  ID FROM (SELECT ROWNUM RN, IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME,  ID, ROWNUM FROM " +
+                    "(SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, RESTAURANT.ID FROM RESTAURANT,MEMBER WHERE RESTAURANT.ID=MEMBER.ID and TITLE " +
+                    "LIKE '%" + text + "%' ORDER BY IDX DESC) L) WHERE RN BETWEEN ? and ?";
+
+            int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
+            int end = cpage * pagesize; // 1 * 5 >> 5;
+            System.out.println("start: " + start);
+            System.out.println("end: " + end);
+            System.out.println("cpage: " + cpage);
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, start);
+            pstmt.setInt(2, end);
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                RestaurantBoard restaurant = new RestaurantBoard();
+                restaurant.setIdx(rs.getInt("idx"));
+                restaurant.setId(rs.getString("id"));
+                restaurant.setTitle(rs.getString("title"));
+                restaurant.setContent(rs.getString("content"));
+                restaurant.setFileName(rs.getString("filename"));
+                restaurant.setHit(rs.getInt("hit"));
+                restaurant.setWriteDate(rs.getDate("writedate"));
+                System.out.println("여기는 restaurantSearchDao" + restaurant);
+                searchList.add(restaurant);
+            }
+
+        } catch (Exception e) {
+            System.out.println("restaurantSearchDao 오류 :" + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return searchList;
+    }
+
+    //검색한 게시글 개수
+    public int totalSerachCount(String text) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int result = 0;
+
+        String sql = "SELECT count(*) cnt FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, RESTAURANT.ID FROM RESTAURANT,MEMBER WHERE RESTAURANT.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY IDX DESC) L";
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getInt("cnt");
+            } else {
+                result = 0;
+            }
+
+        } catch (Exception e) {
+            System.out.println("여기는 검색다오카운트 : " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
         }

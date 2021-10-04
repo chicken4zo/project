@@ -118,10 +118,7 @@
                 </div>
             </div>
         </div>
-        <c:if test="${id eq 'admin'}">
 
-            <button class="write-btn" onclick="location.href='NoticeWrite.board'">글쓰기</button>
-        </c:if>
         <form name="list">
             <!-- 한 페이지안에 보여줄 게시글 건수 -->
             <select name="ps" onchange="submit()"
@@ -138,7 +135,9 @@
                 </c:forEach>
             </select>
         </form>
-
+        <c:if test="${id eq 'admin'}">
+            <button class="write-btn" onclick="location.href='NoticeWrite.board'">글쓰기</button>
+        </c:if>
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 ${pager}
@@ -184,6 +183,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
+
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>

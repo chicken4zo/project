@@ -383,4 +383,97 @@ public class PetDao {
 
         return resultRow;
     }
+
+
+    //검색기능
+    public ArrayList<PetBoard> searchPet(String text, int cpage, int pagesize) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<PetBoard> searchList = new ArrayList<>();
+        String sql = "";
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            sql = "SELECT * FROM (SELECT ROWNUM RN, IDX, TITLE, CONTENT,PRICE, HIT, WRITEDATE, FILENAME_1, FILEPATH_1, FILENAME_2, FILEPATH_2, FILENAME_3, FILEPATH_3 , ID, " +
+                    "ROWNUM FROM (SELECT IDX, TITLE, CONTENT, PRICE, HIT, WRITEDATE, FILENAME_1, FILEPATH_1, FILENAME_2, FILEPATH_2, FILENAME_3, FILEPATH_3, ID  NAME, PET.ID FROM PET,MEMBER " +
+                    "WHERE PET.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY IDX DESC) L) WHERE RN BETWEEN ? and ?";
+
+
+            int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
+            int end = cpage * pagesize; // 1 * 5 >> 5;
+            System.out.println("start: " + start);
+            System.out.println("end: " + end);
+            System.out.println("cpage: " + cpage);
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, start);
+            pstmt.setInt(2, end);
+
+            rs = pstmt.executeQuery();
+
+
+            while (rs.next()) {
+                PetBoard pet = new PetBoard();
+                System.out.println(rs.getInt("idx"));
+                pet.setIdx(rs.getInt("idx"));
+                pet.setId(rs.getString("id"));
+                pet.setTitle(rs.getString("title"));
+                pet.setContent(rs.getString("content"));
+                pet.setFileName1(rs.getString("filename1"));
+                pet.setFilePath1(rs.getString("filepath1"));
+                pet.setFileName2(rs.getString("filename2"));
+                pet.setFilePath2(rs.getString("filepath2"));
+                pet.setFileName3(rs.getString("filename3"));
+                pet.setFilePath3(rs.getString("filepath3"));
+                pet.setHit(rs.getInt("hit"));
+                pet.setWriteDate(rs.getDate("writedate"));
+                pet.setAddress(rs.getString("address"));
+                System.out.println("객체:" + pet);
+
+                searchList.add(pet);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+
+        return searchList;
+    }
+
+    public int totalSearchCount(String text) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int result = 0;
+
+        String sql = "SELECT count(*) cnt FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%\" + text + \"%' ORDER BY REFER DESC, STEP ASC) L";
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getInt("cnt");
+            } else {
+                result = 0;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return result;
+    }
 }

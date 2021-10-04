@@ -35,6 +35,8 @@
     <div class="wrapper">
         <!--header-->
         <jsp:include page="/WEB-INF/include/top.jsp"/>
+        <%--dropdown--%>
+        <jsp:include page="../../include/boardMenu.jsp"/>
 
         <!--sub_nav-->
         <section class="navbar navbar-icon-top navbar-expand-lg sub_nav">
@@ -126,12 +128,14 @@
                 </c:choose>
             </c:forEach>
         </section>
-        <!-- 지우기 ..-->
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 ${pager}
             </ul>
         </nav>
+        <button class="write-btn" onclick="location.href='productForm.board'">글쓰기</button>
+
+
     </div>
 
 
