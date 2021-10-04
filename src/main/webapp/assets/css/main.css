@@ -513,9 +513,9 @@ footer p {
 
 /*dropdown*/
 .dropdown {
-    position: absolute !important;
-    top: 123px;
-    left: 181px;
+    float: left;
+    margin-left: 38px;
+    margin-top: 25px;
 }
 
 .fas {
