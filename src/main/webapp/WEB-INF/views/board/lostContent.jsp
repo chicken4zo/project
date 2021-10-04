@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/productPetContent.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/productPetContent.css?ver=2">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
 <c:set var="cpage" value="${requestScope.cpage}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
 <c:set var="commentList" value="${requestScope.commentList}"/>
-<c:set var="id" value="${sessionScope.id}"/>
+<c:set var="loginId" value="${sessionScope.id}"/>
 
 <div id="body_wrap">
     <div class="wrapper">
@@ -42,6 +42,7 @@
 
         <!--content-->
         <div class="title_container">분실·실종</div>
+        <input hidden id="boardName" value="lost">
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-12">
@@ -61,26 +62,6 @@
                                                 <img class="slide w-100 border-radius-lg shadow-lg mx-auto"
                                                      src="assets/upload/${lost.fileName}">
                                             </div>
-                                            <!--Gallery Hero-->
-
-                                            <!--Gallery Thumbs-->
-
-                                                <%--                                    <div class="gallery__thumbs">--%>
-                                                <%--                                        --%>
-                                                <%--                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-01.jpg"--%>
-                                                <%--                                           data-gallery="thumb" class="is-active">--%>
-                                                <%--                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-01.jpg">--%>
-                                                <%--                                        </a>--%>
-                                                <%--                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-02.jpg"--%>
-                                                <%--                                           data-gallery="thumb">--%>
-                                                <%--                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-02.jpg">--%>
-                                                <%--                                        </a>--%>
-                                                <%--                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-03.jpg"--%>
-                                                <%--                                           data-gallery="thumb">--%>
-                                                <%--                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-03.jpg">--%>
-                                                <%--                                        </a>--%>
-                                                <%--                                    </div>--%>
-                                            <!--Gallery Thumbs-->
 
                                         </div>
 
@@ -91,8 +72,6 @@
                                                 <h5 class="mb-0 mt-3" style="font-size: 1.6rem">${lost.title}</h5>
                                             </div>
                                             <div class="idAddr">
-                                                <input type="hidden" value="${lost.id}" class="loginId">
-                                                <input type="hidden" value="${lost.id}" class="loginId">
                                                 <h4 class="mt-lg-0 mt-4 id">${lost.id}</h4>
                                                 <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>
                                                         ${lost.address}
@@ -146,17 +125,17 @@
                                 <div class="col-12">
                                     <div class="ms-3 button_container">
                                         <%--                                        <c:set value="${sessionScope.id}" var="id"/>--%>
-                                        <c:if test="${lost.id eq id}">
-                                            <button type="button" class="btn btn-warning btn-sm"
-                                                    onclick="location.href='lostModify.board?idx=${lost.idx}&id=${lost.id}'">
-                                                <i class="fas fa-pen"></i>
-                                                <span>수정</span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm"
-                                                    onclick="location.href='lostDelete.board?idx=${lost.idx}'">
-                                                <i class="fas fa-trash-alt"></i>
-                                                <span>삭제</span>
-                                            </button>
+                                            <c:if test="${lost.id eq loginId}">
+                                                <button type="button" class="btn btn-warning btn-sm"
+                                                        onclick="location.href='lostModify.board?idx=${lost.idx}&id=${lost.id}'">
+                                                    <i class="fas fa-pen"></i>
+                                                    <span>수정</span>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm"
+                                                        onclick="location.href='lostDelete.board?idx=${lost.idx}'">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                    <span>삭제</span>
+                                                </button>
                                         </c:if>
                                         <button type="button" class="btn btn-primary btn-sm"
                                                 onclick="location.href='lostList.board'">
@@ -178,18 +157,7 @@
                                     </div>
                                     <!--댓글 리스트-->
                                     <div class="commentList_wrap">
-
                                         <div class="commentList">
-                                            <h2>ID</h2>
-                                            <p>내용 The most beautiful curves of this swivel stool adds an elegant touch
-                                                to
-                                                any environment Memory swivel seat returns to original seat position
-                                                Comfortable integrated layered chair seat cushion design Fully
-                                                assembled! No
-                                                assembly required</p>
-                                            <h4>2021. 09. 30</h4>
-                                            <input type="button" value="삭제" onclick="">
-
                                         </div>
                                     </div>
                                     <!-- replylist_wrap END -->
@@ -198,14 +166,14 @@
                                     <form name="lostComment" method="POST" id="lostComment">
                                         <div class="commentWrite_Wrap">
                                             <input type="hidden" name="idx" id="idx" value="${lost.idx}">
-                                            <input type="hidden" name="writerid" id="id" value="${lost.id}">
-                                            <h2>${id}</h2>
-                                            <input type="hidden" name="commentid" id="commentId" value="${id}">
+                                            <input type="hidden" name="writerid" id="writerId" value="${lost.id}">
+                                            <input type="hidden" value="${loginId}" id="loginId">
+                                            <h2>${loginId}</h2>
+                                            <input type="hidden" name="commentid" id="commentId" value="${loginId}">
                                             <textarea name="content" id="commentContent" placeholder="댓글을 남겨보세요"
                                                       class="comment_inbox" rows="4"
                                                       cols="140"></textarea>
                                             <input type="button" value="등록" id="commentWriteBtn"> <!-- onclick 유효성체크 -->
-
                                         </div>
                                     </form>
                                 </div>
@@ -241,7 +209,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/lostComment.js?ver=1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/comment.js?ver=2"></script>
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>

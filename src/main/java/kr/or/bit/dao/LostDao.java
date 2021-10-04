@@ -387,14 +387,15 @@ public class LostDao {
     public int deleteLost(String idx) {
         int resultRow = 0;
         PreparedStatement pstmt = null;
-        String sql = "DELETE FROM LOST WHERE IDX = ?";
+        String sql = "UPDATE LOST SET TITLE = ? WHERE IDX = ?";
         Connection conn = null;
 
         try {
             conn = ConnectionHelper.getConnection(database);
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, Integer.parseInt(idx));
+            pstmt.setString(1, "deleted");
+            pstmt.setInt(2, Integer.parseInt(idx));
             resultRow = pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -500,5 +501,103 @@ public class LostDao {
             ConnectionHelper.close(conn);
         }
         return resultRow;
+    }
+
+    public ArrayList<LostBoard> searchLost(String text, int cpage, int pagesize) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<LostBoard> searchList = new ArrayList<>();
+        String sql = "";
+
+        try {
+            conn = ConnectionHelper.getConnection(database);
+
+            if (database.equals("mysql")) {
+                sql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, (@ROWNUM:=@ROWNUM+1) RN FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, LOST.ID FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY REFER DESC, STEP ASC) L , (SELECT @ROWNUM:=0) R LIMIT ?,?";
+            } else {
+                sql = "SELECT * FROM (SELECT ROWNUM RN, IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, ID, ROWNUM FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, LOST.ID FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY REFER DESC, STEP ASC) L) WHERE RN BETWEEN ? and ?";
+            }
+
+            int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
+            int end = cpage * pagesize; // 1 * 5 >> 5;
+            System.out.println("start: " + start);
+            System.out.println("end: " + end);
+            System.out.println("cpage: " + cpage);
+
+            pstmt = conn.prepareStatement(sql);
+
+            if (database.equals("mysql")) {
+                pstmt.setInt(1, start - 1);
+                pstmt.setInt(2, pagesize);
+            } else {
+                pstmt.setInt(1, start);
+                pstmt.setInt(2, end);
+            }
+
+            rs = pstmt.executeQuery();
+
+
+            while (rs.next()) {
+                LostBoard lost = new LostBoard();
+                System.out.println(rs.getInt("idx"));
+                lost.setIdx(rs.getInt("idx"));
+                lost.setId(rs.getString("id"));
+                lost.setTitle(rs.getString("title"));
+                lost.setContent(rs.getString("content"));
+                lost.setFileName(rs.getString("filename"));
+                lost.setFilePath(rs.getString("filepath"));
+                lost.setHit(rs.getInt("hit"));
+                lost.setWriteDate(rs.getDate("writedate"));
+                lost.setRefer(rs.getInt("refer"));
+                lost.setDepth(rs.getInt("depth"));
+                lost.setStep(rs.getInt("step"));
+                lost.setAddress(rs.getString("address"));
+                System.out.println("객체:" + lost);
+
+                searchList.add(lost);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+
+        return searchList;
+    }
+
+    public int totalSearchCount(String text) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int result = 0;
+
+        String sql = "SELECT count(*) cnt FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, LOST.ID FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID and TITLE LIKE '%\" + text + \"%' ORDER BY REFER DESC, STEP ASC) L";
+
+        try {
+            conn = ConnectionHelper.getConnection(database);
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getInt("cnt");
+            } else {
+                result = 0;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return result;
     }
 }

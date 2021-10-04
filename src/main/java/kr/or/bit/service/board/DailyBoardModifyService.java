@@ -57,11 +57,11 @@ public class DailyBoardModifyService implements Action {
                 dailyBoard.setId(multi.getParameter("id"));
                 dailyBoard.setIdx(idx);
                 String originalFileName = multi.getParameter("originalfile");
-                if (multi.getFileNames() != null) {
                     Enumeration fileNames = multi.getFileNames();
 
                     String fileTag = (String) fileNames.nextElement();
                     String fileName = multi.getFilesystemName(fileTag);
+                if (fileName != null) {
                     String fileName2 = multi.getOriginalFileName(fileTag);
                     dailyBoard.setFileName(fileName);
                     dailyBoard.setFilePath(uploadPath);

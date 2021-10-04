@@ -51,6 +51,7 @@ public class PetDao {
             conn = ConnectionHelper.getConnection("oracle");
 //            String sql = "select * from (select rownum rn, m.id, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath from pet p join member m on(p.id = m.id) order by idx desc) where rn between ? and ?";
             String sql = "select * from(SELECT ROWNUM rn, id,  idx, title,address, content, hit, writedate, filename, filepath from (select m.id,m.address, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath from pet p join member m on(p.id = m.id) order by idx desc) where rownum <=?) where rn>=?";
+
             pstmt = conn.prepareStatement(sql);
 
 
@@ -58,13 +59,13 @@ public class PetDao {
             int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
             int end = cpage * pagesize; // 1 * 5 >> 5
 
-            pstmt.setInt(1, end);
-            pstmt.setInt(2, start);
+            pstmt.setInt(1, 6);
+            pstmt.setInt(2, 1);
             rs = pstmt.executeQuery();
+            list = new ArrayList<>();
 
             while (rs.next()) {
                 PetBoard petBoard = new PetBoard();
-                list = new ArrayList<>();
 
                 petBoard.setId(rs.getString("id"));
                 petBoard.setIdx(rs.getInt("idx"));
@@ -136,6 +137,7 @@ public class PetDao {
             conn = ConnectionHelper.getConnection("oracle");
             String sql = "select idx, id, title, content, hit, writedate, filename, filepath, filename2, filepath2, filename3, filepath3 from pet where idx=?";
             pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, idx);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -143,6 +145,7 @@ public class PetDao {
                 petBoard.setIdx(rs.getInt("idx"));
                 petBoard.setId(rs.getString("id"));
                 petBoard.setTitle(rs.getString("title"));
+                petBoard.setContent(rs.getString("content"));
                 petBoard.setWriteDate(rs.getDate("writedate"));
                 petBoard.setFileName1(rs.getString("filename"));
                 petBoard.setFilePath1(rs.getString("filepath"));
@@ -234,10 +237,11 @@ public class PetDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "delete from pet where idx=?";
+            String sql = "UPDATE PET SET TITLE = ? WHERE IDX = ?";
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, idx);
+            pstmt.setString(1, "deleted");
+            pstmt.setString(2, idx);
             resultRow = pstmt.executeUpdate();
 
         } catch (Exception e) {
@@ -251,8 +255,36 @@ public class PetDao {
         return resultRow;
     }
 
+    // 총 댓글 갯수
+    public int getPetCommentCount() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int totalCommentCount = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select count(*) cnt from pet_comment";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                totalCommentCount = rs.getInt("cnt");
+            }
+
+        } catch (Exception e) {
+            System.out.println("PET DAO 총 댓글 갯수 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return totalCommentCount;
+    }
+
     // 댓글 가져오기
-    public List<PetComment> getPetCommentList(String idx) {
+    public List<PetComment> getPetCommentList(String index) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -260,16 +292,25 @@ public class PetDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "select no, content, writedate, id, idx, from pet_comment where idx=? order by no desc ";
-            pstmt = conn.prepareStatement(sql);
+            String sql = "select no, content, writedate, id, idx from pet_comment where idx=? order by no desc";
 
-            pstmt.setString(1, idx);
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, index);
             rs = pstmt.executeQuery();
+
             commentList = new ArrayList<>();
 
             while (rs.next()) {
-                PetComment petComment = new PetComment();
+               /* int no = rs.getInt("no");
+                String content = rs.getString("content");
+                Date writeDate = rs.getDate("writedate");
+                String id = rs.getString("id");
+                int idx = rs.getInt("idx");
 
+                PetComment petComment = new PetComment(no, content, writeDate, id, idx);
+                commentList.add(petComment);*/
+
+                PetComment petComment = new PetComment();
 
                 petComment.setNo(rs.getInt("no"));
                 petComment.setContent(rs.getString("content"));
@@ -280,7 +321,7 @@ public class PetDao {
                 commentList.add(petComment);
             }
         } catch (Exception e) {
-            System.out.println("PETDAO 댓글 가져오기 에러");
+            System.out.println("PET DAO 댓글 가져오기 에러");
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(rs);
@@ -299,7 +340,7 @@ public class PetDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "insert into pet_comment(no, content, writedate, id, idx) values (no, ?, sysdate, ?, ?)";
+            String sql = "insert into pet_comment(no, content, id, writedate, idx) values (pet_comment_seq.nextval, ?, ?, sysdate, ?)";
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, content);
@@ -308,7 +349,7 @@ public class PetDao {
 
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
-            System.out.println("PETDAO 댓글 작성 에러");
+            System.out.println("PET DAO 댓글 작성 에러");
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(pstmt);
@@ -341,5 +382,98 @@ public class PetDao {
         }
 
         return resultRow;
+    }
+
+
+    //검색기능
+    public ArrayList<PetBoard> searchPet(String text, int cpage, int pagesize) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<PetBoard> searchList = new ArrayList<>();
+        String sql = "";
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            sql = "SELECT * FROM (SELECT ROWNUM RN, IDX, TITLE, CONTENT,PRICE, HIT, WRITEDATE, FILENAME_1, FILEPATH_1, FILENAME_2, FILEPATH_2, FILENAME_3, FILEPATH_3 , ID, " +
+                    "ROWNUM FROM (SELECT IDX, TITLE, CONTENT, PRICE, HIT, WRITEDATE, FILENAME_1, FILEPATH_1, FILENAME_2, FILEPATH_2, FILENAME_3, FILEPATH_3, ID  NAME, PET.ID FROM PET,MEMBER " +
+                    "WHERE PET.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY IDX DESC) L) WHERE RN BETWEEN ? and ?";
+
+
+            int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
+            int end = cpage * pagesize; // 1 * 5 >> 5;
+            System.out.println("start: " + start);
+            System.out.println("end: " + end);
+            System.out.println("cpage: " + cpage);
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, start);
+            pstmt.setInt(2, end);
+
+            rs = pstmt.executeQuery();
+
+
+            while (rs.next()) {
+                PetBoard pet = new PetBoard();
+                System.out.println(rs.getInt("idx"));
+                pet.setIdx(rs.getInt("idx"));
+                pet.setId(rs.getString("id"));
+                pet.setTitle(rs.getString("title"));
+                pet.setContent(rs.getString("content"));
+                pet.setFileName1(rs.getString("filename1"));
+                pet.setFilePath1(rs.getString("filepath1"));
+                pet.setFileName2(rs.getString("filename2"));
+                pet.setFilePath2(rs.getString("filepath2"));
+                pet.setFileName3(rs.getString("filename3"));
+                pet.setFilePath3(rs.getString("filepath3"));
+                pet.setHit(rs.getInt("hit"));
+                pet.setWriteDate(rs.getDate("writedate"));
+                pet.setAddress(rs.getString("address"));
+                System.out.println("객체:" + pet);
+
+                searchList.add(pet);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+
+        return searchList;
+    }
+
+    public int totalSearchCount(String text) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int result = 0;
+
+        String sql = "SELECT count(*) cnt FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%\" + text + \"%' ORDER BY REFER DESC, STEP ASC) L";
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getInt("cnt");
+            } else {
+                result = 0;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return result;
     }
 }

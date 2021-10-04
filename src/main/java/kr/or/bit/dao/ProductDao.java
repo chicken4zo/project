@@ -213,9 +213,10 @@ public class ProductDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "delete from product where idx=?";
+            String sql = "UPDATE PRODUCT SET TITLE = ? WHERE IDX = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, idx);
+            pstmt.setString(1, "deleted");
+            pstmt.setString(2, idx);
 
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
@@ -249,6 +250,34 @@ public class ProductDao {
         }
 
         return result;
+    }
+
+    // 총 댓글 갯수
+    public int getPetCommentCount() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int totalCommentCount = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select count(*) cnt from product_comment";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                totalCommentCount = rs.getInt("cnt");
+            }
+
+        } catch (Exception e) {
+            System.out.println("PRODUCT DAO 총 댓글 갯수 에러");
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return totalCommentCount;
     }
 
     // 댓글 가져오기
@@ -298,7 +327,7 @@ public class ProductDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "insert into product_comment(no, content, id, writedate, idx) values (no, ?, sysdate, ?, ?)";
+            String sql = "insert into product_comment(no, content, id, writedate, idx) values (product_comment_seq.nextval, ?, ?, sysdate, ?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, content);
             pstmt.setString(2, id);
@@ -306,8 +335,8 @@ public class ProductDao {
 
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
-            System.out.println("PRODUCTDAO WRITE COMMENT 에러");
-            System.out.println(e);
+            System.out.println("PRODUCT DAO 댓글 작성 에러");
+            System.out.println(e.getMessage());
         } finally {
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
@@ -338,5 +367,100 @@ public class ProductDao {
         }
 
         return resultRow;
+    }
+
+    //검색
+    public ArrayList<ProductBoard> searchProduct(String text, int cpage, int pagesize) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<ProductBoard> searchList = new ArrayList<>();
+        String sql = "";
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+
+            sql = "SELECT * FROM (SELECT ROWNUM RN, IDX, TITLE, CONTENT,PRICE, HIT, WRITEDATE, FILENAME_1, FILEPATH_1, FILENAME_2, FILEPATH_2, FILENAME_3, FILEPATH_3 , ID, " +
+                    "ROWNUM FROM (SELECT IDX, TITLE, CONTENT, PRICE, HIT, WRITEDATE, FILENAME_1, FILEPATH_1, FILENAME_2, FILEPATH_2, FILENAME_3, FILEPATH_3, ID  NAME, PRODUCT.ID FROM PRODUCT,MEMBER " +
+                    "WHERE PRODUCT.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY IDX DESC) L) WHERE RN BETWEEN ? and ?";
+
+
+            int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
+            int end = cpage * pagesize; // 1 * 5 >> 5;
+
+            System.out.println("start: " + start);
+            System.out.println("end: " + end);
+            System.out.println("cpage: " + cpage);
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, start);
+            pstmt.setInt(2, end);
+
+
+            rs = pstmt.executeQuery();
+
+
+            while (rs.next()) {
+                ProductBoard product = new ProductBoard();
+                System.out.println(rs.getInt("idx"));
+                product.setIdx(rs.getInt("idx"));
+                product.setId(rs.getString("id"));
+                product.setTitle(rs.getString("title"));
+                product.setContent(rs.getString("content"));
+                product.setFileName1(rs.getString("filename1"));
+                product.setFilePath1(rs.getString("filepath1"));
+                product.setFileName2(rs.getString("filename2"));
+                product.setFilePath2(rs.getString("filepath2"));
+                product.setFileName3(rs.getString("filename3"));
+                product.setFilePath3(rs.getString("filepath3"));
+                product.setHit(rs.getInt("hit"));
+                product.setWriteDate(rs.getDate("writedate"));
+                product.setPrice(rs.getInt("price"));
+                product.setAddress(rs.getString("address"));
+                System.out.println("객체:" + product);
+                searchList.add(product);
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("productSearchDao 오류 :" + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return searchList;
+    }
+
+    //검색개수
+    public int totalSearchCount(String text) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int result = 0;
+
+        String sql = "SELECT count(*) cnt FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%\" + text + \"%' ORDER BY REFER DESC, STEP ASC) L";
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                result = rs.getInt("cnt");
+            } else {
+                result = 0;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+
+        return result;
     }
 }

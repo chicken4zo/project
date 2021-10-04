@@ -21,27 +21,27 @@ public class LoginLogout extends HttpServlet {
         if (id != null) {
 
             if (id.equals("admin")) {
-                out.print("<a href=/admin.member>");
+                out.print("<a href=admin.member>");
                 out.print("<div class=\"register_btn\">회원관리</div>");
                 out.print("</a>");
-                out.print("<a href=/LogOut.member>");
+                out.print("<a href=LogOut.member>");
                 out.print("<div class=\"myPage_btn\">Log Out</div>");
                 out.print("</a>");
             } else {
-                out.print("<a href=/mypage.member>");
+                out.print("<a href=mypage.member>");
                 out.print("<div class=\"register_btn\">My Guma</div>");
                 out.print("</a>");
-                out.print("<a href=/LogOut.member>");
+                out.print("<a href=LogOut.member>");
                 out.print("<div class=\"myPage_btn\">Log Out</div>");
                 out.print("</a>");
             }
 
 
         } else {
-            out.print("<a href=/Register.member>");
+            out.print("<a href=Register.member>");
             out.print("<div class=\"register_btn\">Register</div>");
             out.print("</a>");
-            out.print("<a href=/Login.member>");
+            out.print("<a href=Login.member>");
             out.print("<div class=\"myPage_btn\">Log In</div>");
             out.print("</a>");
         }

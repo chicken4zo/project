@@ -1,6 +1,6 @@
 package kr.or.bit.util;
 
-public class ThePager {
+public class TheSearchPager {
 
     private int pageSize;//한 페이지당 데이터 개수
     private int pagerSize;//번호로 보여주는 페이지 Link 개수
@@ -9,18 +9,16 @@ public class ThePager {
     private int pageCount;//총 페이지 수
 
     private String linkUrl;//페이저가 포함되는 페이지의 주소
+    private String boardName; //게시판 이름
 
-    public ThePager(int dataCount, int currentPage,
-                    int pageSize, int pagerSize, String linkUrl) {
-
-        this.linkUrl = linkUrl;
-
-        this.dataCount = dataCount;
+    public TheSearchPager(int dataCount, int currentPage, int pageSize, int pagerSize, String linkUrl, String boardName) {
         this.pageSize = pageSize;
         this.pagerSize = pagerSize;
+        this.dataCount = dataCount;
         this.currentPage = currentPage;
-        pageCount =
-                (dataCount / pageSize) + ((dataCount % pageSize) > 0 ? 1 : 0);
+        pageCount = (dataCount / pageSize) + ((dataCount % pageSize) > 0 ? 1 : 0);
+        this.linkUrl = linkUrl;
+        this.boardName = boardName;
     }
 
     public String toString() {
@@ -30,11 +28,11 @@ public class ThePager {
         if (currentPage > 1) {
             linkString.append("<li class='page-item'>");
             linkString.append(
-                    String.format("<a class='page-link' href='%s?cp=1' tabindex='-1'><<</a>", linkUrl));
+                    String.format("<a class='page-link' href='%s?cp=1&boardName=%s' tabindex='-1'><<</a>", linkUrl, boardName));
             linkString.append("</li>");
             linkString.append("<li class='page-item'>");
             linkString.append(String.format(
-                    "<a class='page-link' href='%s?cp=%d' tabindex='-1'><</a>", linkUrl, currentPage - 1));
+                    "<a class='page-link' href='%s?cp=%d&&boardName=%s' tabindex='-1'><</a>", linkUrl, currentPage - 1, boardName));
             linkString.append("</li>");
         }
 
@@ -54,7 +52,7 @@ public class ThePager {
             } else {
                 linkString.append("<li class='page-item'>");
                 linkString.append(String.format( // 그렇지 않으면 i에 해당하는 페이지에 해당하는 번호 형성 ([]괄호 없고 링크 걸림)
-                        "<a class='page-link' href='%s?cp=%d'>%d</a></li>", linkUrl, i, i));
+                        "<a class='page-link' href='%s?cp=%d&boardName=%s'>%d</a></li>", linkUrl, i, boardName, i));
             }
         }
 
@@ -62,11 +60,11 @@ public class ThePager {
         if (currentPage < pageCount) {
             linkString.append("<li class='page-item'>");
             linkString.append(String.format(
-                    "<a class='page-link' href='%s?cp=%d'>></a>", linkUrl, currentPage + 1));
+                    "<a class='page-link' href='%s?cp=%d&boardName=%s'>></a>", linkUrl, currentPage + 1, boardName));
             linkString.append("</li>");
             linkString.append("<li class='page-item'>");
             linkString.append(String.format(
-                    "<a class='page-link' href='%s?cp=%d'>>></a>", linkUrl, pageCount));
+                    "<a class='page-link' href='%s?cp=%d&boardName=%s'>>></a>", linkUrl, pageCount, boardName));
             linkString.append("</li>");
         }
 
@@ -74,5 +72,6 @@ public class ThePager {
 
         return linkString.toString();
     }
+
 
 }

@@ -2,10 +2,7 @@ package kr.or.bit.controller;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.service.member.LoginService;
-import kr.or.bit.service.member.LogoutService;
-import kr.or.bit.service.member.MemberCheckService;
-import kr.or.bit.service.member.RegisterService;
+import kr.or.bit.service.member.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,7 +28,6 @@ public class MemberServlet extends HttpServlet {
 
 
         if (urlCommand.equals("/Register.member")) { //회원가입 페이지로 가는 태그
-
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/register.jsp");
@@ -73,9 +69,8 @@ public class MemberServlet extends HttpServlet {
             forward.setPath("/WEB-INF/views/login.jsp");
         } else if (urlCommand.equals("/mypage.member")) {
             System.out.println("mypage");
-            forward = new ActionForward();
-            forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/mypage.jsp");
+            action = new MemberInfoService();
+            forward = action.execute(request, response);
         } else if (urlCommand.equals("/admin.member")) {
             forward = new ActionForward();
             forward.setRedirect(false);

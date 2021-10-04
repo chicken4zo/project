@@ -41,7 +41,8 @@
         <jsp:include page="/WEB-INF/include/weather.jsp"/>
 
         <!--content-->
-        <div class="title_container">분실·실종</div>
+        <div class="title_container">일상</div>
+        <input hidden id="boardName" value="daily">
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-12">
@@ -160,15 +161,6 @@
                                     <div class="commentList_wrap">
 
                                         <div class="commentList">
-                                            <h2>ID</h2>
-                                            <p>내용 The most beautiful curves of this swivel stool adds an elegant touch
-                                                to
-                                                any environment Memory swivel seat returns to original seat position
-                                                Comfortable integrated layered chair seat cushion design Fully
-                                                assembled! No
-                                                assembly required</p>
-                                            <h4>2021. 09. 30</h4>
-                                            <input type="button" value="삭제" onclick="">
 
                                         </div>
                                     </div>
@@ -178,7 +170,8 @@
                                     <form name="lostComment" method="POST" id="lostComment">
                                         <div class="commentWrite_Wrap">
                                             <input type="hidden" name="idx" id="idx" value="${daily.idx}">
-                                            <input type="hidden" name="writerid" id="id" value="${daily.id}">
+                                            <input type="hidden" name="loginid" id="loginId" value="${sessionScope.id}">
+                                            <input type="hidden" name="writerid" id="writerId" value="${daily.id}">
                                             <h2>${id}</h2>
                                             <input type="hidden" name="commentid" id="commentId" value="${id}">
                                             <textarea name="content" id="commentContent" placeholder="댓글을 남겨보세요"
@@ -221,7 +214,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/lostComment.js?ver=1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/comment.js?ver=1"></script>
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>

@@ -90,7 +90,7 @@ public class ProductBoardModifyService implements Action {
             }
 
         } catch (Exception e) {
-            System.out.println("PRODUCTBOARD MODIFY SERVICE 에러");
+            System.out.println("PRODUCT BOARD MODIFY SERVICE 에러");
             System.out.println(e);
         }
 
