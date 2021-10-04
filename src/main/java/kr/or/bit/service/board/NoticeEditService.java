@@ -31,12 +31,12 @@ public class NoticeEditService implements Action {
 //                msg = "수정할 데이터가 존재하지 않습니다.";
                 url = "NoticeList.board";
 
-//                request.setAttribute("board_msg", msg);
+//              request.setAttribute("board_msg", msg);
                 request.setAttribute("board_url", url);
 
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setPath("/WEB-INF/views/board/redirect.jsp");
+                forward.setPath("/WEB-INF/views/redirect.jsp");
             } else {
                 request.setAttribute("idx", idx);
                 request.setAttribute("board", board);

@@ -35,7 +35,7 @@ public class RestaurantEditService implements Action {
 
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setPath("/WEB-INF/views/board/redirect.jsp");
+                forward.setPath("/WEB-INF/views/redirect.jsp");
             } else {
                 request.setAttribute("idx", idx);
                 request.setAttribute("board", board);

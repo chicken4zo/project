@@ -61,8 +61,6 @@ public class ProductBoardWriteService implements Action {
             ProductDao dao = new ProductDao();
             int result = dao.writeProductBoard(productBoard);
 
-
-
 //            String url = "";
 //            if (result > 0) {
 //                url = "productList.board";
@@ -76,26 +74,12 @@ public class ProductBoardWriteService implements Action {
 //            forward.setRedirect(false);
 //            forward.setPath("/WEB-INF/views/redirect.jsp");
 
-            forward = new ActionForward();
-            forward.setRedirect(false);
-            forward.setPath("productList.board");
-
-            /*String msg = "";
-            String url = "";
-            if (result > 0) {
-                msg = "상품 게시판 글쓰기 성공";
-                url = "productList.board";
-            } else {
-                msg = "상품 게시판 글쓰기 실패";
-                url = "productList.board";
-            }
-
-            request.setAttribute("board_msg", msg);
+            String url = "productList.board";
             request.setAttribute("board_url", url);
 
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/redirect.jsp");*/
+            forward.setPath("/WEB-INF/views/redirect.jsp");
 
         } catch (Exception e) {
             System.out.println("PRODUCTBOARD WRITE SERVICE 에러");

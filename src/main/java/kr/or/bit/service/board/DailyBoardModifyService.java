@@ -78,15 +78,15 @@ public class DailyBoardModifyService implements Action {
             String idx = request.getParameter("idx");
 
             if (result > 0) {
-                msg = "수정이 완료되었습니다.";
+                msg = "success";
                 url = "dailyList.board";
             } else {
-                msg = "수정 오류";
+                msg = "fail";
                 url = "dailyModify.board?idx=" + idx;
             }
 
-            request.setAttribute("board_msg", msg);
-            request.setAttribute("board_url", url);
+            request.setAttribute("msg", msg);
+            request.setAttribute("url", url);
 
 
             forward.setRedirect(false);

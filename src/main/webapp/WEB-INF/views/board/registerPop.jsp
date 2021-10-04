@@ -19,8 +19,8 @@
 <c:choose>
     <c:when test="${url == 'Login.member'}">
         <script>
-            swal({
-                icon: 'success',
+	        Swal.fire({
+		        icon: 'success',
                 title: '회원가입 성공',
                 text: '${msg}'
             }).then(function () {
@@ -31,8 +31,8 @@
     </c:when>
     <c:otherwise>
         <script>
-            swal({
-                icon: 'error',
+		    Swal.fire({
+			    icon: 'error',
                 title: '회원가입 실패',
                 text: '${msg}'
             }).then(function () {

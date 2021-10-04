@@ -104,8 +104,7 @@
     </div>
 </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 

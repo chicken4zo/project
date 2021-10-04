@@ -74,24 +74,23 @@ public class ProductBoardModifyService implements Action {
                 int result = dao.modifyProduct(productBoard);
 
                 if (result > 0) {
-                    msg = "수정이 완료되었습니다.";
+                    msg = "success";
                     url = "productList.board";
                 } else {
-                    msg = "수정 오류";
+                    msg = "fail";
                     url = "productModify.board?idx=" + idx;
                 }
-
-                request.setAttribute("board_msg", msg);
-                request.setAttribute("board_url", url);
+                request.setAttribute("msg", msg);
+                request.setAttribute("url", url);
 
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setPath("/WEB-INF/board/boardModifyPop.jsp");
+                forward.setPath("/WEB-INF/views/board/boardModifyPop.jsp");
             }
 
         } catch (Exception e) {
             System.out.println("PRODUCT BOARD MODIFY SERVICE 에러");
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         return forward;

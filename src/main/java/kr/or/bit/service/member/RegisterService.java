@@ -19,6 +19,7 @@ public class RegisterService implements Action {
         String name = request.getParameter("name");
 
         ActionForward forward = new ActionForward();
+
         MemberDao memberDao = new MemberDao();
         Member memberDto = new Member();
 
@@ -31,18 +32,14 @@ public class RegisterService implements Action {
 
             int result = memberDao.RegisterMember(memberDto);
 
-            String msg = "";
             String url = "";
 
             if (result > 0) {
-                msg = "회원가입에 성공하였습니다!";
                 url = "Login.member";
             } else {
-                msg = "회원가입에 실패하였습니다. 아이디 중복 체크를 해주세요.";
                 url = "Register.member";
             }
 
-            request.setAttribute("msg", msg);
             request.setAttribute("url", url);
 
             forward.setRedirect(false);
@@ -52,7 +49,6 @@ public class RegisterService implements Action {
             System.out.println("REGISTER SERVICE 에러");
             e.printStackTrace();
         }
-
         return forward;
     }
 
