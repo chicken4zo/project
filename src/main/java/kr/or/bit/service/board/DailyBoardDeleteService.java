@@ -18,15 +18,15 @@ public class DailyBoardDeleteService implements Action {
         String url = "";
 
         if (result > 0) {
-            msg = "삭제 실패되었습니다.";
+            msg = "fail";
             url = "dailyList.board";
         } else {
-            msg = "삭제가 완료되었습니다.";
+            msg = "success";
             url = "dailyList.board";
         }
 
-        request.setAttribute("board_msg", msg);
-        request.setAttribute("board_url", url);
+        request.setAttribute("msg", msg);
+        request.setAttribute("url", url);
 
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);

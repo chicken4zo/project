@@ -76,15 +76,15 @@ public class LostBoardModifyService implements Action {
             int result = dao.modifyLost(lostBoard);
 
             if (result > 0) {
-                msg = "수정이 완료되었습니다.";
+                msg = "success";
                 url = "lostList.board";
             } else {
-                msg = "수정 오류";
+                msg = "fail";
                 url = "lostModify.board?idx=" + idx;
             }
 
-            request.setAttribute("board_msg", msg);
-            request.setAttribute("board_url", url);
+            request.setAttribute("msg", msg);
+            request.setAttribute("url", url);
 
 
             forward.setRedirect(false);

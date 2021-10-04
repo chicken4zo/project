@@ -53,9 +53,12 @@ public class LostBoardWriteService implements Action {
         LostDao dao = new LostDao();
         int result = dao.writeLost(lostBoard);
 
+        String url = "lostList.board";
+        request.setAttribute("board_url", url);
+
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
-        forward.setPath("lostList.board");
+        forward.setPath("/WEB-INF/views/redirect.jsp");
         return forward;
     }
 }

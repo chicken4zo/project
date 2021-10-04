@@ -78,15 +78,15 @@ public class PetBoardModifyService implements Action {
                 int result = dao.modifyPet(petBoard);
 
                 if (result > 0) {
-                    msg = "수정이 완료되었습니다.";
+                    msg = "success";
                     url = "petList.board";
                 } else {
-                    msg = "수정 오류";
+                    msg = "fail";
                     url = "petModify.board?idx=" + idx;
                 }
 
-                request.setAttribute("board_msg", msg);
-                request.setAttribute("board_url", url);
+                request.setAttribute("msg", msg);
+                request.setAttribute("url", url);
 
 
                 forward = new ActionForward();

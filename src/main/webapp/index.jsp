@@ -26,6 +26,8 @@
 
 </head>
 <body>
+<c:set var="loginId" value="${sessionScope.id}"/>
+<input type="hidden" id="loginId" value="${loginId}">
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->

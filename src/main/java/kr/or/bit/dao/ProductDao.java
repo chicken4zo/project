@@ -191,15 +191,27 @@ public class ProductDao {
             pstmt.setInt(3, productBoard.getPrice());
             pstmt.setString(4, productBoard.getFileName1());
             pstmt.setString(5, productBoard.getFilePath1());
-            pstmt.setString(6, productBoard.getFileName2());
-            pstmt.setString(7, productBoard.getFilePath2());
-            pstmt.setString(8, productBoard.getFileName3());
-            pstmt.setString(9, productBoard.getFilePath3());
+            if (productBoard.getFileName2() != null) {
+                pstmt.setString(6, productBoard.getFileName2());
+                pstmt.setString(7, productBoard.getFilePath2());
+            } else {
+                pstmt.setString(6, "");
+                pstmt.setString(7, "");
+            }
+
+            if (productBoard.getFileName3() != null) {
+                pstmt.setString(8, productBoard.getFileName3());
+                pstmt.setString(9, productBoard.getFilePath3());
+            } else {
+                pstmt.setString(8, "");
+                pstmt.setString(9, "");
+            }
+
             pstmt.setInt(10, productBoard.getIdx());
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println("PRODUCTDAO MODIFYPRODUCT 에러");
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         return resultRow;

@@ -33,16 +33,16 @@ public class NoticeEditOkService implements Action {
                 System.out.println("else탐");
                 int result = dao.boardEditOk(request);
                 System.out.println("result : " + result);
-                if(result > 0) {
-                    msg = "수정이 완료되었습니다.";
+                if (result > 0) {
+                    msg = "success";
                     url = "NoticeList.board";
                 } else {
-                    msg = "수정 오류";
+                    msg = "fail";
                     url = "NoticeEdit.board?idx=" + idx;
                 }
             }
-            request.setAttribute("board_msg", msg);
-            request.setAttribute("board_url", url);
+            request.setAttribute("msg", msg);
+            request.setAttribute("url", url);
 
             forward = new ActionForward();
             forward.setRedirect(false);

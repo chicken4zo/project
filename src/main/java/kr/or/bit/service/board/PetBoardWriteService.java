@@ -155,13 +155,7 @@ public class PetBoardWriteService implements Action {
 //            forward.setRedirect(false);
 //            forward.setPath("petList.board");
 
-            String url = "";
-            if (result > 0) {
-                url = "petList.board";
-            } else {
-                url = "petList.board";
-            }
-
+            String url = "petList.board";
             request.setAttribute("board_url", url);
 
             forward = new ActionForward();

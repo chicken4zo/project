@@ -5,6 +5,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <%--<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>--%>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.all.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -28,8 +29,8 @@
     <%--    swal.close();--%>
     <%--});--%>
 
-    swal({
-        title: "정말 삭제하겠습니까?",
+    Swal.fire({
+	    title: "정말 삭제하겠습니까?",
         text: "탙퇴시킨 회원은 복구가 불가능합니다!",
         icon: "warning",
         buttons: true,

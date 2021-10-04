@@ -54,38 +54,37 @@
             </div>
 
             <%--login Logout Ajax--%>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
 
-            <script type="text/javascript">
-                $.ajax(
-                    {
-                        url: "LoginLogout",
-                        type: "GET",
-                        dataType: "html",
-                        success: function (responseData) {
-                            document.getElementById("loginlogout").innerHTML = responseData;
-                        },
-                        error: function (xhr) {
-	                        console.log(xhr.status);
-                        }
-                    }
-                );
-            </script>
+
+                <script type="text/javascript">
+		            $.ajax(
+			            {
+				            url: "LoginLogout",
+				            type: "GET",
+				            dataType: "html",
+				            success: function (responseData) {
+					            document.getElementById("loginlogout").innerHTML = responseData;
+				            },
+				            error: function (xhr) {
+					            console.log(xhr.status);
+				            }
+			            }
+		            );
+
+		            $(document).ready(function () {
+			            $('select').niceSelect();
+		            });
+
+		            $('#searchBtn').click(function () {
+
+			            const boardName = $('.selectpicker').val();
+			            const searchText = $('#searchText').val();
+			            location.href = "search.board?boardName=" + boardName + "&searchText=" + searchText;
+		            })
+                </script>
         </div>
     </div>
 </header>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-<script>
-	$(document).ready(function () {
-		$('select').niceSelect();
-	});
-
-	$('#searchBtn').click(function () {
-
-		const boardName = $('.selectpicker').val();
-		const searchText = $('#searchText').val();
-		location.href = "search.board?boardName=" + boardName + "&searchText=" + searchText;
-	})
-</script>

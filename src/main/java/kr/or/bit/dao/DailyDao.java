@@ -162,14 +162,14 @@ public class DailyDao {
             if (rs.next()) {
                 daily = new DailyBoard();
                 daily.setIdx(rs.getInt("idx"));
-                daily.setId(rs.getString("m.id"));
+                daily.setId(rs.getString("id"));
                 daily.setTitle(rs.getString("title"));
                 daily.setContent(rs.getString("content"));
                 daily.setFilePath(rs.getString("filepath"));
                 daily.setFileName(rs.getString("filename"));
                 daily.setWriteDate(rs.getDate("writedate"));
                 daily.setHit(rs.getInt("hit"));
-                daily.setAddress(rs.getString("m.address"));
+                daily.setAddress(rs.getString("address"));
             } else {
                 daily = null;
             }

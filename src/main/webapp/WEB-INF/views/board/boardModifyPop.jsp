@@ -5,6 +5,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <%--<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>--%>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.all.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,17 +17,17 @@
 &nbsp;
 
 <c:choose>
-    <c:when test="${msg == '수정이 완료되었습니다.'}">
+    <c:when test="${msg == 'success'}">
         <script>
-            swal.mixin({
-                toast: true,
-                icon: 'success',
-                title: '게시글 수정 성공',
-                animation: true,
-                position: 'top-right',
-                showConfirmButton: false,
-                // title: '',
-                <%--text: '${msg}'--%>
+			Swal.fire({
+				toast: true,
+				icon: 'success',
+				title: '게시글 수정 성공',
+				animation: true,
+				position: 'top-right',
+				showConfirmButton: false,
+				// title: '',
+				<%--text: '${msg}'--%>
             }).then(function () {
                 window.location.href = '${url}';
                 swal.close();
@@ -35,8 +36,8 @@
     </c:when>
     <c:otherwise>
         <script>
-            swal.mixin({
-                toast: true,
+		    Swal.fire({
+			    toast: true,
                 icon: 'error',
                 title: '게시글 수정 실패',
                 animation: true,

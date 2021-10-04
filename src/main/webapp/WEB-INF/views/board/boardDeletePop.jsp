@@ -4,7 +4,8 @@
 <!-- sweet alert -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <%--<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>--%>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.all.min.js"></script>
+<%--<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>--%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -18,8 +19,8 @@
 <c:choose>
     <c:when test="${msg == '삭제가 완료되었습니다.'}">
         <script>
-            swal.mixin({
-                toast: true,
+		    Swal.fire({
+			    toast: true,
                 icon: 'success',
                 title: '게시글 삭제 성공',
                 animation: true,
@@ -35,8 +36,8 @@
     </c:when>
     <c:otherwise>
         <script>
-            swal.mixin({
-                toast: true,
+		    Swal.fire({
+			    toast: true,
                 icon: 'error',
                 title: '게시글 삭제 실패',
                 animation: true,

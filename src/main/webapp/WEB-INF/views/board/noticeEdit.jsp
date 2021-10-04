@@ -66,9 +66,10 @@
                 </tr>
                 <tr>
                     <td width="20%" align="center"><b>글쓴이</b></td>
-                    <td width="20%" align="left"><input type="text" name="writer" size="40" value="${board.id}"></td>
+                    <td width="20%" align="left"><input type="text" name="writer" size="40" value="${board.id}"
+                                                        readonly></td>
                     <td width="20%" align="center"><b>조회수</b></td>
-                    <td width="40%" align="center"><input type="text" name="hit" size="40" value="${board.hit}" </td>
+                    <td width="40%" align="center"><input type="text" name="hit" size="40" value="${board.hit}"></td>
                 </tr>
                 <tr height="100">
                     <td width="20%" align="center"><b>글내용</b></td>

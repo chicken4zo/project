@@ -54,9 +54,12 @@ public class DailyBoardWriteService implements Action {
         DailyDao dao = new DailyDao();
         int result = dao.writeDaily(dailyBoard);
 
+        String url = "dailyList.board";
+        request.setAttribute("board_url", url);
+
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
-        forward.setPath("dailyList.board");
+        forward.setPath("/WEB-INF/views/redirect.jsp");
         return forward;
     }
 }
