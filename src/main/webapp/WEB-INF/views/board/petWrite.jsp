@@ -64,7 +64,7 @@
 
                         <li class="info-title">
                             <div class="info-detail">제목</div>
-                            <input type="text" name="title" placeholder="제목을 입력하세요." class="write-title" value>
+                            <input type="text" name="title" placeholder="제목을 입력하세요." class="write-title" value required>
                         </li>
 
 
@@ -73,7 +73,7 @@
 
                             <div class="product-photo">
                                 <input name="filename1" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                             <div class="product-photo">
                                 <input name="filename2" type="file" class="files"

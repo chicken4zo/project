@@ -206,11 +206,13 @@
 
 .product_detail li {
     color: #fff;
+    margin-bottom: 8px !important;
 }
 
 .product_detail li i {
     color: #FFFFFF;
     margin-right: 10px;
+    font-size: 1rem !important;
 }
 
 .product_description {
@@ -274,6 +276,13 @@
     float: right;
     margin-right: 140px;
 }
+.write-btn:hover {
+    background-color: rgba(139, 66, 90, 0.75);
+    box-shadow: 0 15px 20px #b7b7b7;
+    color: #FFFFFF;
+    transform: translateY(-7px);
+}
+
 
 @media (min-width: 640px) {
     .product_wrap {

@@ -64,7 +64,7 @@
 }
 
 .id {
-    margin-bottom: 5px;
+    margin-bottom: 8px !important;
     font-size: 1rem !important;
 }
 
@@ -76,9 +76,22 @@
     padding-right: 5px;
 }
 
+.price{
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.price .fa-tags{
+    font-size: 0.9rem;
+}
+
+
+
 .idAddr {
     margin-top: 11px;
 }
+
+
 
 .detail_bar {
     width: 110%;
@@ -92,11 +105,19 @@
     display: flex;
     justify-content: flex-start;
     margin-top: 10px;
+    margin-bottom: 0;
 }
 
 .view_icon li {
     font-size: 0.8rem;
     padding-right: 15px;
+}
+.fa-eye{
+    font-size: 0.8rem;
+}
+
+.fa-map-marker-alt{
+    font-size: 0.9rem;
 }
 
 .view_icon li i {
