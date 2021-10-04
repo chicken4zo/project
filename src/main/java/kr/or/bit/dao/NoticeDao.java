@@ -15,7 +15,7 @@ import java.util.List;
 public class NoticeDao {
 
     //공지사항 글쓰기(관리자)
-    public int writeOk(String title, String content, String admin) {
+    public int writeOk(NoticeBoard noticeBoard) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         int row = 0;
@@ -23,15 +23,13 @@ public class NoticeDao {
         try {
             conn = ConnectionHelper.getConnection("oracle");
             System.out.println("try들어왔니...?");
-            String sql = "insert into NOTICE(idx, title, content, hit, writedate, id) values(NOTICE_SEQ.nextval,?,?,0,sysdate,?)";
+            String sql = "insert into NOTICE(idx, title, content, hit, writedate, id) values(NOTICE_IDX.nextval,?,?,0,sysdate,?)";
             pstmt = conn.prepareStatement(sql);
             System.out.println("pstmt : " + pstmt);
-            System.out.println(title);
-            System.out.println(content);
-            System.out.println(admin);
-           pstmt.setString(1, title);
-           pstmt.setString(2, content);
-           pstmt.setString(3, admin);
+            pstmt.setString(1, noticeBoard.getTitle());
+            pstmt.setString(2, noticeBoard.getContent());
+            pstmt.setString(3, noticeBoard.getId());
+            System.out.println(noticeBoard);
 
             row = pstmt.executeUpdate();
             System.out.println("row : " + row);
@@ -53,18 +51,18 @@ public class NoticeDao {
         List<NoticeBoard> list = null;
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "select * from(select rownum rn, idx, title, content, hit, writedate, id from NOTICE order by idx desc) t where rn between ? and ?";
-           pstmt = conn.prepareStatement(sql);
+            String sql = "select * from (select rownum  rn, idx, title, content, hit, writedate, id from (select * from NOTICE order by idx desc) where rownum <=? ) where rn >=? ";
+            pstmt = conn.prepareStatement(sql);
 
-            int start = cpage * pagesize - (pagesize -  1);
+            int start = cpage * pagesize - (pagesize - 1);
             int end = cpage * pagesize;
 
-            pstmt.setInt(1, start);
-            pstmt.setInt(2, end);
+            pstmt.setInt(1, end);
+            pstmt.setInt(2, start);
 
             rs = pstmt.executeQuery();
             list = new ArrayList<NoticeBoard>();
-            while(rs.next()) {
+            while (rs.next()) {
                 NoticeBoard noticeboard = new NoticeBoard();
                 noticeboard.setIdx(rs.getInt("idx"));
                 noticeboard.setTitle(rs.getString("title"));
@@ -157,6 +155,31 @@ public class NoticeDao {
         }
         return noticeBoard;
     }
+
+    private int getMaxRefer() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int refer_max = 0;
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select nvl(max(refer),0) from NOTICE";
+
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                refer_max = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return refer_max;
+    }
+
 
     //공지사항 조회수 증가
     public boolean getReadNum(String idx) {

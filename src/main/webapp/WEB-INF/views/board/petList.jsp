@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/petList.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/petList.css?after">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
@@ -40,10 +40,9 @@
         <jsp:include page="/WEB-INF/include/weather.jsp"/>
 
         <!--content-->
-        <div class="petlogo">
-            <img src="/assets/images/petlogo.png" width="15%" height="20%">
+        <div>
+            <h3 class="pet-logo">반려동물</h3>
         </div>
-
 
         <section class="cards">
             <c:forEach var="pet" items="${petBoardList}">
@@ -56,7 +55,9 @@
                                 class="hit-size"></span>
                         </div>
                     </div>
-                    <div class="card__img"></div>
+                    <div class="card__img">
+                        <img src="${pageContext.request.contextPath}/assets/upload/${pet.fileName1}" alt="pet">
+                    </div>
                     <a href="petContent.board?idx=${pet.idx}&id=${pet.id}&cp=${cpage}&ps=${pagesize}" class="card_link">
                         <div class="card__img--hover"></div>
                     </a>
@@ -67,8 +68,7 @@
                     </div>
                 </article>
             </c:forEach>
-            <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기
-            </button>
+
 
             <%--<article class="card card--2">
                 <div class="card__info-hover">
@@ -183,7 +183,8 @@
                 ${pager}
             </ul>
         </nav>
-
+        <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기
+        </button>
     </div>
 
 

@@ -47,6 +47,7 @@
 
 
     <div class="title_container">맛있구마</div>
+    <input hidden id="boardName" value="restaurant">
 
     <div class="container-fluid py-4">
       <div class="row">
@@ -54,80 +55,7 @@
           <div class="card">
             <div class="card-body">
               <!--product details-->
-
-              <div class="row">
-                <!--image space-->
-                <!-- Gallery -->
-                <c:if test="${not empty board.fileName}">
-                  <div id="js-gallery" class="gallery col-xl-5 col-lg-6 text-center">
-
-                    <!--Gallery Hero-->
-                    <div class="gallery__hero parent">
-
-                      <img class="slide w-100 border-radius-lg shadow-lg mx-auto"
-                           src="assets/upload/${board.fileName}">
-                    </div>
-                    <!--Gallery Hero-->
-
-                    <!--Gallery Thumbs-->
-
-                      <%--                                    <div class="gallery__thumbs">--%>
-                      <%--                                        --%>
-                      <%--                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-01.jpg"--%>
-                      <%--                                           data-gallery="thumb" class="is-active">--%>
-                      <%--                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-01.jpg">--%>
-                      <%--                                        </a>--%>
-                      <%--                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-02.jpg"--%>
-                      <%--                                           data-gallery="thumb">--%>
-                      <%--                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-02.jpg">--%>
-                      <%--                                        </a>--%>
-                      <%--                                        <a href="https://public-619e3.firebaseapp.com/Product-Gallery/products/normal/product-01_view-03.jpg"--%>
-                      <%--                                           data-gallery="thumb">--%>
-                      <%--                                            <img src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-03.jpg">--%>
-                      <%--                                        </a>--%>
-                      <%--                                    </div>--%>
-                    <!--Gallery Thumbs-->
-
-                  </div>
-                </c:if>
-
-                <!--.gallery-->
-                <!-- Gallery -->
-                <div class="col-lg-5 mx-auto">
-                  <h4 class="mt-lg-0 mt-4 id">${board.id}</h4>
-                  <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>강남구 역삼동</h5>
-                  <div class="detail_bar"></div>
-
-                  <ul class="view_icon">
-                    <li><i class="fas fa-eye"></i><span>${board.hit}</span></li>
-                    <li><i class="far fa-calendar-alt"></i><span>${board.writeDate}</span></li>
-                  </ul>
-                  <h5 class="mb-0 mt-3">${board.title}</h5>
-                  <div class="content">
-                    ${board.content}
-                  </div>
-
-                </div>
-              </div>
-              <div class="row mt-5">
-                <div class="col-12">
-                  <div class="ms-3 button_container">
-                    <button type="button" class="btn btn-warning btn-sm"
-                            onclick="location.href='RestaurantEdit.board?idx=${board.idx}&id=${board.id}'"
-                            onclick="location.href='#'">
-                      <i class="fas fa-pen"></i>
-                      <span>수정</span>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm"
-                            onclick="location.href='RestaurantDelete.board?idx=${board.idx}'">
-                      <i class="fas fa-trash-alt"></i>
-                      <span>삭제</span>
-                    </button>
-                    <button type="button" class="btn btn-primary btn-sm"
-                            onclick="location.href='RestaurantList.board'">
-
               <c:choose>
-
                 <c:when test="${not empty board.fileName}">
                   <div class="row">
                     <!--image space-->
@@ -204,21 +132,20 @@
                 <div class="col-12">
                   <div class="ms-3 button_container">
                     <%--                                        <c:set value="${sessionScope.id}" var="id"/>--%>
-                    <c:if test="${board.id eq id}">
-                      <button type="button" class="btn btn-warning btn-sm"
-                              onclick="location.href='RestaurantEdit.board?idx=${idx}&cp=${cpage}&ps=${pagesize}'">
-                        <i class="fas fa-pen"></i>
-                        <span>수정</span>
-                      </button>
-                      <button type="button" class="btn btn-danger btn-sm"
-                              onclick="location.href='RestaurantDelete.board?idx=${idx}&cp=${cpage}&ps=${pagesize}'">
-                        <i class="fas fa-trash-alt"></i>
-                        <span>삭제</span>
-                      </button>
-                    </c:if>
+                      <c:if test="${board.id eq id}">
+                        <button type="button" class="btn btn-warning btn-sm"
+                                onclick="location.href='RestaurantEdit.board?idx=${board.idx}&id=${board.id}'">
+                          <i class="fas fa-pen"></i>
+                          <span>수정</span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm"
+                                onclick="location.href='RestaurantDelete.board?idx=${board.idx}'">
+                          <i class="fas fa-trash-alt"></i>
+                          <span>삭제</span>
+                        </button>
+                      </c:if>
                     <button type="button" class="btn btn-primary btn-sm"
-                            onclick="location.href='RestaurantList.board?cp=${cpage}&ps=${pagesize}'">
-
+                            onclick="location.href='RestaurantList.board'">
                       <i class="fas fa-list-ul"></i>
                       <span>목록</span>
                     </button>
@@ -249,16 +176,9 @@
                   <!-- replylist_wrap END -->
 
                   <!--reply write-->
-
-                  <c:set value="${sessionScope.id}" var="id"/>
-                  <form name="lostComment" method="POST" id="lostComment">
+                  <form name="restaurantComment" method="POST" id="restaurantComment">
                     <div class="commentWrite_Wrap">
                       <input type="hidden" name="idx" id="idx" value="${board.idx}">
-
-                  <form name="lostComment" method="POST" id="lostComment">
-                    <div class="commentWrite_Wrap">
-                      <input type="hidden" name="idx" id="idx" value="${idx}">
-
                       <input type="hidden" name="writerid" id="id" value="${board.id}">
                       <h2>${id}</h2>
                       <input type="hidden" name="commentid" id="commentId" value="${id}">
@@ -282,7 +202,6 @@
 
 </div>
 <jsp:include page="/WEB-INF/include/footer.jsp"/>
-
 </body>
 <!--bootstrp js-->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -303,9 +222,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>
 
 
-<script src="${pageContext.request.contextPath}/assets/js/restaurantComment.js?ver=1"></script>
+<%--<script src="${pageContext.request.contextPath}/assets/js/restaurantComment.js?ver=1"></script>--%>
 
-<script src="${pageContext.request.contextPath}/assets/js/lostComment.js?ver=1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/comment.js?ver=1"></script>
 
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>

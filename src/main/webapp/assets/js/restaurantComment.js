@@ -51,7 +51,7 @@ $('#commentWriteBtn').click(function () {
     }
 
     $.ajax({
-        url: "dailyCommentWrite.comment",
+        url: "RestaurantCommentWrite.comment",
         type: 'POST',
         data: {
             "commentId": $('#commentId').val(),
@@ -72,7 +72,7 @@ $('#commentWriteBtn').click(function () {
 function deleteComment(frm) {
     console.log("click!");
     $.ajax({
-        url: "dailyCommentDelete.comment",
+        url: "commentDelete.comment",
         type: 'POST',
         datatype: "text",
         data: {
