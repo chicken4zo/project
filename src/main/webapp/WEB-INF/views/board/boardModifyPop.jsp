@@ -26,6 +26,8 @@
                 animation: true,
                 // position: 'top-right',
                 showConfirmButton: false,
+                //2초 후 창 자동꺼짐
+                timer: 2000
                 // title: '',
                 <%--text: '${msg}'--%>
             }).then(function () {
@@ -43,6 +45,8 @@
                 animation: true,
                 // position: 'top-right',
                 showConfirmButton: false,
+                //2초 후 창 자동꺼짐
+                timer: 2000
                 <%--text: '${msg}'--%>
             }).then(function () {
                 window.location.href = '${url}';
