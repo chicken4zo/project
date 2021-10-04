@@ -32,6 +32,7 @@ public class ProductBoardWriteService implements Action {
             );
 
             String id = multi.getParameter("id");
+            String idx = multi.getParameter("idx");
             String title = multi.getParameter("title");
             String content = multi.getParameter("content");
             int price = Integer.parseInt(multi.getParameter("price"));
@@ -60,22 +61,26 @@ public class ProductBoardWriteService implements Action {
             ProductDao dao = new ProductDao();
             int result = dao.writeProductBoard(productBoard);
 
-//            forward = new ActionForward();
-//            forward.setRedirect(false);
-//            forward.setPath("productList.board");
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("productList.board");
 
+            /*String msg = "";
             String url = "";
             if (result > 0) {
+                msg = "상품 게시판 글쓰기 성공";
                 url = "productList.board";
             } else {
-                url = "productWrite.board";
+                msg = "상품 게시판 글쓰기 실패";
+                url = "productList.board";
             }
 
+            request.setAttribute("board_msg", msg);
             request.setAttribute("board_url", url);
 
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/redirect.jsp");
+            forward.setPath("/WEB-INF/views/redirect.jsp");*/
 
         } catch (Exception e) {
             System.out.println("PRODUCTBOARD WRITE SERVICE 에러");

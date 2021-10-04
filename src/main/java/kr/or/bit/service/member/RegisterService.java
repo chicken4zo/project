@@ -12,22 +12,17 @@ public class RegisterService implements Action {
 
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("어디가 오류야 ");
         String id = request.getParameter("id");
         String password = request.getParameter("password");
         String address = request.getParameter("address");
         int birth = Integer.parseInt(request.getParameter("birth"));
         String name = request.getParameter("name");
-        System.out.println("어디가 오류야 ");
 
         ActionForward forward = new ActionForward();
-
         MemberDao memberDao = new MemberDao();
         Member memberDto = new Member();
 
         try {
-            System.out.println("여기는 타는거니?");
-
             memberDto.setId(id);
             memberDto.setPassword(password);
             memberDto.setAddress(address);
@@ -38,6 +33,7 @@ public class RegisterService implements Action {
 
             String msg = "";
             String url = "";
+
             if (result > 0) {
                 msg = "회원가입에 성공하였습니다!";
                 url = "Login.member";
@@ -45,19 +41,19 @@ public class RegisterService implements Action {
                 msg = "회원가입에 실패하였습니다. 아이디 중복 체크를 해주세요.";
                 url = "Register.member";
             }
+
             request.setAttribute("msg", msg);
             request.setAttribute("url", url);
 
-
             forward.setRedirect(false);
-
+            forward.setPath("/WEB-INF/views/redirect.jsp");
 
         } catch (Exception e) {
+            System.out.println("REGISTER SERVICE 에러");
             e.printStackTrace();
         }
-        forward.setPath("/WEB-INF/views/board/registerPop.jsp");
-        return forward;
 
+        return forward;
     }
 
 }
