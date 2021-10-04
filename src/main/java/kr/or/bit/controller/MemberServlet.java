@@ -15,6 +15,9 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "*.member")
 public class MemberServlet extends HttpServlet {
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+        System.out.println("여기까진오냐 0");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
@@ -65,15 +68,40 @@ public class MemberServlet extends HttpServlet {
             forward.setPath("/WEB-INF/views/login.jsp");
 
         } else if (urlCommand.equals("/mypage.member")) {
-            System.out.println("MY PAGE 실행");
+           
             action = new MemberInfoService();
             forward = action.execute(request, response);
-
+            System.out.println("MY PAGE 실행");
+        
         } else if (urlCommand.equals("/admin.member")) {
             System.out.println("ADMIN 실행");
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/admin.jsp");
+        } else if (urlCommand.equals("/adminlist.member")){
+            action = new AdminMemberList();
+            forward = action.execute(request, response);
+            System.out.println("/Adminlist Start");
+        }else if (urlCommand.equals("/memberDelete.member")) {
+            action = new MemberDeleteService();
+            forward = action.execute(request, response);
+            System.out.println("MemberDelete Start");
+        }else if (urlCommand.equals("/ModifyMember.member")){
+            action = new MemberModifyService();
+            forward = action.execute(request,response);
+            System.out.println("MemberModify Start");
+        }else if (urlCommand.equals("/Unregi.member")) {
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/unregister.jsp");
+        }else if (urlCommand.equals("/Unregister.member")) {
+            action = new UnregisterService();
+            forward = action.execute(request, response);
+            System.out.println("Unregister Start");
+        }else if(urlCommand.equals("/Index.member")) {
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/index.jsp");
         }
 
 

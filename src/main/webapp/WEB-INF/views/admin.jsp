@@ -17,11 +17,11 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css">
     <!-- favicon -->
-    <link rel="shortcut icon" href="/assets/images/favicon-16x16.png">
-    <link rel="icon" href="/assets/images/favicon-16x16.png">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
 </head>
 <body>
+
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -50,6 +51,7 @@
             <input type="text" name="search" value="Search" onclick="this.value=''; ">
             <button type="submit" class="btn btn-search fa fa-search"></button>
         </div>
+        <form action="memberDelete.member" method="post" class="form">
         <div class="list">
             <table>
                 <thead>
@@ -60,36 +62,37 @@
                     </th>
                     <th width="32%">아이디</th>
                     <th width="32%">이름</th>
-                    <th width="32%">관리</th>
+
+
                 </tr>
-                </thead>
-                <tbody>
+
+                <c:set var="memberlist" value="${requestScope.memberList}"/>
                 <c:choose>
+
                     <c:when test="${not empty memberlist}">
-                        <c:forEach var="lost" items="${memberlist}">
+                <c:forEach var="member" items="${memberlist}" varStatus="status">
                             <tr>
                                 <td>
-                                    <div class="checks small"><input type="checkbox" id="check1"><label
-                                            for="check1"></label></div>
+                                    <div class="checks small"><input type="checkbox" class="checkbox" id="check${status.count}" name="subject" value="${member.id}"><label
+                                            for="check${status.count}"></label></div>
                                 </td>
                                 <td>${member.id}</td>
                                 <td>${member.name}</td>
                                 <!-- <td><button type="button" class="card__btn"><i class="delete" data-title="Delete"></i></button></td>-->
-                                <td>
-                                    <button type="button" class="card__btn">상세</button>
-                                </td>
+
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="checks small"><input type="checkbox" id="check2"><label
-                                            for="check1"></label></div>
-                                </td>
-                                <td>${member.id}</td>
-                                <td>${member.name}</td>
-                                <td>
-                                    <button type="button" class="card__btn">상세</button>
-                                </td>
-                            </tr>
+<%--                            <tr>--%>
+<%--                                <td>--%>
+<%--                                    <div class="checks small"><input type="checkbox" id="check2" name="subject" value="${member.id}"><label--%>
+<%--                                            for="check2"></label></div>--%>
+<%--                                </td>--%>
+<%--                                <td>${member.id}</td>--%>
+<%--                                <td>${member.name}</td>--%>
+<%--                                <td>--%>
+<%--                                    <button type="button" class="card__btn">상세</button>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
@@ -99,8 +102,8 @@
                 </tbody>
             </table>
         </div>
-        <button class="write-btn" onclick="location.href='memberDelete.board'">회원삭제</button>
-
+        <button class="write-btn"><input type="submit" value="회원삭제"></button>
+        </form>
         <div class="modal searchModal">
             <div class="modal-content searchModalContent">
             </div>
@@ -117,17 +120,14 @@
     </div>
 </div>
 <jsp:include page="/WEB-INF/include/footer.jsp"/>
+
 </body>
 <!--   Core JS Files   -->
-<script src="${pageContext.request.contextPath}/assets/js/core/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/core/bootstrap-material-design.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 </body>
 <!--bootstrp js-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
