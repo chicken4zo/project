@@ -127,7 +127,13 @@
                             <script>
                                 //CKEditor5를 생성할 textarea 지정
                                 ClassicEditor
-                                    .create(document.querySelector('#editor'))
+                                    .create(document.querySelector('#editor'), {
+                                        placeholder: '500자 내로 입력해주세요',
+                                        removePlugins: ['ImageUpload']
+                                    })
+                                    .then(newEditor => {
+                                        editor = newEditor;
+                                    })
                                     .catch(error => {
                                         console.error(error);
                                     });
@@ -138,6 +144,7 @@
                 <div class="product-btn">
                     <input type="submit" class="write-btn" value="수정완료">
                 </div>
+            </div>
         </form>
     </div>
 </div>

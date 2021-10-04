@@ -88,7 +88,7 @@ public class LostBoardModifyService implements Action {
 
 
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/board/boardModifyPop.jsp");
+            forward.setPath("/WEB-INF/views/board/boardModifyPop.jsp");
         }
 
         return forward;
