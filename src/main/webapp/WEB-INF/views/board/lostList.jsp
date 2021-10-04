@@ -50,81 +50,86 @@
 
 
         <!--content-->
-        <div id="content_container">
-            <div class="board-logo">
-                <h3>분실·실종</h3>
-            </div>
-            <div class="col-md-12">
-                <div class="card card-plain">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead class="">
-                                <th>
-                                    번호
-                                </th>
-                                <th>
-                                    제목
-                                </th>
-                                <th>
-                                    작성자
-                                </th>
-                                <th>
-                                    동네
-                                </th>
-                                <th>
-                                    작성일
-                                </th>
-                                <th>
-                                    조회수
-                                </th>
-                                </thead>
-                                <tbody>
-                                <c:choose>
-                                    <c:when test="${not empty lostlist}">
-                                        <c:forEach var="lost" items="${lostlist}">
-                                            <tr>
-                                                <td>${lost.idx}</td>
-                                                <td>
-                                                    <c:forEach var="i" begin="1" end="${lost.depth}" step="1">
-                                                        &nbsp;&nbsp;&nbsp;
-                                                    </c:forEach>
-                                                    <c:if test="${lost.depth>0}">
-                                                        RE:
-                                                    </c:if>
-                                                    <a href="lostContent.board?idx=${lost.idx}&id=${lost.id}&cp=${cpage}&ps=${pagesize}">
-                                                        <c:choose>
-                                                            <c:when test="${lost.title != null && fn:length(lost.title) > 10}">
-                                                                ${fn:substring(lost.title,0,10)}...
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                ${lost.title}
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </a>
-                                                    <c:if test="${not empty lost.fileName}">
-                                                        <i class="far fa-image" style="margin-left: 5px"></i>
-                                                    </c:if>
-                                                </td>
-                                                <td>${lost.id}</td>
-                                                <td>${lost.address}</td>
+        <div class="board-logo">
+            <h3>분실·실종</h3>
+        </div>
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="">
+                            <th>
+                                번호
+                            </th>
+                            <th>
+                                제목
+                            </th>
+                            <th>
+                                작성자
+                            </th>
+                            <th>
+                                동네
+                            </th>
+                            <th>
+                                작성일
+                            </th>
+                            <th>
+                                조회수
+                            </th>
+                            </thead>
+                            <tbody>
+                            <c:choose>
+                                <c:when test="${not empty lostlist}">
+                                    <c:forEach var="lost" items="${lostlist}">
+                                        <tr>
+                                            <td>${lost.idx}</td>
+                                            <td>
+                                                <c:forEach var="i" begin="1" end="${lost.depth}" step="1">
+                                                    &nbsp;&nbsp;&nbsp;
+                                                </c:forEach>
+                                                <c:if test="${lost.depth>0}">
+                                                    RE:
+                                                </c:if>
+                                                <c:choose>
+                                                <c:when test="${lost.title=='deleted'}">
+                                                    삭제된 게시글 입니다
+                                                </c:when>
+                                                <c:otherwise>
+                                                <a href="lostContent.board?idx=${lost.idx}&id=${lost.id}&cp=${cpage}&ps=${pagesize}">
+                                                    <c:choose>
+                                                        <c:when test="${lost.title != null && fn:length(lost.title) > 10}">
+                                                            ${fn:substring(lost.title,0,10)}...
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${lost.title}
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                    </c:otherwise>
+                                                    </c:choose>
+                                                </a>
+                                                <c:if test="${not empty lost.fileName}">
+                                                    <i class="far fa-image" style="margin-left: 5px"></i>
+                                                </c:if>
+                                            </td>
+                                            <td>${lost.id}</td>
+                                            <td>${lost.address}</td>
 
-                                                    <%--    <c:if test="${lost.fileName!='empty'}">--%>
-                                                    <%--        <img src="assets/upload/${lost.fileName}"/>--%>
-                                                    <%--    </c:if>--%>
-                                                <td>${lost.writeDate}</td>
-                                                <td>${lost.hit}</td>
-                                            </tr>
-                                        </c:forEach>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <td>등록된 글이 없습니다</td>
-                                    </c:otherwise>
-                                </c:choose>
+                                                <%--    <c:if test="${lost.fileName!='empty'}">--%>
+                                                <%--        <img src="assets/upload/${lost.fileName}"/>--%>
+                                                <%--    </c:if>--%>
+                                            <td>${lost.writeDate}</td>
+                                            <td>${lost.hit}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>등록된 글이 없습니다</td>
+                                </c:otherwise>
+                            </c:choose>
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

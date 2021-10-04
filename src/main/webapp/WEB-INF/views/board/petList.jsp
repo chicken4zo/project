@@ -48,27 +48,37 @@
 
         <section class="cards">
             <c:forEach var="pet" items="${petBoardList}">
-                <article class="card card--1">
-                    <div class="card__info-hover">
-                        <i class="far fa-heart" style="color:#dadada"></i><span class="hit-size">${pet.hit}</span>
-                        <div class="card__hit-info">
-                            <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
-                            <i class="far fa-comment" style="color:#dadada"></i><span
-                                class="hit-size"></span>
-                        </div>
-                    </div>
-                    <div class="card__img">
-                        <img src="${pageContext.request.contextPath}/assets/upload/${pet.fileName1}" alt="pet">
-                    </div>
-                    <a href="petContent.board?idx=${pet.idx}&id=${pet.id}&cp=${cpage}&ps=${pagesize}" class="card_link">
-                        <div class="card__img--hover"></div>
-                    </a>
-                    <div class="card__info">
-                        <button type="button" class="card__btn">${pet.address}</button>
-                        <h3 class="card__title">${pet.title}</h3>
-                        <span class="card__by">${pet.id}</span>
-                    </div>
-                </article>
+                <c:choose>
+                    <c:when test="${pet.title=='deleted'}">
+                    </c:when>
+                    <c:otherwise>
+                        <article class="card card--1">
+                            <div class="card__info-hover">
+                                <i class="far fa-heart" style="color:#dadada"></i><span
+                                    class="hit-size">${pet.hit}</span>
+                                <div class="card__hit-info">
+                                    <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
+                                    <i class="far fa-comment" style="color:#dadada"></i><span
+                                        class="hit-size"></span>
+                                </div>
+                            </div>
+                            <div class="card__img">
+                                <img src="${pageContext.request.contextPath}/assets/upload/${pet.fileName1}" alt="pet">
+                            </div>
+                            <a href="petContent.board?idx=${pet.idx}&id=${pet.id}&cp=${cpage}&ps=${pagesize}"
+                               class="card_link">
+                                <div class="card__img--hover"></div>
+                            </a>
+                            <div class="card__info">
+                                <button type="button" class="card__btn">${pet.address}</button>
+                                <h3 class="card__title">${pet.title}</h3>
+                                <span class="card__by">${pet.id}</span>
+                            </div>
+                        </article>
+                    </c:otherwise>
+                </c:choose>
+
+
             </c:forEach>
             <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기
             </button>

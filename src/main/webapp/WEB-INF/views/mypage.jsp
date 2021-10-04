@@ -40,7 +40,7 @@
             <h3>마이구마</h3>
         </div>
         <div class="post-main">
-            <h3>작성한글</h3>
+            <h3>나의 상품</h3>
         </div>
         <section id="post-group">
             <section class="post-wrap">

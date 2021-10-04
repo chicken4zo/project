@@ -2,8 +2,11 @@ package kr.or.bit.service.board;
 
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
-import kr.or.bit.dao.*;
-import kr.or.bit.dto.*;
+import kr.or.bit.dao.DailyDao;
+import kr.or.bit.dao.LostDao;
+import kr.or.bit.dto.DailyBoard;
+import kr.or.bit.dto.LostBoard;
+import kr.or.bit.util.TheSearchPager;
 import kr.or.bit.util.ThePager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +23,7 @@ public class SearchBoardService implements Action {
         String ps = request.getParameter("ps");
         String cp = request.getParameter("cp");
 
-        ThePager pager = null;
+        TheSearchPager pager = null;
 
         String path = null;
 
@@ -52,10 +55,12 @@ public class SearchBoardService implements Action {
             }
 
             int pagersize = 3;
-            pager = new ThePager(result, cpage, pagesize, pagersize, "search.board");
+            pager = new TheSearchPager(result, cpage, pagesize, pagersize, "search.board", boardName);
 
             request.setAttribute("dailyList", list);
             request.setAttribute("pager", pager);
+
+            System.out.println(pager);
 
             path = "/WEB-INF/views/board/dailyList.jsp";
 
@@ -72,7 +77,7 @@ public class SearchBoardService implements Action {
             }
 
             int pagersize = 3;
-            pager = new ThePager(result, cpage, pagesize, pagersize, "search.board");
+            pager = new TheSearchPager(result, cpage, pagesize, pagersize, "search.board", boardName);
             System.out.println(pager);
 
             request.setAttribute("lostList", list);

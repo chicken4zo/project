@@ -89,36 +89,43 @@
         <!--content-->
         <section id="content">
             <c:forEach var="product" items="${productBoardList}">
-                <div class="content_wrap">
-                    <a href="productContent.board?idx=${product.idx}&id=${product.id}&cp=${cpage}&ps=${pagesize}">
-                        <div class="product_wrap">
-                            <div class="product_img_wrap">
-                                <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName1}">
-                                <ul class="product_detail">
-                                    <li><i class="fas fa-user"></i>${product.id}</li>
-                                    <li><i class="far fa-calendar-alt"></i>${product.writeDate}</li>
-                                    <li><i class="fas fa-map-marker-alt"></i>${product.address}</li>
-                                </ul>
-                            </div>
-                            <div class="product_description">
-                                <h1>${product.title}</h1>
-                                <h2>${product.price}원</h2>
-                                <div class="bar"></div>
-                                <p>
-                                    <c:choose>
-                                        <c:when test="${product.content.length() > 100}">
-                                            ${product.content.substring(0,60)}...
-                                        </c:when>
-                                        <c:otherwise>
-                                            ${product.content}
-                                        </c:otherwise>
-                                    </c:choose>
-                                </p>
-                                <div class="deal">거래중</div>
-                            </div>
+                <c:choose>
+                    <c:when test="${product.title=='deleted'}">
+
+                    </c:when>
+                    <c:otherwise>
+                        <div class="content_wrap">
+                            <a href="productContent.board?idx=${product.idx}&id=${product.id}&cp=${cpage}&ps=${pagesize}">
+                                <div class="product_wrap">
+                                    <div class="product_img_wrap">
+                                        <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName1}">
+                                        <ul class="product_detail">
+                                            <li><i class="fas fa-user"></i>${product.id}</li>
+                                            <li><i class="far fa-calendar-alt"></i>${product.writeDate}</li>
+                                            <li><i class="fas fa-map-marker-alt"></i>${product.address}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="product_description">
+                                        <h1>${product.title}</h1>
+                                        <h2>${product.price}원</h2>
+                                        <div class="bar"></div>
+                                        <p>
+                                            <c:choose>
+                                                <c:when test="${product.content.length() > 100}">
+                                                    ${product.content.substring(0,60)}...
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${product.content}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </p>
+                                        <div class="deal">거래중</div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
         </section>
         <nav aria-label="...">

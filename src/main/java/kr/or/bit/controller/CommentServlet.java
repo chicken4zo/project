@@ -374,6 +374,15 @@ public class CommentServlet extends HttpServlet {
                 System.out.println(e.getMessage());
             }
 
+        } else if (urlCommand.equals("/chart.comment")) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("test", "dkdkdkdkdk");
+            response.setContentType("application/x-json; charset=UTF-8");
+            response.getWriter().print(jsonObject);
+        } else if (urlCommand.equals("/chartView.comment")) {
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/views/chartpage.jsp");
         }
 
         if (forward != null) {
