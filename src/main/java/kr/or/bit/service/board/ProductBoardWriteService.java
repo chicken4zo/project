@@ -61,8 +61,6 @@ public class ProductBoardWriteService implements Action {
             ProductDao dao = new ProductDao();
             int result = dao.writeProductBoard(productBoard);
 
-
-
 //            String url = "";
 //            if (result > 0) {
 //                url = "productList.board";

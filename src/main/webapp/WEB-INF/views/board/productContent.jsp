@@ -5,7 +5,7 @@
 <c:set var="cpage" value="${requestScope.cpage}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
 <c:set var="commentList" value="${requestScope.commentList}"/>
-<c:set var="id" value="${sessionScope.id}"/>
+<c:set var="userId" value="${sessionScope.userId}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -146,10 +146,10 @@
                                     <form name="productComment" method="POST" id="productComment">
                                         <div class="commentWrite_Wrap">
                                             <input type="hidden" name="idx" id="idx" value="${product.idx}">
-                                            <input type="hidden" name="loginId" id="loginId" value="${sessionScope.id}">
+                                            <input type="hidden" value="${userId}" id="loginId">
                                             <input type="hidden" name="writerid" id="writerId" value="${product.id}">
-                                            <h2>${id}</h2>
-                                            <input type="text" name="commentid" id="commentId">
+                                            <h2>${userId}</h2>
+                                            <input type="hidden" name="commentid" id="commentId" value="${userId}">
                                             <textarea name="content" id="commentContent" placeholder="댓글을 남겨보세요"
                                                       class="comment_inbox" rows="4"
                                                       cols="140"></textarea>

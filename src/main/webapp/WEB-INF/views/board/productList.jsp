@@ -27,10 +27,12 @@
           rel="stylesheet">
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
+<%--    뒤로가기 막는코드--%>
 
 
 </head>
 <body>
+
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->

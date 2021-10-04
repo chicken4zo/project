@@ -16,12 +16,11 @@ public class LoginLogout extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         String id = (String) session.getAttribute("id");
         PrintWriter out = response.getWriter();
-        System.out.println("쳌1");
 
         if (id != null) {
 
             if (id.equals("admin")) {
-                out.print("<a href=admin.member>");
+                out.print("<a href=adminlist.member>");
                 out.print("<div class=\"register_btn\">회원관리</div>");
                 out.print("</a>");
                 out.print("<a href=LogOut.member>");

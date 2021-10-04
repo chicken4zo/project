@@ -19,6 +19,7 @@ public class RegisterService implements Action {
         String name = request.getParameter("name");
 
         ActionForward forward = new ActionForward();
+
         MemberDao memberDao = new MemberDao();
         Member memberDto = new Member();
 
