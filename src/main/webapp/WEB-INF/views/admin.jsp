@@ -46,7 +46,7 @@
         <div class="board-logo">
             <h3>관리구마</h3>
         </div>
-        <div class="search-form">
+        <div class="search-form" style="margin: -4% 0 0 68%">
             <input type="text" name="search" value="Search" onclick="this.value=''; ">
             <button type="submit" class="btn btn-search fa fa-search"></button>
         </div>
@@ -116,7 +116,7 @@
         </nav>
     </div>
 </div>
-<jsp:include page="../../include/footer.jsp"/>
+<jsp:include page="/WEB-INF/include/footer.jsp"/>
 </body>
 <!--   Core JS Files   -->
 <script src="${pageContext.request.contextPath}/assets/js/core/jquery.min.js"></script>

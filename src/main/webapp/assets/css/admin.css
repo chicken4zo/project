@@ -159,9 +159,10 @@ table td {
 }
 
 .search-form {
-    margin: -4% 0 0 68%;
+    /*margin: -4% 0 0 68%;*/
     display: flex;
 }
+
 
 .search-form button {
     position: relative;
