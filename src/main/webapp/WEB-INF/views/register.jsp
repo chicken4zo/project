@@ -248,37 +248,4 @@
     }
 
 </script>
-
-<%--<script type="text/javascript">--%>
-<%--    $().ready(function () {--%>
-<%--        $("#submit").click(function () {--%>
-<%--            Swal.fire({--%>
-<%--                icon: 'success',--%>
-<%--                title: '회원가입 성공',--%>
-<%--                text: '고구마켓에 오신 걸 환영합니다!',--%>
-<%--            });--%>
-<%--        });--%>
-<%--    });--%>
-
-<%--    $().ready(function () {--%>
-<%--        $("#cancel").click(function () {--%>
-<%--            Swal.fire({--%>
-<%--                icon: 'error',--%>
-<%--                title:'회원가입 실패',--%>
-<%--                text: '다시 시도하세요.',--%>
-<%--            });--%>
-<%--        });--%>
-<%--    });--%>
-<%--</script>--%>
-<%--<script type="text/javascript">--%>
-<%--    $().ready(function () {--%>
-<%--        $("#submit").click(function () {--%>
-<%--            Swal.fire({--%>
-<%--                icon: 'success',--%>
-<%--                title: '',--%>
-<%--                text: '고구마켓에 오신 걸 환영합니다!',--%>
-<%--            });--%>
-<%--        });--%>
-<%--    });--%>
-<%--</script>--%>
 </html>

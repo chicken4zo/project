@@ -3,17 +3,12 @@ package kr.or.bit.service.member;
 import kr.or.bit.action.Action;
 import kr.or.bit.action.ActionForward;
 import kr.or.bit.dao.MemberDao;
-
 import kr.or.bit.dto.Member;
-
-import kr.or.bit.dto.LostBoard;
-
+import kr.or.bit.dto.ProductBoard;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,11 +20,14 @@ public class MemberInfoService implements Action {
 
         ActionForward forward = null;
         HttpSession session = request.getSession();
-        System.out.println("userid : "+session.getAttribute("id"));
+        String id = (String) session.getAttribute("id");
+        System.out.println("userid : " + session.getAttribute("id"));
         try {
             MemberDao memberDao = new MemberDao();
-            Member memberDto = memberDao.GetMemberListById((String)session.getAttribute("id"));
+            Member memberDto = memberDao.GetMemberListById(id);
+            List<ProductBoard> productBoardLIst = memberDao.searchProductById(id);
             request.setAttribute("memberDto", memberDto);
+            request.setAttribute("list", productBoardLIst);
 
             forward = new ActionForward();
             forward.setRedirect(false); //forward

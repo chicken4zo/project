@@ -109,14 +109,28 @@ public class PetDao {
             pstmt.setString(3, petBoard.getContent());
             pstmt.setString(4, petBoard.getFileName1());
             pstmt.setString(5, petBoard.getFilePath1());
-            pstmt.setString(6, petBoard.getFileName2());
-            pstmt.setString(7, petBoard.getFilePath2());
-            pstmt.setString(8, petBoard.getFileName3());
-            pstmt.setString(9, petBoard.getFilePath3());
+
+            if (petBoard.getFileName2() != null) {
+                pstmt.setString(6, petBoard.getFileName2());
+                pstmt.setString(7, petBoard.getFilePath2());
+            } else {
+                pstmt.setString(6, "");
+                pstmt.setString(7, "");
+            }
+
+            if (petBoard.getFileName3() != null) {
+                pstmt.setString(8, petBoard.getFileName3());
+                pstmt.setString(9, petBoard.getFilePath3());
+            } else {
+                pstmt.setString(8, "");
+                pstmt.setString(9, "");
+            }
+
 
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println("PETDAO 글쓰기 에러");
+            System.out.println(e.getMessage());
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(pstmt);
@@ -135,7 +149,7 @@ public class PetDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "select idx, id, title, content, hit, writedate, filename, filepath, filename2, filepath2, filename3, filepath3 from pet where idx=?";
+            String sql = "select idx, m.id, title, content, hit, writedate, filename, filepath, filename2, filepath2, filename3, filepath3, m.address from pet p join member m on(p.id = m.id) where idx=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, idx);
             rs = pstmt.executeQuery();
@@ -153,6 +167,9 @@ public class PetDao {
                 petBoard.setFilePath2(rs.getString("filepath2"));
                 petBoard.setFileName3(rs.getString("filename3"));
                 petBoard.setFilePath3(rs.getString("filepath3"));
+                petBoard.setHit(rs.getInt("hit"));
+                petBoard.setAddress(rs.getString("address"));
+
             }
         } catch (Exception e) {
             System.out.println("PETDAO 상세보기 에러");

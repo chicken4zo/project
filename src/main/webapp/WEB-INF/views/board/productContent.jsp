@@ -32,6 +32,7 @@
 
 </head>
 <body>
+<c:set var="id" value="${sessionScope.id}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -70,14 +71,18 @@
                                            data-gallery="thumb" class="is-active">
                                             <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName1}">
                                         </a>
-                                        <a href="${pageContext.request.contextPath}/assets/upload/${product.fileName2}"
-                                           data-gallery="thumb">
-                                            <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName2}">
-                                        </a>
-                                        <a href="${pageContext.request.contextPath}/assets/upload/${product.fileName3}"
-                                           data-gallery="thumb">
-                                            <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName3}">
-                                        </a>
+                                        <c:if test="${not empty product.fileName2}">
+                                            <a href="${pageContext.request.contextPath}/assets/upload/${product.fileName2}"
+                                               data-gallery="thumb">
+                                                <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName2}">
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${not empty product.fileName3}">
+                                            <a href="${pageContext.request.contextPath}/assets/upload/${product.fileName3}"
+                                               data-gallery="thumb">
+                                                <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName3}">
+                                            </a>
+                                        </c:if>
                                     </div>
                                     <!--Gallery Thumbs-->
 
@@ -111,16 +116,18 @@
                                 <div class="col-12">
                                     <!--                                    <div class="bottom_bar"></div>-->
                                     <div class="ms-3 button_container">
-                                        <button type="button" class="btn btn-warning btn-sm"
-                                                onclick="location.href='productModify.board?idx=${product.idx}&id=${product.id}'">
-                                            <i class="fas fa-pen"></i>
-                                            <span>수정</span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                                onclick="location.href='productDelete.board?idx=${product.idx}&id=${product.id}'">
-                                            <i class="fas fa-trash-alt"></i>
-                                            <span>삭제</span>
-                                        </button>
+                                        <c:if test="${product.id eq id}">
+                                            <button type="button" class="btn btn-warning btn-sm"
+                                                    onclick="location.href='productModify.board?idx=${product.idx}&id=${product.id}'">
+                                                <i class="fas fa-pen"></i>
+                                                <span>수정</span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm"
+                                                    onclick="location.href='productDelete.board?idx=${product.idx}&id=${product.id}'">
+                                                <i class="fas fa-trash-alt"></i>
+                                                <span>삭제</span>
+                                            </button>
+                                        </c:if>
                                         <button type="button" class="btn btn-primary btn-sm"
                                                 onclick="location.href='productList.board'">
                                             <i class="fas fa-list-ul"></i>

@@ -18,10 +18,10 @@ public class DailyBoardDeleteService implements Action {
         String url = "";
 
         if (result > 0) {
-            msg = "fail";
+            msg = "success";
             url = "dailyList.board";
         } else {
-            msg = "success";
+            msg = "fail";
             url = "dailyList.board";
         }
 

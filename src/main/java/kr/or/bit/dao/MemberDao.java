@@ -2,6 +2,7 @@ package kr.or.bit.dao;
 
 import kr.or.bit.dto.LostBoard;
 import kr.or.bit.dto.Member;
+import kr.or.bit.dto.ProductBoard;
 import kr.or.bit.util.ConnectionHelper;
 
 import javax.sql.DataSource;
@@ -26,7 +27,7 @@ public class MemberDao {
         int resultRow = 0;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection("oracle");
             String sql = "insert into member(id,password,address,birth,name) values(?,?,?,?,?)";
             pstmt = conn.prepareStatement(sql);
             System.out.println(memberDto.getName());
@@ -81,15 +82,9 @@ public class MemberDao {
         } catch (Exception e) {
             System.out.println("로그인 에러 : " + e.getMessage());
         } finally {
-
-
-            try {
-                rs.close();
-                pstmt.close();
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
         }
         return user;
     }
@@ -163,12 +158,12 @@ public class MemberDao {
         ResultSet rs = null;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection("oracle");
             String sql = "select id, password, address, birth,name "
-                    + "from member where id like ?";
+                    + "from member where id=?";
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, "%" + id + "%");
+            pstmt.setString(1, id);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -202,7 +197,7 @@ public class MemberDao {
         ResultSet rs = null;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection("oracle");
             String sql = "select id,password,name,address,birth from member where id=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
@@ -234,28 +229,36 @@ public class MemberDao {
         }
         return memberdto;
     }
+
     //전체 데이터 리스트
-    public ArrayList<Member> GetMemberList() throws SQLException {
-        Connection conn = ConnectionHelper.getConnection("mysql");
+    public ArrayList<Member> GetMemberList() {
+        Connection conn = ConnectionHelper.getConnection("oracle");
 
         PreparedStatement pstmt = null;
         String sql = "SELECT id,password,name,birth,address FROM MEMBER";
-        pstmt = conn.prepareStatement(sql);
-        ResultSet rs = pstmt.executeQuery();
+        ResultSet rs = null;
+        ArrayList<Member> memberlist = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
 
-        ArrayList<Member> memberlist = new ArrayList<>();
-        while (rs.next()) {
-            Member memberDto = new Member();
-            memberDto.setId(rs.getString("id"));
-            memberDto.setPassword(rs.getString("password"));
-            memberDto.setName(rs.getString("name"));
-            memberDto.setBirth(rs.getInt("birth"));
-            memberDto.setAddress(rs.getString("address"));
-            memberlist.add(memberDto);
+            memberlist = new ArrayList<>();
+            while (rs.next()) {
+                Member memberDto = new Member();
+                memberDto.setId(rs.getString("id"));
+                memberDto.setPassword(rs.getString("password"));
+                memberDto.setName(rs.getString("name"));
+                memberDto.setBirth(rs.getInt("birth"));
+                memberDto.setAddress(rs.getString("address"));
+                memberlist.add(memberDto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn); //반환
         }
-        ConnectionHelper.close(rs);
-        ConnectionHelper.close(pstmt);
-        ConnectionHelper.close(conn); //반환하기
 
         return memberlist;
     }
@@ -270,7 +273,7 @@ public class MemberDao {
         ResultSet rs = null;
         Member Info = new Member();
         try {
-            conn = ConnectionHelper.getConnection("mysql");// 추가
+            conn = ConnectionHelper.getConnection("oracle");// 추가
             String sql = "select * from Member where id=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
@@ -294,8 +297,6 @@ public class MemberDao {
             ConnectionHelper.close(conn);
 
         }
-
-
         return Info;
 
     }
@@ -306,7 +307,7 @@ public class MemberDao {
         int resultrow = 0;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");
+            conn = ConnectionHelper.getConnection("oracle");
             String sql = "update member set name=? , birth=? , address=? , password=? where id=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, memberdto.getName());
@@ -324,7 +325,8 @@ public class MemberDao {
         }
         return resultrow;
     }
-        // Admin vㅔ
+
+    // Admin
     public int deleteMember(String[] ids) {
         // delete from memo where id=?
         Connection conn = null;// 추가
@@ -332,7 +334,7 @@ public class MemberDao {
         PreparedStatement pstmt = null;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");// 추가
+            conn = ConnectionHelper.getConnection("oracle");// 추가
 
             String sql = "delete from Member where id=?";
             pstmt = conn.prepareStatement(sql);
@@ -347,11 +349,6 @@ public class MemberDao {
         } finally {
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
-            try {
-                conn.close(); // 받환하기
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return resultrow;
     }
@@ -362,7 +359,7 @@ public class MemberDao {
         PreparedStatement pstmt = null;
 
         try {
-            conn = ConnectionHelper.getConnection("mysql");//추가
+            conn = ConnectionHelper.getConnection("oracle");//추가
 
             String sql = "delete from member where id=?";
             pstmt = conn.prepareStatement(sql);
@@ -376,15 +373,76 @@ public class MemberDao {
         } finally {
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
-            try {
-                conn.close(); //반환하기
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
         return resultrow;
     }
-  
+
+    public int deleteMember(String id) {
+
+        Connection conn = null;
+        int resultrow = 0;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");//추가
+
+            String sql = "delete from Member where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+
+
+            resultrow = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("Delete : " + e.getMessage());
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return resultrow;
+    }
+
+    public Member detailMember(String id) {
+
+        Member memberdto = new Member();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+            String sql = "select id,password,name,birth,address from member where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+
+
+            rs = pstmt.executeQuery();
+            //rs.next(); 추후에 데이터 1건 경우  (while 없이 )
+
+            while (rs.next()) {
+
+
+                memberdto.setId(rs.getString("id"));
+                memberdto.setPassword(rs.getString("password"));
+                memberdto.setName(rs.getString("name"));
+                memberdto.setBirth(rs.getInt("birth"));
+                memberdto.setAddress(rs.getNString("address"));
+
+
+            }
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return memberdto;
+    }
+
     public List<LostBoard> searchLostById(String id) {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -427,6 +485,55 @@ public class MemberDao {
             ConnectionHelper.close(conn);
         }
         return lostList;
+
+    }
+
+    public List<ProductBoard> searchProductById(String id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<ProductBoard> productList = new ArrayList<>();
+        String database = "oracle";
+        String sql = "";
+
+        try {
+            conn = ConnectionHelper.getConnection(database);
+            if (database.equals("mysql")) {
+                sql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, PASSWORD, ADDRESS, BIRTH, NAME, ID, (@ROWNUM:=@ROWNUM+1) RN FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, PASSWORD, ADDRESS, BIRTH, NAME, PRODUCT.ID FROM PRODUCT,MEMBER WHERE PRODUCT.ID=MEMBER.ID and PRODUCT.ID = ? ORDER BY REFER DESC, STEP ASC) L, (SELECT @ROWNUM:=0) R LIMIT 0,3";
+            } else {
+                sql = "SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, ADDRESS, BIRTH, NAME, ID, ROWNUM FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, ADDRESS, BIRTH, NAME, PRODUCT.ID FROM PRODUCT,MEMBER WHERE PRODUCT.ID=MEMBER.ID and PRODUCT.ID = ? ORDER BY IDX DESC) L WHERE ROWNUM BETWEEN 0 and 3";
+            }
+
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                ProductBoard product = new ProductBoard();
+                product.setIdx(rs.getInt("idx"));
+                product.setId(rs.getString("id"));
+                product.setTitle(rs.getString("title"));
+                product.setContent(rs.getString("content"));
+                product.setFileName1(rs.getString("filename"));
+                product.setFilePath1(rs.getString("filepath"));
+                product.setHit(rs.getInt("hit"));
+                product.setWriteDate(rs.getDate("writedate"));
+                product.setAddress(rs.getString("address"));
+
+                System.out.println(product);
+
+                productList.add(product);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return productList;
 
     }
 }

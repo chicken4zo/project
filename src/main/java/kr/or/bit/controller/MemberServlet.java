@@ -17,6 +17,11 @@ public class MemberServlet extends HttpServlet {
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
+        // 밑에 3문장 뒤로가기 캐쉬를 삭제하는 코드
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        response.setHeader("Expires", "0"); // Proxies
+
         System.out.println("여기까진오냐 0");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -30,80 +35,78 @@ public class MemberServlet extends HttpServlet {
 
 
         if (urlCommand.equals("/Register.member")) { //회원가입 페이지로 가는 태그
-            System.out.println("REGISTER 실행");
+
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/register.jsp");
 
+        } else if (urlCommand.equals("/EditMember.member")) {
+            action = new MemberModifyService();
+            forward = action.execute(request, response);
+            System.out.println("Adminpage Start");
+        } else if (urlCommand.equals("/Admin.member")) {
+            action = new AdminMemberList();
+            forward = action.execute(request, response);
+            System.out.println("Adminpage Start");
+
         } else if (urlCommand.equals("/RegisterOk.member")) { // 회원가입 완료
-            System.out.println("REGISTER OK 실행");
+            System.out.println("여기까진오냐1");
             action = new RegisterService();
             forward = action.execute(request, response);
             System.out.println("MemberRegister Start");
 
         } else if (urlCommand.equals("/Login.member")) { // 인덱스 페이지에서 누르면 로그인 폼으로 가는 태그
-            System.out.println("LOGIN 실행");
+            System.out.println("여기까진오냐 2");
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/login.jsp");
 
-        } else if (urlCommand.equals("/LoginOk.member")) {
-            System.out.println("LOGIN OK 실행");
+        } else if (urlCommand.equals("/LoginOk.member")) { // 로그인
+            System.out.println("여기까진오냐 3");
             action = new LoginService();
             forward = action.execute(request, response);
+            System.out.println("MemberJoin Start");
 
-        } else if (urlCommand.equals("/LogOut.member")) {
-            System.out.println("LOGOUT 실행");
+        } else if (urlCommand.equals("/LogOut.member")) { // 로그아웃
+            System.out.println("여기까진오냐4");
+            System.out.println("로그아웃완료");
             action = new LogoutService();
             forward = action.execute(request, response);
+            System.out.println("Logout Start");
 
-        } else if (urlCommand.equals("/IdCheck.member")) {
-            System.out.println("ID CHECK 실행");
+        } else if (urlCommand.equals("/IdCheck.member")) { // 아이디 중복체크
+            System.out.println("여기까진오냐5");
             action = new MemberCheckService();
             forward = action.execute(request, response);
+            System.out.println("IdCheck Start");
 
-        } else if (urlCommand.equals("/main.member")) { // 잠깐 로그인 성공시 가는 페이지 만든
+        } else if (urlCommand.equals("/main.member")) { // 잠깐 로직 성공시 가는 페이지로 만듬
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/login.jsp");
+            forward.setPath("/WEB-INF/views/loginok.jsp");
 
-        } else if (urlCommand.equals("/mypage.member")) {
-           
-            action = new MemberInfoService();
-            forward = action.execute(request, response);
-            System.out.println("MY PAGE 실행");
-        
-        } else if (urlCommand.equals("/admin.member")) {
-            System.out.println("ADMIN 실행");
-            forward = new ActionForward();
-            forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/admin.jsp");
-        } else if (urlCommand.equals("/adminlist.member")){
-            action = new AdminMemberList();
-            forward = action.execute(request, response);
-            System.out.println("/Adminlist Start");
-        }else if (urlCommand.equals("/memberDelete.member")) {
-            action = new MemberDeleteService();
-            forward = action.execute(request, response);
-            System.out.println("MemberDelete Start");
-        }else if (urlCommand.equals("/ModifyMember.member")){
-            action = new MemberModifyService();
-            forward = action.execute(request,response);
-            System.out.println("MemberModify Start");
-        }else if (urlCommand.equals("/Unregi.member")) {
-            forward = new ActionForward();
-            forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/unregister.jsp");
-        }else if (urlCommand.equals("/Unregister.member")) {
+        } else if (urlCommand.equals("/Unregister.member")) { // 회원탈퇴
             action = new UnregisterService();
             forward = action.execute(request, response);
             System.out.println("Unregister Start");
-        }else if(urlCommand.equals("/Index.member")) {
+
+        } else if (urlCommand.equals("/Unregi.member")) { // mypage에서 회원탈퇴를 누르면 가는 회원탈퇴 페이지
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/index.jsp");
+            forward.setPath("/WEB-INF/views/unregister.jsp");
+        } else if (urlCommand.equals("/Mypage.member")) { // 로그인후 메인에서 마이페이지를 누르면 가는 로직
+            action = new MemberInfoService();
+            forward = action.execute(request, response);
+            forward.setPath("/WEB-INF/views/mypage.jsp");
+        } else if (urlCommand.equals("/Modify.member")) {
+            action = new MemberModifyService();
+            forward = action.execute(request, response);
+            System.out.println("Unregister Start");
+        } else if (urlCommand.equals("/Delete.member")) {
+            action = new MemberDeleteService();
+            forward = action.execute(request, response);
+            System.out.println("member delete service");
         }
-
 
         if (forward != null) {
             if (forward.isRedirect()) { //true 페이지를 재요청
@@ -118,6 +121,7 @@ public class MemberServlet extends HttpServlet {
 
         }
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

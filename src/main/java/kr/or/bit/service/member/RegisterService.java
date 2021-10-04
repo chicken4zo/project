@@ -32,18 +32,22 @@ public class RegisterService implements Action {
 
             int result = memberDao.RegisterMember(memberDto);
 
+            String msg = "";
             String url = "";
 
             if (result > 0) {
+                msg = "가입이 완료되었습니다";
                 url = "Login.member";
             } else {
+                msg = "다시 한 번 시도해 주세요";
                 url = "Register.member";
             }
 
+            request.setAttribute("msg", msg);
             request.setAttribute("url", url);
 
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/views/redirect.jsp");
+            forward.setPath("/WEB-INF/views/board/registerPop.jsp");
 
         } catch (Exception e) {
             System.out.println("REGISTER SERVICE 에러");

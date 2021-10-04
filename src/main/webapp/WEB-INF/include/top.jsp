@@ -5,12 +5,22 @@
 <!--header-->
 <header>
     <div id="header_wrap">
-        <img id="logo_img" src="${pageContext.request.contextPath}/assets/images/gogu_logo.png" alt="logo"
-             onclick="location.href='index.jsp';"
-             style="cursor:pointer;">
+        <c:choose>
+            <c:when test="${not empty id}">
+                <img id="logo_img" src="${pageContext.request.contextPath}/assets/images/gogu_logo.png" alt="logo"
+                     onclick="location.href='productList.board';"
+                     style="cursor:pointer;">
+            </c:when>
+            <c:otherwise>
+                <img id="logo_img" src="${pageContext.request.contextPath}/assets/images/gogu_logo.png" alt="logo"
+                     onclick="location.href='index.jsp';"
+                     style="cursor:pointer;">
+            </c:otherwise>
+        </c:choose>
+
 
         <div id="header_search">
-<%--                        <c:if test="${not empty id}">--%>
+            <%--                        <c:if test="${not empty id}">--%>
 
             <label>
                 <select class="selectpicker" data-width="fit">

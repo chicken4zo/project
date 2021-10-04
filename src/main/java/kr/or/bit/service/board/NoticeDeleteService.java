@@ -26,10 +26,10 @@ public class NoticeDeleteService implements Action {
 //                url = "NoticeList.board";
 //            }
             if (result > 0) {
-                msg = "fail";
+                msg = "success";
                 url = "NoticeList.board";
             } else {
-                msg = "success";
+                msg = "fail";
                 url = "NoticeList.board";
             }
 

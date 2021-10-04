@@ -30,6 +30,7 @@
 
 </head>
 <body>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -70,124 +71,15 @@
                                 <div class="card__img--hover"></div>
                             </a>
                             <div class="card__info">
-                                <button type="button" class="card__btn">${pet.address}</button>
+                                <button type="button" class="card__btn">${fn:substring(pet.address,0,3)}</button>
                                 <h3 class="card__title">${pet.title}</h3>
                                 <span class="card__by">${pet.id}</span>
                             </div>
                         </article>
                     </c:otherwise>
                 </c:choose>
-
-
             </c:forEach>
-            <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기
-            </button>
-
-            <%--<article class="card card--2">
-                <div class="card__info-hover">
-                    <i class="far fa-heart" style="color:#dadada"></i>
-                    <div class="card__hit-info">
-                        <i class="far fa-comment" style="color:#dadada"></i>
-                    </div>
-                </div>
-                <div class="card__img"></div>
-                <a href="#" class="card_link">
-                    <div class="card__img--hover"></div>
-                </a>
-                <div class="card__info">
-                    <button type="button" class="card__btn">강아지</button>
-                    <h3 class="card__title">제목</h3>
-                    <span class="card__by">아이디</span>
-                </div>
-            </article>
-
-            <article class="card card--3">
-                <div class="card__info-hover">
-                    <i class="far fa-heart" style="color:#dadada"></i>
-                    <div class="card__hit-info">
-                        <i class="far fa-comment" style="color:#dadada"></i>
-                    </div>
-                </div>
-                <div class="card__img"></div>
-                <a href="#" class="card_link">
-                    <div class="card__img--hover"></div>
-                </a>
-            <article class="card card--1">
-                <div class="card__info-hover">
-                    <i class="far fa-heart" style="color:#dadada"></i><span class="hit-size">&nbsp;22</span>
-                    <div class="card__hit-info">
-                        <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
-                        <i class="far fa-comment" style="color:#dadada"></i><span class="hit-size">&nbsp;11</span>
-                    </div>
-                </div>
-                <div class="card__img">
-                    <img src="https://miro.medium.com/max/3600/0*n-2bW82Z6m6U2bij.jpeg">
-                </div>
-
-                <div class="card__info">
-                    <button type="button" class="card__btn">고양이</button>
-                    <h3 class="card__title">제목</h3>
-                    <span class="card__by">아이디</span>
-                </div>
-            </article>
-
-
-            <article class="card card--1">
-                <div class="card__info-hover">
-                    <i class="far fa-heart" style="color:#dadada"></i><span class="hit-size">&nbsp;22</span>
-                    <div class="card__hit-info">
-                        <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
-                        <i class="far fa-comment" style="color:#dadada"></i><span class="hit-size">&nbsp;11</span>
-                    </div>
-                </div>
-                <div class="card__img">
-                    <img src="https://miro.medium.com/max/3600/0*n-2bW82Z6m6U2bij.jpeg">
-                </div>
-
-                <div class="card__info">
-                    <button type="button" class="card__btn">고양이</button>
-                    <h3 class="card__title">제목</h3>
-                    <span class="card__by">아이디</span>
-                </div>
-            </article>
-
-            <article class="card card--1">
-                <div class="card__info-hover">
-                    <i class="far fa-heart" style="color:#dadada"></i><span class="hit-size">&nbsp;22</span>
-                    <div class="card__hit-info">
-                        <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
-                        <i class="far fa-comment" style="color:#dadada"></i><span class="hit-size">&nbsp;11</span>
-                    </div>
-                </div>
-                <div class="card__img">
-                    <img src="https://miro.medium.com/max/3600/0*n-2bW82Z6m6U2bij.jpeg">
-                </div>
-
-                <div class="card__info">
-                    <button type="button" class="card__btn">고양이</button>
-                    <h3 class="card__title">제목</h3>
-                    <span class="card__by">아이디</span>
-                </div>
-            </article>--%>
         </section>
-
-        <%-- <nav aria-label="...">
-             <ul class="pagination justify-content-center">
-                 <li class="page-item disabled">
-                     <a class="page-link" href="#" tabindex="-1"><</a>
-                 </li>
-                 <li class="page-item"><a class="page-link" href="#">1</a></li>
-                 <li class="page-item active">
-                     <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                 </li>
-                 <li class="page-item"><a class="page-link" href="#">3</a></li>
-                 <li class="page-item"><a class="page-link" href="#">4</a></li>
-                 <li class="page-item"><a class="page-link" href="#">5</a></li>
-                 <li class="page-item">
-                     <a class="page-link" href="#">></a>
-                 </li>
-             </ul>
-         </nav>--%>
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 ${pager}
