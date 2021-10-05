@@ -61,7 +61,7 @@
                     <ul class="product-info">
                         <li class="info-title">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" value="${lostBoard.id}" readonly/>
+                            ${lostBoard.id}<input type="hidden" name="id" value="${lostBoard.id}" readonly/>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">이미지</div>

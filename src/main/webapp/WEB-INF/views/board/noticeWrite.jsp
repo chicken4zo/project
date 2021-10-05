@@ -43,7 +43,7 @@
                     <ul class="product-info">
                         <li class="info-title">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" value="${loginId}" readonly/>
+                            ${loginId}<input type="hidden" name="id" value="${loginId}" readonly/>
                         </li>
 
                         <li class="info-title">

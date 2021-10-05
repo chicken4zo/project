@@ -90,6 +90,7 @@
 
                                 </div><!--.gallery-->
                                 <!-- Gallery -->
+                                <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
                                 <div class="col-lg-5 mx-auto">
                                     <div class="titleContainer">
                                         <h5 class="mb-0 mt-3" style="font-size: 1.6rem">${pet.title}</h5>
@@ -97,7 +98,7 @@
                                     <div class="idAddr">
                                         <h4 class="mt-lg-0 mt-4 id">${pet.id}</h4>
                                         <h5 class="mt-lg-0 mt-4 address"><i class="fas fa-map-marker-alt"></i>
-                                            ${pet.address}
+                                            ${fn:substring(pet.address,0,3)}
                                         </h5>
                                     </div>
                                     <div class="detail_bar"></div>

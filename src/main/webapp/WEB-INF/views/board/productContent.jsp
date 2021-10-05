@@ -57,10 +57,12 @@
                                 <div id="js-gallery" class="gallery col-xl-5 col-lg-6 text-center">
 
                                     <!--Gallery Hero-->
+                                    <c:set var="orifile" value="${product.fileName1}}"/>
                                     <div class="gallery__hero parent">
-
+                                        <%--                                        <img --%>
+                                        <%--                                             src="${pageContext.request.contextPath}/assets/upload/${product.fileName1}">--%>
                                         <img class="slide w-100 border-radius-lg shadow-lg mx-auto"
-                                             src="${pageContext.request.contextPath}/assets/upload/${product.fileName1}">
+                                             src="${pageContext.request.contextPath}/assets/upload/${orifile}">
                                         <!--                                        <img class="slide" src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-02.jpg">-->
                                         <!--                                        <img class="slide" src="https://public-619e3.firebaseapp.com/Product-Gallery/products/thumb/product-01_view-03.jpg">-->
                                     </div>
