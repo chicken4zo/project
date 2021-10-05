@@ -270,7 +270,7 @@ public class RestaurantDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "insert into Restaurant_Comment(no, content, writedate, id, idx) values(comment_no.nextval,?,sysdate,?,?)";
+            String sql = "insert into Restaurant_Comment(no, content, writedate, id, idx) values(RESTAURANT_COMMENT_SEQ.nextval,?,sysdate,?,?)";;
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, content);
             pstmt.setString(2, id);
