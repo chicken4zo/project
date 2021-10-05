@@ -151,7 +151,7 @@
                                 ${pager}
                         </ul>
                     </nav>
-                    </c:forEach>
+
     </div>
 </div>
 <jsp:include page="../../include/footer.jsp"/>
