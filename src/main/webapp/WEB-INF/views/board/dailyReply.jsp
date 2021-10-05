@@ -34,6 +34,7 @@
 <c:set var="cp" value="${requestScope.cpage}"/>
 <c:set var="ps" value="${requestScope.pagesize}"/>
 <c:set var="idx" value="${requestScope.idx}"/>
+<c:set var="id" value="${sessionScope.id}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -51,7 +52,7 @@
                     <ul class="product-info">
                         <li class="info-title">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" value=""/>
+                            <input type="text" name="id" value="${id}" readonly/>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">이미지</div>
@@ -110,22 +111,22 @@
 	// $('#file').on("change", fileChange);
 	//
 	// function fileChange(e) {
-	// 	const files = e.target.files;
-	// 	const filesArr = Array.prototype.slice.call(files);
+	//     const files = e.target.files;
+	//     const filesArr = Array.prototype.slice.call(files);
 	//
-	// 	filesArr.forEach(function (f) {
-	// 		const reader = new FileReader();
-	// 		reader.onload = function (e) {
-	// 			$('.product-photo').css({
-	// 				"background": "url(" + e.target.result + ")",
-	// 				'background-repeat': 'no-repeat',
-	// 				'background-position': 'center center',
-	// 				'background-size': 'cover'
-	// 			});
-	// 			$('.product-photo::before').css({'background-image': 'url("")'});
-	// 		}
-	// 		reader.readAsDataURL(f);
-	// 	})
+	//     filesArr.forEach(function (f) {
+	//        const reader = new FileReader();
+	//        reader.onload = function (e) {
+	//           $('.product-photo').css({
+	//              "background": "url(" + e.target.result + ")",
+	//              'background-repeat': 'no-repeat',
+	//              'background-position': 'center center',
+	//              'background-size': 'cover'
+	//           });
+	//           $('.product-photo::before').css({'background-image': 'url("")'});
+	//        }
+	//        reader.readAsDataURL(f);
+	//     })
 	// }
 </script>
 </html>

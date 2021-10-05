@@ -1,4 +1,21 @@
+const file = document.querySelector("#file");
+const fileName = document.querySelector(".product-photo").getAttribute("id");
+
 $('#file').on("change", fileChange);
+
+const url = window.location.href.split("/");
+const fileNames = document.querySelectorAll('.product-photo');
+$.each(fileNames, function (index, obj) {
+	console.log(obj.id);
+	console.log(fileNames);
+	console.log(this);
+	$(this).css({
+		"background": "url('/" + url[3] + "/assets/upload/" + obj.id + "')",
+		'background-repeat': 'no-repeat',
+		'background-position': 'center center',
+		'background-size': 'cover'
+	});
+});
 
 function fileChange(e) {
 	const files = e.target.files;
@@ -39,10 +56,6 @@ function filesChange(e) {
 	});
 }
 
-const file = document.querySelector("#file");
-const fileName = document.querySelector(".product-photo").getAttribute("id");
-
-
 $('#delete').click(function (e) {
 	e.preventDefault();
 	$('.originalfile').val("");
@@ -66,7 +79,7 @@ if (fileName !== null) {
 }
 
 function fileDelete(e) {
-	$('.product-photo').css({
+	$(this).css({
 		"background": "url(${pageContext.request.contextPath}/assets/images/upload.png)",
 		'background-repeat': 'no-repeat',
 		'background-position': 'center center',

@@ -8,8 +8,8 @@
             <h4 class="month" id="month"></h4>
             <h5 class="day" id="day"></h5>
         </div>
-        <!--        <i class="wi wi-night-fog"></i>-->
         <h1 id="temp" class="temperature">25&deg;</h1>
+        <!--        <i class="wi wi-night-fog"></i>-->
     </div>
     <div class="weatherData">
         <h2 class="description">오늘,<br> 우리 동네는</h2>

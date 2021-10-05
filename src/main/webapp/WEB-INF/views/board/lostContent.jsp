@@ -125,7 +125,7 @@
                                 <div class="col-12">
                                     <div class="ms-3 button_container">
                                         <%--                                        <c:set value="${sessionScope.id}" var="id"/>--%>
-                                            <c:if test="${lost.id eq loginId}">
+                                            <c:if test="${lost.id eq id}">
                                                 <button type="button" class="btn btn-warning btn-sm"
                                                         onclick="location.href='lostModify.board?idx=${lost.idx}&id=${lost.id}'">
                                                     <i class="fas fa-pen"></i>

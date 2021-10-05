@@ -59,8 +59,8 @@ public class PetDao {
             int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
             int end = cpage * pagesize; // 1 * 5 >> 5
 
-            pstmt.setInt(1, 6);
-            pstmt.setInt(2, 1);
+            pstmt.setInt(1, end);
+            pstmt.setInt(2, start);
             rs = pstmt.executeQuery();
             list = new ArrayList<>();
 
@@ -412,9 +412,7 @@ public class PetDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            sql = "SELECT * FROM (SELECT ROWNUM RN, IDX, TITLE, CONTENT,PRICE, HIT, WRITEDATE, FILENAME_1, FILEPATH_1, FILENAME_2, FILEPATH_2, FILENAME_3, FILEPATH_3 , ID, " +
-                    "ROWNUM FROM (SELECT IDX, TITLE, CONTENT, PRICE, HIT, WRITEDATE, FILENAME_1, FILEPATH_1, FILENAME_2, FILEPATH_2, FILENAME_3, FILEPATH_3, ID  NAME, PET.ID FROM PET,MEMBER " +
-                    "WHERE PET.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY IDX DESC) L) WHERE RN BETWEEN ? and ?";
+            sql = "select * from(SELECT ROWNUM rn, id, address, idx, title, content, hit, writedate, filename, filepath from (select m.id, m.address, p.idx, p.title, p.content, p.hit, p.writedate, p.filename, p.filepath from pet p join member m on(p.id = m.id) and p.title like '%" + text + "%') where rownum <=?) where rn>=?";
 
 
             int start = cpage * pagesize - (pagesize - 1); //1 * 5 - (5 - 1) >> 1
@@ -424,8 +422,8 @@ public class PetDao {
             System.out.println("cpage: " + cpage);
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, start);
-            pstmt.setInt(2, end);
+            pstmt.setInt(1, end);
+            pstmt.setInt(2, start);
 
             rs = pstmt.executeQuery();
 
@@ -437,12 +435,8 @@ public class PetDao {
                 pet.setId(rs.getString("id"));
                 pet.setTitle(rs.getString("title"));
                 pet.setContent(rs.getString("content"));
-                pet.setFileName1(rs.getString("filename1"));
-                pet.setFilePath1(rs.getString("filepath1"));
-                pet.setFileName2(rs.getString("filename2"));
-                pet.setFilePath2(rs.getString("filepath2"));
-                pet.setFileName3(rs.getString("filename3"));
-                pet.setFilePath3(rs.getString("filepath3"));
+                pet.setFileName1(rs.getString("filename"));
+                pet.setFilePath1(rs.getString("filepath"));
                 pet.setHit(rs.getInt("hit"));
                 pet.setWriteDate(rs.getDate("writedate"));
                 pet.setAddress(rs.getString("address"));
@@ -470,7 +464,7 @@ public class PetDao {
         ResultSet rs = null;
         int result = 0;
 
-        String sql = "SELECT count(*) cnt FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%\" + text + \"%' ORDER BY REFER DESC, STEP ASC) L";
+        String sql = "SELECT count(*) cnt FROM (SELECT TITLE FROM pet WHERE TITLE LIKE '%" + text + "%')";
 
         try {
             conn = ConnectionHelper.getConnection("oracle");

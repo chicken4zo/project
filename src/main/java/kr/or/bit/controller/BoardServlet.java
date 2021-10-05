@@ -111,7 +111,7 @@ public class BoardServlet extends HttpServlet {
             forward = action.execute(request, response);
             System.out.println("수정서비스간다.");
 
-        } else if (urlCommand.equals("RestaurantEditOk.board")) {
+        } else if (urlCommand.equals("/RestaurantEditOk.board")) {
             action = new RestaurantEditOkService();
             forward = action.execute(request, response);
             System.out.println("수정완료서비스");

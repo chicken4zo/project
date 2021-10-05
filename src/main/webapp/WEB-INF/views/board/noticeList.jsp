@@ -21,8 +21,8 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardList.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css?after">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardList.css?after">
     <!-- favicon -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
@@ -81,17 +81,17 @@
                                                 <c:when test="${notice.title=='deleted'}">
                                                     삭제된 게시글 입니다
                                                 </c:when>
-                                                <c:otherwise>
-                                                <a href="noticeContent.board?idx=${notice.idx}&id=${notice.id}&cp=${cpage}&ps=${pagesize}">
-                                                    <c:choose>
-                                                        <c:when test="${notice.title != null && fn:length(notice.title) > 10}">
-                                                            ${fn:substring(notice.title,0,10)}...
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            ${notice.title}
+                                                    <c:otherwise>
+                                                    <a href="NoticeContent.board?idx=${notice.idx}&id=${notice.id}&cp=${cpage}&ps=${pagesize}">
+                                                        <c:choose>
+                                                            <c:when test="${notice.title != null && fn:length(notice.title) > 10}">
+                                                                ${fn:substring(notice.title,0,10)}...
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                ${notice.title}
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                         </c:otherwise>
-                                                    </c:choose>
-                                                    </c:otherwise>
                                                     </c:choose>
                                                 </a>
                                             </td>
@@ -111,22 +111,6 @@
             </div>
         </div>
 
-        <form name="list">
-            <!-- 한 페이지안에 보여줄 게시글 건수 -->
-            <select name="ps" onchange="submit()"
-                    style="color: rgb(73,80,87); border-radius: 15%; border: 1px solid #858585; font-size: 0.7rem;">
-                <c:forEach var="i" begin="5" end="20" step="5">
-                    <c:choose>
-                        <c:when test="${pagesize == i}">
-                            <option value="${i}" selected>${i}건</option>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${i}">${i}건</option>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </select>
-        </form>
         <c:if test="${id eq 'admin'}">
             <button class="write-btn" onclick="location.href='NoticeWrite.board'">글쓰기</button>
         </c:if>

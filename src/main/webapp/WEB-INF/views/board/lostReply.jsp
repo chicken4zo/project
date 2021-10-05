@@ -37,6 +37,7 @@
 <c:set var="cp" value="${requestScope.cpage}"/>
 <c:set var="ps" value="${requestScope.pagesize}"/>
 <c:set var="idx" value="${requestScope.idx}"/>
+<c:set var="id" value="${sessionScope.id}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -45,7 +46,7 @@
         <jsp:include page="../../include/weather.jsp"/>
 
         <%--content--%>
-        <div class="title">분실·실종</div>
+        <div class="title">잃었구마</div>
         <form name="lost" action="lostReplyOk.board" method="post" enctype="multipart/form-data">
             <input type="hidden" name="idx" value="${idx}">
             <input type="hidden" name="ps" value="${ps}">
@@ -56,7 +57,7 @@
                     <ul class="product-info">
                         <li class="info-title">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" value=""/>
+                            <input type="text" name="id" value="${id}" readonly/>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">이미지</div>
@@ -111,35 +112,35 @@
 
 <script>
 
-    // $('#file').on("change", fileChange);
-    //
-    // function fileChange(e) {
-    // 	const files = e.target.files;
-    // 	const filesArr = Array.prototype.slice.call(files);
-    //
-    // 	filesArr.forEach(function (f) {
-    // 		const reader = new FileReader();
-    // 		reader.onload = function (e) {
-    // 			$('.product-photo').css({
-    // 				"background": "url(" + e.target.result + ")",
-    // 				'background-repeat': 'no-repeat',
-    // 				'background-position': 'center center',
-    // 				'background-size': 'cover'
-    // 			});
-    // 			$('.product-photo::before').css({'backgrounddl-image': 'url("")'});
-    // 		}
-    // 		reader.readAsDataURL(f);
-    // 	})
-    // }
+	// $('#file').on("change", fileChange);
+	//
+	// function fileChange(e) {
+	//     const files = e.target.files;
+	//     const filesArr = Array.prototype.slice.call(files);
+	//
+	//     filesArr.forEach(function (f) {
+	//        const reader = new FileReader();
+	//        reader.onload = function (e) {
+	//           $('.product-photo').css({
+	//              "background": "url(" + e.target.result + ")",
+	//              'background-repeat': 'no-repeat',
+	//              'background-position': 'center center',
+	//              'background-size': 'cover'
+	//           });
+	//           $('.product-photo::before').css({'backgrounddl-image': 'url("")'});
+	//        }
+	//        reader.readAsDataURL(f);
+	//     })
+	// }
 
 
-    // 유효성 ...  왜 안돼 .....
-    // const btn = document.querySelector('#writeBtn');
-    // const title = document.querySelector('#writeTitle');
-    // const content = editor.getData();
-    //
-    // btn.addEventListener('click', function (){
-    //
+	// 유효성 ...  왜 안돼 .....
+	// const btn = document.querySelector('#writeBtn');
+	// const title = document.querySelector('#writeTitle');
+	// const content = editor.getData();
+	//
+	// btn.addEventListener('click', function (){
+	//
     //    if(title.value.length > 50){
     //        alert("제목을 50자 내로 입력해주세요.");
     //        // title.focus();

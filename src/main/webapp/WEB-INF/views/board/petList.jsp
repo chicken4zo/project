@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css?after">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/petList.css?after">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
@@ -36,15 +36,14 @@
         <!--header-->
         <jsp:include page="/WEB-INF/include/top.jsp"/>
 
-        <%--dropdown--%>
-        <jsp:include page="../../include/boardMenu.jsp"/>
-
         <%--weather--%>
         <jsp:include page="/WEB-INF/include/weather.jsp"/>
 
         <!--content-->
-        <div>
-            <h3 class="pet-logo">반려동물</h3>
+        <div style="display: flex;justify-content: space-between;align-items: center">
+            <h3 class="pet-logo">귀엽구마</h3>
+            <%--dropdown--%>
+            <jsp:include page="../../include/boardMenu.jsp"/>
         </div>
 
         <section class="cards">
@@ -55,7 +54,8 @@
                     <c:otherwise>
                         <article class="card card--1">
                             <div class="card__info-hover">
-                                <i class="fas fa-eye" style="color:#dadada; font-size: 0.9rem; margin-right: 4px"></i><span
+                                <i class="fas fa-eye"
+                                   style="color:white; font-size: 0.9rem; margin-right: 4px"></i><span
                                     class="hit-size">${pet.hit}</span>
                                 <div class="card__hit-info">
                                     <!--                ><i class="far fa-eye" style="color:rgba(0,0,0,0.5)"</i>-->
@@ -78,7 +78,8 @@
                 </c:choose>
             </c:forEach>
         </section>
-        <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기</button>
+        <button class="write-btn" onclick="location.href='${pageContext.request.contextPath}/petForm.board'">글쓰기
+        </button>
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 ${pager}
@@ -89,7 +90,6 @@
 
 </div>
 <jsp:include page="/WEB-INF/include/footer.jsp"/>
-
 </body>
 <!--bootstrp js-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

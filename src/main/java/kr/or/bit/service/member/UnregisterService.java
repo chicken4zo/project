@@ -6,6 +6,7 @@ import kr.or.bit.dao.MemberDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class UnregisterService implements Action {
     @Override
@@ -13,22 +14,30 @@ public class UnregisterService implements Action {
         String id = request.getParameter("id");
         //memo m = new memo();  //권장사항
         //m.setId(id);
+        HttpSession session = request.getSession();
+        session.invalidate();
 
         MemberDao memberdao = new MemberDao(); //POINT
+
+        int resultRow = memberdao.deleteLostAllById(id);
+        int resultRow2 = memberdao.deleteProductAllById(id);
+        int resultRow3 = memberdao.deleteProductCommentAllById(id);
+        int resultRow4 = memberdao.deleteLostCommentAllById(id);
+
         int result = memberdao.DeleteMemberok(id);
 
         String msg = "";
         String url = "";
         if (result > 0) {
             msg = "탈퇴 완료했습니다.";
-            url = "Index.member";
+            url = "Login.member";
         } else {
             msg = "탈퇴에 실패하였습니다.";
-            url = "main.member";
+            url = "Mypage.member";
         }
 
         request.setAttribute("msg", msg);
-        request.setAttribute("url", url);
+        request.setAttribute("board_url", url);
 
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);

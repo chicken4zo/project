@@ -61,7 +61,7 @@
     </div>
 </div>
 <%--weather--%>
-<jsp:include page="/WEB-INF/include/footer.jsp"/>
+<%--<jsp:include page="/WEB-INF/include/footer.jsp"/>--%>
 
 </body>
 <!--bootstrp js-->

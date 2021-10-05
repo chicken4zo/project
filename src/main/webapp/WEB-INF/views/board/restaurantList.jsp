@@ -19,8 +19,8 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardList.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css?after">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardList.css?after">
     <!-- favicon -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
@@ -41,8 +41,7 @@
     <div class="wrapper">
         <!--header-->
         <jsp:include page="../../include/top.jsp"/>
-        <%--dropdown--%>
-        <jsp:include page="../../include/boardMenu.jsp"/>
+
 
         <!-- weather -->
         <jsp:include page="../../include/weather.jsp"/>
@@ -56,8 +55,10 @@
         <%--                </tr>--%>
         <%--            </c:forEach>--%>
         <!--content-->
-        <div class="board-logo">
+        <div class="board-logo" style="display: flex;justify-content: space-between;align-items: center">
             <h3>맛있구마</h3>
+            <%--dropdown--%>
+            <jsp:include page="../../include/boardMenu.jsp"/>
         </div>
         <div class="col-md-12">
             <div class="card card-plain">
@@ -95,18 +96,18 @@
                                                 <c:when test="${restaurant.title=='deleted'}">
                                                     삭제된 게시글 입니다
                                                 </c:when>
-                                                <c:otherwise>
-                                                <a href="restaurantContent.board?idx=${restaurant.idx}&id=${restaurant.id}&cp=${cpage}&ps=${pagesize}">
-                                                    <c:choose>
-                                                        <c:when test="${restaurant.title != null && fn:length(restaurant.title) > 10}">
-                                                            ${fn:substring(restaurant.title,0,10)}...
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            ${restaurant.title}
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <c:if test="${not empty restaurant.fileName}">
-                                                        <i class="far fa-image" style="margin-left: 5px"></i>
+                                                    <c:otherwise>
+                                                    <a href="RestaurantContent.board?idx=${restaurant.idx}&id=${restaurant.id}&cp=${cpage}&ps=${pagesize}">
+                                                        <c:choose>
+                                                            <c:when test="${restaurant.title != null && fn:length(restaurant.title) > 10}">
+                                                                ${fn:substring(restaurant.title,0,10)}...
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                ${restaurant.title}
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <c:if test="${not empty restaurant.fileName}">
+                                                            <i class="far fa-image" style="margin-left: 5px"></i>
                                                     </c:if>
                                                     </c:otherwise>
                                                     </c:choose>
@@ -141,6 +142,7 @@
                 ${pager}
             </ul>
         </nav>
+
     </div>
 </div>
 

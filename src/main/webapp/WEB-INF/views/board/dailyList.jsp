@@ -18,8 +18,8 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardList.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css?after">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardList.css?after">
     <!-- favicon -->
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
@@ -42,16 +42,15 @@
         <!--header-->
         <jsp:include page="../../include/top.jsp"/>
 
-        <%--dropdown--%>
-        <jsp:include page="../../include/boardMenu.jsp"/>
 
         <!-- weather -->
         <jsp:include page="../../include/weather.jsp"/>
 
-
         <!--content-->
-        <div class="board-logo">
-            <h3>일상</h3>
+        <div class="board-logo" style="display: flex;justify-content: space-between;align-items: center">
+            <h3>사는구마</h3>
+            <%--dropdown--%>
+            <jsp:include page="../../include/boardMenu.jsp"/>
         </div>
         <div class="col-md-12">
             <div class="card card-plain">
@@ -157,4 +156,10 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/productPetContent.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js?ver=2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </html>

@@ -42,16 +42,15 @@
         <!--header-->
         <jsp:include page="../../include/top.jsp"/>
 
-        <%--dropdown--%>
-        <jsp:include page="../../include/boardMenu.jsp"/>
-
         <!-- weather -->
         <jsp:include page="../../include/weather.jsp"/>
 
 
         <!--content-->
-        <div class="board-logo">
-            <h3>분실·실종</h3>
+        <div class="board-logo" style="display: flex;justify-content: space-between;align-items: center">
+            <h3>잃었구마</h3>
+            <%--dropdown--%>
+            <jsp:include page="../../include/boardMenu.jsp"/>
         </div>
         <div class="col-md-12">
             <div class="card card-plain">

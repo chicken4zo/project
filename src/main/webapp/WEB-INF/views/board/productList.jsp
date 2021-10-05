@@ -13,8 +13,9 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css?after">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/index.css?after">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/boardList.css?after">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
@@ -30,7 +31,7 @@
           rel="stylesheet">
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
-<%--    뒤로가기 막는코드--%>
+    <%--    뒤로가기 막는코드--%>
 
 
 </head>
@@ -39,16 +40,19 @@
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
-        <jsp:include page="/WEB-INF/include/top.jsp"/>
-        <%--dropdown--%>
-        <jsp:include page="../../include/boardMenu.jsp"/>
 
+        <jsp:include page="/WEB-INF/include/top.jsp"/>
         <!--sub_nav-->
+        <div class="board-logo" style="display: flex;justify-content: space-between;align-items: center">
+            <h3>살구마 말구마</h3>
+            <%--dropdown--%>
+            <jsp:include page="../../include/boardMenu.jsp"/>
+        </div>
         <section class="navbar navbar-icon-top navbar-expand-lg sub_nav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active nav_li">
 
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="search.board?searchText=의류&boardName=product">
                         <i class="fa fa-tshirt sub_icon"></i>
                         <span>의류 & 신발</span>
                     </a>
@@ -56,32 +60,32 @@
                 </li>
                 <li class="nav-item">
 
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="search.board?searchText=반려동물&boardName=product">
                         <i class="fa fa-bone sub_icon"></i>
                         <span>반려동물</span>
                     </a>
 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="search.board?searchText=주방용품&boardName=product">
                         <i class="fa fa-utensils sub_icon"></i>
                         <span>주방용품</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="search.board?searchText=스포츠&boardName=product">
                         <i class="fa fa-dumbbell sub_icon"></i>
                         <span>스포츠 & 생활</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="search.board?searchText=전자제품&boardName=product">
                         <i class="fa fa-laptop sub_icon"></i>
                         <span>전자제품</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="search.board?searchText=육아용품&boardName=product">
                         <i class="fa fa-baby-carriage sub_icon"></i>
                         <span>육아용품</span>
                     </a>
@@ -128,7 +132,8 @@
                                         </p>
                                         <div>
                                             <input type="checkbox" checked data-size="small" data-toggle="toggle"
-                                                   data-on="거래중" data-off="거래완료" data-style="ios" data-onstyle="success"
+                                                   data-on="거래중" data-off="거래완료" data-style="ios"
+                                                   data-onstyle="success"
                                                    data-offstyle="default">
                                         </div>
                                     </div>
