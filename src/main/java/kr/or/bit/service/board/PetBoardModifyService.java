@@ -18,6 +18,8 @@ public class PetBoardModifyService implements Action {
         String uploadpath = request.getSession().getServletContext().getRealPath("/assets/upload");
         int size = 1024 * 1024 * 10;
         ActionForward forward = null;
+        String msg = "";
+        String url = "";
 
         try {
             if (request.getParameter("title") == null || request.getParameter("title").equals("")) {
@@ -75,10 +77,21 @@ public class PetBoardModifyService implements Action {
 
                 int result = dao.modifyPet(petBoard);
 
+                if (result > 0) {
+                    msg = "success";
+                    url = "petList.board";
+                } else {
+                    msg = "fail";
+                    url = "petModify.board?idx=" + idx;
+                }
+
+                request.setAttribute("msg", msg);
+                request.setAttribute("url", url);
+
 
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setPath("petList.board");
+                forward.setPath("/WEB-INF/views/board/boardModifyPop.jsp");
             }
 
         } catch (Exception e) {

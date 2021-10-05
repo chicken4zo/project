@@ -150,7 +150,7 @@ public class DailyDao {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         DailyBoard daily = null;
-        String sql = "SELECT IDX, ID, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH FROM DAILY WHERE IDX = ?";
+        String sql = "SELECT IDX, M.ID, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, M.ADDRESS FROM DAILY,MEMBER M WHERE IDX = ? AND DAILY.ID=M.ID";
 
         try {
             conn = ConnectionHelper.getConnection(database);
@@ -168,6 +168,8 @@ public class DailyDao {
                 daily.setFilePath(rs.getString("filepath"));
                 daily.setFileName(rs.getString("filename"));
                 daily.setWriteDate(rs.getDate("writedate"));
+                daily.setHit(rs.getInt("hit"));
+                daily.setAddress(rs.getString("address"));
             } else {
                 daily = null;
             }
@@ -382,14 +384,15 @@ public class DailyDao {
     public int deleteDaily(String idx) {
         int resultRow = 0;
         PreparedStatement pstmt = null;
-        String sql = "DELETE FROM DAILY WHERE IDX = ?";
+        String sql = "UPDATE DAILY SET TITLE = ? WHERE IDX = ?";
         Connection conn = null;
 
         try {
             conn = ConnectionHelper.getConnection(database);
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, Integer.parseInt(idx));
+            pstmt.setString(1, "deleted");
+            pstmt.setInt(2, Integer.parseInt(idx));
             resultRow = pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -571,7 +574,7 @@ public class DailyDao {
         ResultSet rs = null;
         int result = 0;
 
-        String sql = "SELECT count(*) cnt FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%\" + text + \"%' ORDER BY REFER DESC, STEP ASC) L";
+        String sql = "SELECT count(*) cnt FROM (SELECT IDX, TITLE, CONTENT, HIT, WRITEDATE, FILENAME, FILEPATH, REFER, DEPTH, STEP, PASSWORD, ADDRESS, BIRTH, NAME, DAILY.ID FROM DAILY,MEMBER WHERE DAILY.ID=MEMBER.ID and TITLE LIKE '%" + text + "%' ORDER BY REFER DESC, STEP ASC) L";
 
         try {
             conn = ConnectionHelper.getConnection(database);
@@ -580,8 +583,7 @@ public class DailyDao {
 
             if (rs.next()) {
                 result = rs.getInt("cnt");
-            } else {
-                result = 0;
+                System.out.println("dao 안 result" + result);
             }
 
         } catch (Exception e) {

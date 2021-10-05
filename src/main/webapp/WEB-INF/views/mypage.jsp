@@ -26,7 +26,7 @@
 
 </head>
 <body>
-<c:set var="mylist" value="${requestScope.lostList}"/>
+<c:set var="mylist" value="${requestScope.list}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -40,70 +40,62 @@
             <h3>마이구마</h3>
         </div>
         <div class="post-main">
-            <h3>작성한글</h3>
+            <h3>나의 상품</h3>
         </div>
         <section id="post-group">
             <section class="post-wrap">
+                <c:choose>
+                    <c:when test="${not empty mylist}">
 
-                <c:forEach items="${mylist}" var="post">
-                    <article class="post">
-                        <div class="post-photo">
-                            <img alt="사진이름" src="${pageContext.request.contextPath}/assets/upload/${post.fileName}">
-                        </div>
-                        <div class="post-desc">
-                            <a href="lostContent.board?idx=${post.idx}"><h2 class="post-title">${post.title}</h2></a>
-                            <div class="post-price">${post.address}</div>
-                            <div class="post-content">${post.content}</div>
-                        </div>
-                    </article>
-                </c:forEach>
-
-                <%--                <article class="post">--%>
-                <%--                    <div class="post-photo">--%>
-                <%--                        <img alt="사진이름" src="/assets/images/logo.png">--%>
-                <%--                    </div>--%>
-                <%--                    <div class="post-desc">--%>
-                <%--                        <h2 class="post-title">글제목</h2>--%>
-                <%--                        <div class="post-price">50,000원</div>--%>
-                <%--                        <div class="post-content">내용</div>--%>
-                <%--                    </div>--%>
-                <%--                </article>--%>
-                <%--                <article class="post">--%>
-                <%--                    <div class="post-photo">--%>
-                <%--                        <img alt="사진이름" src="/assets/images/logo.png">--%>
-                <%--                    </div>--%>
-                <%--                    <div class="post-desc">--%>
-                <%--                        <h2 class="post-title">글제목</h2>--%>
-                <%--                        <div class="post-price">50,000원</div>--%>
-                <%--                        <div class="post-content">내용</div>--%>
-                <%--                    </div>--%>
-                <%--                </article>--%>
+                        <c:forEach items="${mylist}" var="post">
+                            <article class="post">
+                                <div class="post-photo">
+                                    <img alt="사진이름"
+                                         src="${pageContext.request.contextPath}/assets/upload/${post.fileName1}">
+                                </div>
+                                <div class="post-desc">
+                                    <a href="productContent.board?idx=${post.idx}"><h2
+                                            class="post-title">${post.title}</h2></a>
+                                    <div class="post-price">${post.address}</div>
+                                    <div class="post-content">${post.content}</div>
+                                </div>
+                            </article>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <h4>게시한 상품이 없습니다</h4>
+                    </c:otherwise>
+                </c:choose>
             </section>
         </section>
         <div class="post-main">
             <h3>정보수정</h3>
         </div>
         <div class="form-group">
-            <form id="form1">
+            <c:set var="memberDto" value="${requestScope.memberDto}"/>
+            <form id="form1" action="EditMember.member" method="post">
                 <label>아이디</label>
-                <input type="text" class="login_input input">
+                <input type="text" class="login_input input" name="id" id="id" value="${memberDto.id}" readonly>
 
                 <label>패스워드</label>
-                <input type="password" class="login_input input" id="password">
+                <input type="password" class="login_input input" id="password" name="password" value="${memberDto.password}">
+
+                <label>이름</label>
+                <input type="text" class="login_input input" id="name" name="name" value="${memberDto.name}">
 
                 <label>주소</label>
-                <input type="text" id="address" name="address" class="login_input input" required readonly>
+                <input type="text" id="address" name="address" class="login_input input" value="${memberDto.address}">
                 <input type="button" class="button search-btn" onclick="sample6_execDaumPostcode()" value="검색">
 
 
                 <label>생년월일</label>
-                <input placeholder="&nbsp;8자리를 입력하세요 예)19990101" type="text" class="login_input input" id="birth">
+                <input placeholder="&nbsp;8자리를 입력하세요 예)19990101" type="text" class="login_input input" id="birth"
+                name = "birth" value="${memberDto.birth}">
 
                 <div class="edit-btn">
-                    <button type="submit" class="button" id="submit" class="submit_btn">정보수정</button>
-                    <button type="button" class="button" id="cancel" style="border: none;">회원탈퇴</button>
+                    <button type="submit" class="button" id="submit" class="submit_btn" onclick="location.href= 'ModifyMember.member?id=${memberDto.id}'">정보수정</button>
+                    <button type="button" class="button" id="cancel" style="border: none;" onclick="location.href='Unregister.member?id=${memberDto.id}'">회원탈퇴</button>
                 </div>
-
             </form>
         </div>
 
@@ -115,9 +107,7 @@
 
 </body>
 <!--bootstrp js-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -131,32 +121,32 @@
 
 <script>
 
-    $(document).ready(function () {
+	$(document).ready(function () {
 
-        $('#form1').submit(function () {
-            const id = RegExp(/^[a-zA-Z0-9]{3,16}$/)
-            const id_val = $('#id').val();
+		$('#form1').click(function () {
+			const id = RegExp(/^[a-zA-Z0-9]{3,16}$/)
+			const id_val = $('#id').val();
 
 
-            //    비밀번호 유효성
-            const password = $('#password').val();
-            const num = password.search(/[0-9]/g);
-            const eng = password.search(/[0-9]/ig);
-            const space = password.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
-            const text = "";
+			//    비밀번호 유효성
+			const password = $('#password').val();
+			const num = password.search(/[0-9]/g);
+			const eng = password.search(/[0-9]/ig);
+			const space = password.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
+			const text = "";
             //1. 6자리 ~12자리
             if (password.length < 8 || password.length > 12) {
                 alert("비밀번호 : 8-12자리 이내로 입력하세요");
                 $('#password').focus();
-                return false;
+                return true;
             } else if (password.search(/\s/) != -1) {
                 alert("비밀번호 : 공백은 입력할 수 없습니다");
                 $('#password').focus();
-                return false;
+                return true;
             } else if (num < 0 || eng < 0 || space < 0) {
                 alert("비밀번호 : 영어,숫자,특수문자를 포함해주세요:)");
                 $('#password').focus();
-                return false;
+                return true;
             }
 
 
@@ -175,24 +165,24 @@
             if (birth.length < 7) { //연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
                 alert("생년월일은 8자리(YYYY/MM/DD 로 입력해주세요.");
                 $('#birth').focus();
-                return false;
+                return true;
             } else if (1900 > year || year > yearNow) {
                 alert("생년월일 : 년도를 확인해주세요");
                 $('#birth').focus();
-                return false;
+                return true;
             } else if (month < 1 || month > 12) {
                 alert("생년월일 : 월을 확인해주세요");
                 $('#birth').focus();
-                return false;
+                return true;
             } else if (day < 1 || day > 31) {
                 console.log("여기는 탑니까1?");
                 alert("생년월일 : 일을 확인해주세요");
                 $('#birth').focus();
-                return false;
+                return true;
             } else if (birthreg < 0) {
                 alert("생년월일 : 숫자만 입력해주세요");
                 $('#birth').focus();
-                return false;
+                return true;
             }
 
 

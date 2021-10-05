@@ -137,16 +137,28 @@ public class PetBoardWriteService implements Action {
                 files.add(multi.getFilesystemName(file));
             }
 
+            System.out.println("저장된 사진들:" + files);
+
             PetBoard petBoard = new PetBoard();
             petBoard.setId(id);
             petBoard.setTitle(title);
             petBoard.setContent(content);
-            petBoard.setFileName1(files.get(0));
-            petBoard.setFilePath1(uploadpath);
-            petBoard.setFileName2(files.get(1));
-            petBoard.setFilePath2(uploadpath);
-            petBoard.setFileName3(files.get(2));
-            petBoard.setFilePath3(uploadpath);
+
+
+            if (files.get(0) != null) {
+                petBoard.setFileName3(files.get(0));
+                petBoard.setFilePath3(uploadpath);
+            }
+
+            if (files.get(1) != null) {
+                petBoard.setFileName2(files.get(1));
+                petBoard.setFilePath2(uploadpath);
+            }
+
+            if (files.get(2) != null) {
+                petBoard.setFileName1(files.get(2));
+                petBoard.setFilePath1(uploadpath);
+            }
 
             PetDao dao = new PetDao();
             int result = dao.writePetBoard(petBoard);
@@ -155,13 +167,7 @@ public class PetBoardWriteService implements Action {
 //            forward.setRedirect(false);
 //            forward.setPath("petList.board");
 
-            String url = "";
-            if (result > 0) {
-                url = "petList.board";
-            } else {
-                url = "petList.board";
-            }
-
+            String url = "petList.board";
             request.setAttribute("board_url", url);
 
             forward = new ActionForward();

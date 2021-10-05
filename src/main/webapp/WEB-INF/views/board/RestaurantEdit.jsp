@@ -20,6 +20,15 @@
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- fontawesome  -->
+    <script src="https://kit.fontawesome.com/a959489452.js" crossorigin="anonymous"></script>
+    <!--font-->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <!--weather icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
+
     <style>
         .product-photo {
             background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
@@ -37,18 +46,21 @@
     <div class="wrapper">
         <!--header-->
         <jsp:include page="../../include/top.jsp"/>
-        <div class="board-logo">
-            <h3>일상</h3>
-        </div>
+
+        <%--weather--%>
+        <jsp:include page="/WEB-INF/include/weather.jsp"/>
+
+        <div class="title">수정</div>
+
         <form action="RestaurantEditOk.board?title=${board.title}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="idx" value="${board.idx}">
-            <div class="produdct-group">
+            <div class="product-group">
                 <section class="product-wrap">
                     <!--    <h2>글쓰기</h2>-->
                     <ul class="product-info">
                         <li class="info-title">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" value="${board.id}"/>
+                            <input type="text" name="id" value="${board.id}" readonly/>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">이미지</div>
@@ -57,7 +69,7 @@
                                 <input type="file" id="file" name="file" accept="image/jpeg, image/png, image/jpg">
                             </div>
                             <c:if test="${not empty board.fileName}">
-                                <button id="delete" class="write-btn">삭제</button>
+                                <button id="delete" class="del-btn">삭제</button>
                             </c:if>
                             <div class="file"></div>
                             <input hidden class="originalfile" name="originalfile" value="${board.fileName}">
@@ -76,7 +88,13 @@
                             <script>
                                 //CKEditor5를 생성할 textarea 지정
                                 ClassicEditor
-                                    .create(document.querySelector('#editor'))
+                                    .create(document.querySelector('#editor'), {
+                                        placeholder: '500자 내로 입력해주세요',
+                                        removePlugins: ['ImageUpload']
+                                    })
+                                    .then(newEditor => {
+                                        editor = newEditor;
+                                    })
                                     .catch(error => {
                                         console.error(error);
                                     });
@@ -87,13 +105,16 @@
                 <div class="product-btn">
                     <input type="submit" class="write-btn" value="수정완료">
                 </div>
+            </div>
         </form>
     </div>
 </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/index.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+
 <script>
     <%--const file = document.querySelector("#file");--%>
     <%--const fileName = document.querySelector(".product-photo").getAttribute("id");--%>

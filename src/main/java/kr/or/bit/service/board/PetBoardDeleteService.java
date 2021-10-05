@@ -14,9 +14,24 @@ public class PetBoardDeleteService implements Action {
         PetDao dao = new PetDao();
         int result = dao.deletePet(idx);
 
+        String msg = "";
+        String url = "";
+
+        if (result > 0) {
+            msg = "success";
+            url = "petList.board";
+        } else {
+            msg = "fail";
+            url = "petList.board";
+        }
+
+        request.setAttribute("msg", msg);
+        request.setAttribute("url", url);
+
+
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
-        forward.setPath("petList.board");
+        forward.setPath("/WEB-INF/views/board/boardDeletePop.jsp");
 
         return forward;
     }

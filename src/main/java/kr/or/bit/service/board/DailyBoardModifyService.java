@@ -17,6 +17,9 @@ public class DailyBoardModifyService implements Action {
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         DailyDao dao = new DailyDao();
         ActionForward forward = new ActionForward();
+        String msg = "";
+        String url = "";
+
         if (request.getParameter("title") == null || request.getParameter("title").equals("")) {
             String id = request.getParameter("id");
             String idx = request.getParameter("idx");
@@ -54,11 +57,11 @@ public class DailyBoardModifyService implements Action {
                 dailyBoard.setId(multi.getParameter("id"));
                 dailyBoard.setIdx(idx);
                 String originalFileName = multi.getParameter("originalfile");
-                if (multi.getFileNames() != null) {
                     Enumeration fileNames = multi.getFileNames();
 
                     String fileTag = (String) fileNames.nextElement();
                     String fileName = multi.getFilesystemName(fileTag);
+                if (fileName != null) {
                     String fileName2 = multi.getOriginalFileName(fileTag);
                     dailyBoard.setFileName(fileName);
                     dailyBoard.setFilePath(uploadPath);
@@ -72,9 +75,22 @@ public class DailyBoardModifyService implements Action {
 
             System.out.println(dailyBoard);
             int result = dao.modifyDaily(dailyBoard);
+            String idx = request.getParameter("idx");
+
+            if (result > 0) {
+                msg = "success";
+                url = "dailyList.board";
+            } else {
+                msg = "fail";
+                url = "dailyModify.board?idx=" + idx;
+            }
+
+            request.setAttribute("msg", msg);
+            request.setAttribute("url", url);
+
 
             forward.setRedirect(false);
-            forward.setPath("dailyList.board");
+            forward.setPath("/WEB-INF/views/board/boardModifyPop.jsp");
         }
 
         return forward;

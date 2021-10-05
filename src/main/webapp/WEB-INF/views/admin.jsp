@@ -17,11 +17,11 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css">
     <!-- favicon -->
-    <link rel="shortcut icon" href="/assets/images/favicon-16x16.png">
-    <link rel="icon" href="/assets/images/favicon-16x16.png">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
 </head>
 <body>
+
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -46,65 +47,42 @@
         <div class="board-logo">
             <h3>관리구마</h3>
         </div>
-        <div class="search-form" style="margin: -4% 0 0 68%">
-            <input type="text" name="search" value="Search" onclick="this.value=''; ">
-            <button type="submit" class="btn btn-search fa fa-search"></button>
-        </div>
-        <div class="list">
-            <table>
-                <thead>
-                <tr>
-                    <th width="4%">
-                        <div class="checks small"><input type="checkbox" onclick='selectAll(this)' id="check"><label
-                                for="check"></label></div>
-                    </th>
-                    <th width="32%">아이디</th>
-                    <th width="32%">이름</th>
-                    <th width="32%">관리</th>
+        <form class="form" id="deleteForm">
+            <div class="list">
+                <table>
+                    <thead>
+                    <tr>
+                        <th width="4%">
+                            <div class="checks small"><input type="checkbox" onclick='selectAll(this)' id="check"><label
+                                    for="check"></label></div>
+                        </th>
+                        <th width="32%">아이디</th>
+                        <th width="32%">이름</th>
                 </tr>
-                </thead>
-                <tbody>
+                <c:set var="memberlist" value="${requestScope.memberList}"/>
                 <c:choose>
                     <c:when test="${not empty memberlist}">
-                        <c:forEach var="lost" items="${memberlist}">
-                            <tr>
-                                <td>
-                                    <div class="checks small"><input type="checkbox" id="check1"><label
-                                            for="check1"></label></div>
-                                </td>
-                                <td>${member.id}</td>
-                                <td>${member.name}</td>
-                                <!-- <td><button type="button" class="card__btn"><i class="delete" data-title="Delete"></i></button></td>-->
-                                <td>
-                                    <button type="button" class="card__btn">상세</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="checks small"><input type="checkbox" id="check2"><label
-                                            for="check1"></label></div>
-                                </td>
-                                <td>${member.id}</td>
-                                <td>${member.name}</td>
-                                <td>
-                                    <button type="button" class="card__btn">상세</button>
-                                </td>
-                            </tr>
-                        </c:forEach>
+                    <c:forEach var="member" items="${memberlist}" varStatus="status">
+                    <tr>
+                        <td>
+                            <div class="checks small"><input type="checkbox" class="checkbox" id="check${status.count}"
+                                                             name="id" value="${member.id}"><label
+                                    for="check${status.count}"></label></div>
+                        </td>
+                        <td>${member.id}</td>
+                        <td>${member.name}</td>
+                    </tr>
+                    </c:forEach>
                     </c:when>
                     <c:otherwise>
-                        <td>등록된 글이 없습니다</td>
+                    <td></td>
+                    <td>등록되 회원이 없습니다</td>
                     </c:otherwise>
                 </c:choose>
-                </tbody>
-            </table>
-        </div>
-        <button class="write-btn" onclick="location.href='memberDelete.board'">회원삭제</button>
-
-        <div class="modal searchModal">
-            <div class="modal-content searchModalContent">
+                </table>
             </div>
-        </div>
+            <button class="write-btn" id="deleteBtn">회원삭제</button>
+        </form>
         <div class="modal detailModal">
             <div class="modal-content detailModalContent">
             </div>
@@ -117,17 +95,15 @@
     </div>
 </div>
 <jsp:include page="/WEB-INF/include/footer.jsp"/>
+
 </body>
 <!--   Core JS Files   -->
-<script src="${pageContext.request.contextPath}/assets/js/core/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/core/bootstrap-material-design.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 </body>
 <!--bootstrp js-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -136,6 +112,8 @@
         crossorigin="anonymous"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
 
 <!--image js-->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -145,43 +123,41 @@
 <script src="${pageContext.request.contextPath}/assets/js/admin.js"></script>
 <script type="text/javascript">
 
-    $('#submit').click(function () {
-        const formData = $('#searchForm').serialize();
-        $.ajax(
-            {
-                url: "SearchMember",
-                type: "GET",
-                data: formData,
-                success: function (data) {
-                    $(".searchModalContent").html(data);
-                    $(".searchModal").fadeIn();
-                },
-                error: function (xhr) {
-                    console.log(xhr.status);
-                }
-            }
-        );
-    });
+	const formData = $('.deleteForm').serialize();
 
-    $('.modal-content').click(function () {
-        $('.searchModal').fadeOut(600);
-    });
-
-    $('.memberId').click(function () {
-        console.log($(this).text());
-        $.ajax(
-            {
-                url: "KoreaMemberDetail?id=" + $(this).text(),
-                type: "GET",
-                success: function (data) {
-                    $('.detailModalContent').html(data);
-                    $('.detailModal').fadeIn();
-                },
-                error: function (xhr) {
-                    console.log(xhr.status);
-                }
-            }
-        )
-    })
+	$('#deleteBtn').click(function (e) {
+		e.preventDefault();
+		Swal.fire({
+			title: "정말 삭제하겠습니까?",
+			text: "탙퇴시킨 회원은 복구가 불가능합니다!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: '삭제',
+			cancelButtonText: '취소'
+		}).then((willDelete) => {
+			if (willDelete.isConfirmed) {
+				console.log("delete");
+				// let lists = [];
+				// $('input[name="subject"]:checked').each(function (i) {
+				//     lists.push($(this).val());
+				// });
+				// jQuery.ajaxSettings.traditional = true;
+				let formData = $('#deleteForm').serialize();
+				$.ajax({
+					url: "Delete.member",
+					type: "POST",
+					data: formData,
+					success: function (data) {
+						Swal.fire("회원 삭제 완료!", {
+							icon: "success",
+						});
+						location.href = "Admin.member";
+					}
+				});
+			} else {
+				Swal.fire("회원 삭제 취소");
+			}
+		});
+	});
 </script>
 </html>

@@ -54,7 +54,7 @@ public class RestaurantDao {
         List<RestaurantBoard> list = null;
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "select * from (select rownum  rn, idx, title, content, hit, writedate, filename, id from (select * from RESTAURANT order by idx desc) where rownum <=? ) where rn >=? ";
+            String sql = "select * from(SELECT ROWNUM rn, id,  address, idx, title, content, hit, writedate, filename, filepath from (select m.id, m.address, r.idx, r.title, r.content, r.hit, r.writedate, r.filename, r.filepath from restaurant r join member m on(r.id = m.id) order by idx desc) where rownum <=?) where rn>=?";
             pstmt = conn.prepareStatement(sql);
 
             int start = cpage * pagesize - (pagesize - 1);
@@ -238,10 +238,11 @@ public class RestaurantDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "delete from Restaurant where idx = ?";
+            String sql = "UPDATE RESTAURANT SET TITLE = ? WHERE IDX = ?";
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, idx);
+            pstmt.setString(1, "deleted");
+            pstmt.setString(2, idx);
 
             rs = pstmt.executeQuery();
             if (rs.next()) {

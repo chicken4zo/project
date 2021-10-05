@@ -69,12 +69,18 @@
                             </div>
                             <textarea name="content" id="editor"></textarea>
                             <script>
-								//CKEditor5를 생성할 textarea 지정
-								ClassicEditor
-									.create(document.querySelector('#editor'))
-									.catch(error => {
-										console.error(error);
-									});
+                                //CKEditor5를 생성할 textarea 지정
+                                ClassicEditor
+                                    .create(document.querySelector('#editor'), {
+                                        placeholder: '500자 내로 입력해주세요',
+                                        removePlugins: ['ImageUpload']
+                                    })
+                                    .then(newEditor => {
+                                        editor = newEditor;
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
                             </script>
                         </li>
                     </ul>
@@ -97,8 +103,7 @@
 <%--    <input type="submit" value="전송">--%>
 <%--</form>--%>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
 <script>
 

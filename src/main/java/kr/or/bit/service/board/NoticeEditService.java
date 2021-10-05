@@ -7,7 +7,6 @@ import kr.or.bit.dto.NoticeBoard;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class NoticeEditService implements Action {
 
@@ -17,7 +16,7 @@ public class NoticeEditService implements Action {
         String idx = request.getParameter("idx");
         ActionForward forward = null;
 
-        String msg = "";
+//        String msg = "";
         String url = "";
 
 
@@ -29,15 +28,15 @@ public class NoticeEditService implements Action {
             NoticeBoard board = dao.getEditContent(idx);
 
             if(board == null) {
-                msg = "수정할 데이터가 존재하지 않습니다.";
+//                msg = "수정할 데이터가 존재하지 않습니다.";
                 url = "NoticeList.board";
 
-                request.setAttribute("board_msg", msg);
+//              request.setAttribute("board_msg", msg);
                 request.setAttribute("board_url", url);
 
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setPath("/WEB-INF/views/board/redirect.jsp");
+                forward.setPath("/WEB-INF/views/redirect.jsp");
             } else {
                 request.setAttribute("idx", idx);
                 request.setAttribute("board", board);

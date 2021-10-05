@@ -35,10 +35,6 @@
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
 
-    <!--dropdown-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css">
-    <%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">--%>
-
 </head>
 <body>
 <div id="body_wrap">
@@ -95,6 +91,11 @@
                                                 <c:if test="${daily.depth>0}">
                                                     RE:
                                                 </c:if>
+                                                <c:choose>
+                                                <c:when test="${daily.title=='deleted'}">
+                                                    삭제된 게시글 입니다
+                                                </c:when>
+                                                <c:otherwise>
                                                 <a href="dailyContent.board?idx=${daily.idx}&id=${daily.id}&cp=${cpage}&ps=${pagesize}">
                                                     <c:choose>
                                                         <c:when test="${daily.title != null && fn:length(daily.title) > 10}">
@@ -104,13 +105,16 @@
                                                             ${daily.title}
                                                         </c:otherwise>
                                                     </c:choose>
+                                                    </c:otherwise>
+                                                    </c:choose>
+
                                                 </a>
                                                 <c:if test="${not empty daily.fileName}">
                                                     <i class="far fa-image" style="margin-left: 5px"></i>
                                                 </c:if>
                                             </td>
                                             <td>${daily.id}</td>
-                                            <td>${daily.address}</td>
+                                            <td>${fn:substring(daily.address,0,3)}</td>
                                             <td>${daily.writeDate}</td>
                                             <td>${daily.hit}</td>
                                         </tr>
@@ -138,23 +142,6 @@
 
 
 </body>
-<!-- bootstrap4 -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-<!--   Core JS Files   -->
-<script src="${pageContext.request.contextPath}/assets/js/core/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/core/popper.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/core/bootstrap-material-design.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-<script src="${pageContext.request.contextPath}/assets/js/plugins/jquery.dataTables.min.js"></script>
 <!--bootstrp js-->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -164,22 +151,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
         integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
         crossorigin="anonymous"></script>
-<%--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"--%>
-<%--        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"--%>
-<%--        crossorigin="anonymous"></script>--%>
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"--%>
-<%--        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"--%>
-<%--        crossorigin="anonymous"></script>--%>
-<%--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"--%>
-<%--        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"--%>
-<%--        crossorigin="anonymous"></script>--%>
-<%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>--%>
-
-<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>--%>
-<%--<script src="https://code.jquery.com/jquery-3.3.1.min.js"--%>
-<%--        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"--%>
-<%--        crossorigin="anonymous"></script>--%>
-
 <!--image js-->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css"></script>

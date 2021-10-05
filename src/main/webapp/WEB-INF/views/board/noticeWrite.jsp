@@ -26,6 +26,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 </head>
 <body>
+<c:set var="loginId" value="${sessionScope.id}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -42,7 +43,7 @@
                     <ul class="product-info">
                         <li class="info-title">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" value=""/>
+                            <input type="text" name="id" value="${loginId}" readonly/>
                         </li>
 
                         <li class="info-title">
@@ -59,7 +60,8 @@
                                 //CKEditor5를 생성할 textarea 지정
                                 ClassicEditor
                                     .create(document.querySelector('#editor'), {
-                                        placeholder: '500자 내로 입력해주세요'
+                                        placeholder: '500자 내로 입력해주세요',
+                                        removePlugins: ['ImageUpload']
                                     })
                                     .then(newEditor => {
                                         editor = newEditor;
@@ -79,8 +81,7 @@
     </div>
 </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 

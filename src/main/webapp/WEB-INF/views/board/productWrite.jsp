@@ -36,6 +36,9 @@
 
 </head>
 <body>
+<c:set var="pager" value="${requestScope.pager}"/>
+<c:set var="userId" value="${sessionScope.userId}"/>
+<c:set var="address" value="${sessionScope.address}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -53,14 +56,16 @@
                     <ul class="product-info">
                         <li class="info-title idAddress">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" placeholder="!!!아이디 불러오기" class="write-title">
+                            <input type="text" name="id" value="${userId}" placeholder="${userId}" class="write-title"
+                                   readonly>
                             <div class="info-detail">주소</div>
-                            <input type="text" name="address" placeholder="!!!주소 불러오기" class="write-title">
+                            <input type="text" name="address" value="${address}" placeholder="${address}"
+                                   class="write-title" readonly>
                         </li>
 
                         <li class="info-title">
                             <div class="info-detail">제목</div>
-                            <input type="text" name="title" placeholder="제목을 입력하세요." class="write-title" value>
+                            <input type="text" name="title" placeholder="제목을 입력하세요." class="write-title" required>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">카테고리</div>
@@ -75,8 +80,9 @@
                         </li>
                         <li class="info-title">
                             <div class="info-detail">가격</div>
-                            <input type="text" name="price" placeholder="가격을 입력하세요." class="write-price" value> <span
-                                class="product-price">원</span>
+                            <input type="number" name="price" placeholder="가격을 입력하세요." class="write-price" required>
+                            <span
+                                    class="product-price">원</span>
                         </li>
 
                         <li class="info-title">
@@ -84,15 +90,15 @@
 
                             <div class="product-photo">
                                 <input name="filename1" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                             <div class="product-photo">
                                 <input name="filename2" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                             <div class="product-photo">
                                 <input name="filename3" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                         </li>
 
@@ -100,11 +106,17 @@
                             <div class="info-detail">
                                 내용
                             </div>
-                            <textarea name="content" id="editor"></textarea>
+                            <textarea name="content" id="editor" required></textarea>
                             <script>
                                 //CKEditor5를 생성할 textarea 지정
                                 ClassicEditor
-                                    .create(document.querySelector('#editor'))
+                                    .create(document.querySelector('#editor'), {
+                                        placeholder: '500자 내로 입력해주세요',
+                                        removePlugins: ['ImageUpload']
+                                    })
+                                    .then(newEditor => {
+                                        editor = newEditor;
+                                    })
                                     .catch(error => {
                                         console.error(error);
                                     });
@@ -113,7 +125,7 @@
                     </ul>
                 </section>
                 <div class="product-btn">
-                    <button type="submit" class="write-btn">등록하기</button>
+                    <button type="submit" id="submit1" class="write-btn">등록하기</button>
                 </div>
             </div>
         </form>
@@ -126,6 +138,7 @@
 
 </body>
 <!--bootstrp js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -133,7 +146,6 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/index.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 <script>
@@ -157,5 +169,6 @@
             reader.readAsDataURL(f);
         });
     }
+
 </script>
 </html>

@@ -30,7 +30,7 @@
 <c:set var="cpage" value="${requestScope.cpage}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
 <c:set var="commentList" value="${requestScope.commentList}"/>
-<c:set var="loginId" value="${sessionScope.id}"/>
+<c:set var="id" value="${sessionScope.id}"/>
 
 <div id="body_wrap">
     <div class="wrapper">
@@ -167,9 +167,9 @@
                                         <div class="commentWrite_Wrap">
                                             <input type="hidden" name="idx" id="idx" value="${lost.idx}">
                                             <input type="hidden" name="writerid" id="writerId" value="${lost.id}">
-                                            <input type="hidden" value="${loginId}" id="loginId">
-                                            <h2>${loginId}</h2>
-                                            <input type="hidden" name="commentid" id="commentId" value="${loginId}">
+                                            <input type="hidden" value="${id}" id="loginId">
+                                            <h2>${id}</h2>
+                                            <input type="hidden" name="commentid" id="commentId" value="${id}">
                                             <textarea name="content" id="commentContent" placeholder="댓글을 남겨보세요"
                                                       class="comment_inbox" rows="4"
                                                       cols="140"></textarea>
@@ -192,18 +192,13 @@
 
 </body>
 <!--bootstrp js-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <!--image js-->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>

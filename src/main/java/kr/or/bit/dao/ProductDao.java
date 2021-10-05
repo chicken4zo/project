@@ -114,10 +114,21 @@ public class ProductDao {
             pstmt.setString(4, productBoard.getContent());
             pstmt.setString(5, productBoard.getFileName1());
             pstmt.setString(6, productBoard.getFilePath1());
-            pstmt.setString(7, productBoard.getFileName2());
-            pstmt.setString(8, productBoard.getFilePath2());
-            pstmt.setString(9, productBoard.getFileName3());
-            pstmt.setString(10, productBoard.getFilePath3());
+
+            if (productBoard.getFileName2() != null) {
+                pstmt.setString(7, productBoard.getFileName2());
+                pstmt.setString(8, productBoard.getFilePath2());
+            } else {
+                pstmt.setString(7, "");
+                pstmt.setString(8, "");
+            }
+            if (productBoard.getFileName3() != null) {
+                pstmt.setString(9, productBoard.getFileName3());
+                pstmt.setString(10, productBoard.getFilePath3());
+            } else {
+                pstmt.setString(9, "");
+                pstmt.setString(10, "");
+            }
 
             resultRow = pstmt.executeUpdate();
 
@@ -191,15 +202,27 @@ public class ProductDao {
             pstmt.setInt(3, productBoard.getPrice());
             pstmt.setString(4, productBoard.getFileName1());
             pstmt.setString(5, productBoard.getFilePath1());
-            pstmt.setString(6, productBoard.getFileName2());
-            pstmt.setString(7, productBoard.getFilePath2());
-            pstmt.setString(8, productBoard.getFileName3());
-            pstmt.setString(9, productBoard.getFilePath3());
+            if (productBoard.getFileName2() != null) {
+                pstmt.setString(6, productBoard.getFileName2());
+                pstmt.setString(7, productBoard.getFilePath2());
+            } else {
+                pstmt.setString(6, "");
+                pstmt.setString(7, "");
+            }
+
+            if (productBoard.getFileName3() != null) {
+                pstmt.setString(8, productBoard.getFileName3());
+                pstmt.setString(9, productBoard.getFilePath3());
+            } else {
+                pstmt.setString(8, "");
+                pstmt.setString(9, "");
+            }
+
             pstmt.setInt(10, productBoard.getIdx());
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println("PRODUCTDAO MODIFYPRODUCT 에러");
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         return resultRow;
@@ -213,9 +236,10 @@ public class ProductDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "delete from product where idx=?";
+            String sql = "UPDATE PRODUCT SET TITLE = ? WHERE IDX = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, idx);
+            pstmt.setString(1, "deleted");
+            pstmt.setString(2, idx);
 
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
@@ -335,7 +359,7 @@ public class ProductDao {
             resultRow = pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println("PRODUCT DAO 댓글 작성 에러");
-            System.out.println(e);
+            System.out.println(e.getMessage());
         } finally {
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);

@@ -55,19 +55,19 @@ public class RestaurantEditOkService implements Action {
             int result = dao.boardEditOk(board);
 
             if (result > 0) {
-                msg = "수정이 완료되었습니다.";
+                msg = "success";
                 url = "RestaurantList.board";
             } else {
-                msg = "수정 오류";
+                msg = "fail";
                 url = "RestaurantEdit.board?idx=" + idx;
             }
 
-            request.setAttribute("board_msg", msg);
-            request.setAttribute("board_url", url);
+            request.setAttribute("msg", msg);
+            request.setAttribute("url", url);
 
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/board/redirect.jsp");
+            forward.setPath("/WEB-INF/board/boardModifyPop.jsp");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

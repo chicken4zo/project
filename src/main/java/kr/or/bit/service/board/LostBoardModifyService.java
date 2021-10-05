@@ -17,6 +17,9 @@ public class LostBoardModifyService implements Action {
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         LostDao dao = new LostDao();
         ActionForward forward = new ActionForward();
+        String msg = "";
+        String url = "";
+
         if (request.getParameter("title") == null || request.getParameter("title").equals("")) {
             String id = request.getParameter("id");
             String idx = request.getParameter("idx");
@@ -33,6 +36,7 @@ public class LostBoardModifyService implements Action {
             String uploadPath = request.getRealPath("assets/upload");
             System.out.println(uploadPath);
             int size = 1024 * 1024 * 10;
+
 
             MultipartRequest multi = null;
             try {
@@ -71,8 +75,20 @@ public class LostBoardModifyService implements Action {
             System.out.println(lostBoard);
             int result = dao.modifyLost(lostBoard);
 
+            if (result > 0) {
+                msg = "success";
+                url = "lostList.board";
+            } else {
+                msg = "fail";
+                url = "lostModify.board?idx=" + idx;
+            }
+
+            request.setAttribute("msg", msg);
+            request.setAttribute("url", url);
+
+
             forward.setRedirect(false);
-            forward.setPath("lostList.board");
+            forward.setPath("/WEB-INF/views/board/boardModifyPop.jsp");
         }
 
         return forward;

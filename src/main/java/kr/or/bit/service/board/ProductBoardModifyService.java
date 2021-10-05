@@ -18,6 +18,8 @@ public class ProductBoardModifyService implements Action {
         String uploadpath = request.getSession().getServletContext().getRealPath("/assets/upload");
         int size = 1024 * 1024 * 10;
         ActionForward forward = null;
+        String msg = "";
+        String url = "";
 
         try {
             if (request.getParameter("title") == null || request.getParameter("title").equals("")) {
@@ -70,14 +72,25 @@ public class ProductBoardModifyService implements Action {
 
 
                 int result = dao.modifyProduct(productBoard);
+
+                if (result > 0) {
+                    msg = "success";
+                    url = "productList.board";
+                } else {
+                    msg = "fail";
+                    url = "productModify.board?idx=" + idx;
+                }
+                request.setAttribute("msg", msg);
+                request.setAttribute("url", url);
+
                 forward = new ActionForward();
                 forward.setRedirect(false);
-                forward.setPath("productList.board");
+                forward.setPath("/WEB-INF/views/board/boardModifyPop.jsp");
             }
 
         } catch (Exception e) {
             System.out.println("PRODUCT BOARD MODIFY SERVICE 에러");
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         return forward;

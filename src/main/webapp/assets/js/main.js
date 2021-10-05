@@ -1,3 +1,12 @@
+const url = window.location.href.split("/");
+
+console.log(url);
+
+// if ((url[4]!=="Login.member" || url[4]!=="index.jsp") || ($('#id').val()===""||$('#id').val()==null)) {
+//     location.href = "index.jsp";
+// }
+
+
 /* ===== Logic for creating fake Select Boxes ===== */
 $('.sel').each(function () {
     $(this).children('select').css('display', 'none');
@@ -205,3 +214,7 @@ _gaq.push(['_trackPageview']);
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(ga, s);
 })();
+
+
+
+

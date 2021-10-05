@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="productBoardList" value="${requestScope.productBoardList}"/>
 <c:set var="pagesize" value="${requestScope.pagesize}"/>
 <c:set var="cpage" value="${requestScope.cpage}"/>
@@ -19,6 +21,7 @@
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <!-- fontawesome  -->
     <script src="https://kit.fontawesome.com/a959489452.js" crossorigin="anonymous"></script>
     <!--font-->
@@ -27,10 +30,12 @@
           rel="stylesheet">
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
+<%--    뒤로가기 막는코드--%>
 
 
 </head>
 <body>
+
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -89,44 +94,58 @@
         <!--content-->
         <section id="content">
             <c:forEach var="product" items="${productBoardList}">
-                <div class="content_wrap">
-                    <a href="productContent.board?idx=${product.idx}&id=${product.id}&cp=${cpage}&ps=${pagesize}">
-                        <div class="product_wrap">
-                            <div class="product_img_wrap">
-                                <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName1}">
-                                <ul class="product_detail">
-                                    <li><i class="fas fa-user"></i>${product.id}</li>
-                                    <li><i class="far fa-calendar-alt"></i>${product.writeDate}</li>
-                                    <li><i class="fas fa-map-marker-alt"></i>${product.address}</li>
-                                </ul>
-                            </div>
-                            <div class="product_description">
-                                <h1>${product.title}</h1>
-                                <h2>${product.price}원</h2>
-                                <div class="bar"></div>
-                                <p>
-                                    <c:choose>
-                                        <c:when test="${product.content.length() > 100}">
-                                            ${product.content.substring(0,60)}...
-                                        </c:when>
-                                        <c:otherwise>
-                                            ${product.content}
-                                        </c:otherwise>
-                                    </c:choose>
-                                </p>
-                                <div class="deal">거래중</div>
-                            </div>
+                <c:choose>
+                    <c:when test="${product.title=='deleted'}">
+
+                    </c:when>
+                    <c:otherwise>
+                        <div class="content_wrap">
+                            <a href="productContent.board?idx=${product.idx}&id=${product.id}&cp=${cpage}&ps=${pagesize}">
+                                <div class="product_wrap">
+                                    <div class="product_img_wrap">
+                                        <img src="${pageContext.request.contextPath}/assets/upload/${product.fileName1}">
+                                        <ul class="product_detail">
+                                            <li><i class="fas fa-user"></i>${product.id}</li>
+                                            <li><i class="far fa-calendar-alt"></i>${product.writeDate}</li>
+                                            <li>
+                                                <i class="fas fa-map-marker-alt"></i>${fn:substring(product.address,0,3)}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="product_description">
+                                        <h1>${product.title}</h1>
+                                        <h2><fmt:formatNumber>${product.price}</fmt:formatNumber>원</h2>
+                                        <div class="bar"></div>
+                                        <p>
+                                            <c:choose>
+                                                <c:when test="${product.content.length() > 100}">
+                                                    ${product.content.substring(0,60)}...
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${product.content}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </p>
+                                        <div>
+                                            <input type="checkbox" checked data-size="small" data-toggle="toggle"
+                                                   data-on="거래중" data-off="거래완료" data-style="ios" data-onstyle="success"
+                                                   data-offstyle="default">
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
         </section>
+        <button class="write-btn" onclick="location.href='productForm.board'">글쓰기</button>
+
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 ${pager}
             </ul>
         </nav>
-        <button class="write-btn" onclick="location.href='productForm.board'">글쓰기</button>
 
 
     </div>
@@ -137,17 +156,15 @@
 
 </body>
 <!--bootstrp js-->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/index.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </html>

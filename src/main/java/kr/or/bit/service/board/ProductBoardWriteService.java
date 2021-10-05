@@ -32,6 +32,7 @@ public class ProductBoardWriteService implements Action {
             );
 
             String id = multi.getParameter("id");
+            String idx = multi.getParameter("idx");
             String title = multi.getParameter("title");
             String content = multi.getParameter("content");
             int price = Integer.parseInt(multi.getParameter("price"));
@@ -50,27 +51,41 @@ public class ProductBoardWriteService implements Action {
             productBoard.setTitle(title);
             productBoard.setContent(content);
             productBoard.setPrice(price);
-            productBoard.setFileName1(files.get(0));
-            productBoard.setFilePath1(uploadpath);
-            productBoard.setFileName2(files.get(1));
-            productBoard.setFilePath2(uploadpath);
-            productBoard.setFileName3(files.get(2));
-            productBoard.setFilePath3(uploadpath);
+
+            System.out.println("저장된 사진들:" + files);
+
+            if (files.get(0) != null) {
+                productBoard.setFileName3(files.get(0));
+                productBoard.setFilePath3(uploadpath);
+            }
+
+            if (files.get(1) != null) {
+                productBoard.setFileName2(files.get(1));
+                productBoard.setFilePath2(uploadpath);
+            }
+
+            if (files.get(2) != null) {
+                productBoard.setFileName1(files.get(2));
+                productBoard.setFilePath1(uploadpath);
+            }
 
             ProductDao dao = new ProductDao();
             int result = dao.writeProductBoard(productBoard);
 
+//            String url = "";
+//            if (result > 0) {
+//                url = "productList.board";
+//            } else {
+//                url = "productWrite.board";
+//            }
+//
+//            request.setAttribute("board_url", url);
+//
 //            forward = new ActionForward();
 //            forward.setRedirect(false);
-//            forward.setPath("productList.board");
+//            forward.setPath("/WEB-INF/views/redirect.jsp");
 
-            String url = "";
-            if (result > 0) {
-                url = "productList.board";
-            } else {
-                url = "productWrite.board";
-            }
-
+            String url = "productList.board";
             request.setAttribute("board_url", url);
 
             forward = new ActionForward();
