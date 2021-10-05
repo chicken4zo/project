@@ -226,10 +226,21 @@ public class PetDao {
             pstmt.setString(2, petBoard.getContent());
             pstmt.setString(3, petBoard.getFileName1());
             pstmt.setString(4, petBoard.getFilePath1());
-            pstmt.setString(5, petBoard.getFileName2());
-            pstmt.setString(6, petBoard.getFilePath2());
-            pstmt.setString(7, petBoard.getFileName3());
-            pstmt.setString(8, petBoard.getFilePath3());
+            if (petBoard.getFileName2() != null) {
+                pstmt.setString(5, petBoard.getFileName2());
+                pstmt.setString(6, petBoard.getFilePath2());
+            } else {
+                pstmt.setString(5, "");
+                pstmt.setString(6, "");
+            }
+
+            if (petBoard.getFileName3() != null) {
+                pstmt.setString(7, petBoard.getFileName3());
+                pstmt.setString(8, petBoard.getFilePath3());
+            } else {
+                pstmt.setString(7, "");
+                pstmt.setString(8, "");
+            }
             pstmt.setInt(9, petBoard.getIdx());
 
             resultRow = pstmt.executeUpdate();

@@ -46,10 +46,6 @@ public class PetBoardModifyService implements Action {
                 String title = multi.getParameter("title").trim();
                 String content = multi.getParameter("content").trim();
 
-                String originalFileName1 = multi.getOriginalFileName("originalfile1");
-                String originalFileName2 = multi.getOriginalFileName("originalfile2");
-                String originalFileName3 = multi.getOriginalFileName("originalfile3");
-
                 Enumeration filenames = multi.getFileNames();
 
                 // 이미지 대신 글만 수정하고 싶을 땐?
@@ -61,16 +57,36 @@ public class PetBoardModifyService implements Action {
 
                 PetDao dao = new PetDao();
                 PetBoard petBoard = dao.getPetBoardContent(idx);
+                String originalFileName1 = multi.getParameter("originalfile1");
+                String originalFileName2 = multi.getParameter("originalfile2");
+                String originalFileName3 = multi.getParameter("originalfile3");
 
                 petBoard.setIdx(Integer.parseInt(idx));
                 petBoard.setTitle(title);
                 petBoard.setContent(content);
-                petBoard.setFileName1(files.get(0));
-                petBoard.setFilePath1(uploadpath);
-                petBoard.setFileName2(files.get(1));
-                petBoard.setFilePath2(uploadpath);
-                petBoard.setFileName3(files.get(2));
-                petBoard.setFilePath3(uploadpath);
+                if (files.get(0) != null) {
+                    petBoard.setFileName3(files.get(0));
+                    petBoard.setFilePath3(uploadpath);
+                } else {
+                    petBoard.setFileName3(originalFileName3);
+                    petBoard.setFilePath3(uploadpath);
+                }
+
+                if (files.get(1) != null) {
+                    petBoard.setFileName2(files.get(1));
+                    petBoard.setFilePath2(uploadpath);
+                } else {
+                    petBoard.setFileName2(originalFileName2);
+                    petBoard.setFilePath2(uploadpath);
+                }
+
+                if (files.get(2) != null) {
+                    petBoard.setFileName1(files.get(2));
+                    petBoard.setFilePath1(uploadpath);
+                } else {
+                    petBoard.setFileName1(originalFileName1);
+                    petBoard.setFilePath1(uploadpath);
+                }
 
 
 //                int result = dao.modifyPet(petBoard);

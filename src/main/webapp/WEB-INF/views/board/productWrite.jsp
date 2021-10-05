@@ -74,8 +74,8 @@
                                 <option value="2">&nbsp;반려동물</option>
                                 <option value="3">&nbsp;주방용품</option>
                                 <option value="4">&nbsp;스포츠 & 생활</option>
-                                <option value="4">&nbsp;전자제품</option>
-                                <option value="4">&nbsp;육아용품</option>
+                                <option value="5">&nbsp;전자제품</option>
+                                <option value="6">&nbsp;육아용품</option>
                             </select>
                         </li>
                         <li class="info-title">
@@ -94,11 +94,11 @@
                             </div>
                             <div class="product-photo">
                                 <input name="filename2" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg" required>
+                                       accept="image/jpeg, image/png, image/jpg">
                             </div>
                             <div class="product-photo">
                                 <input name="filename3" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg" required>
+                                       accept="image/jpeg, image/png, image/jpg">
                             </div>
                         </li>
 
@@ -108,7 +108,7 @@
                             </div>
                             <textarea name="content" id="editor" required></textarea>
                             <script>
-                                //CKEditor5를 생성할 textarea 지정
+			                    //CKEditor5를 생성할 textarea 지정
                                 ClassicEditor
                                     .create(document.querySelector('#editor'), {
                                         placeholder: '500자 내로 입력해주세요',

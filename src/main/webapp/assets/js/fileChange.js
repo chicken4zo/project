@@ -49,6 +49,24 @@ $('#delete').click(function (e) {
 	fileDelete(e);
 })
 
+$('#delete1').click(function (e) {
+	e.preventDefault();
+	$('#originalfile1').val("");
+	fileDelete(e);
+});
+
+$('#delete2').click(function (e) {
+	e.preventDefault();
+	$('#originalfile2').val("");
+	fileDelete(e);
+});
+
+$('#delete3').click(function (e) {
+	e.preventDefault();
+	$('#originalfile3').val("");
+	fileDelete(e);
+});
+
 if (fileName !== null) {
 	$('.product-photo').css({
 		"background": "url(${pageContext.request.contextPath}/assets/upload/" + fileName + ")",
@@ -66,10 +84,31 @@ if (fileName !== null) {
 }
 
 function fileDelete(e) {
-	$('.product-photo').css({
+	$(this).css({
 		"background": "url(${pageContext.request.contextPath}/assets/images/upload.png)",
 		'background-repeat': 'no-repeat',
 		'background-position': 'center center',
 		'background-size': '20%'
 	});
 }
+
+const fileNames = document.querySelectorAll('.product-photo');
+$.each(fileNames, function (index, obj) {
+	console.log(obj.id);
+	console.log(fileNames);
+	if (obj.id !== null) {
+		$(this).css({
+			"background": "url(${pageContext.request.contextPath}/assets/upload/" + obj.id + ")",
+			'background-repeat': 'no-repeat',
+			'background-position': 'center center',
+			'background-size': 'cover'
+		});
+	} else {
+		$(this).css({
+			"background": "url(${pageContext.request.contextPath}/assets/images/upload.png)",
+			'background-repeat': 'no-repeat',
+			'background-position': 'center center',
+			'background-size': '20%'
+		});
+	}
+})
