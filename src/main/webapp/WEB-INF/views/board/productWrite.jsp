@@ -54,14 +54,19 @@
                 <section class="product-wrap">
                     <!--    <h2>글쓰기</h2>-->
                     <ul class="product-info">
-                        <li class="info-title idAddress">
+                        <li class="info-title" style="border: none; padding: 2rem 0 0 0 ">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" value="${userId}" placeholder="${userId}" class="write-title"
-                                   readonly>
-                            <div class="info-detail">주소</div>
-                            <input type="text" name="address" value="${address}" placeholder="${address}"
-                                   class="write-title" readonly>
+                            ${userId}<input type="hidden" name="id" value="${userId}" placeholder="${userId}"
+                                            class="write-title"
+                                            readonly>
                         </li>
+
+                        <li class="info-title">
+                            <div class="info-detail">주소</div>
+                            ${address}<input type="hidden" name="address" value="${address}" placeholder="${address}"
+                                             class="write-title" readonly>
+                        </li>
+
 
                         <li class="info-title">
                             <div class="info-detail">제목</div>
@@ -90,7 +95,7 @@
 
                             <div class="product-photo">
                                 <input name="filename1" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg" required>
+                                       accept="image/jpeg, image/png, image/jpg">
                             </div>
                             <div class="product-photo">
                                 <input name="filename2" type="file" class="files"

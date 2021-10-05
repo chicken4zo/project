@@ -56,9 +56,9 @@
                 <section class="product-wrap">
                     <!--    <h2>글쓰기</h2>-->
                     <ul class="product-info">
-                        <li class="info-title idAddress">
+                        <li class="info-title">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" value="${loginId}" class="write-title" readonly>
+                            ${loginId}<input type="hidden" name="id" value="${loginId}" class="write-title" readonly>
 
                         </li>
 

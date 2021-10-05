@@ -96,7 +96,7 @@
                                                     삭제된 게시글 입니다
                                                 </c:when>
                                                 <c:otherwise>
-                                                <a href="restaurantContent.board?idx=${restaurant.idx}&id=${restaurant.id}&cp=${cpage}&ps=${pagesize}">
+                                                <a href="RestaurantContent.board?idx=${restaurant.idx}&id=${restaurant.id}&cp=${cpage}&ps=${pagesize}">
                                                     <c:choose>
                                                         <c:when test="${restaurant.title != null && fn:length(restaurant.title) > 10}">
                                                             ${fn:substring(restaurant.title,0,10)}...
@@ -135,20 +135,12 @@
             </div>
         </div>
         <button class="write-btn" onclick="location.href='RestaurantWrite.board'">글쓰기</button>
-
-
-                    <nav aria-label="...">
-                        <ul class="pagination justify-content-center">
-                                ${pager}
-                        </ul>
-                    </nav>
-
-
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 ${pager}
             </ul>
         </nav>
+
 
     </div>
 </div>

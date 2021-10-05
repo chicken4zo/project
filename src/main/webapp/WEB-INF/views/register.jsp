@@ -157,7 +157,7 @@
             //    비밀번호 유효성
             const password = $('#password').val();
             const num = password.search(/[0-9]/g);
-            const eng = password.search(/[0-9]/ig);
+            const eng = password.search(/[a-z]/ig);
             const space = password.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
             const text = "";
             //1. 6자리 ~12자리

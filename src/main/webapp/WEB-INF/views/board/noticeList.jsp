@@ -82,7 +82,7 @@
                                                     삭제된 게시글 입니다
                                                 </c:when>
                                                 <c:otherwise>
-                                                <a href="noticeContent.board?idx=${notice.idx}&id=${notice.id}&cp=${cpage}&ps=${pagesize}">
+                                                <a href="NoticeContent.board?idx=${notice.idx}&id=${notice.id}&cp=${cpage}&ps=${pagesize}">
                                                     <c:choose>
                                                         <c:when test="${notice.title != null && fn:length(notice.title) > 10}">
                                                             ${fn:substring(notice.title,0,10)}...
