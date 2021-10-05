@@ -136,11 +136,20 @@
         </div>
         <button class="write-btn" onclick="location.href='RestaurantWrite.board'">글쓰기</button>
 
+
+                    <nav aria-label="...">
+                        <ul class="pagination justify-content-center">
+                                ${pager}
+                        </ul>
+                    </nav>
+
+
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 ${pager}
             </ul>
         </nav>
+
     </div>
 </div>
 
