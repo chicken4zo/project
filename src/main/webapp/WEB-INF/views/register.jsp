@@ -149,7 +149,10 @@
             const id_val = $('#id').val();
 
             if (!id.test(id_val)) {
-                alert("아이디 : 3~16자리의 영문+숫자 조합으로 입력해주세요.")
+                swal({
+                    icon: 'warning',
+                    text: '아이디 : 3~16자리의 영문+숫자 조합으로 입력해주세요.'
+                });
                 $('#id').focus();
                 return false;
             }
@@ -162,15 +165,26 @@
             const text = "";
             //1. 6자리 ~12자리
             if (password.length < 8 || password.length > 12) {
-                alert("비밀번호 : 8-12자리 이내로 입력하세요");
+
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호 : 8-12자리 이내로 입력하세요.'
+                });
                 $('#password').focus();
                 return false;
             } else if (password.search(/\s/) != -1) {
-                alert("비밀번호 : 공백은 입력할 수 없습니다");
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호 : 공백은 입력할 수 없습니다.'
+                });
                 $('#password').focus();
                 return false;
             } else if (num < 0 || eng < 0 || space < 0) {
-                alert("비밀번호 : 영어,숫자,특수문자를 포함해주세요:)");
+
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호 : 영어,숫자,특수문자를 포함해주세요.'
+                });
                 $('#password').focus();
                 return false;
             }
@@ -178,7 +192,11 @@
             //  비밀번호 일치 체크
             const check = $('#password2').val();
             if (!(check === password)) {
-                alert("비밀번호를 확인해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호를 확인해주세요.'
+                });
+                $('#password2').focus();
                 return false;
             }
 
@@ -196,24 +214,39 @@
             var yearNow = today.getFullYear(); // 올해 연도 가져옴
 
             if (birth.length < 7) { //연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
-                alert("생년월일은 8자리(YYYY/MM/DD 로 입력해주세요.");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일은 8자리(YYYY/MM/DD) 로 입력해주세요.'
+                });
                 $('#birth').focus();
                 return false;
             } else if (1900 > year || year > yearNow) {
-                alert("생년월일 : 년도를 확인해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 년도를 확인해주세요'
+                });
                 $('#birth').focus();
                 return false;
             } else if (month < 1 || month > 12) {
-                alert("생년월일 : 월을 확인해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 월을 확인해주세요'
+                });
                 $('#birth').focus();
                 return false;
             } else if (day < 1 || day > 31) {
-                console.log("여기는 탑니까1?");
-                alert("생년월일 : 일을 확인해주세요");
+
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 일을 확인해주세요'
+                });
                 $('#birth').focus();
                 return false;
             } else if (birthreg < 0) {
-                alert("생년월일 : 숫자만 입력해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 숫자만 입력해주세요.'
+                });
                 $('#birth').focus();
                 return false;
             }
