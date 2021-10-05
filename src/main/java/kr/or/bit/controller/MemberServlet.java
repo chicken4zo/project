@@ -84,27 +84,17 @@ public class MemberServlet extends HttpServlet {
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/loginok.jsp");
-
         } else if (urlCommand.equals("/Unregister.member")) { // 회원탈퇴
             action = new UnregisterService();
             forward = action.execute(request, response);
             System.out.println("Unregister Start");
-
         } else if (urlCommand.equals("/Unregi.member")) { // mypage에서 회원탈퇴를 누르면 가는 회원탈퇴 페이지
             forward = new ActionForward();
             forward.setRedirect(false);
             forward.setPath("/WEB-INF/views/unregister.jsp");
         } else if (urlCommand.equals("/Mypage.member")) { // 로그인후 메인에서 마이페이지를 누르면 가는 로직
             action = new MemberInfoService();
-            forward.setPath("/WEB-INF/views/admin.jsp");
-//        } else if (urlCommand.equals("/adminlist.member")){
-//            action = new AdminMemberList();
-//            forward = action.execute(request, response);
-//            System.out.println("/Adminlist Start");
-        }else if (urlCommand.equals("/memberDelete.member")) {
-            action = new MemberDeleteService();
             forward = action.execute(request, response);
-            forward.setPath("/WEB-INF/views/mypage.jsp");
         } else if (urlCommand.equals("/Modify.member")) {
             action = new MemberModifyService();
             forward = action.execute(request, response);
@@ -113,6 +103,10 @@ public class MemberServlet extends HttpServlet {
             action = new MemberDeleteService();
             forward = action.execute(request, response);
             System.out.println("member delete service");
+        } else if (urlCommand.equals("/Index.member")) { // 회원탈퇴후 처음 로그인페이지로
+            forward = new ActionForward();
+            forward.setRedirect(false);
+            forward.setPath("/WEB-INF/lndex.jsp");
         }
 
         if (forward != null) {
@@ -142,4 +136,3 @@ public class MemberServlet extends HttpServlet {
 
     }
 }
-

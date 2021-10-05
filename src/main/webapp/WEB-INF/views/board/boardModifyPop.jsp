@@ -24,7 +24,6 @@
 			    icon: 'success',
 			    title: '수정 성공',
 			    animation: true,
-			    position: 'top-right',
 			    showConfirmButton: false,
 			    // title: '',
 			    <%--text: '${msg}'--%>

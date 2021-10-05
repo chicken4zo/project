@@ -485,7 +485,6 @@ public class MemberDao {
             ConnectionHelper.close(conn);
         }
         return lostList;
-
     }
 
     public List<ProductBoard> searchProductById(String id) {
@@ -536,6 +535,99 @@ public class MemberDao {
         return productList;
 
     }
+
+    public int deleteLostAllById(String id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+//            String sql = "SELECT IDX FROM (SELECT IDX FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID and LOST.ID = ?) L";
+            String sql = "DELETE FROM LOST WHERE ID=?";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            resultRow = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return resultRow;
+    }
+
+    public int deleteProductAllById(String id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+//            String sql = "SELECT IDX FROM (SELECT IDX FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID and LOST.ID = ?) L";
+            String sql = "DELETE FROM PRODUCT WHERE ID=?";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            resultRow = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return resultRow;
+    }
+
+    public int deleteProductCommentAllById(String id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+//            String sql = "SELECT IDX FROM (SELECT IDX FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID and LOST.ID = ?) L";
+            String sql = "DELETE FROM PRODUCT_COMMENT WHERE ID=?";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            resultRow = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return resultRow;
+    }
+
+    public int deleteLostCommentAllById(String id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        int resultRow = 0;
+
+        try {
+            conn = ConnectionHelper.getConnection("oracle");
+//            String sql = "SELECT IDX FROM (SELECT IDX FROM LOST,MEMBER WHERE LOST.ID=MEMBER.ID and LOST.ID = ?) L";
+            String sql = "DELETE FROM LOST_COMMENT WHERE ID=?";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            resultRow = pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
+        }
+        return resultRow;
+    }
+
 }
 
 

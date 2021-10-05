@@ -14,8 +14,8 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/productPetContent.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css?after">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/productPetContent.css?after">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
@@ -77,7 +77,6 @@
     </style>
 </head>
 <body>
-<c:set var="addressList" value="${requestScope.addressList}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -90,7 +89,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="mb-4">Chart</h5>
+                            <div class="board-logo"
+                                 style="display: flex;justify-content: space-between;align-items: center">
+                                <h3 style="color: #8B425A;
+    font-family: 'Jua', sans-serif;
+    font-size: 35px;
+    ">차트구마</h3>
+                            </div>
 
                             <!--product details-->
                             <%--                            <div class="row">--%>

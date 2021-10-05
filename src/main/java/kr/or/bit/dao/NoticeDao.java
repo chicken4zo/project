@@ -37,8 +37,8 @@ public class NoticeDao {
             System.out.println("NoticeDao 오류 : " + e.getMessage());
             e.printStackTrace();
         } finally {
-                ConnectionHelper.close(pstmt);
-                ConnectionHelper.close(conn);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
         }
         return row;
     }
@@ -100,7 +100,7 @@ public class NoticeDao {
             String sql = "select count(*) cnt from Notice";
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 totalcount = rs.getInt("cnt");
             }
         } catch (Exception e) {
@@ -132,7 +132,7 @@ public class NoticeDao {
 
             //String title, content /  int hit / date writedate / String id
             rs = pstmt.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 String title = rs.getString("title");
                 String content = rs.getString("content");
                 int hit = rs.getInt("hit");
@@ -194,10 +194,10 @@ public class NoticeDao {
             pstmt.setString(1, idx);
 
             int row = pstmt.executeUpdate();
-            if(row > 0) {
+            if (row > 0) {
                 result = true;
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("오류 : " + e.getMessage());
         } finally {
             ConnectionHelper.close(pstmt);
@@ -242,7 +242,7 @@ public class NoticeDao {
             System.out.println("row : " + row);
 
         } catch (Exception e) {
-            System.out.println("오류"+e.getMessage());
+            System.out.println("오류" + e.getMessage());
             e.printStackTrace();
         } finally {
             ConnectionHelper.close(pstmt);
@@ -266,7 +266,7 @@ public class NoticeDao {
 
             rs = pstmt.executeQuery();
             System.out.println("rs: " + rs);
-            if(rs.next()) {
+            if (rs.next()) {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, idx);
                 row = pstmt.executeUpdate();

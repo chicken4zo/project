@@ -134,7 +134,8 @@ public class RestaurantDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "select idx, id, title, content, hit, writedate, filename, filepath from Restaurant where idx=?";
+            String sql = "select r.idx, m.id,r.title, r.content, r.hit, r.writedate, r.filename, r.filepath, m.address from Restaurant r join member m on(r.id = m.id) where idx=?";
+
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, idx);
             rs = pstmt.executeQuery();
@@ -143,8 +144,10 @@ public class RestaurantDao {
                 board = new RestaurantBoard();
                 board.setIdx(rs.getInt("idx"));
                 board.setId(rs.getString("id"));
+                board.setAddress(rs.getString("address"));
                 board.setTitle(rs.getString("title"));
                 board.setContent(rs.getString("content"));
+                board.setHit(rs.getInt("hit"));
                 board.setWriteDate(rs.getDate("writedate"));
                 board.setFileName(rs.getString("filename"));
                 board.setFilePath(rs.getString("filepath"));
@@ -156,9 +159,9 @@ public class RestaurantDao {
             e.printStackTrace();
         } finally {
 
-                ConnectionHelper.close(rs);
-                ConnectionHelper.close(pstmt);
-                ConnectionHelper.close(conn);
+            ConnectionHelper.close(rs);
+            ConnectionHelper.close(pstmt);
+            ConnectionHelper.close(conn);
 
         }
         return board;
@@ -196,12 +199,6 @@ public class RestaurantDao {
 
     //게시물 수정처리
     public int boardEditOk(RestaurantBoard board) {
-        int idx = board.getIdx();
-        String id = board.getId();
-        String title = board.getTitle();
-        String content = board.getContent();
-        String filename = board.getFileName();
-        String filepath = board.getFilePath();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -209,7 +206,7 @@ public class RestaurantDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "update Restaurant title=?, content=?, filename=?, filepath=? where idx=?";
+            String sql = "update Restaurant set title=?, content=?, filename=?, filepath=? where idx=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, board.getTitle());
             pstmt.setString(2, board.getContent());
@@ -270,7 +267,7 @@ public class RestaurantDao {
 
         try {
             conn = ConnectionHelper.getConnection("oracle");
-            String sql = "insert into Restaurant_Comment(no, content, writedate, id, idx) values(RESTAURANT_COMMENT_SEQ.nextval,?,sysdate,?,?)";;
+            String sql = "insert into Restaurant_Comment(no, content, writedate, id, idx) values(RESTAURANT_COMMENT_SEQ.nextval,?,sysdate,?,?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, content);
             pstmt.setString(2, id);

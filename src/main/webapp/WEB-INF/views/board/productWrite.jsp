@@ -6,8 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/productWrite.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css?after">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/productWrite.css?after">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
@@ -54,19 +54,14 @@
                 <section class="product-wrap">
                     <!--    <h2>글쓰기</h2>-->
                     <ul class="product-info">
-                        <li class="info-title" style="border: none; padding: 2rem 0 0 0 ">
+                        <li class="info-title idAddress">
                             <div class="info-detail">아이디</div>
-                            ${userId}<input type="hidden" name="id" value="${userId}" placeholder="${userId}"
-                                            class="write-title"
-                                            readonly>
-                        </li>
-
-                        <li class="info-title">
+                            <input type="text" name="id" value="${userId}" placeholder="${userId}" class="write-title"
+                                   readonly>
                             <div class="info-detail">주소</div>
-                            ${address}<input type="hidden" name="address" value="${address}" placeholder="${address}"
-                                             class="write-title" readonly>
+                            <input type="text" name="address" value="${address}" placeholder="${address}"
+                                   class="write-title" readonly>
                         </li>
-
 
                         <li class="info-title">
                             <div class="info-detail">제목</div>
@@ -74,36 +69,34 @@
                         </li>
                         <li class="info-title">
                             <div class="info-detail">카테고리</div>
-                            <select name="select-profession" id="select-profession">
-                                <option value="1">&nbsp;의류 & 신발</option>
-                                <option value="2">&nbsp;반려동물</option>
-                                <option value="3">&nbsp;주방용품</option>
-                                <option value="4">&nbsp;스포츠 & 생활</option>
-                                <option value="5">&nbsp;전자제품</option>
-                                <option value="6">&nbsp;육아용품</option>
+                            <select name="category" id="category">
+                                <option value="의류&신발">&nbsp;의류 & 신발</option>
+                                <option value="반려동물">&nbsp;반려동물</option>
+                                <option value="주방용품">&nbsp;주방용품</option>
+                                <option value="스포츠&생활">&nbsp;스포츠 & 생활</option>
+                                <option value="전자제품">&nbsp;전자제품</option>
+                                <option value="육아용품">&nbsp;육아용품</option>
                             </select>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">가격</div>
-                            <input type="number" name="price" placeholder="가격을 입력하세요." class="write-price" required>
-                            <span
-                                    class="product-price">원</span>
+                            <input type="text" name="price" placeholder="가격을 입력하세요." class="write-price" required
+                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                         </li>
 
                         <li class="info-title">
                             <div class="info-detail">이미지</div>
-
                             <div class="product-photo">
                                 <input name="filename1" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                             <div class="product-photo">
                                 <input name="filename2" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                             <div class="product-photo">
                                 <input name="filename3" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
                         </li>
 
@@ -111,34 +104,33 @@
                             <div class="info-detail">
                                 내용
                             </div>
-                            <textarea name="content" id="editor" required></textarea>
+                            <textarea name="content" id="editor"></textarea>
                             <script>
 			                    //CKEditor5를 생성할 textarea 지정
-                                ClassicEditor
-                                    .create(document.querySelector('#editor'), {
-                                        placeholder: '500자 내로 입력해주세요',
-                                        removePlugins: ['ImageUpload']
-                                    })
-                                    .then(newEditor => {
-                                        editor = newEditor;
-                                    })
-                                    .catch(error => {
-                                        console.error(error);
-                                    });
+			                    ClassicEditor
+				                    .create(document.querySelector('#editor'), {
+					                    placeholder: '500자 내로 입력해주세요',
+					                    removePlugins: ['ImageUpload']
+				                    })
+				                    .then(newEditor => {
+					                    editor = newEditor;
+				                    })
+				                    .catch(error => {
+					                    console.error(error);
+				                    });
                             </script>
                         </li>
                     </ul>
                 </section>
                 <div class="product-btn">
-                    <button type="submit" id="submit1" class="write-btn">등록하기</button>
+                    <input id="writeBtn" type="submit" class="write-btn" value="등록하기">
                 </div>
             </div>
         </form>
-
     </div>
-
-
 </div>
+
+
 <jsp:include page="/WEB-INF/include/footer.jsp"/>
 
 </body>
@@ -153,7 +145,8 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/index.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
-<script>
+<script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
+<%--<script>
     $('.files').on("change", fileChange);
 
     function fileChange(e) {
@@ -175,5 +168,5 @@
         });
     }
 
-</script>
+</script>--%>
 </html>

@@ -76,21 +76,19 @@
     padding-right: 5px;
 }
 
-.price{
-    font-size: 0.8rem;
-    margin-top: 4px;
+.price {
+	font-size: 0.8rem;
+	margin-top: 4px;
 }
 
-.price .fa-tags{
-    font-size: 0.9rem;
+.price .fa-tags {
+	font-size: 0.9rem;
 }
-
 
 
 .idAddr {
     margin-top: 11px;
 }
-
 
 
 .detail_bar {
@@ -102,26 +100,27 @@
 
 .view_icon {
     flex-direction: row;
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 10px;
-    margin-bottom: 0;
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 10px;
+	margin-bottom: 0;
 }
 
 .view_icon li {
-    font-size: 0.8rem;
-    padding-right: 15px;
-}
-.fa-eye{
-    font-size: 0.8rem;
+	font-size: 0.8rem;
+	padding-right: 15px;
 }
 
-.fa-map-marker-alt{
-    font-size: 0.9rem;
+.fa-eye {
+	font-size: 0.8rem;
+}
+
+.fa-map-marker-alt {
+	font-size: 0.9rem;
 }
 
 .view_icon li i {
-    padding-right: 4px;
+	padding-right: 4px;
 }
 
 .content {
@@ -213,13 +212,13 @@
     margin-top: 19px;
 }
 
-.writer {
-    background-color: #8167A9;
-    border-radius: 80%;
-    color: #EDF0FF;
-    font-size: 0.7rem;
-    margin: 0;
-    padding: 3px;
+.commentList_wrap .writer {
+	background-color: #8167A9;
+	border-radius: 80%;
+	color: #EDF0FF;
+	font-size: 0.7rem;
+	margin: 10px !important;
+	padding: 3px;
 }
 
 #me {

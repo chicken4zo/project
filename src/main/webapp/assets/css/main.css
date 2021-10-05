@@ -34,6 +34,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
     line-height: 1;
+    /*position: relative !important;*/
 }
 
 ol, ul {
@@ -58,14 +59,15 @@ table {
 
 /* body */
 #body_wrap {
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
+	min-height: 100%;
 }
 
 .wrapper {
-    width: 1200px;
-    height: 100%;
-
+	height: 100%;
+	padding-bottom: 100px;
+	width: 1200px;
 }
 
 /* header */
@@ -77,15 +79,16 @@ header {
 }
 
 #header_wrap {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 
 }
 
 #logo_img {
-    width: 16%;
+	margin: 0 !important;
+	width: 16%;
 }
 
 #header_search {
@@ -392,74 +395,72 @@ header {
     transform: translate(-50%, -50%);
     filter: drop-shadow(4px 4px 5px #b7b7b7);
     z-index: 200;
-
 }
 
 .weatherIcon {
-    background-color: #EDF0FF;
-    height: 70%;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    border-top-left-radius: 22px;
-    border-top-right-radius: 22px;
+	align-items: center;
+	background-color: #EDF0FF;
+	border-top-left-radius: 22px;
+	border-top-right-radius: 22px;
+	display: flex;
+	flex-direction: column;
+	height: 70%;
+	justify-content: space-between;
+	padding: 14px;
+	width: 100%;
 }
 
 .weatherIcon i {
-    display: block;
-    /*content:"\f002";*/
-    color: #818b8d;
-    /*font-family: weathericons;*/
-    font-size: 53px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+	color: #818B8D;
+	/*content:"\f002";*/
+	display: block;
+	/*font-family: weathericons;*/
+	font-size: 53px;
+	left: 50%;
+	position: absolute;
+	top: 30%;
+	transform: translate(-50%, -50%);
 }
 
 .weatherData {
-    background-color: #2e3336;
-    height: 33%;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    border-bottom-left-radius: 22px;
-    border-bottom-right-radius: 22px;
+	align-items: flex-start;
+	background-color: #2E3336;
+	border-bottom-left-radius: 22px;
+	border-bottom-right-radius: 22px;
+	display: flex;
+	flex-direction: column;
+	height: 33%;
+	justify-content: center;
+	padding: 10px;
+	width: 100%;
 }
 
 .widget h1 {
-    color: #818b8d;
-    font-family: 'Jua', sans-serif;
-    font-weight: 200;
-    font-size: 1.7em;
-    /* line-height: 2.9375em; */
-    position: absolute;
-    left: 62%;
-    top: 87%;
-    transform: translate(0, -50%);
+	color: #495057;
+	font-family: 'Jua', sans-serif;
+	font-size: 1.7em;
+	font-weight: 200;
+	/* line-height: 2.9375em; */
+	/*position: absolute;*/
+
+	/*transform: translate(0, -50%);*/
 }
 
 .widget h2 {
-    color: #8f9b9d;
-    font-weight: 400;
-    font-size: 0.8em;
-    line-height: 1.4em;
-    position: absolute;
-    top: 13%;
-    left: 11%;
+	color: #DADADA;
+	font-size: 0.8em;
+	font-weight: 400;
+	line-height: 1.4em;
 }
 
 .widget h3 {
-    color: #c5cdcf;
-    font-weight: 300;
-    font-size: 0.7em;
-    line-height: 1.2em;
-    position: absolute;
-    bottom: 9%;
-    left: 11%;
-    text-align: left;
+	align-self: flex-end;
+	color: whitesmoke;
+	font-size: 0.9em;
+	font-weight: 400;
+	/*font-size: 0.7em;*/
+	line-height: 1.2em;
+	text-align: left;
 }
 
 .widget h4 {
@@ -475,31 +476,29 @@ header {
     letter-spacing: 2px;
     font-weight: 700;
     font-size: 1.2em;
-    margin-left: 10px;
 }
 
 .date {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: 18px;
-    top: 11px;
-    border-bottom-right-radius: 10px;
+	align-items: center;
+	/*flex-direction: row;*/
+	border-bottom-right-radius: 10px;
+	display: flex;
+	justify-content: center;
 }
 
 /*footer*/
 
 footer {
-    margin-top: 80px;
-    width: 100% !important;
-    height: 60px;
-    background-color: rgb(46, 51, 54);
-    display: flex !important;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+	align-items: center;
+	/*bottom: 0;*/
+	background-color: rgb(46, 51, 54);
+	display: flex !important;
+	flex-direction: column;
+	height: 60px;
+	justify-content: center;
+	left: 0;
+	position: absolute;
+	width: 100% !important;
 }
 
 footer p {
@@ -513,12 +512,13 @@ footer p {
 
 /*dropdown*/
 .dropdown {
-	position: absolute !important;
-	top: 123px;
-	left: 181px;
-    float: left;
-    margin-left: 38px;
-    margin-top: 25px;
+	/*position: absolute !important;*/
+	/*top: 123px;*/
+	/*left: 181px;*/
+	/*float: left;*/
+	/*margin-left: 38px;*/
+	/*margin-top: 25px;*/
+	padding-right: 120px;
 }
 
 .fas {

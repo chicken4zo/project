@@ -51,8 +51,10 @@
         <jsp:include page="/WEB-INF/include/weather.jsp"/>
 
         <div class="title">수정</div>
+        <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+        <c:set var="title" value="${fn:substringAfter(productBoard.title,']')}"/>
 
-        <form action="productModify.board?title=${productBoard.title}" method="post" enctype="multipart/form-data">
+        <form action="productModify.board?title=${title}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="idx" value="${productBoard.idx}">
             <div class="product-group">
                 <section class="product-wrap">
@@ -64,73 +66,53 @@
                         </li>
                         <li class="info-title">
                             <div class="info-detail">카테고리</div>
-                            <select name="select-profession" id="select-profession">
-                                <option value="1">&nbsp;의류 & 신발</option>
-                                <option value="2">&nbsp;반려동물</option>
-                                <option value="3">&nbsp;주방용품</option>
-                                <option value="4">&nbsp;스포츠 & 생활</option>
-                                <option value="4">&nbsp;전자제품</option>
-                                <option value="4">&nbsp;육아용품</option>
+                            <select name="category" id="category">
+                                <option value="의류&신발">&nbsp;의류 & 신발</option>
+                                <option value="반려동물">&nbsp;반려동물</option>
+                                <option value="주방용품">&nbsp;주방용품</option>
+                                <option value="스포츠&생활">&nbsp;스포츠 & 생활</option>
+                                <option value="전자제품">&nbsp;전자제품</option>
+                                <option value="육아용품">&nbsp;육아용품</option>
                             </select>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">가격</div>
                             <input type="text" name="price" placeholder="가격을 입력하세요." class="write-price"
-                                   value="${productBoard.price}" required> <span
-                                class="product-price">원</span>
+                                   value="${productBoard.price}" required
+                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">이미지</div>
-
-                            <div class="product-photo">
-                                <input name="filename1" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg" required>
+                            <div class="imgupload">
+                                <div class="product-photo" id="${productBoard.fileName1}">
+                                    <input name="filename1" type="file" class="files"
+                                           accept="image/jpeg, image/png, image/jpg">
+                                </div>
                             </div>
-                            <div class="product-photo">
-                                <input name="filename2" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg" required>
+                            <div class="imgupload">
+                                <div class="product-photo" id="${productBoard.fileName2}">
+                                    <input name="filename2" type="file" class="files"
+                                           accept="image/jpeg, image/png, image/jpg">
+                                </div>
                             </div>
-                            <div class="product-photo">
-                                <input name="filename3" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg" required>
+                            <div class="imgupload">
+                                <div class="product-photo" id="${productBoard.fileName3}">
+                                    <input name="filename3" type="file" class="files"
+                                           accept="image/jpeg, image/png, image/jpg">
+                                </div>
                             </div>
+                            <input hidden class="originalfile" name="originalfile1" id="originalfile1"
+                                   value="${productBoard.fileName1}">
+                            <input hidden class="originalfile" name="originalfile2" id="originalfile2"
+                                   value="${productBoard.fileName2}">
+                            <input hidden class="originalfile" name="originalfile3" id="originalfile3"
+                                   value="${productBoard.fileName3}">
                         </li>
-                        <%--<li class="info-title">
-                            <div class="info-detail">이미지 1</div>
-                            <div class="product-photo" id="${productBoard.fileName1}">
-                                <input type="file" name="filename1" accept="image/jpeg, image/png, image/jpg">
-                            </div>
-                            &lt;%&ndash;                            <c:if test="${not empty productBoard.fileName1}">&ndash;%&gt;
-                            &lt;%&ndash;                                <button id="delete" class="write-btn">삭제</button>&ndash;%&gt;
-                            &lt;%&ndash;                            </c:if>&ndash;%&gt;
-                            <input type="hidden" name="originalfile1" value="${productBoard.fileName1}">
-                            &lt;%&ndash;                            <c:set target="${productBoard.fileName1}" property="name" value=""/>&ndash;%&gt;
-
-                            <div class="info-detail">이미지 2</div>
-                            <div class="product-photo" id="${productBoard.fileName2}">
-                                <input type="file" name="filename2" accept="image/jpeg, image/png, image/jpg">
-                            </div>
-                            &lt;%&ndash;                            <c:if test="${not empty productBoard.fileName2}">&ndash;%&gt;
-                            &lt;%&ndash;                                <button id="delete" class="write-btn">삭제</button>&ndash;%&gt;
-                            &lt;%&ndash;                            </c:if>&ndash;%&gt;
-                            &lt;%&ndash;                            <input type="hidden" name="originalfile2" value="${productBoard.fileName2}">&ndash;%&gt;
-                            &lt;%&ndash;                            <c:set target="${productBoard.fileName2}" property="filename2" value=""/>&ndash;%&gt;
-
-                            <div class="info-detail">이미지 3</div>
-                            <div class="product-photo" id="${productBoard.fileName3}">
-                                <input type="file" name="filename3" accept="image/jpeg, image/png, image/jpg">
-                            </div>
-                            &lt;%&ndash;                            <c:if test="${not empty productBoard.fileName3}">&ndash;%&gt;
-                            &lt;%&ndash;                                <button id="delete" class="write-btn">삭제</button>&ndash;%&gt;
-                            &lt;%&ndash;                            </c:if>&ndash;%&gt;
-                            &lt;%&ndash;                            <input type="hidden" name="originalfile3" value="${productBoard.fileName3}">&ndash;%&gt;
-                            &lt;%&ndash;                            <c:set target="${productBoard.fileName3}" property="filename3" value=""/>&ndash;%&gt;
-                        </li>--%>
-
                         <li class="info-title">
+
                             <div class="info-detail">제목</div>
                             <input type="text" name="title" placeholder="제목을 입력하세요." class="write-title"
-                                   value="${productBoard.title}" required>
+                                   value="${title}" required>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">
@@ -138,9 +120,9 @@
                             </div>
                             <textarea name="content" id="editor" required>${productBoard.content}</textarea>
                             <script>
-                                //CKEditor5를 생성할 textarea 지정
-                                ClassicEditor
-                                    .create(document.querySelector('#editor'), {
+								//CKEditor5를 생성할 textarea 지정
+								ClassicEditor
+									.create(document.querySelector('#editor'), {
                                         placeholder: '500자 내로 입력해주세요',
                                         removePlugins: ['ImageUpload']
                                     })
@@ -165,63 +147,23 @@
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/index.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/fileChange.js?ver=1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/index.js?ver=1"></script>
+<script src="${pageContext.request.contextPath}/assets/js/main.js?ver=1"></script>
 <script>
-    <%--const file = document.querySelector("#file");--%>
-    <%--const fileName = document.querySelector(".product-photo").getAttribute("id");--%>
-
-
-    <%--$('#delete').click(function (e) {--%>
-    <%--	e.preventDefault();--%>
-    <%--    fileDelete(e)--%>
-    <%--})--%>
-
-    <%--if (fileName !== null) {--%>
-    <%--	$('.product-photo').css({--%>
-    <%--		"background": "url(${pageContext.request.contextPath}/assets/upload/" + fileName + ")",--%>
-    <%--		'background-repeat': 'no-repeat',--%>
-    <%--		'background-position': 'center center',--%>
-    <%--		'background-size': 'cover'--%>
-    <%--	})--%>
-    <%--} else {--%>
-    <%--	$('.product-photo').css({--%>
-    <%--		"background": "url(${pageContext.request.contextPath}/assets/images/upload.png)",--%>
-    <%--		'background-repeat': 'no-repeat',--%>
-    <%--		'background-position': 'center center',--%>
-    <%--		'background-size': '20%'--%>
-    <%--	})--%>
-    <%--}--%>
-
-    <%--function fileDelete(e) {--%>
-    <%--			$('.product-photo').css({--%>
-    <%--				"background": "url(${pageContext.request.contextPath}/assets/images/upload.png)",--%>
-    <%--				'background-repeat': 'no-repeat',--%>
-    <%--				'background-position': 'center center',--%>
-    <%--				'background-size': '20%'--%>
-    <%--			});--%>
-    <%--}--%>
-
-    <%--$('#file').on("change", fileChange);--%>
-
-    <%--function fileChange(e) {--%>
-    <%--	const files = e.target.files;--%>
-    <%--	const filesArr = Array.prototype.slice.call(files);--%>
-
-    <%--	filesArr.forEach(function (f) {--%>
-    <%--		const reader = new FileReader();--%>
-    <%--		reader.onload = function (e) {--%>
-    <%--			$('.product-photo').css({--%>
-    <%--				"background": "url(${pageContext.request.contextPath}/assets/upload/" + e.target.result + ")",--%>
-    <%--				'background-repeat': 'no-repeat',--%>
-    <%--				'background-position': 'center center',--%>
-    <%--				'background-size': 'cover'--%>
-    <%--			});--%>
-    <%--			$('.product-photo::before').css({'background-image': 'url("")'});--%>
-    <%--		}--%>
-    <%--		reader.readAsDataURL(f);--%>
-    <%--	})--%>
-    <%--}--%>
+	const urlTest = window.location.href.split("/");
+	const fileNameList = document.querySelectorAll('.product-photo');
+	$.each(fileNameList, function (index, obj) {
+		console.log(obj.id);
+		console.log(fileNameList);
+		console.log(this);
+		$(this).css({
+			"background": "url('/" + urlTest[3] + "/assets/upload/" + obj.id + "')",
+			'background-repeat': 'no-repeat',
+			'background-position': 'center center',
+			'background-size': 'cover'
+		});
+	});
 </script>
+
 </html>

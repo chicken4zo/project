@@ -1,0 +1,9 @@
+jdbc:oracle:thin:@192.168.0.17:1522:XE
+
+@Server ip 주소 : 192.168.0.68
+@port 번호 : 8060
+@DB id : CHICKEN
+@DB pwd : 1004
+@접속 주소 : http://192.168.0.68:8060/ (시연 컴퓨터)
+
+관리자 : admin, 1q2w3e4r!

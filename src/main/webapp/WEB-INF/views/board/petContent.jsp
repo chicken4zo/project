@@ -12,7 +12,7 @@
 <head>
     <meta charset="UTF-8">
     <title>고민하지말구, 고구마켓</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css?after">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/productPetContent.css?after">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">
     <link rel="icon" href="${pageContext.request.contextPath}/assets/images/favicon-16x16.png">

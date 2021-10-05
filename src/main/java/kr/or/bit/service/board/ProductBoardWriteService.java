@@ -37,6 +37,8 @@ public class ProductBoardWriteService implements Action {
             String content = multi.getParameter("content");
             int price = Integer.parseInt(multi.getParameter("price"));
             String address = multi.getParameter("address");
+            String category = multi.getParameter("category");
+
 
             Enumeration filenames = multi.getFileNames();
 
@@ -48,9 +50,9 @@ public class ProductBoardWriteService implements Action {
 
             ProductBoard productBoard = new ProductBoard();
             productBoard.setId(id);
-            productBoard.setTitle(title);
             productBoard.setContent(content);
             productBoard.setPrice(price);
+            productBoard.setTitle("[" + category + "] " + title);
 
             System.out.println("저장된 사진들:" + files);
 
@@ -72,21 +74,10 @@ public class ProductBoardWriteService implements Action {
             ProductDao dao = new ProductDao();
             int result = dao.writeProductBoard(productBoard);
 
-//            String url = "";
-//            if (result > 0) {
-//                url = "productList.board";
-//            } else {
-//                url = "productWrite.board";
-//            }
-//
-//            request.setAttribute("board_url", url);
-//
-//            forward = new ActionForward();
-//            forward.setRedirect(false);
-//            forward.setPath("/WEB-INF/views/redirect.jsp");
-
             String url = "productList.board";
             request.setAttribute("board_url", url);
+
+            System.out.println("URL : " + url);
 
             forward = new ActionForward();
             forward.setRedirect(false);

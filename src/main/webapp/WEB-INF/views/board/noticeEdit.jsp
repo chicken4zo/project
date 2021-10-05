@@ -30,12 +30,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
 
     <style>
-        .product-photo {
-            background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
-            background-size: 20%;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
+		.product-photo {
+			background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
+			background-size: 20%;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
     </style>
     <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 </head>
@@ -74,18 +74,18 @@
                             </div>
                             <textarea name="content" id="editor">${board.content}</textarea>
                             <script>
-                                //CKEditor5를 생성할 textarea 지정
-                                ClassicEditor
-                                    .create(document.querySelector('#editor'), {
-                                        placeholder: '500자 내로 입력해주세요',
-                                        removePlugins: ['ImageUpload']
-                                    })
-                                    .then(newEditor => {
-                                        editor = newEditor;
-                                    })
-                                    .catch(error => {
-                                        console.error(error);
-                                    });
+								//CKEditor5를 생성할 textarea 지정
+								ClassicEditor
+									.create(document.querySelector('#editor'), {
+										placeholder: '500자 내로 입력해주세요',
+										removePlugins: ['ImageUpload']
+									})
+									.then(newEditor => {
+										editor = newEditor;
+									})
+									.catch(error => {
+										console.error(error);
+									});
                             </script>
                         </li>
                     </ul>
@@ -104,31 +104,31 @@
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 
 <SCRIPT type="text/javascript">
-    function check(){
-        if(!notice.subject.value){
-            alert("제목을 입력하세요");
-            notice.subject.focus();
-            return false;
-        }
-        if(!notice.writer.value){
+	function check() {
+		if (!notice.subject.value) {
+			alert("제목을 입력하세요");
+			notice.subject.focus();
+			return false;
+		}
+		if (!notice.writer.value) {
 
-            alert("이름을 입력하세요");
-            notice.writer.focus();
-            return false;
-        }
-        if(!notice.content.value){
-            alert("글 내용을 입력하세요");
-            notice.content.focus();
-            return false;
-        }
-        if(!notice.pwd.value){
-            alert("비밀번호를 입력하세요");
-            notice.pwd.focus();
-            return false;
-        }
+			alert("이름을 입력하세요");
+			notice.writer.focus();
+			return false;
+		}
+		if (!notice.content.value) {
+			alert("글 내용을 입력하세요");
+			notice.content.focus();
+			return false;
+		}
+		if (!notice.pwd.value) {
+			alert("비밀번호를 입력하세요");
+			notice.pwd.focus();
+			return false;
+		}
 
-        document.notice.submit();
+		document.notice.submit();
 
-    }
+	}
 </SCRIPT>
 </html>

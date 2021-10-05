@@ -29,25 +29,30 @@
 
 
 .sub_hover {
-    color: rgba(139, 66, 90, 0.75);
+	color: rgba(139, 66, 90, 0.75);
 }
 
 .navbar-nav {
-    margin: 0 auto;
+	margin: 0 auto;
 }
 
 .navbar-nav li {
-    padding-right: 23px;
+	/*padding-right: 23px;*/
 }
 
+.btn .btn-sm {
+	padding: 5px 0 !important;
+}
+
+
 @media (min-width: 576px) {
-    .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link {
-        text-align: center;
-        display: table-cell;
-        height: 70px;
-        vertical-align: middle;
-        padding-top: 0;
-        padding-bottom: 0;
+	.navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link {
+		text-align: center;
+		display: table-cell;
+		height: 70px;
+		vertical-align: middle;
+		padding-top: 0;
+		padding-bottom: 0;
     }
 
     .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa {
@@ -276,6 +281,7 @@
     float: right;
     margin-right: 140px;
 }
+
 .write-btn:hover {
     background-color: rgba(139, 66, 90, 0.75);
     box-shadow: 0 15px 20px #b7b7b7;
