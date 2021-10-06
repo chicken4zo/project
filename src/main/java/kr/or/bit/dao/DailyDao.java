@@ -425,7 +425,7 @@ public class DailyDao {
             if (database.equals("mysql")) {
                 reply_sql = "INSERT INTO DAILY(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (IDX,?,?,0,current_timestamp,?,?,?,?,?,?)";
             } else {
-                reply_sql = "INSERT INTO DAILY(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (IDX,?,?,0,SYSDATE,?,?,?,?,?,?)";
+                reply_sql = "INSERT INTO DAILY(IDX,TITLE,CONTENT,HIT,WRITEDATE,FILENAME,FILEPATH,ID,REFER,DEPTH,STEP) VALUES (daily_seq.nextval,?,?,0,SYSDATE,?,?,?,?,?,?)";
             }
 
             pstmt = conn.prepareStatement(refer_depth_step_sal);

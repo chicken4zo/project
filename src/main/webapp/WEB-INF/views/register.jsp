@@ -107,7 +107,6 @@
 <%--<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>--%>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"/>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('#btn1').on('click', function () {
@@ -141,7 +140,6 @@
         });
     });
 
-    // 유효성 검사 ---
     $(document).ready(function () {
 
         $('#form1').submit(function () {
@@ -149,7 +147,10 @@
             const id_val = $('#id').val();
 
             if (!id.test(id_val)) {
-                alert("아이디 : 3~16자리의 영문+숫자 조합으로 입력해주세요.")
+                swal({
+                    icon: 'warning',
+                    text: '아이디 : 3~16자리의 영문+숫자 조합으로 입력해주세요.'
+                });
                 $('#id').focus();
                 return false;
             }
@@ -157,20 +158,31 @@
             //    비밀번호 유효성
             const password = $('#password').val();
             const num = password.search(/[0-9]/g);
-            const eng = password.search(/[0-9]/ig);
+            const eng = password.search(/[a-z]/ig);
             const space = password.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
             const text = "";
             //1. 6자리 ~12자리
             if (password.length < 8 || password.length > 12) {
-                alert("비밀번호 : 8-12자리 이내로 입력하세요");
+
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호 : 8-12자리 이내로 입력하세요.'
+                });
                 $('#password').focus();
                 return false;
             } else if (password.search(/\s/) != -1) {
-                alert("비밀번호 : 공백은 입력할 수 없습니다");
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호 : 공백은 입력할 수 없습니다.'
+                });
                 $('#password').focus();
                 return false;
             } else if (num < 0 || eng < 0 || space < 0) {
-                alert("비밀번호 : 영어,숫자,특수문자를 포함해주세요:)");
+
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호 : 영어,숫자,특수문자를 포함해주세요.'
+                });
                 $('#password').focus();
                 return false;
             }
@@ -178,7 +190,11 @@
             //  비밀번호 일치 체크
             const check = $('#password2').val();
             if (!(check === password)) {
-                alert("비밀번호를 확인해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호를 확인해주세요.'
+                });
+                $('#password2').focus();
                 return false;
             }
 
@@ -196,24 +212,39 @@
             var yearNow = today.getFullYear(); // 올해 연도 가져옴
 
             if (birth.length < 7) { //연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
-                alert("생년월일은 8자리(YYYY/MM/DD 로 입력해주세요.");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일은 8자리(YYYY/MM/DD) 로 입력해주세요.'
+                });
                 $('#birth').focus();
                 return false;
             } else if (1900 > year || year > yearNow) {
-                alert("생년월일 : 년도를 확인해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 년도를 확인해주세요'
+                });
                 $('#birth').focus();
                 return false;
             } else if (month < 1 || month > 12) {
-                alert("생년월일 : 월을 확인해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 월을 확인해주세요'
+                });
                 $('#birth').focus();
                 return false;
             } else if (day < 1 || day > 31) {
-                console.log("여기는 탑니까1?");
-                alert("생년월일 : 일을 확인해주세요");
+
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 일을 확인해주세요'
+                });
                 $('#birth').focus();
                 return false;
             } else if (birthreg < 0) {
-                alert("생년월일 : 숫자만 입력해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 숫자만 입력해주세요.'
+                });
                 $('#birth').focus();
                 return false;
             }

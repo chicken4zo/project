@@ -65,12 +65,32 @@ public class PetBoardModifyService implements Action {
                 petBoard.setIdx(Integer.parseInt(idx));
                 petBoard.setTitle(title);
                 petBoard.setContent(content);
-                petBoard.setFileName1(files.get(0));
-                petBoard.setFilePath1(uploadpath);
-                petBoard.setFileName2(files.get(1));
-                petBoard.setFilePath2(uploadpath);
-                petBoard.setFileName3(files.get(2));
-                petBoard.setFilePath3(uploadpath);
+                originalFileName1 = multi.getParameter("originalfile1");
+                originalFileName2 = multi.getParameter("originalfile2");
+                originalFileName3 = multi.getParameter("originalfile3");
+                if (files.get(0) != null) {
+                    petBoard.setFileName3(files.get(0));
+                    petBoard.setFilePath3(uploadpath);
+                } else {
+                    petBoard.setFileName3(originalFileName3);
+                    petBoard.setFilePath3(uploadpath);
+                }
+
+                if (files.get(1) != null) {
+                    petBoard.setFileName2(files.get(1));
+                    petBoard.setFilePath2(uploadpath);
+                } else {
+                    petBoard.setFileName2(originalFileName2);
+                    petBoard.setFilePath2(uploadpath);
+                }
+
+                if (files.get(2) != null) {
+                    petBoard.setFileName1(files.get(2));
+                    petBoard.setFilePath1(uploadpath);
+                } else {
+                    petBoard.setFileName1(originalFileName1);
+                    petBoard.setFilePath1(uploadpath);
+                }
 
 
 //                int result = dao.modifyPet(petBoard);

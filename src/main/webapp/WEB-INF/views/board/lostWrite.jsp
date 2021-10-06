@@ -23,18 +23,19 @@
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
     <style>
-		.product-photo {
-			background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
-			background-size: 20%;
-			background-position: center center;
-			background-repeat: no-repeat;
-		}
+        .product-photo {
+            background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
+            background-size: 20%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
     </style>
 
     <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 </head>
 <body>
 <c:set var="loginId" value="${sessionScope.id}"/>
+<c:set var="lost" value="${requestScope.lost}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -53,12 +54,23 @@
                             <div class="info-detail">아이디</div>
                             <input type="text" name="id" value="${loginId}" readonly/>
                         </li>
-                        <li class="info-title">
+                        <%--<li class="info-title">
                             <div class="info-detail">이미지</div>
 
                             <div class="product-photo">
                                 <input type="file" id="file" name="file" accept="image/jpeg, image/png, image/jpg">
                             </div>
+                        </li>--%>
+                        <li class="info-title">
+                            <div class="info-detail">이미지</div>
+
+                            <div class="product-photo" id="${lost.fileName}">
+                                <input type="file" id="file" name="file" accept="image/jpeg, image/png, image/jpg">
+                            </div>
+
+                            <div class="file"></div>
+                            <button id="delete" class="del-btn">삭제</button>
+                            <input hidden class="originalfile" name="originalfile" value="${lost.fileName}">
                         </li>
                         <li class="info-title">
                             <div class="info-detail">제목</div>
@@ -104,50 +116,4 @@
 <script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 
-<script>
-
-	// $('#file').on("change", fileChange);
-	//
-	// function fileChange(e) {
-	// 	const files = e.target.files;
-	// 	const filesArr = Array.prototype.slice.call(files);
-	//
-	// 	filesArr.forEach(function (f) {
-	// 		const reader = new FileReader();
-	// 		reader.onload = function (e) {
-	// 			$('.product-photo').css({
-	// 				"background": "url(" + e.target.result + ")",
-	// 				'background-repeat': 'no-repeat',
-	// 				'background-position': 'center center',
-	// 				'background-size': 'cover'
-	// 			});
-	// 			$('.product-photo::before').css({'backgrounddl-image': 'url("")'});
-	// 		}
-	// 		reader.readAsDataURL(f);
-	// 	})
-	// }
-
-
-	// 유효성 ...  왜 안돼 .....
-	// const btn = document.querySelector('#writeBtn');
-	// const title = document.querySelector('#writeTitle');
-	// const content = editor.getData();
-	//
-	// btn.addEventListener('click', function (){
-	//
-	//    if(title.value.length > 50){
-	//        alert("제목을 50자 내로 입력해주세요.");
-	//        // title.focus();
-	//        return false;
-	//    }else if(content === ""){
-	//        alert("내용을 입력해주세요");
-	//        return false;
-	//    }else if(content.length > 500){
-	//        alert("내용을 500자 내로 입력해주세요.");
-	//        return false;
-	//    }
-	//
-	// });
-
-</script>
 </html>

@@ -41,6 +41,7 @@
 </head>
 <body>
 <c:set var="loginId" value="${sessionScope.id}"/>
+<c:set var="petBoard" value="${requestScope.petBoard}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -50,7 +51,7 @@
         <jsp:include page="/WEB-INF/include/weather.jsp"/>
 
         <!--content-->
-        <div class="title">상품등록</div>
+        <div class="title">반려동물</div>
         <form name="bbs" action="petWrite.board" method="POST" enctype="multipart/form-data">
             <div class="product-group">
                 <section class="product-wrap">
@@ -70,19 +71,33 @@
 
                         <li class="info-title">
                             <div class="info-detail">이미지</div>
+                            <div class="imgupload">
+                                <div class="product-photo" id="${petBoard.fileName1}">
+                                    <input name="filename1" type="file" class="files"
+                                           accept="image/jpeg, image/png, image/jpg" required>
+                                </div>
 
-                            <div class="product-photo">
-                                <input name="filename1" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg" required>
                             </div>
-                            <div class="product-photo">
-                                <input name="filename2" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                            <div class="imgupload">
+                                <div class="product-photo" id="${petBoard.fileName2}">
+                                    <input name="filename2" type="file" class="files"
+                                           accept="image/jpeg, image/png, image/jpg" required>
+                                </div>
+
                             </div>
-                            <div class="product-photo">
-                                <input name="filename3" type="file" class="files"
-                                       accept="image/jpeg, image/png, image/jpg">
+                            <div class="imgupload">
+                                <div class="product-photo" id="${petBoard.fileName3}">
+                                    <input name="filename3" type="file" class="files"
+                                           accept="image/jpeg, image/png, image/jpg" required>
+                                </div>
+
                             </div>
+                            <input hidden class="originalfile" name="originalfile1" id="originalfile1"
+                                   value="${petBoard.fileName1}">
+                            <input hidden class="originalfile" name="originalfile2" id="originalfile2"
+                                   value="${petBoard.fileName2}">
+                            <input hidden class="originalfile" name="originalfile3" id="originalfile3"
+                                   value="${petBoard.fileName3}">
                         </li>
 
                         <li class="info-title">

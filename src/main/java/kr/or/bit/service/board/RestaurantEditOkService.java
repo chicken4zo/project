@@ -59,7 +59,7 @@ public class RestaurantEditOkService implements Action {
                 url = "RestaurantList.board";
             } else {
                 msg = "fail";
-                url = "RestaurantEdit.board?idx=" + idx;
+                url = "RestaurantList.board";
             }
 
             request.setAttribute("msg", msg);
@@ -67,7 +67,7 @@ public class RestaurantEditOkService implements Action {
 
             forward = new ActionForward();
             forward.setRedirect(false);
-            forward.setPath("/WEB-INF/board/boardModifyPop.jsp");
+            forward.setPath("/WEB-INF/views/board/boardModifyPop.jsp");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

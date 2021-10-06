@@ -1,13 +1,3 @@
-const url = window.location.href.split("/");
-
-console.log(url);
-
-// if ((url[4]!=="Login.member" || url[4]!=="index.jsp") || ($('#id').val()===""||$('#id').val()==null)) {
-//     location.href = "index.jsp";
-// }
-
-
-/* ===== Logic for creating fake Select Boxes ===== */
 $('.sel').each(function () {
     $(this).children('select').css('display', 'none');
 
@@ -118,7 +108,7 @@ function getWeather(position) {
 
             const temp_info = parseInt(data.main.temp);
 
-            temp.innerText = `${Math.ceil(temp_info)}˚`;
+            temp.innerText = `${Math.ceil(temp_info)}˚C`;
 
             //    날씨 그림
             let weatherI = {
@@ -150,17 +140,17 @@ function getWeather(position) {
             const comment = document.querySelector('#comment');
 
             if (icon_split === '01' || icon_split === '02' || icon_split === '03') {
-                comment.innerText = "거래하기 좋은 날입니다.";
+                comment.innerText = "맑아요!";
             } else if (icon_split === '09' || icon_split === '10') {
-                comment.innerText = "비가오니 우산을 챙기세요."
+                comment.innerText = "비와요!"
             } else if (icon_split === '04' || icon_split === '50') {
-                comment.innerText = "구름이 끼어 흐립니다."
+                comment.innerText = "흐려요.."
             } else if (icon_split === '13') {
-                comment.innerText = "눈길 조심하세요."
+                comment.innerText = "눈와요!"
             } else if (icon_split === '11') {
-                comment.innerText = "벼락 조심하세요."
+                comment.innerText = "번개 주의!?"
             } else {
-                comment.innerText = "위치를 찾을 수 없습니다."
+                comment.innerText = "어디?"
             }
         });
 }

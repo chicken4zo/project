@@ -37,8 +37,13 @@
 }
 
 .navbar-nav li {
-    padding-right: 23px;
+    /*padding-right: 23px;*/
 }
+
+.btn .btn-sm {
+    padding: 5px 0 !important;
+}
+
 
 @media (min-width: 576px) {
     .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link {
@@ -276,6 +281,7 @@
     float: right;
     margin-right: 140px;
 }
+
 .write-btn:hover {
     background-color: rgba(139, 66, 90, 0.75);
     box-shadow: 0 15px 20px #b7b7b7;

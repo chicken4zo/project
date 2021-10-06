@@ -23,6 +23,7 @@
     <!--weather icon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css">
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 <body>
@@ -78,10 +79,13 @@
                 <input type="text" class="login_input input" name="id" id="id" value="${memberDto.id}" readonly>
 
                 <label>패스워드</label>
-                <input type="password" class="login_input input" id="password" name="password" value="${memberDto.password}">
+                <input type="password" class="login_input input" id="password" name="password"
+                       value="${memberDto.password}">
+                <div class="tdpw"></div>
 
                 <label>이름</label>
                 <input type="text" class="login_input input" id="name" name="name" value="${memberDto.name}">
+                <div class="tdname"></div>
 
                 <label>주소</label>
                 <input type="text" id="address" name="address" class="login_input input" value="${memberDto.address}">
@@ -90,11 +94,15 @@
 
                 <label>생년월일</label>
                 <input placeholder="&nbsp;8자리를 입력하세요 예)19990101" type="text" class="login_input input" id="birth"
-                name = "birth" value="${memberDto.birth}">
+                       name="birth" value="${memberDto.birth}">
+                <div class="tdbirth"></div>
 
                 <div class="edit-btn">
-                    <button type="submit" class="button" id="submit" class="submit_btn" onclick="location.href= 'ModifyMember.member?id=${memberDto.id}'">정보수정</button>
-                    <button type="button" class="button" id="cancel" style="border: none;" onclick="location.href='Unregister.member?id=${memberDto.id}'">회원탈퇴</button>
+                    <button type="submit" class="button" id="btn1" class="submit_btn">정보수정
+                    </button>
+                    <button type="button" class="button" id="cancel" style="border: none;"
+                            onclick="location.href='Unregister.member?id=${memberDto.id}'">회원탈퇴
+                    </button>
                 </div>
             </form>
         </div>
@@ -121,33 +129,43 @@
 
 <script>
 
-	$(document).ready(function () {
+    $(document).ready(function () {
 
-		$('#form1').click(function () {
-			const id = RegExp(/^[a-zA-Z0-9]{3,16}$/)
-			const id_val = $('#id').val();
+        $('#form1').submit(function () {
 
-
-			//    비밀번호 유효성
-			const password = $('#password').val();
-			const num = password.search(/[0-9]/g);
-			const eng = password.search(/[0-9]/ig);
-			const space = password.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
-			const text = "";
+            //    비밀번호 유효성
+            const password = $('#password').val();
+            const num = password.search(/[0-9]/g);
+            const eng = password.search(/[a-z]/ig);
+            const space = password.search(/[`~!@#$%^&*|\\\'\";:\/?]/gi);
+            const text = "";
             //1. 6자리 ~12자리
             if (password.length < 8 || password.length > 12) {
-                alert("비밀번호 : 8-12자리 이내로 입력하세요");
+
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호 : 8-12자리 이내로 입력하세요.'
+                });
                 $('#password').focus();
-                return true;
+                return false;
             } else if (password.search(/\s/) != -1) {
-                alert("비밀번호 : 공백은 입력할 수 없습니다");
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호 : 공백은 입력할 수 없습니다.'
+                });
                 $('#password').focus();
-                return true;
+                return false;
             } else if (num < 0 || eng < 0 || space < 0) {
-                alert("비밀번호 : 영어,숫자,특수문자를 포함해주세요:)");
+
+                swal({
+                    icon: 'warning',
+                    text: '비밀번호 : 영어,숫자,특수문자를 포함해주세요.'
+                });
                 $('#password').focus();
-                return true;
+                return false;
             }
+
+            //  비밀번호 일치 체크
 
 
             //    생년월일
@@ -163,55 +181,48 @@
             var yearNow = today.getFullYear(); // 올해 연도 가져옴
 
             if (birth.length < 7) { //연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
-                alert("생년월일은 8자리(YYYY/MM/DD 로 입력해주세요.");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일은 8자리(YYYY/MM/DD) 로 입력해주세요.'
+                });
                 $('#birth').focus();
-                return true;
+                return false;
             } else if (1900 > year || year > yearNow) {
-                alert("생년월일 : 년도를 확인해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 년도를 확인해주세요'
+                });
                 $('#birth').focus();
-                return true;
+                return false;
             } else if (month < 1 || month > 12) {
-                alert("생년월일 : 월을 확인해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 월을 확인해주세요'
+                });
                 $('#birth').focus();
-                return true;
+                return false;
             } else if (day < 1 || day > 31) {
-                console.log("여기는 탑니까1?");
-                alert("생년월일 : 일을 확인해주세요");
+
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 일을 확인해주세요'
+                });
                 $('#birth').focus();
-                return true;
+                return false;
             } else if (birthreg < 0) {
-                alert("생년월일 : 숫자만 입력해주세요");
+                swal({
+                    icon: 'warning',
+                    text: '생년월일 : 숫자만 입력해주세요.'
+                });
                 $('#birth').focus();
-                return true;
+                return false;
             }
 
 
         });
 
-        function sample6_execDaumPostcode() {
-            new daum.Postcode({
-                oncomplete: function (data) {
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                    var addr = ''; // 주소 변수
-                    var extraAddr = ''; // 참고항목 변수
-
-                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                        addr = data.roadAddress;
-                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                        addr = data.jibunAddress;
-                    }
-
-                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById("address").value = addr;
-
-                }
-            }).open();
-        }
-
     });
+
+
 </script>
 </html>

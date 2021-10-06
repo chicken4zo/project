@@ -63,12 +63,38 @@ public class ProductBoardModifyService implements Action {
                 productBoard.setTitle(title);
                 productBoard.setContent(content);
                 productBoard.setPrice(price);
-                productBoard.setFileName1(files.get(0));
+               /* productBoard.setFileName1(files.get(0));
                 productBoard.setFilePath1(uploadpath);
                 productBoard.setFileName2(files.get(1));
                 productBoard.setFilePath2(uploadpath);
                 productBoard.setFileName3(files.get(2));
-                productBoard.setFilePath3(uploadpath);
+                productBoard.setFilePath3(uploadpath);*/
+                String originalFileName1 = multi.getParameter("originalfile1");
+                String originalFileName2 = multi.getParameter("originalfile2");
+                String originalFileName3 = multi.getParameter("originalfile3");
+                if (files.get(0) != null) {
+                    productBoard.setFileName3(files.get(0));
+                    productBoard.setFilePath3(uploadpath);
+                } else {
+                    productBoard.setFileName3(originalFileName3);
+                    productBoard.setFilePath3(uploadpath);
+                }
+
+                if (files.get(1) != null) {
+                    productBoard.setFileName2(files.get(1));
+                    productBoard.setFilePath2(uploadpath);
+                } else {
+                    productBoard.setFileName2(originalFileName2);
+                    productBoard.setFilePath2(uploadpath);
+                }
+
+                if (files.get(2) != null) {
+                    productBoard.setFileName1(files.get(2));
+                    productBoard.setFilePath1(uploadpath);
+                } else {
+                    productBoard.setFileName1(originalFileName1);
+                    productBoard.setFilePath1(uploadpath);
+                }
 
 
                 int result = dao.modifyProduct(productBoard);

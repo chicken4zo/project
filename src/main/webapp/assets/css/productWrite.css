@@ -73,6 +73,7 @@ body {
 ol, ul {
     list-style: none;
 }
+
 .info-title {
     width: 100%;
     display: flex;
@@ -137,7 +138,7 @@ ol, ul {
     transform: translateY(-7px);
 }
 
-.del-btn{
+.del-btn {
     color: #8B425A;
     background-color: ghostwhite;
     border: none;

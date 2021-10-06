@@ -76,21 +76,19 @@
     padding-right: 5px;
 }
 
-.price{
+.price {
     font-size: 0.8rem;
     margin-top: 4px;
 }
 
-.price .fa-tags{
+.price .fa-tags {
     font-size: 0.9rem;
 }
-
 
 
 .idAddr {
     margin-top: 11px;
 }
-
 
 
 .detail_bar {
@@ -112,11 +110,12 @@
     font-size: 0.8rem;
     padding-right: 15px;
 }
-.fa-eye{
+
+.fa-eye {
     font-size: 0.8rem;
 }
 
-.fa-map-marker-alt{
+.fa-map-marker-alt {
     font-size: 0.9rem;
 }
 
@@ -213,12 +212,12 @@
     margin-top: 19px;
 }
 
-.writer {
+.commentList_wrap .writer {
     background-color: #8167A9;
     border-radius: 80%;
     color: #EDF0FF;
     font-size: 0.7rem;
-    margin: 0;
+    margin: 10px !important;
     padding: 3px;
 }
 

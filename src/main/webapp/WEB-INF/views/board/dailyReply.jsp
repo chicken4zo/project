@@ -21,12 +21,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
-		.product-photo {
-			background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
-			background-size: 20%;
-			background-position: center center;
-			background-repeat: no-repeat;
-		}
+        .product-photo {
+            background-image: url("${pageContext.request.contextPath}/assets/images/upload.png");
+            background-size: 20%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
     </style>
     <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 </head>
@@ -34,6 +34,7 @@
 <c:set var="cp" value="${requestScope.cpage}"/>
 <c:set var="ps" value="${requestScope.pagesize}"/>
 <c:set var="idx" value="${requestScope.idx}"/>
+<c:set var="id" value="${sessionScope.id}"/>
 <div id="body_wrap">
     <div class="wrapper">
         <!--header-->
@@ -51,7 +52,7 @@
                     <ul class="product-info">
                         <li class="info-title">
                             <div class="info-detail">아이디</div>
-                            <input type="text" name="id" value=""/>
+                            <input type="text" name="id" value="${id}" readonly/>
                         </li>
                         <li class="info-title">
                             <div class="info-detail">이미지</div>
@@ -107,25 +108,25 @@
 <script src="${pageContext.request.contextPath}/assets/js/fileChange.js"></script>
 <script>
 
-	// $('#file').on("change", fileChange);
-	//
-	// function fileChange(e) {
-	// 	const files = e.target.files;
-	// 	const filesArr = Array.prototype.slice.call(files);
-	//
-	// 	filesArr.forEach(function (f) {
-	// 		const reader = new FileReader();
-	// 		reader.onload = function (e) {
-	// 			$('.product-photo').css({
-	// 				"background": "url(" + e.target.result + ")",
-	// 				'background-repeat': 'no-repeat',
-	// 				'background-position': 'center center',
-	// 				'background-size': 'cover'
-	// 			});
-	// 			$('.product-photo::before').css({'background-image': 'url("")'});
-	// 		}
-	// 		reader.readAsDataURL(f);
-	// 	})
-	// }
+    // $('#file').on("change", fileChange);
+    //
+    // function fileChange(e) {
+    //     const files = e.target.files;
+    //     const filesArr = Array.prototype.slice.call(files);
+    //
+    //     filesArr.forEach(function (f) {
+    //        const reader = new FileReader();
+    //        reader.onload = function (e) {
+    //           $('.product-photo').css({
+    //              "background": "url(" + e.target.result + ")",
+    //              'background-repeat': 'no-repeat',
+    //              'background-position': 'center center',
+    //              'background-size': 'cover'
+    //           });
+    //           $('.product-photo::before').css({'background-image': 'url("")'});
+    //        }
+    //        reader.readAsDataURL(f);
+    //     })
+    // }
 </script>
 </html>
