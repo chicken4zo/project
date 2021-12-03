@@ -42,4 +42,4 @@
 
 ## 📁 발표자료
 
-[치킨4조_고구마켓.pdf](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e2fc84ab-e158-4a84-83b0-4b9236da48d4/치킨4조_고구마켓.pdf)
+[고구마켓.pdf](https://drive.google.com/file/d/1T4IIT61aFExQqoYX2rsQpETxyvP9UU0D/view?usp=sharing)
