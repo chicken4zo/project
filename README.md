@@ -1,3 +1,4 @@
+![Screenshot_2021-12-16 01 57 49_P9YzBR](https://user-images.githubusercontent.com/87118337/146230543-2ef4ea8c-bc87-4edd-b466-ad6aebbca3bb.png)
 # 🚀 고민하지 말구, 고구마켓
 
 ## 🙌 프로젝트 설명
@@ -36,6 +37,9 @@
 - 이미지 파일 업로드 및 미리보기
 - chart, 날씨, 도로명주소 외부 api 사용
 - 비동기 처리 방식
+
+## 🎬 시연 영상
+[![movie](https://img.youtube.com/vi/c4uLij5WZww/0.jpg)](https://youtu.be/c4uLij5WZww)
 
 ## 🔖 Erd
 <a href="https://ibb.co/NT8zL3y"><img src="https://i.ibb.co/0sg3fXG/03-erd.jpg" alt="03-erd" border="0"></a><br />
